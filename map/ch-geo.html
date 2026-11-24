@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>几何图形初步 · 初一上数学</title>
+<meta name="description" content="几何图形初步：立体与平面图形、直线射线线段、角的度量与计算、余角补角、展开图。 89 题、8 概念卡。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/style.css?v=346ecd77">
+<script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
+</head>
+<body data-base="../"><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
+<div class="scroll-progress"></div>
+<header class="hdr">
+  <div class="hdr-in">
+    <a class="logo" href="../index.html"><span class="logo-mark">柚</span><span>初一上数学</span></a>
+    <nav class="hdr-nav" id="nav">
+      <a href="../learn.html">知识复习</a><a href="../drill.html">巩固练习</a><a href="../wrong.html">错题本</a><a href="../papers.html">考情解读</a>
+      
+    </nav>
+    <div class="hdr-tools">
+      <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+      <button class="menu-btn" id="navToggle" aria-label="菜单">☰</button>
+    </div>
+  </div>
+</header>
+<main class="main">
+<div class="wrap">
+
+<div class="page-head">
+  <div class="crumb"><a href="../index.html">首页</a> / <a href="../map.html">知识图谱</a> / 几何图形初步</div>
+  <h1>6. 几何图形初步</h1>
+  <p class="lede">图形与几何 · 89 题 · 8 概念卡 · 3 方法卡 · 期末权重约 12%</p>
+</div>
+
+<section class="section" style="margin-top:18px">
+  <div class="card" style="padding:16px 20px;border-left:4px solid var(--accent)">
+    <div class="kicker" style="margin-bottom:6px">本章诊断</div>
+    <div id="chDiagBody"><p style="margin:0;font-size:.9rem;color:var(--text-2)">练几题后这里显示本章正确率与最弱方法卡。</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="card" style="padding:16px 20px;border-left:4px solid var(--gold)">
+    <div class="kicker" style="margin-bottom:6px">前置章节</div>
+    <p style="margin:0;font-size:.94rem">学本章前先确认这几章没问题：<a href="ch-rational.html" style="font-weight:650">有理数</a></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">方法卡</span><h2>本章涉及的 3 个方法</h2>
+  </div></div>
+  <div class="grid c2">
+    <a class="card method-card" href="../method/m-seg-count.html" data-method="m-seg-count">
+      <div class="mc-top"><span class="mcard-tier l3">攻坚层</span></div>
+      <h3>几何图形计数</h3>
+      <p class="mc-signal">数线段条数、角的个数、交点个数，或问「图中共有多少个三角形」。</p>
+      <div class="meta">4 步</div>
+    </a><a class="card method-card" href="../method/m-angle-calc.html" data-method="m-angle-calc">
+      <div class="mc-top"><span class="mcard-tier l3">攻坚层</span></div>
+      <h3>角度计算与角平分线</h3>
+      <p class="mc-signal">角的和差、角平分线、余角补角、时钟角度。</p>
+      <div class="meta">4 步</div>
+    </a><a class="card method-card" href="../method/m-unfold.html" data-method="m-unfold">
+      <div class="mc-top"><span class="mcard-tier l3">攻坚层</span></div>
+      <h3>展开图与相对面</h3>
+      <p class="mc-signal">给出正方体展开图，问哪两个面相对，或判断能否折成正方体。</p>
+      <div class="meta">3 步</div>
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">概念卡</span><h2>8 张，26 个判断</h2>
+  </div></div>
+  <div class="grid c2">
+    <a class="card" href="../concept.html?ch=ch-geo">
+      <h3>直线、射线、线段</h3>
+      <div class="meta">4 个判断</div>
+    </a><a class="card" href="../concept.html?ch=ch-geo">
+      <h3>余角与补角</h3>
+      <div class="meta">4 个判断</div>
+    </a><a class="card" href="../concept.html?ch=ch-geo">
+      <h3>角平分线</h3>
+      <div class="meta">3 个判断</div>
+    </a><a class="card" href="../concept.html?ch=ch-geo">
+      <h3>立体图形与展开图</h3>
+      <div class="meta">3 个判断</div>
+    </a><a class="card" href="../concept.html?ch=ch-geo">
+      <h3>角的度量与换算</h3>
+      <div class="meta">3 个判断</div>
+    </a><a class="card" href="../concept.html?ch=ch-geo">
+      <h3>线段的中点与分类</h3>
+      <div class="meta">3 个判断</div>
+    </a><a class="card" href="../concept.html?ch=ch-geo">
+      <h3>立体图形与展开图</h3>
+      <div class="meta">3 个判断</div>
+    </a><a class="card" href="../concept.html?ch=ch-geo">
+      <h3>角平分线的说理应用</h3>
+      <div class="meta">3 个判断</div>
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="grid c2">
+    <a class="card tool-card" href="../drill.html?chapter=ch-geo&mode=guided&autostart=1">
+      <h3>练本章 · 引导模式</h3>
+      <p class="desc">逐步作答，答错给提示，记下卡点。</p>
+      <div class="meta">89 题可用</div>
+    </a>
+    <a class="card tool-card" href="../concept.html?ch=ch-geo">
+      <h3>本章概念自测</h3>
+      <p class="desc">只考条件不考背诵。</p>
+      <div class="meta">8 张卡</div>
+    </a>
+  </div>
+</section>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in yz-foot">
+    <div>
+      <div class="yz-foot-title">柚子初一上数学期末备考</div>
+      <div class="yz-foot-sub">面向 北师大实验中学 初一上期末 · 巩固练习 / 知识复习 / 错题 / 真题</div>
+    </div>
+    <div class="foot-links">
+      <a href="../learn.html">知识复习</a>
+      <a href="../drill.html">巩固练习</a>
+      <a href="../wrong.html">错题本</a>
+      <a href="../papers.html">考情解读</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/app.js?v=4d5d80ff"></script>
+
+<script src="../dist/data/meta.js?v=4d5d80ff"></script>
+<script>
+window.YZ = window.YZ || {};
+window.YZ.loadAll = function(chapters){
+  if (!chapters || !chapters.length) return Promise.resolve({});
+  var CH = window.YZ.CH = window.YZ.CH || {};
+  var need = chapters.filter(function(id){ return !CH[id]; });
+  return Promise.all(need.map(function(id){
+    return new Promise(function(res){
+      var s = document.createElement('script');
+      s.src = "../" + 'dist/data/ch/' + id + '.js?v=' + "4d5d80ff";
+      s.onload = function(){ res(); };
+      s.onerror = function(){ res(); };
+      document.head.appendChild(s);
+    });
+  })).then(function(){
+    /* 分片自带字形 defs：动态加载的页面本身没有字形定义，
+       不注入的话公式会全部不可见。 */
+    Object.keys(CH).forEach(function(id){
+      var d = CH[id];
+      if (!d || !d.defs) return;
+      if (document.querySelector('[data-defs="' + id + '"]')) return;
+      var box = document.createElement('div');
+      box.setAttribute('data-defs', id);
+      box.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+      box.innerHTML = d.defs;
+      document.body.appendChild(box);
+    });
+    return CH;
+  });
+};
+window.YZ.chapterIds = function(){
+  var M = window.YZ.META || {};
+  return (M.chapters || []).map(function(c){ return c.id; });
+};
+
+/* ==========================================================
+   三级组卷：把题按「改数字 → 改条件 → 逆向问」排成链
+   这是全站练习内容的统一口径——不是随机抽题，而是按三级递进出题。
+   输入：题目池；输出：按 method 分组后、每组按三级顺序排列的题
+   ========================================================== */
+window.YZ.buildLadders = function(pool){
+  var LEVEL = { number: 0, condition: 1, reverse: 2 };
+  var byMethod = {};
+  (pool || []).forEach(function(q){
+    var key = q.method || ('__ch_' + (q.chapter || '') );
+    if (!byMethod[key]) byMethod[key] = { mothers: [], levels: {}, others: [] };
+    if (q.variantOf && q.changed != null && LEVEL[q.changed] != null) {
+      /* 三级变式：每级取第一道（同方法同级别通常只有一道） */
+      var li = LEVEL[q.changed];
+      if (!byMethod[key].levels[li]) byMethod[key].levels[li] = q;
+      else byMethod[key].others.push(q);
+    } else if (!q.variantOf) {
+      byMethod[key].mothers.push(q);
+    } else {
+      byMethod[key].others.push(q);
+    }
+  });
+  var out = [];
+  Object.keys(byMethod).forEach(function(k){
+    var g = byMethod[k];
+    var hasAll = g.levels[0] && g.levels[1] && g.levels[2];
+    /* 有完整三级：先出「三级链」（这是本组核心），再出其余母题与题 */
+    if (hasAll) {
+      out.push({ q: g.levels[0], group: k, role: 'L1' });
+      out.push({ q: g.levels[1], group: k, role: 'L2' });
+      out.push({ q: g.levels[2], group: k, role: 'L3' });
+    } else {
+      [0,1,2].forEach(function(i){ if (g.levels[i]) out.push({ q: g.levels[i], group: k, role: '' }); });
+    }
+    /* 其余题全部保留，不能丢 */
+    g.mothers.forEach(function(q){ out.push({ q: q, group: k, role: 'mother' }); });
+    g.others.forEach(function(q){ out.push({ q: q, group: k, role: '' }); });
+  });
+  return out;
+};
+
+/* 只取「有完整三级链」的组，用于达标判定 */
+window.YZ.completeChains = function(pool){
+  var built = window.YZ.buildLadders(pool);
+  var byGroup = {};
+  built.forEach(function(x){ (byGroup[x.group] = byGroup[x.group] || []).push(x); });
+  var out = [];
+  Object.keys(byGroup).forEach(function(k){
+    var g = byGroup[k];
+    var l1 = g.filter(function(x){ return x.role === 'L1'; })[0];
+    var l2 = g.filter(function(x){ return x.role === 'L2'; })[0];
+    var l3 = g.filter(function(x){ return x.role === 'L3'; })[0];
+    var m = g.filter(function(x){ return x.role === 'mother'; })[0];
+    if (l1 && l2 && l3) out.push({ group: k, mother: m ? m.q : null, qs: [l1.q, l2.q, l3.q] });
+  });
+  return out;
+};</script>
+<script>
+(function(){
+  var Z = window.YZ;
+  function paint(){
+    var log = Z.qLog ? Z.qLog() : null;
+    var o = ((log && log.stats && log.stats.byChapter) || {})['ch-geo'];
+    var box = document.getElementById('chDiagBody');
+    if (!box) return;
+    if (!o || !o.n) { box.innerHTML = '<p style="margin:0;font-size:.9rem;color:var(--text-2)">还没有本章记录。</p>'; return; }
+    var r = Math.round(o.ok / o.n * 100);
+    var msg = r >= 90 ? '本章扎实。' : r >= 70 ? '本章有漏洞，重点看错题。' : '本章偏弱，建议回方法卡重看识别信号。';
+    box.innerHTML = '<p style="margin:0;font-size:.94rem">正确率 <b>' + r + '%</b>（' + o.n + ' 题）· ' + msg + '</p>';
+  }
+  Z.ready(function(){ paint(); document.addEventListener('yz:qlog', paint); });
+})();
+</script>
+</body>
+</html>

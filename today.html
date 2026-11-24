@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>今日清单 · 初一上数学</title>
+<meta name="description" content="按真题权重与失分率排序的今日清单，加 45 分钟四段闭环。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css?v=346ecd77">
+<script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
+</head>
+<body data-base=""><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
+<div class="scroll-progress"></div>
+<header class="hdr">
+  <div class="hdr-in">
+    <a class="logo" href="index.html"><span class="logo-mark">柚</span><span>初一上数学</span></a>
+    <nav class="hdr-nav" id="nav">
+      <a href="learn.html">知识复习</a><a href="drill.html">巩固练习</a><a href="wrong.html">错题本</a><a href="papers.html">考情解读</a>
+      
+    </nav>
+    <div class="hdr-tools">
+      <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+      <button class="menu-btn" id="navToggle" aria-label="菜单">☰</button>
+    </div>
+  </div>
+</header>
+<main class="main">
+<div class="wrap">
+
+<div class="page-head">
+  <div class="crumb"><a href="index.html">首页</a> / 今日清单</div>
+  <h1>今天练什么</h1>
+  <p class="lede">
+    这份清单不是随机抽的。顺序由<b>真题权重</b>和<b>你的失分率</b>共同决定：
+    必做段丢分不可补（卷面封顶 100），所以熟练层没达标之前，压轴一律排在最后。
+    清单<b>一天只算一次</b>——每题之后重算会让它一直跳，反而不知道该做什么。
+  </p>
+</div>
+
+<section class="section" style="margin-top:18px">
+  <div class="card plan-summary" id="planSummary"></div>
+</section>
+
+<section class="section" id="planWrap">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">按优先级排序</span>
+    <h2>今天这几件事，从上往下做</h2>
+    <span class="sub">P0 熟练层零失误 → P1 年年考中档 → P2 其余中档 → P3 压轴入场分 → P4 少见族</span>
+  </div></div>
+  <div id="planList"></div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">时间怎么切</span>
+    <h2>四段闭环（45 分钟）</h2>
+    <span class="sub">顺序不可调。每段有明确完成判据，完成即结束——不鼓励无限刷</span>
+  </div></div>
+  <div class="card today-track" id="todayTrack"></div>
+  <div class="grid c2" style="margin-top:14px">
+    <div class="card">
+      <div class="kicker">第 1 段 · 5 分钟</div>
+      <h3 style="margin:6px 0 4px">闪测</h3>
+      <p class="desc" style="font-size:.88rem">概念条件判断，只考条件不考背诵 · 约 8 题</p>
+      <button class="btn ghost sm" data-start="flash" style="margin-top:10px">开始这一段</button>
+      <div id="stage-flash" style="margin-top:12px"></div>
+    </div><div class="card">
+      <div class="kicker">第 2 段 · 15 分钟</div>
+      <h3 style="margin:6px 0 4px">计算</h3>
+      <p class="desc" style="font-size:.88rem">限时计算，记录「会做但错」 · 约 10 题</p>
+      <button class="btn ghost sm" data-start="calc" style="margin-top:10px">开始这一段</button>
+      <div id="stage-calc" style="margin-top:12px"></div>
+    </div><div class="card">
+      <div class="kicker">第 3 段 · 15 分钟</div>
+      <h3 style="margin:6px 0 4px">主题</h3>
+      <p class="desc" style="font-size:.88rem">当日主题：方法卡 / 应用题 / 压轴 · 约 6 题</p>
+      <button class="btn ghost sm" data-start="topic" style="margin-top:10px">开始这一段</button>
+      <div id="stage-topic" style="margin-top:12px"></div>
+    </div><div class="card">
+      <div class="kicker">第 4 段 · 10 分钟</div>
+      <h3 style="margin:6px 0 4px">错题</h3>
+      <p class="desc" style="font-size:.88rem">今日与到期错题重做 · 约 8 题</p>
+      <button class="btn ghost sm" data-start="wrong" style="margin-top:10px">开始这一段</button>
+      <div id="stage-wrong" style="margin-top:12px"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="card" style="padding:20px 24px">
+    <h3>时间不够怎么办</h3>
+    <div class="grid c3" style="margin-top:12px">
+      <div>
+        <b>30 分钟</b>
+        <p class="desc" style="font-size:.86rem">错题移到周末集中处理</p>
+      </div><div>
+        <b>45 分钟</b>
+        <p class="desc" style="font-size:.86rem">标准版</p>
+      </div><div>
+        <b>60 分钟</b>
+        <p class="desc" style="font-size:.86rem">主题段加压轴攻坚 15 分钟</p>
+      </div>
+    </div>
+    <p class="desc" style="margin-top:14px;font-size:.88rem">
+      优先砍掉「主题」段，<b>不要砍计算和错题</b>——计算是提分主战场，错题是闭环。
+    </p>
+  </div>
+</section>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in yz-foot">
+    <div>
+      <div class="yz-foot-title">柚子初一上数学期末备考</div>
+      <div class="yz-foot-sub">面向 北师大实验中学 初一上期末 · 巩固练习 / 知识复习 / 错题 / 真题</div>
+    </div>
+    <div class="foot-links">
+      <a href="learn.html">知识复习</a>
+      <a href="drill.html">巩固练习</a>
+      <a href="wrong.html">错题本</a>
+      <a href="papers.html">考情解读</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/app.js?v=4d5d80ff"></script>
+<script src="assets/step-engine.js?v=efd2c2a1"></script>
+<script src="dist/data/meta.js?v=4d5d80ff"></script>
+<script>
+window.YZ = window.YZ || {};
+window.YZ.loadAll = function(chapters){
+  if (!chapters || !chapters.length) return Promise.resolve({});
+  var CH = window.YZ.CH = window.YZ.CH || {};
+  var need = chapters.filter(function(id){ return !CH[id]; });
+  return Promise.all(need.map(function(id){
+    return new Promise(function(res){
+      var s = document.createElement('script');
+      s.src = "" + 'dist/data/ch/' + id + '.js?v=' + "4d5d80ff";
+      s.onload = function(){ res(); };
+      s.onerror = function(){ res(); };
+      document.head.appendChild(s);
+    });
+  })).then(function(){
+    /* 分片自带字形 defs：动态加载的页面本身没有字形定义，
+       不注入的话公式会全部不可见。 */
+    Object.keys(CH).forEach(function(id){
+      var d = CH[id];
+      if (!d || !d.defs) return;
+      if (document.querySelector('[data-defs="' + id + '"]')) return;
+      var box = document.createElement('div');
+      box.setAttribute('data-defs', id);
+      box.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+      box.innerHTML = d.defs;
+      document.body.appendChild(box);
+    });
+    return CH;
+  });
+};
+window.YZ.chapterIds = function(){
+  var M = window.YZ.META || {};
+  return (M.chapters || []).map(function(c){ return c.id; });
+};
+
+/* ==========================================================
+   三级组卷：把题按「改数字 → 改条件 → 逆向问」排成链
+   这是全站练习内容的统一口径——不是随机抽题，而是按三级递进出题。
+   输入：题目池；输出：按 method 分组后、每组按三级顺序排列的题
+   ========================================================== */
+window.YZ.buildLadders = function(pool){
+  var LEVEL = { number: 0, condition: 1, reverse: 2 };
+  var byMethod = {};
+  (pool || []).forEach(function(q){
+    var key = q.method || ('__ch_' + (q.chapter || '') );
+    if (!byMethod[key]) byMethod[key] = { mothers: [], levels: {}, others: [] };
+    if (q.variantOf && q.changed != null && LEVEL[q.changed] != null) {
+      /* 三级变式：每级取第一道（同方法同级别通常只有一道） */
+      var li = LEVEL[q.changed];
+      if (!byMethod[key].levels[li]) byMethod[key].levels[li] = q;
+      else byMethod[key].others.push(q);
+    } else if (!q.variantOf) {
+      byMethod[key].mothers.push(q);
+    } else {
+      byMethod[key].others.push(q);
+    }
+  });
+  var out = [];
+  Object.keys(byMethod).forEach(function(k){
+    var g = byMethod[k];
+    var hasAll = g.levels[0] && g.levels[1] && g.levels[2];
+    /* 有完整三级：先出「三级链」（这是本组核心），再出其余母题与题 */
+    if (hasAll) {
+      out.push({ q: g.levels[0], group: k, role: 'L1' });
+      out.push({ q: g.levels[1], group: k, role: 'L2' });
+      out.push({ q: g.levels[2], group: k, role: 'L3' });
+    } else {
+      [0,1,2].forEach(function(i){ if (g.levels[i]) out.push({ q: g.levels[i], group: k, role: '' }); });
+    }
+    /* 其余题全部保留，不能丢 */
+    g.mothers.forEach(function(q){ out.push({ q: q, group: k, role: 'mother' }); });
+    g.others.forEach(function(q){ out.push({ q: q, group: k, role: '' }); });
+  });
+  return out;
+};
+
+/* 只取「有完整三级链」的组，用于达标判定 */
+window.YZ.completeChains = function(pool){
+  var built = window.YZ.buildLadders(pool);
+  var byGroup = {};
+  built.forEach(function(x){ (byGroup[x.group] = byGroup[x.group] || []).push(x); });
+  var out = [];
+  Object.keys(byGroup).forEach(function(k){
+    var g = byGroup[k];
+    var l1 = g.filter(function(x){ return x.role === 'L1'; })[0];
+    var l2 = g.filter(function(x){ return x.role === 'L2'; })[0];
+    var l3 = g.filter(function(x){ return x.role === 'L3'; })[0];
+    var m = g.filter(function(x){ return x.role === 'mother'; })[0];
+    if (l1 && l2 && l3) out.push({ group: k, mother: m ? m.q : null, qs: [l1.q, l2.q, l3.q] });
+  });
+  return out;
+};</script>
+<script>
+(function(){
+  var Z = window.YZ;
+  var CH = {};
+  var META = window.YZ && window.YZ.META ? window.YZ.META : {};
+  var defsSeen = {};
+  var done = {};
+  var plan = null;
+
+  var BAND_NAME = { P0:'熟练层零失误', P1:'年年考中档', P2:'其余中档', P3:'压轴入场分', P4:'少见族' };
+  var BAND_NOTE = {
+    P0: '必做段丢分补不回来，这一档先做到不错',
+    P1: '4 年都考、年均 ≥5 分，路径确定',
+    P2: '值得练，但不构成满分瓶颈',
+    P3: '只求入场分——压轴是整题给分，没有「答一半」',
+    P4: '时间充裕才碰',
+  };
+  var STATE_NAME = { untested:'未测', training:'训练中', passed:'已达标' };
+  var ACTION_NAME = { drill:'练', finish:'限时收尾', learn:'先看讲解' };
+
+  function ensureDefs(){
+    Object.keys(CH).forEach(function(cid){
+      var d = CH[cid];
+      if (d.defs && !defsSeen[cid]) {
+        defsSeen[cid] = true;
+        var box = document.createElement('div');
+        box.innerHTML = d.defs;
+        document.body.appendChild(box.firstChild);
+      }
+    });
+  }
+
+  /* ---------- 清单渲染 ---------- */
+  function paintPlan(){
+    var fams = META.families || [];
+    if (!fams.length) {
+      document.getElementById('planSummary').innerHTML =
+        '<p style="margin:0;color:var(--text-2)">族数据未加载，请重新构建站点。</p>';
+      return;
+    }
+    plan = Z.planTodayCached(fams, false);
+    var s = plan.summary;
+
+    /* 顶部摘要：一句话说清现在的处境 */
+    var head = '';
+    if (!s.total) {
+      head = '所有族都已达标，且没有到期的复习。今天可以休息，或做一次整卷模考保持手感。';
+    } else if (s.first) {
+      var f0 = s.first;
+      head = '先从 <b>' + f0.name + '</b> 开始（' + BAND_NAME[f0.band] + '）。' +
+        (f0.state === 'untested'
+          ? '还没测过——先做一组看正确率，这本身就是诊断。'
+          : '当前正确率 ' + Math.round(f0.rate*100) + '%，' +
+            (f0.band === 'P0' ? '这一档的目标是零失误。' : '可回收约 ' + f0.recover + ' 分/年。'));
+    }
+    var bits = [];
+    bits.push('清单 ' + s.total + ' 项');
+    if (s.due) bits.push(s.due + ' 项到期复习');
+    if (s.untested) bits.push(s.untested + ' 项未测');
+    if (s.passedOut) bits.push(s.passedOut + ' 项已达标（移出）');
+    document.getElementById('planSummary').innerHTML =
+      '<div class="plan-head"><div><h2 style="margin:0 0 6px">' + head + '</h2>' +
+      '<div class="meta">' + bits.join(' · ') + ' · 快照日期 ' + (Z.planSnapshotDay()||'—') + '</div></div></div>';
+
+    /* 分组渲染 */
+    var order = ['P0','P1','P2','P3','P4'];
+    var html = order.filter(function(b){ return plan.byBand[b]; }).map(function(b){
+      var items = plan.byBand[b];
+      return '<div class="plan-band"><div class="plan-band-head">' +
+        '<span class="plan-band-tag ' + b + '">' + b + '</span>' +
+        '<b>' + BAND_NAME[b] + '</b>' +
+        '<span class="plan-band-note">' + BAND_NOTE[b] + '</span></div>' +
+        '<div class="grid c2">' + items.map(function(it){
+          var rateTxt = it.tested ? Math.round(it.rate*100) + '%' : '—';
+          var meta = [
+            it.avgPerYear + ' 分/年',
+            it.hitYears + '/4 年',
+            it.qCount + ' 题',
+            STATE_NAME[it.state] || it.state
+          ].join(' · ');
+          /* 族级入口：带 family 参数，drill 页按族筛题。
+             n=10 与熟练层达标最小样本量对齐，否则点进来也判不出结果。 */
+          var href = 'drill.html?family=' + it.id + '&n=10&autostart=1';
+          return '<div class="card plan-item' + (it.due ? ' due' : '') + '">' +
+            '<div class="plan-item-head"><b>' + it.name + '</b>' +
+            (it.due ? '<span class="plan-badge">到期复习</span>' : '') + '</div>' +
+            '<div class="meta">' + meta + '</div>' +
+            '<div class="plan-item-stats">' +
+              '<span>正确率 <b>' + rateTxt + '</b></span>' +
+              (it.tested ? '<span>会做但错 <b>' + Math.round(it.nearRate*100) + '%</b></span>' : '') +
+              (it.tested ? '<span>可回收 <b>' + it.recover + '</b> 分/年</span>' : '') +
+            '</div>' +
+            '<a class="btn primary sm" href="' + href + '">' + (ACTION_NAME[it.action]||'练') + ' →</a>' +
+          '</div>';
+        }).join('') + '</div></div>';
+    }).join('');
+    document.getElementById('planList').innerHTML = html || '<div class="card"><p style="margin:0">清单为空。</p></div>';
+  }
+
+  function paintTrack(){
+    var el = document.getElementById('todayTrack');
+    if (!el) return;
+    el.innerHTML = (META.daily ? META.daily.blocks : []).map(function(b){
+      var ok = done[b.key];
+      return '<div class="today-step ' + (ok ? 'done' : '') + '">' +
+        '<span class="today-dot">' + (ok ? '✓' : '') + '</span>' +
+        '<b>' + b.name + '</b><span class="today-min">' + b.minutes + '′</span></div>';
+    }).join('<span class="today-arrow">→</span>');
+  }
+
+  /* ---------- 四段：选题按族优先级 ---------- */
+  function pools(){
+    var calc = [], topic = [], wrong = [];
+    var wm = (Z.wrongMap && Z.wrongMap()) || {};
+    /* 清单里排在前面的族，其题目在池中优先出现 */
+    var pri = {};
+    if (plan && plan.items) plan.items.forEach(function(it, i){ pri[it.id] = i; });
+    function rank(q){
+      var f = q.family;
+      return f != null && pri[f] != null ? pri[f] : 999;
+    }
+    Object.keys(CH).forEach(function(cid){
+      (CH[cid].questions||[]).forEach(function(q){
+        if (q.calcType) calc.push(q); else topic.push(q);
+        if (wm[q.id]) wrong.push(q);
+      });
+    });
+    /* 按族优先级排序（稳定：同族内保持原序），再交给 step 引擎 */
+    calc.sort(function(a,b){ return rank(a) - rank(b); });
+    topic.sort(function(a,b){ return rank(a) - rank(b); });
+    return { calc: calc, concept: Z.buildConceptPool(CH, null), topic: topic, wrong: wrong };
+  }
+
+  function start(key){
+    var p = pools();
+    var map = {
+      flash: { pool: p.concept, mode: 'guided', limit: 8 },
+      calc: { pool: p.calc, mode: 'guided', limit: 10 },
+      topic: { pool: p.topic, mode: 'guided', limit: 6 },
+      wrong: { pool: p.wrong, mode: 'selfcheck', limit: 8 }
+    };
+    var cfg = map[key];
+    if (!cfg) return;
+    if (!cfg.pool.length) {
+      Z.toast(key === 'wrong' ? '还没有错题，先做前面的段落' : '这个范围暂时没有题目');
+      return;
+    }
+    ensureDefs();
+    Z.step({
+      mount: '#stage-' + key,
+      questions: cfg.pool,
+      mode: cfg.mode,
+      limit: cfg.limit,
+      /* 前两段保持清单顺序（不打乱），否则「按优先级练」失效；
+         错题段打乱，避免按错题本顺序背下来 */
+      shuffle: key === 'wrong',
+      wrongHref: 'wrong.html',
+      backHref: 'today.html',
+      backLabel: '回到今日',
+      onAnswer: function(q, ok, rec, errTag){
+        Z.qRecord({
+          id: q.id, chapter: q.chapter, method: q.method, family: q.family, tier: q.tier, qtype: q.qtype,
+          result: rec.result, stuckStep: -1, errTag: errTag || null,
+          errorType: (function(q,ok,tag){ if(ok)return null; if(tag)return tag; if(q.qtype==='single')return 'concept'; if(q.qtype==='calc')return 'calc'; if(q.qtype==='judge')return q.__conceptId?'concept':'method'; if(q.qtype==='big')return null; return 'method'; })(q, ok, errTag), timeMs: rec.timeMs, nearMiss: rec.nearMiss, src: 'today-' + key
+        });
+        Z.bumpDay('questions', 1);
+      },
+      onFinish: function(res){
+        done[key] = true;
+        paintTrack();
+        if (res.rate >= 90) Z.sfx('win');
+        Z.toast('这一段完成：' + res.correct + ' / ' + res.answered);
+      }
+    });
+  }
+
+  Z.ready(function(){
+    paintPlan();
+    paintTrack();
+    [].forEach.call(document.querySelectorAll('[data-start]'), function(b){
+      b.addEventListener('click', function(){ start(b.getAttribute('data-start')); });
+    });
+    Z.loadAll(Z.chapterIds()).then(function(all){ CH = all || {}; });
+  });
+})();
+</script>
+</body>
+</html>

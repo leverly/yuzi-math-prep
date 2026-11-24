@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>三阶段计划 · 初一上数学</title>
+<meta name="description" content="三阶段双轨计划：筑基、攻坚、冲刺，与期末倒计时联动。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css?v=346ecd77">
+<script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
+</head>
+<body data-base=""><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
+<div class="scroll-progress"></div>
+<header class="hdr">
+  <div class="hdr-in">
+    <a class="logo" href="index.html"><span class="logo-mark">柚</span><span>初一上数学</span></a>
+    <nav class="hdr-nav" id="nav">
+      <a href="learn.html">知识复习</a><a href="drill.html">巩固练习</a><a href="wrong.html">错题本</a><a href="papers.html">考情解读</a>
+      
+    </nav>
+    <div class="hdr-tools">
+      <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+      <button class="menu-btn" id="navToggle" aria-label="菜单">☰</button>
+    </div>
+  </div>
+</header>
+<main class="main">
+<div class="wrap">
+
+<div class="page-head">
+  <div class="crumb"><a href="index.html">首页</a> / 三阶段计划</div>
+  <h1>三阶段计划</h1>
+  <p class="lede">不是「学完再复习」，是<b>双轨并行</b>：当天新课巩固 + 旧章滚动复习。每天先做轨 A（课堂刚讲、遗忘曲线最陡），再做轨 B。</p>
+</div>
+
+<section class="section" style="margin-top:16px">
+  <div class="card" style="padding:18px 22px">
+    <div class="kicker" style="margin-bottom:8px">期末倒计时</div>
+    <div class="countdown-row">
+      <div class="countdown-big" id="cdBig">—</div>
+      <div>
+        <p class="desc" style="margin:0" id="cdText">设置期末考试日期，这里显示剩余天数与所处阶段。</p>
+        <button class="btn ghost sm" id="setDate" style="margin-top:8px">设置日期</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">第 1–2 周</span>
+    <h2>筑基</h2>
+    <span class="sub">目标：L1 计算正确率从基线提到 90%</span>
+  </div></div>
+  <div class="grid c2">
+    <div class="card phase-card">
+      <div class="phase-tag">轨 A · 新课</div>
+      <p>第五章《一元一次方程》新课巩固</p>
+    </div>
+    <div class="card phase-card">
+      <div class="phase-tag">轨 B · 复习</div>
+      <p>第一~二章（有理数与运算）滚动复习</p>
+    </div>
+  </div>
+</section><section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">第 3–5 周</span>
+    <h2>攻坚</h2>
+    <span class="sub">目标：L1 ≥ 96%，L2 ≥ 85%</span>
+  </div></div>
+  <div class="grid c2">
+    <div class="card phase-card">
+      <div class="phase-tag">轨 A · 新课</div>
+      <p>第六章《几何图形初步》新课速成（若在范围）</p>
+    </div>
+    <div class="card phase-card">
+      <div class="phase-tag">轨 B · 复习</div>
+      <p>第三~四章（代数式、整式）复习 + 应用题建模</p>
+    </div>
+  </div>
+</section><section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">第 6–7 周</span>
+    <h2>冲刺</h2>
+    <span class="sub">目标：L1 ≥ 98%，总分达目标</span>
+  </div></div>
+  <div class="grid c2">
+    <div class="card phase-card">
+      <div class="phase-tag">轨 A · 新课</div>
+      <p>整卷模考 ×4</p>
+    </div>
+    <div class="card phase-card">
+      <div class="phase-tag">轨 B · 复习</div>
+      <p>错题清零 + 压轴专项</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">每日 45 分钟</span><h2>四段怎么分配</h2>
+  </div></div>
+  <div class="card">
+    <div class="grid c4">
+      <div><b>1. 闪测</b><p class="desc" style="font-size:.86rem">5 分钟 · 概念条件判断，只考条件不考背诵</p></div><div><b>2. 计算</b><p class="desc" style="font-size:.86rem">15 分钟 · 限时计算，记录「会做但错」</p></div><div><b>3. 主题</b><p class="desc" style="font-size:.86rem">15 分钟 · 当日主题：方法卡 / 应用题 / 压轴</p></div><div><b>4. 错题</b><p class="desc" style="font-size:.86rem">10 分钟 · 今日与到期错题重做</p></div>
+    </div>
+    <p class="desc" style="margin-top:14px;font-size:.88rem">时间不够时优先砍「主题」段，<b>不要砍计算和错题</b>。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">卷面口径</span><h2>两套模板，同一份知识清单</h2>
+    <span class="sub">西城期末是「区级样卷 + 学校自主命题」的混合模式，名校常在区卷基础上加难或加附加题</span>
+  </div></div>
+  <div class="grid c2">
+    <div class="card phase-card">
+      <div class="phase-tag">主轨 · 西城区卷</div>
+      <p><b>26 题 · 100 分 · 100 分钟</b></p>
+      <p class="desc" style="font-size:.86rem">
+        选择 8×2 + 填空 8×2 + 解答 68 分。
+        第四大题选做 10 分，计入总分，但卷面总分不超过 100。
+      </p>
+      <p class="desc" style="font-size:.82rem;color:var(--gold);margin-top:8px">卷面封顶 100 → 基础题零失误优先于压轴</p>
+    </div>
+    <div class="card phase-card">
+      <div class="phase-tag">副轨 · 校自命题（备用）</div>
+      <p><b>27 题 + 3 道附加题 · 100 + 20 分</b></p>
+      <p class="desc" style="font-size:.86rem">
+        本校有加试传统（2019 期中为 100+20 / 27 题 + 3 附加题 / 100 分钟）。
+        题量大于区卷，压轴向 A 层 / P 层水平对齐。
+      </p>
+      <p class="desc" style="font-size:.82rem;color:var(--text-3);margin-top:8px">注：这是期中证据，期末是否仍为 100+20 待向学校确认</p>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in yz-foot">
+    <div>
+      <div class="yz-foot-title">柚子初一上数学期末备考</div>
+      <div class="yz-foot-sub">面向 北师大实验中学 初一上期末 · 巩固练习 / 知识复习 / 错题 / 真题</div>
+    </div>
+    <div class="foot-links">
+      <a href="learn.html">知识复习</a>
+      <a href="drill.html">巩固练习</a>
+      <a href="wrong.html">错题本</a>
+      <a href="papers.html">考情解读</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/app.js?v=4d5d80ff"></script>
+
+<script src="dist/data/meta.js?v=4d5d80ff"></script>
+<script>
+window.YZ = window.YZ || {};
+window.YZ.loadAll = function(chapters){
+  if (!chapters || !chapters.length) return Promise.resolve({});
+  var CH = window.YZ.CH = window.YZ.CH || {};
+  var need = chapters.filter(function(id){ return !CH[id]; });
+  return Promise.all(need.map(function(id){
+    return new Promise(function(res){
+      var s = document.createElement('script');
+      s.src = "" + 'dist/data/ch/' + id + '.js?v=' + "4d5d80ff";
+      s.onload = function(){ res(); };
+      s.onerror = function(){ res(); };
+      document.head.appendChild(s);
+    });
+  })).then(function(){
+    /* 分片自带字形 defs：动态加载的页面本身没有字形定义，
+       不注入的话公式会全部不可见。 */
+    Object.keys(CH).forEach(function(id){
+      var d = CH[id];
+      if (!d || !d.defs) return;
+      if (document.querySelector('[data-defs="' + id + '"]')) return;
+      var box = document.createElement('div');
+      box.setAttribute('data-defs', id);
+      box.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+      box.innerHTML = d.defs;
+      document.body.appendChild(box);
+    });
+    return CH;
+  });
+};
+window.YZ.chapterIds = function(){
+  var M = window.YZ.META || {};
+  return (M.chapters || []).map(function(c){ return c.id; });
+};
+
+/* ==========================================================
+   三级组卷：把题按「改数字 → 改条件 → 逆向问」排成链
+   这是全站练习内容的统一口径——不是随机抽题，而是按三级递进出题。
+   输入：题目池；输出：按 method 分组后、每组按三级顺序排列的题
+   ========================================================== */
+window.YZ.buildLadders = function(pool){
+  var LEVEL = { number: 0, condition: 1, reverse: 2 };
+  var byMethod = {};
+  (pool || []).forEach(function(q){
+    var key = q.method || ('__ch_' + (q.chapter || '') );
+    if (!byMethod[key]) byMethod[key] = { mothers: [], levels: {}, others: [] };
+    if (q.variantOf && q.changed != null && LEVEL[q.changed] != null) {
+      /* 三级变式：每级取第一道（同方法同级别通常只有一道） */
+      var li = LEVEL[q.changed];
+      if (!byMethod[key].levels[li]) byMethod[key].levels[li] = q;
+      else byMethod[key].others.push(q);
+    } else if (!q.variantOf) {
+      byMethod[key].mothers.push(q);
+    } else {
+      byMethod[key].others.push(q);
+    }
+  });
+  var out = [];
+  Object.keys(byMethod).forEach(function(k){
+    var g = byMethod[k];
+    var hasAll = g.levels[0] && g.levels[1] && g.levels[2];
+    /* 有完整三级：先出「三级链」（这是本组核心），再出其余母题与题 */
+    if (hasAll) {
+      out.push({ q: g.levels[0], group: k, role: 'L1' });
+      out.push({ q: g.levels[1], group: k, role: 'L2' });
+      out.push({ q: g.levels[2], group: k, role: 'L3' });
+    } else {
+      [0,1,2].forEach(function(i){ if (g.levels[i]) out.push({ q: g.levels[i], group: k, role: '' }); });
+    }
+    /* 其余题全部保留，不能丢 */
+    g.mothers.forEach(function(q){ out.push({ q: q, group: k, role: 'mother' }); });
+    g.others.forEach(function(q){ out.push({ q: q, group: k, role: '' }); });
+  });
+  return out;
+};
+
+/* 只取「有完整三级链」的组，用于达标判定 */
+window.YZ.completeChains = function(pool){
+  var built = window.YZ.buildLadders(pool);
+  var byGroup = {};
+  built.forEach(function(x){ (byGroup[x.group] = byGroup[x.group] || []).push(x); });
+  var out = [];
+  Object.keys(byGroup).forEach(function(k){
+    var g = byGroup[k];
+    var l1 = g.filter(function(x){ return x.role === 'L1'; })[0];
+    var l2 = g.filter(function(x){ return x.role === 'L2'; })[0];
+    var l3 = g.filter(function(x){ return x.role === 'L3'; })[0];
+    var m = g.filter(function(x){ return x.role === 'mother'; })[0];
+    if (l1 && l2 && l3) out.push({ group: k, mother: m ? m.q : null, qs: [l1.q, l2.q, l3.q] });
+  });
+  return out;
+};</script>
+<script>
+(function(){
+  var Z = window.YZ;
+  function paint(){
+    var left = Z.daysLeft ? Z.daysLeft() : null;
+    var big = document.getElementById('cdBig'), txt = document.getElementById('cdText');
+    if (left == null) { if(big) big.textContent = '—'; return; }
+    if (left < 0) { if(big) big.textContent = '已过'; if(txt) txt.textContent = '期末已过，或日期设置有误。'; return; }
+    if (big) big.textContent = left + ' 天';
+    var phase = left > 35 ? '筑基' : left > 14 ? '攻坚' : '冲刺';
+    if (txt) txt.textContent = '距期末 ' + left + ' 天 · 当前应在「' + phase + '」阶段';
+  }
+  Z.ready(function(){
+    paint();
+    document.addEventListener('yz:profile', paint);
+    var b = document.getElementById('setDate');
+    if (b) b.addEventListener('click', function(){
+      var cur = (Z.profile() || {}).examDate || '';
+      var v = window.prompt('期末考试日期（格式 2027-01-13）', cur || '2027-01-13');
+      if (v) { Z.saveProfile({ examDate: v }); paint(); Z.toast('已保存'); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

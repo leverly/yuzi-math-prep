@@ -1,0 +1,238 @@
+/* ==========================================================
+   同构模拟卷 · 页面样式
+   ----------------------------------------------------------
+   单独一个文件，不并入 assets/style.css：
+   这份卷子由 tools/build-mock.mjs 独立构建，样式也独立，
+   改卷子不会碰到主站的样式表。
+
+   沿用主站的设计变量（--surface / --border / --accent / --text-*），
+   所以换主题时自动跟随，不需要重写深色模式。
+   ========================================================== */
+
+/* ---------- 卷面概览 ---------- */
+.mk-note { padding: 18px 22px; }
+.mk-note-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+}
+.mk-note-grid > div {
+  display: flex; flex-direction: column; gap: 3px;
+  padding-left: 12px; border-left: 2px solid var(--border-2);
+}
+.mk-note-grid > div:first-child { border-left-color: var(--accent); }
+.mk-k { font-size: .74rem; color: var(--text-3); font-weight: 600; letter-spacing: .04em; }
+.mk-note-grid b { font-size: 1.15rem; font-family: var(--mono); }
+.mk-s { font-size: .74rem; color: var(--text-3); }
+.mk-ok { color: var(--ok); }
+.mk-bad { color: var(--rose); }
+
+/* ---------- 答题条 ---------- */
+.mk-bar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding-bottom: 14px; margin-bottom: 16px; border-bottom: 1px solid var(--border);
+}
+.mk-timer {
+  font-family: var(--mono); font-size: .95rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 7px;
+  background: var(--surface-2); color: var(--text-2);
+}
+.mk-timer.warn { background: color-mix(in srgb, var(--rose) 14%, transparent); color: var(--rose); }
+.mk-prog { font-size: .82rem; color: var(--text-3); font-family: var(--mono); }
+
+/* ---------- 题头 ---------- */
+.mk-qhead { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.mk-no { font-weight: 800; font-size: 1.02rem; }
+.mk-score { font-family: var(--mono); font-size: .8rem; color: var(--text-3); }
+.mk-diff {
+  font-size: .7rem; font-weight: 700; padding: 2px 8px; border-radius: 99px;
+  letter-spacing: .03em;
+}
+.mk-diff.d-easy { background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); }
+.mk-diff.d-mid { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
+.mk-diff.d-hard { background: color-mix(in srgb, #d97706 16%, transparent); color: #b45309; }
+.mk-diff.d-top { background: color-mix(in srgb, var(--rose) 15%, transparent); color: var(--rose); }
+
+/* ---------- 题干与图 ---------- */
+.mk-stem { font-size: 1.02rem; line-height: 1.9; color: var(--text); white-space: pre-line; }
+.mk-fig {
+  background: var(--surface-2); border-radius: var(--r-sm);
+  padding: 10px 8px; margin: 14px 0;
+}
+.mk-fig .fig { max-width: 400px; margin: 0 auto; }
+
+/* ---------- 选项 ---------- */
+.mk-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+.mk-opt {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 14px; text-align: left;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border-2); border-radius: var(--r-sm);
+  font-size: .95rem; line-height: 1.6; cursor: pointer;
+  transition: border-color .15s, background .15s, transform .15s;
+}
+.mk-opt:hover { border-color: var(--accent); transform: translateY(-1px); }
+.mk-opt.on {
+  border-color: var(--accent); background: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent) inset;
+}
+.mk-key {
+  flex: none; width: 22px; height: 22px; border-radius: 6px;
+  display: grid; place-items: center;
+  background: var(--bg-3); color: var(--text-2);
+  font-size: .76rem; font-weight: 800; font-family: var(--mono);
+}
+.mk-opt.on .mk-key { background: var(--accent); color: #fff; }
+
+/* ---------- 填空 / 解答 ---------- */
+.mk-fill { display: flex; gap: 10px; margin: 16px 0; }
+.mk-input {
+  flex: 1; padding: 12px 14px; font-size: 1rem;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border-2); border-radius: var(--r-sm);
+}
+.mk-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.mk-answerbox { margin: 16px 0; }
+.mk-textarea {
+  width: 100%; padding: 12px 14px; font-size: .95rem; line-height: 1.75;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border-2); border-radius: var(--r-sm);
+  font-family: inherit; resize: vertical;
+}
+.mk-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+/* ---------- 对标提示 ---------- */
+.mk-refnote {
+  font-size: .78rem; color: var(--text-3); line-height: 1.65;
+  padding: 9px 12px; margin: 16px 0 0;
+  background: var(--surface-2); border-radius: var(--r-sm);
+  border-left: 2px solid var(--border-2);
+}
+.mk-refnote b { color: var(--text-2); }
+
+/* ---------- 答题卡 ---------- */
+.mk-nav { margin-top: 14px; }
+.mk-jump {
+  display: none; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+  padding: 12px; background: var(--surface-2); border-radius: var(--r-sm);
+}
+.mk-jump.open { display: flex; }
+.mk-dot {
+  width: 30px; height: 30px; border-radius: 7px;
+  display: grid; place-items: center;
+  font-size: .76rem; font-family: var(--mono); font-weight: 700;
+  background: var(--surface); color: var(--text-3);
+  border: 1px solid var(--border-2); cursor: pointer;
+  transition: all .13s;
+}
+.mk-dot:hover { border-color: var(--accent); color: var(--accent); }
+.mk-dot.done { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.mk-dot.cur { background: var(--accent); color: #fff; border-color: transparent; }
+
+/* ---------- 报告 ---------- */
+.mk-report-head {
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid var(--border);
+}
+.mk-report-big { display: flex; align-items: baseline; gap: 8px; }
+.mk-report-big b { font-size: 2.6rem; font-family: var(--mono); line-height: 1; color: var(--accent); }
+.mk-report-big span { font-size: .86rem; color: var(--text-3); }
+.mk-report-side { display: flex; flex-direction: column; gap: 5px; font-size: .85rem; color: var(--text-2); }
+.mk-report-side b { font-family: var(--mono); color: var(--text); }
+.mk-warn { color: var(--rose); }
+.mk-pend { color: #b45309; font-size: .78rem; }
+.mk-allright { color: var(--ok); font-size: .9rem; padding: 10px 0; }
+
+.mk-res-table { margin: 14px 0 22px; }
+.mk-res-table td:first-child { white-space: nowrap; }
+
+.mk-h3 {
+  font-size: 1.02rem; margin: 26px 0 12px;
+  padding-left: 10px; border-left: 3px solid var(--accent);
+}
+.mk-sols { display: flex; flex-direction: column; gap: 8px; }
+.mk-sol {
+  background: var(--surface-2); border-radius: var(--r-sm);
+  padding: 0 14px; border: 1px solid var(--border);
+}
+.mk-sol summary {
+  padding: 11px 0; cursor: pointer; font-size: .88rem; font-weight: 650;
+  color: var(--text-2); list-style: none;
+}
+.mk-sol summary::-webkit-details-marker { display: none; }
+.mk-sol summary::before { content: '▸ '; color: var(--text-3); }
+.mk-sol[open] summary::before { content: '▾ '; }
+.mk-sol > div {
+  padding: 4px 0 14px; font-size: .9rem; line-height: 1.85;
+  color: var(--text-2); white-space: pre-line;
+}
+.mk-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+
+/* ---------- 对标表 ---------- */
+.mk-ref-table td { font-size: .84rem; }
+.mk-ref-table td:first-child { white-space: nowrap; }
+/* 题型、难度、图表三列内容短，禁止折行（「选择」被拆成两行会很难看） */
+.mk-ref-table th:nth-child(2), .mk-ref-table td:nth-child(2),
+.mk-ref-table th:nth-child(3), .mk-ref-table td:nth-child(3),
+.mk-ref-table th:nth-child(4), .mk-ref-table td:nth-child(4),
+.mk-ref-table th:nth-child(7), .mk-ref-table td:nth-child(7) { white-space: nowrap; }
+.mk-ref-table .mk-diff { display: inline-block; }
+.mk-fig-yes {
+  font-size: .72rem; font-weight: 700; padding: 2px 7px; border-radius: 99px;
+  background: var(--accent-soft); color: var(--accent);
+}
+
+/* ---------- 打印 ---------- */
+#mkPrint { display: none; }
+
+@media print {
+  .hdr, .foot, .scroll-progress, .setup-card, .mk-bar, .mk-nav,
+  .mk-refnote, .mk-actions, #mkPrint .mk-refnote { display: none !important; }
+  .mk-note-grid { grid-template-columns: repeat(4, 1fr); }
+  body { background: #fff !important; color: #000 !important; }
+  .card, .mk-fig { box-shadow: none !important; border: 1px solid #ccc !important; }
+  .mk-opts { grid-template-columns: 1fr 1fr; }
+  .mk-opt { border: 1px solid #999 !important; background: #fff !important; }
+  .mk-key { border: 1px solid #999; }
+  .mk-sol { break-inside: avoid; }
+  .mk-sol > div { display: block !important; }
+
+  /* 打印时平铺整卷，而不是只打当前一题 */
+  body.mk-printing .main { display: none; }
+  body.mk-printing #mkPrint { display: block; }
+  .mk-print-title {
+    font-size: 14pt; font-weight: 800; text-align: center;
+    padding-bottom: 8pt; margin-bottom: 10pt;
+    border-bottom: 1.5pt solid #000;
+  }
+  /* 双栏排（真题卷也是双栏）。单栏时 30 道题里带图的几道会把页面切得很碎，
+     实测单栏 17 页、双栏 8 页。带图题跨栏也没关系——双栏下每栏窄，
+     图本来就要单独占位。 */
+  .mk-print-body {
+    column-count: 2;
+    column-gap: 18pt;
+    column-rule: 1px solid #e5e7eb;
+  }
+  .mk-print-q { margin-bottom: 8pt; break-inside: avoid-column; }
+  .mk-print-no { font-weight: 800; font-size: 10pt; margin-bottom: 2pt; }
+  /* 双栏每栏约 88mm，选项两列会挤到换行，改单列 */
+  .mk-print-opts {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1pt 8pt;
+    margin: 3pt 0; font-size: 9pt;
+  }
+  .mk-print-blank { font-size: 9.5pt; color: #333; margin-top: 2pt; }
+  /* 解答题留白按分值给：5 分题留 55pt，7 分题留 80pt（由内联 style 覆盖） */
+  .mk-print-space { border-bottom: 1px dashed #ccc; margin-top: 3pt; }
+  .mk-print-q .mk-stem { font-size: 9.5pt; line-height: 2; }
+  .mk-print-q .mk-fig .fig { max-width: 100%; }
+  /* 分数（\dfrac）在打印时高度约 2.2em，行高不够就会被压扁或叠行 */
+  .mk-print-q .math-inline svg { vertical-align: -0.45em; }
+  .mk-print-opts span { line-height: 2.4; }
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 760px) {
+  .mk-note-grid { grid-template-columns: 1fr 1fr; }
+  .mk-opts { grid-template-columns: 1fr; }
+  .mk-report-head { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .mk-report-big b { font-size: 2rem; }
+  .mk-fig .fig { max-width: 100%; }
+}

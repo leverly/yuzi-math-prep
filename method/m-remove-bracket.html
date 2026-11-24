@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>去括号与添括号 · 初一上数学</title>
+<meta name="description" content="去括号与添括号：识别信号、标准步骤、常见误用、母题与三级变式链。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/style.css?v=346ecd77">
+<script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
+</head>
+<body data-base="../"><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><path id="MJX-TEX-I-1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path><path id="MJX-TEX-N-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path id="MJX-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path id="MJX-TEX-I-1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path><path id="MJX-TEX-N-33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path><path id="MJX-TEX-I-1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path><path id="MJX-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path id="MJX-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path id="MJX-TEX-I-1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-TEX-N-36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z"></path><path id="MJX-TEX-N-D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path><path id="MJX-TEX-N-34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"></path><path id="MJX-TEX-N-35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path><path id="MJX-TEX-I-1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-TEX-N-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path id="MJX-TEX-I-25FB" d="M71 0Q59 4 55 16V346L56 676Q64 686 70 689H709Q719 681 722 674V15Q719 10 709 1L390 0H71ZM682 40V649H95V40H682Z"></path></defs></svg>
+<div class="scroll-progress"></div>
+<header class="hdr">
+  <div class="hdr-in">
+    <a class="logo" href="../index.html"><span class="logo-mark">柚</span><span>初一上数学</span></a>
+    <nav class="hdr-nav" id="nav">
+      <a href="../learn.html">知识复习</a><a href="../drill.html">巩固练习</a><a href="../wrong.html">错题本</a><a href="../papers.html">考情解读</a>
+      
+    </nav>
+    <div class="hdr-tools">
+      <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+      <button class="menu-btn" id="navToggle" aria-label="菜单">☰</button>
+    </div>
+  </div>
+</header>
+<main class="main">
+<div class="wrap">
+
+<div class="page-head">
+  <div class="crumb"><a href="../index.html">首页</a> / <a href="../method.html">方法卡</a> / 去括号与添括号</div>
+  <div class="mc-head-row">
+    <span class="mcard-tier l1">熟练层</span>
+    <span class="mc-ch">整式的加减</span>
+  </div>
+  <h1>去括号与添括号</h1>
+</div>
+
+<section class="section" style="margin-top:16px">
+  <div class="card mc-signal-card">
+    <div class="kicker">① 识别信号 · 题面出现什么时该想到它</div>
+    <div class="mc-signal-body">式子中有括号，括号前是负号；或需要「先去括号再合并」。</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">② 标准步骤</span>
+    <h2>4 步，每步一个给分点</h2>
+  </div></div>
+  <ol class="mc-steps">
+    <li>
+      <span class="mc-step-no">1</span>
+      <div><b>看括号前的符号</b><span class="mc-step-ask">括号前是正号还是负号？</span></div>
+      <span class="mc-step-score">1 分</span>
+    </li><li>
+      <span class="mc-step-no">2</span>
+      <div><b>负号则逐项变号</b><span class="mc-step-ask">括号内每一项都要变号吗？</span></div>
+      <span class="mc-step-score">1 分</span>
+    </li><li>
+      <span class="mc-step-no">3</span>
+      <div><b>系数要乘每一项</b><span class="mc-step-ask">括号前有数字，每一项都乘了吗？</span></div>
+      <span class="mc-step-score">1 分</span>
+    </li><li>
+      <span class="mc-step-no">4</span>
+      <div><b>由内向外处理多层</b><span class="mc-step-ask">有多层括号时先处理哪一层？</span></div>
+      <span class="mc-step-score">1 分</span>
+    </li>
+  </ol>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">③ 常见误用</span>
+    <h2>3 个高频错误</h2>
+  </div></div>
+  <div class="grid c2">
+    <div class="card pitfall-card">
+      <div class="pf-t">只变第一项</div>
+      <div class="pf-row"><span class="pf-bad">✕</span><span><span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='26.659ex' height='2.262ex' viewBox='0 -750 11783.3 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(751.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(1751.4,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(2140.4,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(2640.4,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(3291.7,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(4291.9,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(4791.9,0)'><use data-c='1D450' href='#MJX-TEX-I-1D450'></use></g><g transform='translate(5224.9,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g><g transform='translate(5891.7,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(6947.4,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(7698.7,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(8698.9,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(9198.9,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(9850.1,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(10850.3,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(11350.3,0)'><use data-c='1D450' href='#MJX-TEX-I-1D450'></use></g></g></g></svg></span></span></div>
+      <div class="pf-row"><span class="pf-good">✓</span><span><span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='13.33ex' height='1.756ex' viewBox='0 -694 5891.7 776'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(1055.8,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(1807,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(2807.2,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(3307.2,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(3958.4,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(4958.7,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(5458.7,0)'><use data-c='1D450' href='#MJX-TEX-I-1D450'></use></g></g></g></svg></span></span></div>
+      <div class="pf-why">括号前是负号，括号内每一项都变号，<span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='3.871ex' height='1.69ex' viewBox='0 -665 1711 747'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(1278,0)'><use data-c='1D450' href='#MJX-TEX-I-1D450'></use></g></g></g></svg></span> 要变成 <span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='3.871ex' height='1.69ex' viewBox='0 -665 1711 747'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(778,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(1278,0)'><use data-c='1D450' href='#MJX-TEX-I-1D450'></use></g></g></g></svg></span>。</div>
+    </div><div class="card pitfall-card">
+      <div class="pf-t">常数项漏乘</div>
+      <div class="pf-row"><span class="pf-bad">✕</span><span><span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='18.553ex' height='2.262ex' viewBox='0 -750 8200.4 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(500,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(889,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(1389,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(2183.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(3183.4,0)'><use data-c='31' href='#MJX-TEX-N-31'></use></g><g transform='translate(3683.4,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g><g transform='translate(4350.2,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(5406,0)'><use data-c='36' href='#MJX-TEX-N-36'></use></g><g transform='translate(5906,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(6700.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(7700.4,0)'><use data-c='31' href='#MJX-TEX-N-31'></use></g></g></g></svg></span></span></div>
+      <div class="pf-row"><span class="pf-good">✓</span><span><span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='8.711ex' height='1.692ex' viewBox='0 -666 3850.2 748'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(1055.8,0)'><use data-c='36' href='#MJX-TEX-N-36'></use></g><g transform='translate(1555.8,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(2350,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(3350.2,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g></g></g></svg></span></span></div>
+      <div class="pf-why"><span class='math math-inline'><svg style='vertical-align: -0.05ex;' xmlns='http://www.w3.org/2000/svg' width='1.131ex' height='1.554ex' viewBox='0 -665 500 687'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='33' href='#MJX-TEX-N-33'></use></g></g></g></svg></span> 要乘括号内每一项，包括常数项 <span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='2.891ex' height='1.692ex' viewBox='0 -666 1278 748'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='31' href='#MJX-TEX-N-31'></use></g></g></g></svg></span>。</div>
+    </div><div class="card pitfall-card">
+      <div class="pf-t">负系数漏乘常数</div>
+      <div class="pf-row"><span class="pf-bad">✕</span><span><span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='20.942ex' height='2.262ex' viewBox='0 -750 9256.4 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(1278,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(1667,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(2461.2,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(3461.4,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(3961.4,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g><g transform='translate(4628.2,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(5684,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(6462,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(6962,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(7756.2,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(8756.4,0)'><use data-c='36' href='#MJX-TEX-N-36'></use></g></g></g></svg></span></span></div>
+      <div class="pf-row"><span class="pf-good">✓</span><span><span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='10.471ex' height='1.692ex' viewBox='0 -666 4628.2 748'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(1055.8,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(1833.8,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(2333.8,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(3128,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(4128.2,0)'><use data-c='36' href='#MJX-TEX-N-36'></use></g></g></g></svg></span></span></div>
+      <div class="pf-why"><span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='12.697ex' height='1.692ex' viewBox='0 -666 5612 748'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(1500.2,0)'><use data-c='D7' href='#MJX-TEX-N-D7'></use></g><g transform='translate(2500.4,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(3278.2,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(4334,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(5112,0)'><use data-c='36' href='#MJX-TEX-N-36'></use></g></g></g></svg></span>，不是 <span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='2.891ex' height='1.692ex' viewBox='0 -666 1278 748'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(778,0)'><use data-c='36' href='#MJX-TEX-N-36'></use></g></g></g></svg></span>。负号要跟着一起乘。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">④ 母题精讲</span>
+    <h2>这道题完整走一遍</h2>
+  </div></div>
+  <div class="card"><div class="mc-q">
+      <div class="trace-line">
+      <span class="trace-badge">真题溯源</span>
+      <span class="trace-text">对应 8 道真题 · 最近 2024—2025 第 18 题（6 分）</span>
+      <span class="trace-srcs"><code>2021#18(6)</code> <code>2022#19(6)</code> <code>2023#18(6)</code> <code>2024#18(6)</code> <code>2021#4(2)</code> <code>2022#5(2)</code></span>
+    </div>
+      <div class="mc-q-stem">去括号：<span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='14.613ex' height='2.262ex' viewBox='0 -750 6458.9 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(1167,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(1667,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(2418.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(3418.4,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(3918.4,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(4569.7,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(5569.9,0)'><use data-c='34' href='#MJX-TEX-N-34'></use></g><g transform='translate(6069.9,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g></g></g></svg></span>。</div>
+      
+      <ol class="mc-q-steps">
+        <li>
+          <div class="mc-qs-head"><span class="mc-qs-no">1</span><span class="mc-qs-label">看符号</span><span class="mc-qs-score">1 分</span></div>
+          <div class="mc-qs-ask">括号前是？</div>
+          
+        </li><li>
+          <div class="mc-qs-head"><span class="mc-qs-no">2</span><span class="mc-qs-label">逐项变号</span><span class="mc-qs-score">2 分</span></div>
+          <div class="mc-qs-ask">去括号后是？</div>
+          <div class="mc-qs-ans">答案：<b>-2a+3b-4</b></div>
+        </li>
+      </ol>
+      <details class="mc-sol"><summary>完整解答</summary><div><span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='30.483ex' height='2.262ex' viewBox='0 -750 13473.3 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(1167,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(1667,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(2418.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(3418.4,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(3918.4,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(4569.7,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(5569.9,0)'><use data-c='34' href='#MJX-TEX-N-34'></use></g><g transform='translate(6069.9,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g><g transform='translate(6736.7,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(7792.4,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(8570.4,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(9070.4,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(9821.7,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(10821.9,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(11321.9,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(11973.1,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(12973.3,0)'><use data-c='34' href='#MJX-TEX-N-34'></use></g></g></g></svg></span>。
+【要点】括号前是负号，括号内每一项都要变号——包括常数项 <span class='math math-inline'><svg style='vertical-align: 0;' xmlns='http://www.w3.org/2000/svg' width='1.131ex' height='1.532ex' viewBox='0 -677 500 677'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='34' href='#MJX-TEX-N-34'></use></g></g></g></svg></span>。</div></details>
+    </div></div>
+</section>
+
+<section class="section" id="chainSec" data-method="m-remove-bracket">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">⑤ 三级变式链</span>
+    <h2>三级全对才算掌握，错一级从头再来</h2>
+    <span class="sub">改数字验解法稳定性 → 改条件验是否懂适用条件 → 逆向问验是否掌握结构</span>
+  </div>
+  <div class="section-head-right">
+    <span class="chain-status" id="chainStatus">未开始</span>
+  </div></div>
+
+  <div class="chain-track" id="chainTrack">
+    <div class="chain-step" data-lv="0"><span class="chain-no">1</span><span class="chain-name">改数字</span><span class="chain-mark">—</span></div>
+    <span class="chain-arrow">→</span>
+    <div class="chain-step" data-lv="1"><span class="chain-no">2</span><span class="chain-name">改条件</span><span class="chain-mark">—</span></div>
+    <span class="chain-arrow">→</span>
+    <div class="chain-step" data-lv="2"><span class="chain-no">3</span><span class="chain-name">逆向问</span><span class="chain-mark">—</span></div>
+  </div>
+
+  <div class="chain-cta">
+    <a class="btn primary" href="../drill.html?method=m-remove-bracket&mode=guided&autostart=1">按三级顺序练这一组</a>
+    <span class="desc" style="font-size:.84rem">出题会自动按「改数字 → 改条件 → 逆向」排列</span>
+  </div>
+
+  <div class="card mc-variant" data-changed="number">
+    <div class="mc-v-head"><span class="mc-v-tag">改数字</span></div>
+    <div class="mc-q">
+      <div class="trace-line">
+      <span class="trace-badge">真题溯源</span>
+      <span class="trace-text">对应 8 道真题 · 最近 2024—2025 第 18 题（6 分）</span>
+      <span class="trace-srcs"><code>2021#18(6)</code> <code>2022#19(6)</code> <code>2023#18(6)</code> <code>2024#18(6)</code> <code>2021#4(2)</code> <code>2022#5(2)</code></span>
+    </div>
+      <div class="mc-q-stem">去括号：<span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='14.848ex' height='2.262ex' viewBox='0 -750 6562.9 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(1167,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(1667,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(2461.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(3461.4,0)'><use data-c='35' href='#MJX-TEX-N-35'></use></g><g transform='translate(3961.4,0)'><use data-c='1D466' href='#MJX-TEX-I-1D466'></use></g><g transform='translate(4673.7,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(5673.9,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(6173.9,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g></g></g></svg></span>。</div>
+      
+      <ol class="mc-q-steps">
+        <li>
+          <div class="mc-qs-head"><span class="mc-qs-no">1</span><span class="mc-qs-label">看括号前符号</span><span class="mc-qs-score">1 分</span></div>
+          <div class="mc-qs-ask">括号前是什么符号？</div>
+          
+        </li><li>
+          <div class="mc-qs-head"><span class="mc-qs-no">2</span><span class="mc-qs-label">逐项变号</span><span class="mc-qs-score">1 分</span></div>
+          <div class="mc-qs-ask">去括号后是？</div>
+          <div class="mc-qs-ans">答案：<b>-3x+5y-2</b></div>
+        </li>
+      </ol>
+      <details class="mc-sol"><summary>完整解答</summary><div><span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='30.953ex' height='2.262ex' viewBox='0 -750 13681.3 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(1167,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(1667,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(2461.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(3461.4,0)'><use data-c='35' href='#MJX-TEX-N-35'></use></g><g transform='translate(3961.4,0)'><use data-c='1D466' href='#MJX-TEX-I-1D466'></use></g><g transform='translate(4673.7,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(5673.9,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(6173.9,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g><g transform='translate(6840.7,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(7896.4,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(8674.4,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(9174.4,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(9968.7,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(10968.9,0)'><use data-c='35' href='#MJX-TEX-N-35'></use></g><g transform='translate(11468.9,0)'><use data-c='1D466' href='#MJX-TEX-I-1D466'></use></g><g transform='translate(12181.1,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(13181.3,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g></g></g></svg></span>。</div></details>
+    </div>
+  </div><div class="card mc-variant" data-changed="condition">
+    <div class="mc-v-head"><span class="mc-v-tag">改条件</span></div>
+    <div class="mc-q">
+      <div class="trace-line">
+      <span class="trace-badge">真题溯源</span>
+      <span class="trace-text">对应 8 道真题 · 最近 2024—2025 第 18 题（6 分）</span>
+      <span class="trace-srcs"><code>2021#18(6)</code> <code>2022#19(6)</code> <code>2023#18(6)</code> <code>2024#18(6)</code> <code>2021#4(2)</code> <code>2022#5(2)</code></span>
+    </div>
+      <div class="mc-q-stem">去括号并合并：<span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='18.917ex' height='2.262ex' viewBox='0 -750 8361.3 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(500,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(1251.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(2251.4,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(2751.4,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(3140.4,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(3891.7,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(4891.9,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(5391.9,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(5820.9,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g><g transform='translate(6432.1,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(7432.3,0)'><use data-c='34' href='#MJX-TEX-N-34'></use></g><g transform='translate(7932.3,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g></g></g></svg></span>。</div>
+      
+      <ol class="mc-q-steps">
+        <li>
+          <div class="mc-qs-head"><span class="mc-qs-no">1</span><span class="mc-qs-label">分配负系数</span><span class="mc-qs-score">1 分</span></div>
+          <div class="mc-qs-ask"><span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='10.716ex' height='2.262ex' viewBox='0 -750 4736.4 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(1278,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(1667,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(2418.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(3418.4,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(3918.4,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(4347.4,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g></g></g></svg></span> 展开得？</div>
+          <div class="mc-qs-ans">答案：<b>-3a+6b</b></div>
+        </li><li>
+          <div class="mc-qs-head"><span class="mc-qs-no">2</span><span class="mc-qs-label">合并</span><span class="mc-qs-score">1 分</span></div>
+          <div class="mc-qs-ask">合并后得？</div>
+          <div class="mc-qs-ans">答案：<b>-a+10b</b></div>
+        </li>
+      </ol>
+      <details class="mc-sol"><summary>完整解答</summary><div><span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='51.064ex' height='2.262ex' viewBox='0 -750 22570.2 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(500,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(1251.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(2251.4,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(2751.4,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(3140.4,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(3891.7,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(4891.9,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(5391.9,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(5820.9,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g><g transform='translate(6432.1,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(7432.3,0)'><use data-c='34' href='#MJX-TEX-N-34'></use></g><g transform='translate(7932.3,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(8639.1,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(9694.9,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(10194.9,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(10946.1,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(11946.3,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(12446.3,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(13197.6,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(14197.8,0)'><use data-c='36' href='#MJX-TEX-N-36'></use></g><g transform='translate(14697.8,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(15349,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(16349.2,0)'><use data-c='34' href='#MJX-TEX-N-34'></use></g><g transform='translate(16849.2,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g><g transform='translate(17556,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(18611.8,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(19389.8,0)'><use data-c='1D44E' href='#MJX-TEX-I-1D44E'></use></g><g transform='translate(20141,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(21141.2,0)'><use data-c='31' href='#MJX-TEX-N-31'></use><use data-c='30' href='#MJX-TEX-N-30' transform='translate(500,0)'></use></g><g transform='translate(22141.2,0)'><use data-c='1D44F' href='#MJX-TEX-I-1D44F'></use></g></g></g></svg></span>。</div></details>
+    </div>
+  </div><div class="card mc-variant" data-changed="reverse">
+    <div class="mc-v-head"><span class="mc-v-tag">逆向问</span></div>
+    <div class="mc-q">
+      <div class="trace-line">
+      <span class="trace-badge">真题溯源</span>
+      <span class="trace-text">对应 8 道真题 · 最近 2024—2025 第 18 题（6 分）</span>
+      <span class="trace-srcs"><code>2021#18(6)</code> <code>2022#19(6)</code> <code>2023#18(6)</code> <code>2024#18(6)</code> <code>2021#4(2)</code> <code>2022#5(2)</code></span>
+    </div>
+      <div class="mc-q-stem">若 <span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='30.659ex' height='2.262ex' viewBox='0 -750 13551.3 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(1167,0)'><use data-c='25FB' href='#MJX-TEX-I-25FB'></use></g><g transform='translate(2167.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(3167.4,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(3667.4,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(4461.7,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(5461.9,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(5961.9,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g><g transform='translate(6628.7,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(7684.4,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(8462.4,0)'><use data-c='35' href='#MJX-TEX-N-35'></use></g><g transform='translate(8962.4,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(9756.7,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(10756.9,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(11256.9,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(12051.1,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(13051.3,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g></g></g></svg></span>，求 <span class='math math-inline'><svg style='vertical-align: 0;' xmlns='http://www.w3.org/2000/svg' width='1.76ex' height='1.559ex' viewBox='0 -689 778 689'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='25FB' href='#MJX-TEX-I-25FB'></use></g></g></g></svg></span> 代表的式子。</div>
+      
+      <ol class="mc-q-steps">
+        <li>
+          <div class="mc-qs-head"><span class="mc-qs-no">1</span><span class="mc-qs-label">去括号</span><span class="mc-qs-score">1 分</span></div>
+          <div class="mc-qs-ask">左边去括号后得？</div>
+          <div class="mc-qs-ans">答案：<b>-□+3x-2</b></div>
+        </li><li>
+          <div class="mc-qs-head"><span class="mc-qs-no">2</span><span class="mc-qs-label">对比系数</span><span class="mc-qs-score">1 分</span></div>
+          <div class="mc-qs-ask">对比右边 <span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='13.274ex' height='1.692ex' viewBox='0 -666 5866.9 748'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='35' href='#MJX-TEX-N-35'></use></g><g transform='translate(1278,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(2072.2,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(3072.4,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(3572.4,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(4366.7,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(5366.9,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g></g></g></svg></span>，<span class='math math-inline'><svg style='vertical-align: 0;' xmlns='http://www.w3.org/2000/svg' width='1.76ex' height='1.559ex' viewBox='0 -689 778 689'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='25FB' href='#MJX-TEX-I-25FB'></use></g></g></g></svg></span> 等于？</div>
+          <div class="mc-qs-ans">答案：<b>5x</b></div>
+        </li>
+      </ol>
+      <details class="mc-sol"><summary>完整解答</summary><div>左边 <span class='math math-inline'><svg style='vertical-align: -0.566ex;' xmlns='http://www.w3.org/2000/svg' width='32.383ex' height='2.262ex' viewBox='0 -750 14313.1 1000'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(1055.8,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(1833.8,0)'><use data-c='28' href='#MJX-TEX-N-28'></use></g><g transform='translate(2222.8,0)'><use data-c='25FB' href='#MJX-TEX-I-25FB'></use></g><g transform='translate(3223,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(4223.2,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(4723.2,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(5517.4,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(6517.7,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g><g transform='translate(7017.7,0)'><use data-c='29' href='#MJX-TEX-N-29'></use></g><g transform='translate(7684.4,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(8740.2,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(9518.2,0)'><use data-c='25FB' href='#MJX-TEX-I-25FB'></use></g><g transform='translate(10518.4,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(11518.7,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(12018.7,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(12812.9,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(13813.1,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g></g></g></svg></span>。
+与 <span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='13.274ex' height='1.692ex' viewBox='0 -666 5866.9 748'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='35' href='#MJX-TEX-N-35'></use></g><g transform='translate(1278,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(2072.2,0)'><use data-c='2B' href='#MJX-TEX-N-2B'></use></g><g transform='translate(3072.4,0)'><use data-c='33' href='#MJX-TEX-N-33'></use></g><g transform='translate(3572.4,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g><g transform='translate(4366.7,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(5366.9,0)'><use data-c='32' href='#MJX-TEX-N-32'></use></g></g></g></svg></span> 对比，<span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='10.723ex' height='1.744ex' viewBox='0 -689 4739.6 771'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(778,0)'><use data-c='25FB' href='#MJX-TEX-I-25FB'></use></g><g transform='translate(1833.8,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(2889.6,0)'><use data-c='2212' href='#MJX-TEX-N-2212'></use></g><g transform='translate(3667.6,0)'><use data-c='35' href='#MJX-TEX-N-35'></use></g><g transform='translate(4167.6,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g></g></g></svg></span>，故 <span class='math math-inline'><svg style='vertical-align: -0.186ex;' xmlns='http://www.w3.org/2000/svg' width='7.203ex' height='1.744ex' viewBox='0 -689 3183.6 771'><g stroke='currentColor' fill='currentColor' stroke-width='0' transform='scale(1,-1)'><g><g><use data-c='25FB' href='#MJX-TEX-I-25FB'></use></g><g transform='translate(1055.8,0)'><use data-c='3D' href='#MJX-TEX-N-3D'></use></g><g transform='translate(2111.6,0)'><use data-c='35' href='#MJX-TEX-N-35'></use></g><g transform='translate(2611.6,0)'><use data-c='1D465' href='#MJX-TEX-I-1D465'></use></g></g></g></svg></span>。</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="grid c2">
+    <a class="card tool-card" href="../drill.html?method=m-remove-bracket&mode=guided&autostart=1">
+      <h3>练这个方法的题</h3>
+      <p class="desc">引导模式，逐步作答，答错给提示。</p>
+      <div class="meta">5 题可用</div>
+    </a>
+    <a class="card tool-card" href="../drill.html?method=m-remove-bracket&mode=selfcheck&autostart=1">
+      <h3>自查模式</h3>
+      <p class="desc">只给步骤骨架，自己勾哪一步做出来了。</p>
+      <div class="meta">5 题可用</div>
+    </a>
+  </div>
+</section>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in yz-foot">
+    <div>
+      <div class="yz-foot-title">柚子初一上数学期末备考</div>
+      <div class="yz-foot-sub">面向 北师大实验中学 初一上期末 · 巩固练习 / 知识复习 / 错题 / 真题</div>
+    </div>
+    <div class="foot-links">
+      <a href="../learn.html">知识复习</a>
+      <a href="../drill.html">巩固练习</a>
+      <a href="../wrong.html">错题本</a>
+      <a href="../papers.html">考情解读</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/app.js?v=4d5d80ff"></script>
+
+<script src="../dist/data/meta.js?v=4d5d80ff"></script>
+<script>
+window.YZ = window.YZ || {};
+window.YZ.loadAll = function(chapters){
+  if (!chapters || !chapters.length) return Promise.resolve({});
+  var CH = window.YZ.CH = window.YZ.CH || {};
+  var need = chapters.filter(function(id){ return !CH[id]; });
+  return Promise.all(need.map(function(id){
+    return new Promise(function(res){
+      var s = document.createElement('script');
+      s.src = "../" + 'dist/data/ch/' + id + '.js?v=' + "4d5d80ff";
+      s.onload = function(){ res(); };
+      s.onerror = function(){ res(); };
+      document.head.appendChild(s);
+    });
+  })).then(function(){
+    /* 分片自带字形 defs：动态加载的页面本身没有字形定义，
+       不注入的话公式会全部不可见。 */
+    Object.keys(CH).forEach(function(id){
+      var d = CH[id];
+      if (!d || !d.defs) return;
+      if (document.querySelector('[data-defs="' + id + '"]')) return;
+      var box = document.createElement('div');
+      box.setAttribute('data-defs', id);
+      box.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+      box.innerHTML = d.defs;
+      document.body.appendChild(box);
+    });
+    return CH;
+  });
+};
+window.YZ.chapterIds = function(){
+  var M = window.YZ.META || {};
+  return (M.chapters || []).map(function(c){ return c.id; });
+};
+
+/* ==========================================================
+   三级组卷：把题按「改数字 → 改条件 → 逆向问」排成链
+   这是全站练习内容的统一口径——不是随机抽题，而是按三级递进出题。
+   输入：题目池；输出：按 method 分组后、每组按三级顺序排列的题
+   ========================================================== */
+window.YZ.buildLadders = function(pool){
+  var LEVEL = { number: 0, condition: 1, reverse: 2 };
+  var byMethod = {};
+  (pool || []).forEach(function(q){
+    var key = q.method || ('__ch_' + (q.chapter || '') );
+    if (!byMethod[key]) byMethod[key] = { mothers: [], levels: {}, others: [] };
+    if (q.variantOf && q.changed != null && LEVEL[q.changed] != null) {
+      /* 三级变式：每级取第一道（同方法同级别通常只有一道） */
+      var li = LEVEL[q.changed];
+      if (!byMethod[key].levels[li]) byMethod[key].levels[li] = q;
+      else byMethod[key].others.push(q);
+    } else if (!q.variantOf) {
+      byMethod[key].mothers.push(q);
+    } else {
+      byMethod[key].others.push(q);
+    }
+  });
+  var out = [];
+  Object.keys(byMethod).forEach(function(k){
+    var g = byMethod[k];
+    var hasAll = g.levels[0] && g.levels[1] && g.levels[2];
+    /* 有完整三级：先出「三级链」（这是本组核心），再出其余母题与题 */
+    if (hasAll) {
+      out.push({ q: g.levels[0], group: k, role: 'L1' });
+      out.push({ q: g.levels[1], group: k, role: 'L2' });
+      out.push({ q: g.levels[2], group: k, role: 'L3' });
+    } else {
+      [0,1,2].forEach(function(i){ if (g.levels[i]) out.push({ q: g.levels[i], group: k, role: '' }); });
+    }
+    /* 其余题全部保留，不能丢 */
+    g.mothers.forEach(function(q){ out.push({ q: q, group: k, role: 'mother' }); });
+    g.others.forEach(function(q){ out.push({ q: q, group: k, role: '' }); });
+  });
+  return out;
+};
+
+/* 只取「有完整三级链」的组，用于达标判定 */
+window.YZ.completeChains = function(pool){
+  var built = window.YZ.buildLadders(pool);
+  var byGroup = {};
+  built.forEach(function(x){ (byGroup[x.group] = byGroup[x.group] || []).push(x); });
+  var out = [];
+  Object.keys(byGroup).forEach(function(k){
+    var g = byGroup[k];
+    var l1 = g.filter(function(x){ return x.role === 'L1'; })[0];
+    var l2 = g.filter(function(x){ return x.role === 'L2'; })[0];
+    var l3 = g.filter(function(x){ return x.role === 'L3'; })[0];
+    var m = g.filter(function(x){ return x.role === 'mother'; })[0];
+    if (l1 && l2 && l3) out.push({ group: k, mother: m ? m.q : null, qs: [l1.q, l2.q, l3.q] });
+  });
+  return out;
+};</script>
+<script>
+(function(){
+  var Z = window.YZ;
+  var MID = "m-remove-bracket";
+  function paint(){
+    var st = Z.methodState ? Z.methodState(MID) : null;
+    if (!st) return;
+    var status = document.getElementById('chainStatus');
+    [].forEach.call(document.querySelectorAll('.chain-step'), function(el){
+      var i = parseInt(el.getAttribute('data-lv'), 10);
+      var mk = el.querySelector('.chain-mark');
+      el.classList.remove('done','stuck');
+      if (st.done || (st.passed && st.passed[i])) { el.classList.add('done'); if(mk) mk.textContent='✓'; }
+      else if (st.stuckLevel === i) { el.classList.add('stuck'); if(mk) mk.textContent='卡'; }
+      else if (mk) mk.textContent = '—';
+    });
+    if (status) {
+      if (st.done) { status.textContent = '已掌握'; status.className = 'chain-status ok'; }
+      else if (st.stuckLevel >= 0) {
+        var names = ['改数字','改条件','逆向问'];
+        status.textContent = '卡在「' + names[st.stuckLevel] + '」';
+        status.className = 'chain-status warn';
+      } else if (st.passed && st.passed.some(Boolean)) { status.textContent = '进行中'; status.className = 'chain-status'; }
+      else { status.textContent = '未开始'; status.className = 'chain-status'; }
+    }
+  }
+  Z.ready(function(){ paint(); document.addEventListener('yz:method', paint); });
+})();
+</script>
+</body>
+</html>

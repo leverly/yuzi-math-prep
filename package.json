@@ -1,0 +1,21 @@
+{
+  "name": "bj-math-site",
+  "version": "1.0.0",
+  "description": "北京中考数学分步备考站",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build-site.mjs",
+    "check": "node tools/validate.mjs",
+    "check:mock": "node tools/verify-mock.mjs",
+    "build:mock": "node tools/build-mock.mjs",
+    "test:fig": "node tools/fig-test.mjs",
+    "test:math": "node tools/mj-decide.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mathjax-full": "^3.2.1"
+  },
+  "type": "module"
+}
