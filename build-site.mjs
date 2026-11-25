@@ -2787,9 +2787,13 @@ function buildExamVerify() {
   const C = R.math.compact;
   const TAGS = Object.keys(EXAM_FULL);
   const YEAR_LABEL = { p2021: '2021—2022', p2022: '2022—2023', p2023: '2023—2024', p2024: '2024—2025', p2025: '2025—2026' };
-  /* 只有 2022-23 有 PDF，可提供原卷页图 */
-  /* 有 PDF 源的两套可以给原卷页图；docx 三套没有 */
-  const HAS_PAGE_IMG = { p2022: 6, p2025: 7 };
+  /* 有 PDF 源的三套可以给原卷页图；docx 两套没有。
+     pad=true 表示文件名零填充（p2023-01.png），否则是 p2022-1.png */
+  const HAS_PAGE_IMG = {
+    p2022: { n: 6, pad: false },
+    p2023: { n: 6, pad: true },
+    p2025: { n: 7, pad: true },
+  };
 
   /* 片段渲染：文本直接输出，公式图引用 assets/exam-src/<tag>/<name> */
   function renderParts(parts, tag) {
@@ -2812,7 +2816,9 @@ function buildExamVerify() {
     const qs = d.questions;
     const withOpt = qs.filter((q) => q.options.length).length;
     const withImg = qs.filter((q) => q.stemParts.some((p) => p.t === 'img')).length;
-    const pageCount = HAS_PAGE_IMG[tag];
+    const pg = HAS_PAGE_IMG[tag];
+    const pageCount = pg ? pg.n : 0;
+    const pageName = (i) => pg.pad ? String(i).padStart(2, '0') : String(i);
     return '<section class="section" data-paper="' + tag + '">' +
       '<div class="section-head"><div class="section-head-left">' +
         '<span class="kicker">' + YEAR_LABEL[tag] + '</span>' +
@@ -2839,6 +2845,11 @@ function buildExamVerify() {
           : '';
         const raw = (q.rawParas || []).map((t) =>
           '<div class="ev-raw-line">' + esc(t) + '</div>').join('');
+        const rawHint = tag === 'p2023'
+          ? '这是按 PDF 字符坐标重建出的原文行（分数、上标、度分秒已还原）。' +
+            '对照上面：题干文字是否一致、选项是否拆对、插图位置是否对。'
+          : '这是从 docx 直接读出的段落，公式处显示为 ⟨公式⟩。' +
+            '对照上面：题干文字是否一致、选项是否拆对、公式图位置是否对。';
         return '<div class="ev-q" id="' + tag + '-q' + q.no + '">' +
           '<div class="ev-qhead"><span class="ev-no">' + q.no + '</span>' +
             '<span class="ev-meta">' + (q.options.length ? '选择' : '非选择') + '</span>' +
@@ -2847,14 +2858,13 @@ function buildExamVerify() {
           opts +
           (raw ? '<details class="ev-raw"><summary>看原文（未加工）</summary>' +
             '<div class="ev-raw-box">' + raw + '</div>' +
-            '<p class="ev-raw-hint">这是从 docx 直接读出的段落，公式处显示为 ⟨公式⟩。' +
-            '对照上面：题干文字是否一致、选项是否拆对、公式图位置是否对。</p></details>' : '') +
+            '<p class="ev-raw-hint">' + rawHint + '</p></details>' : '') +
           '</div>';
       }).join('') + '</div>' +
 
       (pageCount ? '<details class="ev-pages"><summary>展开原卷页图（' + pageCount + ' 页）</summary>' +
         '<div class="ev-pages-grid">' + Array.from({ length: pageCount }, (_, i) =>
-          '<figure><img src="assets/exam-src/pages/' + tag + '-' + (i + 1) + '.png" alt="原卷第 ' + (i + 1) + ' 页" loading="lazy" onerror="this.parentNode.classList.add(\'ev-img-miss\')">' +
+          '<figure><img src="assets/exam-src/pages/' + tag + '-' + pageName(i + 1) + '.png" alt="原卷第 ' + (i + 1) + ' 页" loading="lazy" onerror="this.parentNode.classList.add(\'ev-img-miss\')">' +
           '<figcaption>第 ' + (i + 1) + ' 页</figcaption></figure>'
         ).join('') + '</div></details>' : '') +
       '</section>';
@@ -2868,7 +2878,8 @@ function buildExamVerify() {
       '<div class="crumb"><a href="index.html">首页</a> / 真题核验</div>' +
       '<h1>真题核验</h1>' +
       '<p class="lede">' + TAGS.length + ' 套卷共 <b>' + TAGS.reduce((a, t) => a + EXAM_FULL[t].qcount, 0) + ' 道题</b>已抽取进内容库。' +
-      '这一页用来抽查：<b>抽出来的题和原卷是否一致</b>。公式是 MathType 嵌入对象（无法转文本），所以保留为图片——请重点核对公式位置与内容。</p>' +
+      '这一页用来抽查：<b>抽出来的题和原卷是否一致</b>。2023—2024 那套来自 PDF 且做了坐标重建，' +
+      '分数、上标、度分秒、∠ 都是可检索的文字；其余几套的公式是 MathType 嵌入对象，保留为图片——请重点核对公式位置与内容。</p>' +
       '</div>' + body,
     script: '',
     data: ['meta'],

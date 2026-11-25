@@ -51,13 +51,42 @@ export function createMathRenderer() {
 
   /** 渲染一段含 $...$ 的文本，返回 HTML 片段 */
   function render(text) {
-    if (typeof text !== 'string' || text.indexOf('$') < 0) return text == null ? '' : String(text);
-    return text.replace(MATH_RE, (_all, block, inline) => {
-      if (block != null) {
-        return '<span class="math math-block">' + toSvg(block.trim(), true) + '</span>';
-      }
-      return '<span class="math math-inline">' + toSvg(inline.trim(), false) + '</span>';
-    });
+    if (typeof text !== 'string') return text == null ? '' : String(text);
+    if (text.indexOf('$') < 0 && text.indexOf('**') < 0) return text;
+
+    /* 先换公式，再换加粗。
+       顺序有理由：解析文本里存在 **$a$ 必须在 [1,10) 之间** 这种写法——
+       加粗范围包含公式。先换公式会先把 $a$ 变成 <svg>，
+       此时 ** 之间夹的是标签，正则仍能匹配到首尾，结果是安全的；
+       反过来先换加粗，$ 还在文本里，后续公式替换不受影响。
+       两种都可行，但先换公式能避免「加粗内容里的 $ 被跳过」。 */
+    let out = text;
+    if (out.indexOf('$') >= 0) {
+      out = out.replace(MATH_RE, (_all, block, inline) => {
+        if (block != null) {
+          return '<span class="math math-block">' + toSvg(block.trim(), true) + '</span>';
+        }
+        return '<span class="math math-inline">' + toSvg(inline.trim(), false) + '</span>';
+      });
+    }
+    /* **粗体** → <b>粗体</b>。
+       为什么在这里做而不是让数据层写 <b>：解析数据有 149 处 **…**，
+       逐个改成 HTML 既容易漏也污染数据（数据应是纯文本 + 轻标记）。
+       也不引入完整 Markdown 解析器——只需要这一种标记，
+       加一个正则就够，多引一个依赖反而增加断网风险。 */
+    if (out.indexOf('**') >= 0) {
+      out = out.replace(/\*\*([^*]+?)\*\*/g, '<b>$1</b>');
+    }
+    /* 换行转 <br>。
+       解析数据的段落分隔就是 \n（有的地方是 \n\n）。
+       CSS 里不能用 white-space: pre-wrap 兜底——那会把源码缩进也渲染出来。
+       所以在渲染这一步显式转换：\n\n 当空行（留一个 <br> 加间距），\n 当换行。
+       注意顺序：必须在公式与加粗都换完之后做，
+       否则会把 <svg>/<b> 标签内部的属性换行也转掉。 */
+    if (out.indexOf('\n') >= 0) {
+      out = out.replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>');
+    }
+    return out;
   }
 
   /** 递归渲染对象/数组里的所有字符串字段 */

@@ -40,9 +40,31 @@ def clean_symbols(t):
     return ''.join(SYMBOL_MAP.get(c, c) for c in t)
 
 def get_text():
+    """取 PDF 文本，并按坐标重建公式排版。
+
+    直接 `pdftotext -layout` 会把分数拆成上下两行、上标拆成孤立小字，
+    「3/4」「10⁴」「31°15′」全丢。rebuild-math.py 用每个 word 的
+    包围盒还原分数/上下标，输出与 -layout 同构的纯文本。
+    """
     subprocess.run(['pdftotext', '-layout', SRC, TXT], check=False,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    return open(TXT, encoding='utf-8', errors='ignore').read()
+    raw = open(TXT, encoding='utf-8', errors='ignore').read()
+
+    # 坐标重建（失败则退回原始 -layout 文本）
+    bbox = '/tmp/ex/p2023bbox.html'
+    subprocess.run(['pdftotext', '-bbox-layout', SRC, bbox], check=False,
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    rebuild = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rebuild-math.py')
+    try:
+        out = subprocess.run(['python3', '-I', rebuild, bbox],
+                             capture_output=True, text=True, check=True).stdout
+        # 重建结果里用「===== page N =====」分页，转成 -layout 的换页符
+        rebuilt = re.sub(r'^===== page \d+ =====$', '\f', out, flags=re.M)
+        if rebuilt.count('\f') >= 5:
+            return rebuilt
+    except Exception as e:
+        print(f'  ! 坐标重建失败，退回 -layout 文本：{e}')
+    return raw
 
 
 def main():
@@ -53,9 +75,10 @@ def main():
 
     lines = paper.split('\n')
     QRE = re.compile(r'^\s*(\d{1,2})[.．]\s*(.*)$')
-    # 缺点的写法（如「18 如图」）：数字后跟空格 + 中文
-    QRE2 = re.compile(r'^\s*(\d{1,2})\s+([\u4e00-\u9fa5].*)$')
-    OPT = re.compile(r'^\s*[A-D][.．]')
+    # 缺点的写法（如「18如图」）：数字后直接跟中文，或隔一个空格
+    QRE2 = re.compile(r'^\s*(\d{1,2})\s*([\u4e00-\u9fa5].*)$')
+    # 选项行：可能写「A. 内容」，也可能「A−3/4」（句点被公式吞掉）
+    OPT = re.compile(r'^\s*[A-D][.．]?\s*\S')
 
     qs = []
     cur = None
@@ -94,11 +117,20 @@ def main():
 
         cur['rawParas'].append(s.strip())
         if OPT.match(s):
-            # 一行可能挤多个选项
-            parts = re.split(r'\s{2,}(?=[A-D][.．])|(?<=[^\s])\s*(?=[A-D][.．])', s.strip())
-            for p in parts:
+            # 一行可能挤多个选项。用「B./C./D.」作分隔锚点切分，
+            # 首段（可能写作「A−3/4」而缺句点）单独按行首字母取。
+            line = s.strip()
+            marks = [(m.start(), m.group(0))
+                     for m in re.finditer(r'[B-D][.．]', line)]
+            segs = []
+            first = line[:marks[0][0]] if marks else line
+            segs.append(first)
+            for idx, (pos, _) in enumerate(marks):
+                nxt = marks[idx + 1][0] if idx + 1 < len(marks) else len(line)
+                segs.append(line[pos:nxt])
+            for p in segs:
                 p = p.strip()
-                mm = re.match(r'^([A-D])[.．]\s*(.*)$', p)
+                mm = re.match(r'^([A-D])[.．]?\s*(.*)$', p)
                 if mm:
                     cur['options'].append({'key': mm.group(1), 'text': p,
                                            'parts': [{'t': 'text', 'v': mm.group(2).strip()}]})

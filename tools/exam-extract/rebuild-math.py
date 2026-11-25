@@ -71,9 +71,14 @@ def parse_pages(path):
             w = clean(w)
             if not w.strip():
                 continue
+            h = float(y1) - float(y0)
+            # 丢弃异常高的伪字：PDF 里偶有装饰线/竖排标点被识别成超高 word
+            # （实测有一个 '.' 的包围盒高达 205pt，会把整行带撑爆）
+            if h > 60:
+                continue
             words.append({'x0': float(x0), 'y0': float(y0),
                           'x1': float(x1), 'y1': float(y1),
-                          'w': w, 'h': float(y1) - float(y0)})
+                          'w': w, 'h': h})
         pages.append(words)
     return pages
 
@@ -85,7 +90,18 @@ def base_height(words):
 
 def build_fractions(words, base_h):
     """全页配对分数，返回 (剩余 words, 分数原子列表)。"""
-    small = [w for w in words if w['h'] < base_h * 0.92]
+    # 分子/分母的字号通常只比正文略小（0.85~0.95 倍），A./B. 等标记则与
+    # 正文同高且常带句点。用「纯数字且高度不超过正文」来锁定候选，
+    # 避免把选项标记当成分子。
+    def is_frac_glyph(w):
+        t = w['w'].strip()
+        if not t:
+            return False
+        if not all(c.isdigit() or c in '−-' for c in t):
+            return False
+        return w['h'] <= base_h * 1.02
+
+    small = [w for w in words if is_frac_glyph(w)]
     used = set()
     fracs = []
 
@@ -105,8 +121,12 @@ def build_fractions(words, base_h):
             # 分数带不能跨越行：总高不超过 3 倍基准字号
             if b['y1'] - a['y0'] > base_h * 3.0:
                 continue
+            # 分子分母必须落在同一列：x 中心差 <= 4pt（多位数分母常居中，
+            # 与分子中心有少量偏移），且分母的横向区间不能超出分子太多
             dx = abs((a['x0'] + a['x1']) / 2 - (b['x0'] + b['x1']) / 2)
-            if dx > 3.0:
+            if dx > 4.0:
+                continue
+            if b['x0'] < a['x0'] - 6 or b['x1'] > a['x1'] + 6:
                 continue
             cands.append((gap + dx, i, j))
 
@@ -152,35 +172,83 @@ def make_atoms(words, fracs):
     for f in fracs:
         atoms.append({'x0': f['x0'], 'x1': f['x1'], 'y0': f['y0'], 'y1': f['y1'],
                       'h': f['y1'] - f['y0'],
+                      'den_y1': f['den']['y1'],
                       'text': (f.get('prefix', '') + f['num']['w'] + '/' + f['den']['w']),
                       'kind': 'frac'})
     return atoms
 
 
-def group_lines(atoms):
-    """按垂直区间重叠率 > 50% 聚行。"""
+def group_lines(atoms, base_h):
+    """先按正文（正常字号）聚出基线带，再把小字/分数按垂直中心归位。
+
+    不能用「区间重叠率」直接聚行：分数原子高约 2.5 倍基准，会把相邻
+    两行桥接成一行。必须先排除高原子再定行，最后回填。
+    """
     if not atoms:
         return []
-    atoms = sorted(atoms, key=lambda d: (d['y0'] + d['y1']) / 2)
-    lines, cur = [], [atoms[0]]
-    cy0, cy1 = atoms[0]['y0'], atoms[0]['y1']
-    for a in atoms[1:]:
-        lo, hi = max(cy0, a['y0']), min(cy1, a['y1'])
-        ov = max(0.0, hi - lo)
-        smaller = min(cy1 - cy0, a['y1'] - a['y0']) or 1e-6
-        if ov / smaller > 0.5:
+
+    normal = [a for a in atoms if a['kind'] == 'word' and a['h'] >= base_h * 0.78]
+    if not normal:
+        normal = [a for a in atoms if a['kind'] == 'word'] or atoms
+
+    # 用正文的垂直中心聚行
+    normal = sorted(normal, key=lambda d: (d['y0'] + d['y1']) / 2)
+    bands = []
+    cur = [normal[0]]
+    for a in normal[1:]:
+        cy = (a['y0'] + a['y1']) / 2
+        ccy = sum((x['y0'] + x['y1']) / 2 for x in cur) / len(cur)
+        if abs(cy - ccy) <= base_h * 0.42:
             cur.append(a)
-            cy0, cy1 = min(cy0, a['y0']), max(cy1, a['y1'])
         else:
-            lines.append(cur)
+            bands.append(cur)
             cur = [a]
-            cy0, cy1 = a['y0'], a['y1']
-    lines.append(cur)
-    return lines
+    bands.append(cur)
+
+    # 每行的垂直带（用该行正文的上下界）
+    spans = [(min(a['y0'] for a in b), max(a['y1'] for a in b)) for b in bands]
+
+    # 小字/分数原子：按垂直中心落到最近的行带
+    for a in atoms:
+        if a['kind'] == 'word' and a['h'] >= base_h * 0.78:
+            continue
+        # 分数是「行内嵌」对象：分子顶边略高于正文顶边，分母底边与基线齐平。
+        # 用「与正文行的垂直重叠量」定归属最稳（分子分母都落在同一行带内）。
+        if a['kind'] == 'frac':
+            best, bestd = 0, -1e18
+            for bi, (y0, y1) in enumerate(spans):
+                lo, hi = max(a['y0'], y0), min(a['y1'], y1)
+                ov = max(0.0, hi - lo)
+                # 同分时取更近的（避免都算 0 时乱归）
+                tie = -abs((a['y0'] + a['y1']) / 2 - (y0 + y1) / 2) * 1e-3
+                if ov + tie > bestd:
+                    best, bestd = bi, ov + tie
+            bands[best].append(a)
+            continue
+        ac = (a['y0'] + a['y1']) / 2
+        best, bestd = 0, 1e18
+        for bi, (y0, y1) in enumerate(spans):
+            bc = (y0 + y1) / 2
+            d = abs(ac - bc)
+            if d < bestd:
+                best, bestd = bi, d
+        bands[best].append(a)
+
+    for b in bands:
+        b.sort(key=lambda d: d['x0'])
+    return bands
 
 
 def render_line(atoms, base_h):
     atoms = sorted(atoms, key=lambda d: d['x0'])
+    # 纯括号行：MathType 分式/矩阵的伸缩括号被拆成上中下碎片，
+    # 分数本体已还原，剩下的孤立 () 行是垃圾，直接丢弃
+    stripped = ''.join(a['text'] for a in atoms)
+    # MathType 伸缩括号的上/下碎片：内容只有括号，或「括号 + 孤立数字」
+    # （如 "()2"）。分数本体已还原，这些是残渣，整行丢弃。
+    if stripped and re.fullmatch(r'[()（）\[\]]+\d*', stripped):
+        return ''
+
     normal = [a for a in atoms if a['h'] >= base_h * 0.70]
     if normal:
         base_top = sorted(a['y0'] for a in normal)[len(normal) // 2]
@@ -215,19 +283,20 @@ def render_line(atoms, base_h):
 
 
 def split_columns(words, page_w=595.32):
-    """检测双栏排版：若大量 word 集中在 x 中心线两侧且中间有明显空白，
-    返回 (左栏 words, 右栏 words)；否则返回 (words, [])。"""
+    """本卷是单栏排版（每页都有跨中线的长句），不做栏切分。
+
+    保留此函数是为了兼容将来真正的双栏卷：只有当「跨越中线的 word
+    极少（< 1%）」且左右两侧都有大量内容时才切成两栏。
+    """
     if not words:
         return words, []
     mid = page_w / 2
-    # 用「跨越中线的 word」判断是否为单栏：正文跨中线说明单栏
     crossing = [w for w in words if w['x0'] < mid - 6 and w['x1'] > mid + 6]
-    if len(crossing) >= max(3, len(words) * 0.02):
+    if len(crossing) >= max(2, len(words) * 0.01):
         return words, []
     left = [w for w in words if w['x1'] <= mid + 4]
     right = [w for w in words if w['x0'] >= mid - 4]
-    # 两侧都要有实质内容才算双栏
-    if len(left) < 8 or len(right) < 8:
+    if len(left) < 20 or len(right) < 20:
         return words, []
     return left, right
 
@@ -249,7 +318,7 @@ def main():
             bh = base_height(col)
             rest, fracs = build_fractions(col, bh)
             atoms = make_atoms(rest, fracs)
-            for ln in group_lines(atoms):
+            for ln in group_lines(atoms, bh):
                 s = render_line(ln, bh).strip()
                 if s:
                     print(s)

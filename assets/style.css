@@ -1802,7 +1802,13 @@ a.coverage-row:hover { border-color: var(--accent); transform: translateX(3px); 
 
 .se-fb:empty { display: none; }
 .se-fb { border-radius: var(--r-sm); padding: 12px 14px; font-size: .88rem; line-height: 1.75; }
-.se-fb b { display: block; margin-bottom: 4px; }
+/* 只让「✕ 选错了 / ✓ 正确」这个标题独占一行。
+   必须用 > 限定直接子级：解析正文里的 <b>（数据里写的 **加粗**）
+   如果也被设成 block，一句话会被拆成三行——加粗那句一行、句号一行。
+   踩过：解析里「一句话记：**绝对值出去的一定是非负数**。」
+   渲染成「一句话记：」「绝对值出去的一定是非负数」「。」三行。 */
+.se-fb > b { display: block; margin-bottom: 4px; }
+.se-solbox b, .se-ans b, .se-hint b { display: inline; margin-bottom: 0; }
 .se-fb.ok { background: var(--ok-soft); color: var(--ok); }
 /* 只让「解析文字」这层换行。用 > 限定直接子级，
    否则会命中公式的 .math-inline，导致每个公式和标点各自独占一行。 */
@@ -1903,19 +1909,33 @@ a.coverage-row:hover { border-color: var(--accent); transform: translateX(3px); 
 .se-sol[open] > summary::before { content: '▾ '; }
 .se-sol > div { padding: 0 15px 15px; font-size: .9rem; line-height: 1.85; color: var(--text-2); }
 .se-solbox:empty { display: none; }
-.se-solbox { display: flex; flex-direction: column; gap: 12px; }
+/* 解析块必须是普通块级流，不能用 flex。
+   踩过的坑：用 display:flex 时，解析里的每段文字和每个行内公式
+   都成了独立 flex item，各占一行；align-items 默认 stretch 还会
+   把公式 SVG 拉伸放大，一段解析被拆成十几个大公式块，完全没法读。
+   块级流让「文字 + $公式$ + 文字」在同一行自然连排。 */
+.se-solbox { display: block; }
+.se-solbox > * + * { margin-top: 12px; }
 
 /* 答错时摊开的解析块。在 .se-fb（红底）里，所以用白底反衬，
    保证「为什么」这一段是可读的正文，不是警示色的一小块。 */
 .se-fb .se-solbox {
   margin-top: 10px; padding: 12px 14px; background: var(--bg);
   border-radius: var(--r-sm); color: var(--text); font-weight: 400;
-  font-size: .89rem; line-height: 1.85; white-space: pre-wrap;
+  font-size: .89rem; line-height: 1.85;
+  /* 不用 pre-wrap：解析文本里的换行已由 <br> / 段落分隔处理，
+     pre-wrap 会把源码里的缩进空格也渲染出来。 */
+  white-space: normal;
 }
-.se-fb .se-solbox > b {
+/* 「为什么」这个小标题用专门的 class，不能用 > b。
+   原因：解析正文被 <br> 拆开后，正文里的 <b>（数据写的 **加粗**）
+   也成了 .se-solbox 的直接子级，> b 会把它一起设成块级，
+   一句话被拆成「一句话记：」「绝对值…非负数」「。」三行。 */
+.se-fb .se-sol-t {
   display: block; margin-bottom: 6px; color: var(--text-2);
   font-size: .76rem; letter-spacing: .06em; text-transform: uppercase;
 }
+.se-solbox b:not(.se-sol-t) { display: inline; font-weight: 700; }
 .se-pit-box {
   margin-top: 10px; padding: 11px 14px; background: #fff8e6;
   border-left: 3px solid #d9a441; border-radius: 0 var(--r-sm) var(--r-sm) 0;

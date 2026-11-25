@@ -287,7 +287,7 @@
       if (!q.solutionHtml && !q.solution) {
         return '<span class="se-nosol">本题暂无解析（原卷未提供答案）</span>';
       }
-      return '<div class="se-solbox"><b>为什么</b>' +
+      return '<div class="se-solbox"><b class="se-sol-t">为什么</b>' +
         (q.solutionHtml || esc(q.solution)) + '</div>' +
         (q.pitfallHtml ? '<div class="se-pit-box"><b>易错</b>' + q.pitfallHtml + '</div>' : '');
     }
@@ -335,9 +335,13 @@
           ' 在原卷中是公式图，未能提取；其余选项与判分不受影响。</div>';
       }
       h += '<div class="se-fb"></div>';
+      /* 这个按钮只在 big（不判分）时可用：给「看解答」。
+         单选/填空答完就即时判分——答对自动进下一题，答错由结果卡
+         的「下一题」推进，所以这里对它们始终 disabled。
+         文案不再写「看结果」：结果不是点出来的，是答完就有的。 */
       h += '<div class="se-actions"><span class="spacer"></span>' +
         '<button class="btn primary se-next"' + (qt === 'big' ? '' : ' disabled') + '>' +
-        (qt === 'big' ? '看解答 →' : '看结果 →') + '</button></div>';
+        (qt === 'big' ? '看解答 →' : '下一题 →') + '</button></div>';
       h += '</div>';
       el.body.innerHTML = h;
 
@@ -450,18 +454,39 @@
         if (submit) submit.addEventListener('click', doSubmit);
         if (inp) inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') doSubmit(); });
       } else if (qt === 'big') {
-        /* 大题不判分：直接展示完整解答，用户自评 */
+        /* 大题不判分。**先不展开解答** —— 学生要先自己动笔，
+           一进来就看到答案等于剥夺了「自己做」的机会。
+           点「看解答」才展开；展开后按钮变「下一题」。 */
         fb.className = 'se-fb';
-        fb.innerHTML = '<div class="se-solbox"><b>完整解答</b>' +
-          (q.solutionHtml || esc(q.solution || '（本题暂无解析）')) + '</div>' +
-          (q.pitfallHtml ? '<div class="se-pit-box"><b>易错</b>' + q.pitfallHtml + '</div>' : '') +
-          '<div class="se-selfnote">大题不自动判分。对照解答自己看：过程写全了吗？每步依据写了吗？</div>';
+        fb.innerHTML = '<div class="se-selfnote">大题不自动判分。先在纸上做一遍，' +
+          '再点「看解答」对照——重点看过程写全了没有、每步依据写了没有。</div>';
         record(true, null, '');
+        nextBtn.textContent = '看解答 →';
+        nextBtn.disabled = false;
+        nextBtn.__revealed = false;
       }
 
+      /* 按钮做两件事，取决于当前是不是 big 题且解答还没展开：
+         · big 且未展开 → 展开完整解答（不推进）
+         · 其余情况（答错 / 已展开）→ 直接进下一题
+
+         为什么答错也直接推进、不插「本题完成」中间卡：
+         解析已经在当前屏上了，学生看完就点「下一题」，
+         不该再点一次才能走。结算（写记录）在 recordNow 里已经做完。 */
       nextBtn.addEventListener('click', function () {
+        if (qt === 'big' && !nextBtn.__revealed) {
+          nextBtn.__revealed = true;
+          fb.innerHTML = '<div class="se-solbox"><b>完整解答</b>' +
+            (q.solutionHtml || esc(q.solution || '（本题暂无解析）')) + '</div>' +
+            (q.pitfallHtml ? '<div class="se-pit-box"><b>易错</b>' + q.pitfallHtml + '</div>' : '') +
+            '<div class="se-selfnote">对照解答自评：过程写全了吗？每步依据写了吗？</div>';
+          nextBtn.textContent = (qi + 1 >= total) ? '看总览 →' : '下一题 →';
+          return;
+        }
         if (state.done) return;
-        guidedDone();
+        state.done = true;
+        qi++;
+        if (qi >= total) finish(); else nextQuestion();
       });
     }
 
@@ -530,7 +555,7 @@
       // 单步题（送分区选填）答完即结束，不再要求点「下一步」
       var single = steps.length === 1;
       h += '<div class="se-actions"><span class="spacer"></span>' +
-        '<button class="btn primary se-next" disabled>' + (single ? '看结果 →' : '下一步 →') + '</button></div>';
+        '<button class="btn primary se-next" disabled>' + (single ? '确认 →' : '下一步 →') + '</button></div>';
       h += '</div>';
       el.body.innerHTML = h;
 
@@ -548,8 +573,11 @@
           fb.innerHTML = '<b>✓ 这一步对了</b>' + (s.why ? '<span>' + fieldHtml(s, 'why') + '</span>' : '');
           nextBtn.disabled = false;
           nextBtn.focus();
-          // 单步题：答对后直接进结果，省一次点击
-          if (steps.length === 1) { setTimeout(function () { if (!state.done) guidedDone(); }, 620); }
+          if (Z.sfx) Z.sfx('ok');
+          /* 单步题答对 → 立即结算，由 guidedDone 直接跳下一题（不再有中间页）。
+             多步题的中间步骤仍要手动点「下一步」：
+             那一步的 why 是学习内容，自动跳过就看不到了。 */
+          if (steps.length === 1 && !state.done) guidedDone();
         } else {
           fb.className = 'se-fb bad';
           /* 答错要摊开解析，不能只给「提示 + 正确答案」。
@@ -640,15 +668,16 @@
       }
       completeQuestion(ok);
 
-      /* 答对且不是最后一题 → 直接跳下一题，不插「本题完成」中间页。
-         为什么去掉：答对时那张卡只显示一句「✓ 全部步骤正确」，
-         用户还要等 700ms 或再点一次，纯属多一步。
-         答错仍保留结果卡——那上面有「卡在第几步」和完整解答，
-         是需要停下来读的内容。
-         最后一题也保留：后面接总览页，需要一个过渡确认。 */
-      if (ok && qi + 1 < total) {
+      /* 能判分且答对 → 自动进下一步，不插「本题完成」中间页。
+         那张卡只显示一句「✓ 全部步骤正确」，用户还要再点一次，纯属多一步。
+         最后一题答对也自动进总览——总览本身就是确认页，不需要两重过渡。
+
+         不自动跳的两种情况：
+           · 答错 —— 结果卡上有「卡在第几步」和完整解答，需要停下来读；
+           · 不判分（big）—— 学生要对照解答自评，不能替他跳过。 */
+      if (ok && q.qtype !== 'big') {
         qi++;
-        nextQuestion();
+        if (qi >= total) finish(); else nextQuestion();
         return;
       }
 
@@ -659,8 +688,11 @@
       if (q.solution) {
         h += '<details class="se-sol"><summary>看完整解答</summary><div>' + (q.solutionHtml || esc(q.solution)) + '</div></details>';
       }
+      /* 按钮文案就是它真正做的事：
+         还有题 → 「下一题」；最后一题 → 「看总览」（交卷统计）。
+         写「看结果」会让人以为点了才出对错，而结果早就在上面了。 */
       h += '<div class="se-actions"><span class="spacer"></span>' +
-        '<button class="btn primary se-go">' + (qi + 1 >= total ? '看结果 →' : '下一题 →') + '</button></div>';
+        '<button class="btn primary se-go">' + (qi + 1 >= total ? '看总览 →' : '下一题 →') + '</button></div>';
       h += '</div>';
       el.body.innerHTML = h;
 
@@ -704,7 +736,7 @@
       h += '<div class="se-actions">' +
         '<button class="btn ghost se-reveal" disabled>看完整解答并自评</button>' +
         '<span class="spacer"></span>' +
-        '<button class="btn primary se-go" disabled>' + (qi + 1 >= total ? '看结果 →' : '下一题 →') + '</button>' +
+        '<button class="btn primary se-go" disabled>' + (qi + 1 >= total ? '看总览 →' : '下一题 →') + '</button>' +
         '</div>';
       h += '<div class="se-solbox"></div>';
       h += '</div>';
