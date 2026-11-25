@@ -22,36 +22,48 @@ const calcN = totalQ - choiceN;
 
 const CSS = `
 :root{
-  --r:16px; --r-sm:10px; --r-pill:999px; --max:1000px;
+  --r:16px; --r-sm:10px; --r-pill:999px; --max:1140px;
+  --ease:cubic-bezier(.22,.61,.36,1);
   --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
   --bg:#f6f8fc; --surface:#fff; --surface-2:#f8fafd;
   --border:rgba(15,23,42,.09); --text:#0f172a; --text-2:#475569; --text-3:#64748b;
   --accent:#2563eb; --accent-grad:linear-gradient(135deg,#2563eb,#4f46e5);
   --accent-soft:rgba(37,99,235,.08);
+  --purple:#7c3aed; --purple-soft:rgba(124,58,237,.09);
   --ok:#059669; --ok-soft:rgba(16,185,129,.10);
   --gold:#d97706; --gold-soft:rgba(245,158,11,.12);
   --rose:#e11d48; --rose-soft:rgba(225,29,72,.085);
   --shadow:0 4px 12px -2px rgba(15,23,42,.06),0 2px 4px -1px rgba(15,23,42,.04);
   --shadow-3:0 16px 36px -10px rgba(15,23,42,.11),0 4px 12px -2px rgba(15,23,42,.05);
+  --shadow-accent:0 10px 26px -8px rgba(37,99,235,.36);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.68;
   font-size:15px;-webkit-font-smoothing:antialiased;padding-bottom:80px}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
 
-/* 顶栏 */
-.site-head{position:sticky;top:0;z-index:60;background:rgba(246,248,252,.9);
+/* 顶栏（与 index/plan/papers/trend 保持一致） */
+.site-head{position:sticky;top:0;z-index:60;background:rgba(246,248,252,.86);
   backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--border)}
-.hdr{max-width:var(--max);margin:0 auto;padding:0 20px;height:60px;display:flex;align-items:center;gap:12px}
-.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:750;font-size:15px;color:var(--text)}
-.brand-mark{width:28px;height:28px;border-radius:8px;background:var(--accent-grad);display:grid;
-  place-items:center;color:#fff;font-size:13px;font-weight:800}
+.hdr{max-width:var(--max);margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:750;font-size:15px;
+  letter-spacing:-.01em;white-space:nowrap;color:var(--text)}
+.brand-mark{width:30px;height:30px;border-radius:9px;background:var(--accent-grad);display:grid;
+  place-items:center;color:#fff;font-size:14px;font-weight:800;
+  box-shadow:var(--shadow-accent);flex:none}
+.brand small{font-family:var(--mono);font-size:.68rem;font-weight:600;color:var(--accent);
+  background:var(--accent-soft);padding:2px 6px;border-radius:5px;margin-left:2px}
 .hdr-nav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
 .hdr-nav::-webkit-scrollbar{display:none}
-.hdr-nav a{padding:7px 12px;border-radius:9px;color:var(--text-2);text-decoration:none;font-size:14px;white-space:nowrap}
+.hdr-nav a{padding:7px 13px;border-radius:9px;color:var(--text-2);text-decoration:none;
+  font-size:14px;font-weight:550;white-space:nowrap;transition:.16s var(--ease)}
 .hdr-nav a:hover{background:var(--accent-soft);color:var(--accent)}
-.hdr-nav a.on{background:var(--accent);color:#fff;font-weight:650}
+.hdr-nav a.on{background:var(--accent);color:#fff;font-weight:650;box-shadow:var(--shadow-accent)}
+.hdr-nav a.nav-slides{background:var(--purple-soft);color:var(--purple);font-weight:650;
+  display:inline-flex;align-items:center;gap:5px}
+.hdr-nav a.nav-slides::before{content:"▶";font-size:9px}
+.hdr-nav a.nav-slides:hover{background:var(--purple);color:#fff}
 
 /* 页头 */
 .head{padding:38px 0 22px}
@@ -187,9 +199,11 @@ h1{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.25;margin-
 .empty{text-align:center;padding:50px 20px;color:var(--text-3)}
 .empty .big{font-size:40px;margin-bottom:12px}
 
-@media(max-width:640px){
+@media(max-width:680px){
   body{font-size:14.5px}
-  .wrap,.hdr{padding:0 14px}
+  .wrap,.hdr{padding:0 16px}
+  .hdr{height:58px}
+  .brand small{display:none}
   h1{font-size:24px}
   .q-card{padding:18px}
   .summary{grid-template-columns:repeat(2,1fr)}
@@ -218,14 +232,12 @@ const html = `<!DOCTYPE html>
 </head>
 <body>
 <header class="site-head"><div class="hdr">
-  <a class="brand" href="index.html"><span class="brand-mark">西</span>西城初一数学</a>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">西</span>
+    <span>西城初一数学<small>初一上·期末</small></span>
+  </a>
   <nav class="hdr-nav">
-    <a href="index.html">总览</a>
-    <a href="papers.html">逐年真题</a>
-    <a href="trend.html">趋势与考点</a>
-    <a href="plan.html">冲刺计划</a>
-    <a href="practice.html" class="on">练习与诊断</a>
-    <a href="slides.html">演示</a>
+    <a href="index.html">总览</a><a href="papers.html">逐年真题</a><a href="trend.html">趋势与考点</a><a href="plan.html">冲刺计划</a><a href="practice.html" class="on">练习与诊断</a><a href="slides.html" class="nav-slides">演示</a>
   </nav>
 </div></header>
 

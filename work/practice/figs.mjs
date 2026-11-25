@@ -195,6 +195,44 @@ export const FIGS = {
       arcs: [{ from: 0, to: 65, r: 40 }, { from: 65, to: 130, r: 40 }] }
   ),
 
+  /* 数轴：A=-2, B=6，P 从 A 向右、Q 从 B 向左 */
+  'fn-01': () => {
+    const w = 380, h = 120, y = 60, x0 = 50, x1 = w - 50;
+    // 数轴范围 -4 到 8，共 12 单位
+    const sx = (v) => x0 + ((v + 4) / 12) * (x1 - x0);
+    let b = L(x0, y, x1, y, 'marker-end=""');
+    // 刻度
+    for (let v = -4; v <= 8; v++) {
+      b += L(sx(v), y - 4, sx(v), y + 4, 'stroke="#cbd5e1"');
+    }
+    b += DOT(sx(-2), y) + T(sx(-2), y + 26, 'A(−2)');
+    b += DOT(sx(6), y) + T(sx(6), y + 26, 'B(6)');
+    // P、Q 箭头
+    b += `<defs><marker id="ar" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2563eb"/></marker></defs>`;
+    b += `<line x1="${sx(-2)}" y1="${y - 32}" x2="${sx(1)}" y2="${y - 32}" stroke="#2563eb" stroke-width="1.6" marker-end="url(#ar)"/>`;
+    b += T(sx(-0.5), y - 40, 'P', 13);
+    b += `<line x1="${sx(6)}" y1="${y - 30}" x2="${sx(3)}" y2="${y - 30}" stroke="#e11d48" stroke-width="1.6" marker-end="url(#ar)"/>`;
+    b += T(sx(4.5), y - 40, 'Q', 13);
+    return S(w, h, b);
+  },
+
+  /* 线段：B—A—C 顺序，AB=10，AC=4（BC=14），M 是 BC 中点 → BM=7，AM=3 */
+  'fn-03': () => {
+    // 画布映射：B=0, A=10, C=14（单位）
+    const w = 420, h = 120, y = 58, x0 = 60, x1 = w - 60;
+    const sx = (v) => x0 + (v / 14) * (x1 - x0);
+    let b = L(sx(0), y, sx(14), y);
+    b += DOT(sx(0), y) + T(sx(0), y + 26, 'B');
+    b += DOT(sx(10), y) + T(sx(10), y + 26, 'A');
+    b += DOT(sx(14), y) + T(sx(14), y + 26, 'C');
+    b += DOT(sx(7), y) + T(sx(7), y - 14, 'M');
+    // 标注长度
+    b += T(sx(5), y - 14, '10', 12);
+    b += T(sx(12), y - 14, '4', 12);
+    return S(w, h, b);
+  },
+
   /* 展开图四选项：A 一行6, B 田字+2, C 1-4-1, D 凹字 */
   /* A：六个排成一行（必然首尾重叠，折不成正方体） */
   'sp3-04-a': () => netFig(

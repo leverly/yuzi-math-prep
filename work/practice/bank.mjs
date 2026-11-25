@@ -554,3 +554,161 @@ BANK.push(
       { t: '674', expr: '674', errTag: '计算错误：边界少算一个' },
     ], key: 0 },
 );
+
+/* ==================== 补齐缺失考点族 ====================
+ * 这 9 个族此前完全没题，但它们占真题年均 37 分（卷面 37%）。
+ * 按真题实际考法补，含分类讨论、建模、作图说理、新定义。
+ */
+
+/* ---------- 分类压轴（第 23 题位）5/5 必考 46 分 ---------- */
+BANK.push(
+  { id: 'fn-01', fam: 'f-final', fig: 'fn-01', seg: '解答', diff: 'hard',
+    stem: '数轴上点 A 表示 −2，点 B 表示 6。点 P 从 A 出发以每秒 2 个单位向 B 运动，同时点 Q 从 B 出发以每秒 1 个单位向 A 运动。当 P、Q 相距 3 个单位时，运动时间 t = ______ 秒（只填较小值）',
+    expr: '5/3' },
+  { id: 'fn-02', fam: 'f-final', seg: '解答', diff: 'hard',
+    stem: '数轴上点 A 表示 −3，点 B 表示 5。若点 P 到 A 的距离等于到 B 的距离，则点 P 表示的数是 ______',
+    expr: '1' },
+  { id: 'fn-03', fam: 'f-final', fig: 'fn-03', seg: '解答', diff: 'hard',
+    stem: '线段 AB = 10，点 C 在线段 BA 的延长线上（A 在 B、C 之间），AC = 4。点 M 是 BC 的中点，则 AM = ______',
+    expr: '3' },
+  { id: 'fn-04', fam: 'f-final', seg: '解答', diff: 'hard',
+    stem: '∠AOB = 60°，射线 OC 绕点 O 从 OB 位置开始，以每秒 5° 的速度向 OA 方向旋转。当 ∠BOC = 2∠AOC 时，旋转时间 t = ______ 秒',
+    expr: '8' },
+);
+
+/* ---------- 方程应用题 5/5 必考 42 分 ---------- */
+BANK.push(
+  { id: 'em-01', fam: 'f-eqmodel', seg: '解答', diff: 'mid',
+    stem: '某班学生做手工，如果每人做 9 个，就比计划少 17 个；如果每人做 12 个，就比计划多 4 个。这个班共有 ______ 人',
+    expr: '7' },
+  { id: 'em-02', fam: 'f-eqmodel', seg: '解答', diff: 'mid',
+    stem: '一项工程，甲单独做需 12 天完成，乙单独做需 18 天完成。两人合作，______ 天可以完成',
+    expr: '36/5' },
+  { id: 'em-03', fam: 'f-eqmodel', seg: '解答', diff: 'mid',
+    stem: '甲、乙两工厂生产同一批纪念品。甲每天生产 240 件，乙每天生产 360 件，甲比乙多用 5 天完成。这批纪念品共 ______ 件',
+    expr: '3600' },
+  { id: 'em-04', fam: 'f-eqmodel', seg: '解答', diff: 'mid',
+    stem: '某商品原价每件 a 元，第一次降价打九折，第二次每件再减 50 元。若 a = 300，则第二次降价后的售价为 ______ 元',
+    expr: '300*0.9 - 50' },
+  { id: 'em-05', fam: 'f-eqmodel', seg: '解答', diff: 'mid',
+    stem: '一房七客多七客，一房九客一房空。设有 x 间客房，则可列方程 7x + 7 = 9(x − 1)，解得 x = ______',
+    expr: '8' },
+);
+
+/* ---------- 尺规作图与说理 5/5 必考 29 分 ---------- */
+BANK.push(
+  { id: 'ct-01', fam: 'f-construct', seg: '选择', diff: 'mid',
+    stem: '用直尺和圆规作一条线段等于已知线段 AB，正确的作法是（　）',
+    options: [
+      { t: '作射线，用圆规以射线的端点为圆心、AB 长为半径画弧，与射线交于一点', expr: null },
+      { t: '直接用直尺量出 AB 的长度，再在射线上量出同样的长度', expr: null, errTag: '工具用错：只用量尺不算尺规作图' },
+      { t: '用圆规量出 AB 长度后，不再画弧，直接目测标点', expr: null, errTag: '步骤缺失：必须画弧确定交点' },
+      { t: '作射线，用直尺在射线上截取两次 AB 长', expr: null, errTag: '步骤错误：截取长度需用圆规保证相等' },
+    ], key: 0 },
+  { id: 'ct-02', fam: 'f-construct', seg: '选择', diff: 'mid',
+    stem: '在 △ABC 中，AB + AC 与 BC 的大小关系是（　）',
+    options: [
+      { t: 'AB + AC > BC', expr: null },
+      { t: 'AB + AC = BC', expr: null, errTag: '依据记错：等于只在三点共线时成立' },
+      { t: 'AB + AC < BC', expr: null, errTag: '方向反了：两边之和大于第三边' },
+      { t: '无法确定', expr: null, errTag: '三角形三边关系是确定结论' },
+    ], key: 0 },
+  { id: 'ct-03', fam: 'f-construct', seg: '选择', diff: 'mid',
+    stem: '点 C 在线段 AB 的延长线上，则下列一定成立的是（　）',
+    options: [
+      { t: 'AB + BC = AC', expr: null },
+      { t: 'AB = BC', expr: null, errTag: '无依据：C 的位置不固定' },
+      { t: 'AC < AB', expr: null, errTag: '方向反了：延长线上 AC > AB' },
+      { t: 'AB − BC = AC', expr: null, errTag: '关系写错：C 在外侧应相加' },
+    ], key: 0 },
+);
+
+/* ---------- 角度推理填空（几何说理）19 分 ---------- */
+BANK.push(
+  { id: 'ar-16', fam: 'f-anglereason', seg: '解答', diff: 'mid',
+    stem: '∠AOC = 90°，∠AOB = ∠COD，则 ∠BOD = ______°（提示：∠BOD = ∠BOC + ∠COD）',
+    expr: '90', unit: '°' },
+  { id: 'ar-17', fam: 'f-anglereason', seg: '解答', diff: 'mid',
+    stem: 'OC 平分 ∠AOB，OD 平分 ∠AOC。若 ∠AOB = 80°，则 ∠COD = ______°',
+    expr: '80/4', unit: '°' },
+  { id: 'ar-18', fam: 'f-anglereason', seg: '解答', diff: 'mid',
+    stem: '∠1 与 ∠2 互为余角，∠1 与 ∠3 互为余角，则 ∠2 与 ∠3 的关系是（　）',
+    options: [
+      { t: '相等', expr: null },
+      { t: '互余', expr: null, errTag: '概念混淆：同角的余角相等' },
+      { t: '互补', expr: null, errTag: '概念混淆：同角的余角相等，不是互补' },
+      { t: '无法确定', expr: null, errTag: '同角的余角相等，结论确定' },
+    ], key: 0 },
+);
+
+/* ---------- 新定义（选做 / 24 题位）16 分 ---------- */
+BANK.push(
+  { id: 'nd-01', fam: 'f-newdef', seg: '解答', diff: 'hard',
+    stem: '定义新运算：a ⊙ b = a − 2b。则 3 ⊙ (−1) = ______',
+    expr: '5' },
+  { id: 'nd-02', fam: 'f-newdef', seg: '解答', diff: 'hard',
+    stem: '定义新运算：a ⊗ b = ab − (a + b)。则 2 ⊗ 3 = ______',
+    expr: '1' },
+  { id: 'nd-03', fam: 'f-newdef', seg: '选择', diff: 'hard',
+    stem: '若规定 a ⊙ b = a − 2b，则下列结论正确的是（　）',
+    options: [
+      { t: 'a ⊙ b = b ⊙ a 恒成立', expr: null, errTag: '交换律不成立：代入 a=1,b=2 检验即知' },
+      { t: 'a ⊙ b 与 b ⊙ a 一般不相等', expr: null },
+      { t: '(a ⊙ b) ⊙ c = a ⊙ (b ⊙ c) 恒成立', expr: null, errTag: '结合律不成立' },
+      { t: 'a ⊙ 0 = 0', expr: null, errTag: '代入得 a ⊙ 0 = a，不是 0' },
+    ], key: 1 },
+);
+
+/* ---------- 列代数式建模 11 分 ---------- */
+BANK.push(
+  { id: 'md-01', fam: 'f-exprmodel', seg: '解答', diff: 'mid',
+    stem: '某商品原价 a 元，打八折后售价为 ______ 元（用含 a 的式子表示）。若 a = 250，则售价为 ______ 元',
+    expr: '250*0.8' },
+  { id: 'md-02', fam: 'f-exprmodel', seg: '选择', diff: 'mid',
+    stem: '下列各对量中，成反比例关系的是（　）',
+    options: [
+      { t: '路程一定时，速度与时间', expr: null },
+      { t: '正方形的边长与面积', expr: null, errTag: '正比例：面积随边长平方变化' },
+      { t: '长方形的长一定时，宽与面积', expr: null, errTag: '正比例：面积=长×宽' },
+      { t: '圆的半径与周长', expr: null, errTag: '正比例：C=2πr' },
+    ], key: 0 },
+  { id: 'md-03', fam: 'f-exprmodel', seg: '解答', diff: 'mid',
+    stem: '一个两位数，十位数字是 x，个位数字比十位数字大 3，则这个两位数用含 x 的式子表示为 ______（取 x = 4 时的值）',
+    expr: '47' },
+);
+
+/* ---------- 数字填图 / 幻方 10 分 ---------- */
+BANK.push(
+  { id: 'mg-01', fam: 'f-fillnum', seg: '解答', diff: 'hard',
+    stem: '将 1–9 填入 3×3 方格，使每行、每列、每条对角线之和相等。这个和是 ______',
+    expr: '15' },
+  { id: 'mg-02', fam: 'f-fillnum', seg: '解答', diff: 'hard',
+    stem: '在 3×3 幻方中，中心格的数一定是「幻和」的 ______ 分之几？（只填分母）',
+    expr: '3' },
+  { id: 'mg-03', fam: 'f-fillnum', seg: '解答', diff: 'hard',
+    stem: '将 −4, −3, −2, −1, 0, 1, 2, 3, 4 填入 3×3 方格使每行每列对角线和相等，则这个和是 ______',
+    expr: '0' },
+);
+
+/* ---------- 进位制 / 综合与实践 7 分 ---------- */
+BANK.push(
+  { id: 'bn-01', fam: 'f-basicnum', seg: '解答', diff: 'mid',
+    stem: '三进制数 102 转换为十进制数是 ______',
+    expr: '1*9 + 0*3 + 2' },
+  { id: 'bn-02', fam: 'f-basicnum', seg: '解答', diff: 'hard',
+    stem: '十六进制数 2A 转换为十进制数是 ______',
+    expr: '2*16 + 10' },
+  { id: 'bn-03', fam: 'f-basicnum', seg: '解答', diff: 'mid',
+    stem: '将十进制数 13 转换为二进制数，该二进制数中数字 1 的个数是 ______',
+    expr: '3' },
+);
+
+/* ---------- 阅读理解 / 规律探究 6 分 ---------- */
+BANK.push(
+  { id: 'rd-01', fam: 'f-read', seg: '解答', diff: 'hard',
+    stem: '按规则迭代：取相反数 → 加 1 → 取倒数。对 3 操作一次得到 −1/2，再操作一次得到 ______',
+    expr: '2/3' },
+  { id: 'rd-02', fam: 'f-read', seg: '解答', diff: 'hard',
+    stem: '观察规律：2¹ = 2，2² = 4，2³ = 8，2⁴ = 16，2⁵ = 32……则 2²⁰²⁶ 的个位数字是 ______',
+    expr: '4' },
+);
