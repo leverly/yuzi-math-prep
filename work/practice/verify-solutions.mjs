@@ -153,12 +153,19 @@ for (const id of ids) {
   }
 
   let last = null;
+  let prev = null;
   sol.steps.forEach((st, k) => {
     stepTotal++;
     if (!st.e || typeof st.e !== 'string') { bad(`${id} 第 ${k + 1} 步: 缺 e`); return; }
     if (!st.note || !st.note.trim()) bad(`${id} 第 ${k + 1} 步: 缺 note`);
     try {
-      last = evalExpr(st.e);
+      const v = evalExpr(st.e);
+      // 相邻两步值相同 = 纯重复步骤（如「中间结果」），没有信息量
+      if (prev !== null && Math.abs(v - prev) < 1e-9 && k > 0) {
+        bad(`${id} 第 ${k + 1} 步与上一步数值相同（${v}），是冗余步骤`);
+      }
+      prev = v;
+      last = v;
     } catch (e) {
       bad(`${id} 第 ${k + 1} 步: ${e.message}`);
     }

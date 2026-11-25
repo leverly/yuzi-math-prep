@@ -76,25 +76,9 @@ for (const h of htmls) {
 }
 ok(dead === 0, '所有内部链接可达', dead + ' 个死链');
 
-console.log('\n【六】幻灯片（slides.html）');
-if (fs.existsSync('slides.html')) {
-  const sl = fs.readFileSync('slides.html', 'utf8');
-  ok(sl.includes(`>${LEDGER.length}<`), `题数 ${LEDGER.length} 派生正确`);
-  ok(sl.includes(`覆盖必做分 ${S.FREQ_SUMMARY.must.pct}%`), '必考覆盖率派生正确');
-  // 「其余 N 族」文案必须与表格显示项互补，不重不漏
-  const listed = S.FREQ.must.slice(0, 8).map((f) => f.name);
-  const rest = S.FREQ.must.slice(8).map((f) => f.name);
-  const m = sl.match(/其余 \d+ 族（([^）]*)）/);
-  ok(!!m, '其余族文案存在');
-  if (m) {
-    const txt = m[1];
-    ok(listed.filter((n) => txt.includes(n)).length === 0, '其余族文案不含表格已有项（不重）');
-    ok(rest.filter((n) => !txt.includes(n)).length === 0, '其余族文案覆盖全部剩余项（不漏）');
-  }
-  ok((sl.match(/class="slide/g) || []).length >= 10, `页数 ${(sl.match(/class="slide/g) || []).length}`);
-} else {
-  ok(false, 'slides.html 已生成');
-}
+// 【六】幻灯片已于 2026-11-25 下线：12 页里 10 页与 index/trend/plan/papers 重复，
+// 唯一独有的「六周冲刺节奏」与 plan 页「不给具体时间和动作」的立场矛盾。
+// 若将来恢复，把 build-slides.mjs 加回构建链，并在此处恢复对应校验。
 
 console.log('\n【七】练习页（practice.html）');
 if (fs.existsSync('practice.html')) {
@@ -102,6 +86,10 @@ if (fs.existsSync('practice.html')) {
   const { BANK } = await import('./practice-data.mjs');
   ok(pr.includes(`${BANK.length} 道题，按西城真题`), `题数 ${BANK.length} 派生正确`);
   ok(pr.includes('const BANK = ['), '题库已内联（file:// 可直开）');
+  // 构建器用字符串 replace 注入数据：import 行一改，replace 静默失配，
+  // 产物会「构建成功」但只剩 40KB 空壳。这里硬断言数据真的进去了。
+  ok(pr.includes('const SOLUTIONS = {'), '解析已内联');
+  ok(/const BANK = \[\{"id"/.test(pr), '题库内容非空');
   ok(!/import \{ BANK/.test(pr), '无外部 import（避免 CORS）');
   ok(pr.includes('function diagnose('), '诊断引擎已内联');
   ok(pr.includes('class="frac"') || pr.includes('mathText'), '分数渲染已接入');
@@ -187,7 +175,6 @@ console.log('\n【八】外壳一致性（跨页共用部分不得漂移）');
       href: x[1],
       text: x[3].trim(),
       on: /class="on"/.test(x[2]),
-      slides: /nav-slides/.test(x[2]),
     }));
     // 顶栏容器 class 也纳入（.hdr 与 .hdr-in 的漂移曾发生过）
     const container = (h.match(/<header class="site-head"><div class="([^"]+)"/) || [])[1] || '';
@@ -208,7 +195,6 @@ console.log('\n【八】外壳一致性（跨页共用部分不得漂移）');
   const SHELL_SELECTORS = [
     '.site-head', '.hdr-in', '.brand', '.brand-mark', '.brand small',
     '.hdr-nav', '.hdr-nav a', '.hdr-nav a:hover', '.hdr-nav a.on',
-    '.hdr-nav a.nav-slides', '.hdr-nav a.nav-slides::before', '.hdr-nav a.nav-slides:hover',
     'h1', '.lede', '.lede b', '.wrap',
   ];
   const declOf = (css) => {

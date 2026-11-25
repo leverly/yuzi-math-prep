@@ -3,7 +3,7 @@
 // 独立产物 practice.html，数据内联（无外部请求，file:// 可直开）
 import { writeFileSync, readFileSync } from 'node:fs';
 
-import { BANK, FAM_META } from './practice-data.mjs';
+import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';
 import { FAMILY_MAP } from './work/papers/stats.mjs';
 import { TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml } from './work/site-shell.mjs';
 
@@ -84,11 +84,12 @@ body{padding-bottom:80px}
   font-family:var(--mono);font-size:.86em;line-height:1.15;margin:0 2px;position:relative;top:-1px}
 .frac .fn{border-bottom:1px solid currentColor;padding:0 3px;white-space:nowrap}
 .frac .fd{padding:0 3px}
-/* 负分数：负号写在分子左侧，与分数线拉开距离，避免看成两条横线 */
+/* 负分数：负号绝对定位到分数线左侧、与分数线同一高度
+ * （.frac 是纵向 flex，::before 若参与布局会被挤到分子上方） */
 .frac.frac-neg .fn{padding-left:0}
-.frac.frac-neg{position:relative;padding-left:6px}
-.frac.frac-neg::before{content:"−";position:absolute;left:0;top:50%;transform:translateY(-50%);
-  font-weight:700;line-height:1}
+.frac.frac-neg{padding-left:9px}
+.frac.frac-neg::before{content:"−";position:absolute;left:0;top:50%;
+  transform:translateY(-50%);font-weight:700;font-size:1em;line-height:1}
 
 /* 选项 */
 .opts{display:flex;flex-direction:column;gap:9px}
@@ -118,6 +119,25 @@ body{padding-bottom:80px}
 .fb .ans{font-family:var(--mono);font-weight:700}
 .fb .why{margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.08);font-size:13.5px;color:var(--text-2)}
 .fb .why b{color:var(--text)}
+
+/* 解题步骤：答错时默认展开，答对时收起 */
+.sol{margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,0,0,.08)}
+.sol summary{cursor:pointer;font-size:13.5px;font-weight:650;color:var(--accent);
+  list-style:none;user-select:none}
+.sol summary::-webkit-details-marker{display:none}
+.sol summary::before{content:"▸ ";font-size:11px}
+.sol[open] summary::before{content:"▾ "}
+.sol summary:hover{text-decoration:underline}
+.sol-list{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.sol-step{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;line-height:1.7;color:var(--text-2)}
+.sol-n{flex:none;width:19px;height:19px;border-radius:50%;background:var(--accent-soft);
+  color:var(--accent);font-size:11px;font-weight:700;display:grid;place-items:center;
+  font-family:var(--mono);margin-top:2px}
+.sol-txt{flex:1;min-width:0}
+.sol-calc{display:inline-block;margin-top:3px;font-family:var(--mono);font-size:12.5px;
+  color:var(--text-3);background:var(--surface-2);border:1px solid var(--border);
+  padding:2px 8px;border-radius:6px}
+.sol-calc b{color:var(--accent);font-weight:700}
 
 .actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
 
@@ -186,8 +206,8 @@ body{padding-bottom:80px}
 let SCRIPT = readFileSync('practice-src.js', 'utf8');
 // 数据内联：file:// 下 import 会被 CORS 拦截，所以直接把题库嵌进页面
 SCRIPT = SCRIPT.replace(
-  "import { BANK, FAM_META } from './practice-data.mjs';",
-  'const BANK = ' + JSON.stringify(BANK) + ';\nconst FAM_META = ' + JSON.stringify(FAM_META) + ';'
+  "import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';",
+  'const BANK = ' + JSON.stringify(BANK) + ';\nconst FAM_META = ' + JSON.stringify(FAM_META) + ';\nconst SOLUTIONS = ' + JSON.stringify(SOLUTIONS) + ';'
 );
 
 /* 页面 HTML */
@@ -221,12 +241,6 @@ ${headerHtml('practice.html')}
     <div class="chips" id="famChips">
       <span class="chip on" data-fam="all">全部</span>
       ${famList.map((f) => `<span class="chip" data-fam="${f.id}">${esc(f.name)}<span style="opacity:.6;font-size:11px"> ${f.n}</span></span>`).join('')}
-    </div>
-  </div>
-  <div class="setup-row">
-    <span class="setup-label">题型</span>
-    <div class="chips" id="segChips">
-      <span class="chip on" data-seg="all">全部 ${totalQ}</span>
     </div>
   </div>
   <div class="setup-row">

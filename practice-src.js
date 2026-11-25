@@ -1,5 +1,5 @@
 
-import { BANK, FAM_META } from './practice-data.mjs';
+import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';
 
 /* ============ 诊断逻辑（与 work/practice/diagnose.mjs 同源，内联以便单文件运行） ============ */
 const TIER_RULE = { minSample: 3, weak: 0.6, solid: 0.85 };
@@ -168,6 +168,88 @@ function diagnose(records) {
   };
 }
 
+/* ============ 解题步骤渲染 ============
+ * 只覆盖主战场 8 族（SOLUTIONS 里有的题）。其余族靠图形与说理，不给步骤。
+ * 步骤数据由 work/practice/verify-solutions.mjs 逐步验算，算错就构建失败。
+ *
+ * 每步显示「算式 = 结果」而不是只显示说明文字——只写「乘方结果」等于没解析，
+ * 学生要看的正是这一步算出来是多少。 */
+const solNum = (v) => {
+  if (v === null || v === undefined || Number.isNaN(v)) return '';
+  const r = Math.round(v * 1e6) / 1e6;
+  if (Number.isInteger(r)) return String(r);
+  // 尽量还原成简洁分数（分母 ≤ 100）——0.666667 显示成 2/3 才像数学
+  for (let d = 2; d <= 100; d++) {
+    const n = r * d;
+    if (Math.abs(n - Math.round(n)) < 1e-9) {
+      const nn = Math.round(n);
+      // 能约分就约分
+      const g = (a, b) => (b ? g(b, a % b) : a);
+      const k = Math.abs(g(nn, d));
+      return `${nn / k}/${d / k}`;
+    }
+  }
+  return String(r);
+};
+
+function renderSolution(id, collapsed) {
+  const sol = (typeof SOLUTIONS !== 'undefined' && SOLUTIONS[id]) || null;
+  if (!sol || !sol.steps || !sol.steps.length) return '';
+  const items = sol.steps.map((st, i) => {
+    // 有 e 且能求值 → 显示「算式 = 结果」
+    let calc = '';
+    if (st.e) {
+      let v = null;
+      try { v = evalPlain(st.e); } catch (err) { v = null; }
+      if (v !== null) {
+        const shown = solNum(v);
+        // 算式本身就是结果（如「-1 = -1」）时只显示一次，避免冗余
+        const norm = (x) => String(x).replace(/\s+/g, '');
+        calc = norm(st.e) === shown
+          ? `<span class="sol-calc"><b>${esc(shown)}</b></span>`
+          : `<span class="sol-calc">${esc(st.e)} = <b>${esc(shown)}</b></span>`;
+      } else {
+        calc = `<span class="sol-calc">${esc(st.e)}</span>`;
+      }
+    }
+    return `
+    <li class="sol-step">
+      <span class="sol-n">${i + 1}</span>
+      <span class="sol-txt">${esc(st.note || '')}${calc ? '<br>' + calc : ''}</span>
+    </li>`;
+  }).join('');
+  // 答对时默认收起（不打断节奏），答错时默认展开（正是要看的时候）
+  const open = collapsed ? '' : ' open';
+  return `
+    <details class="sol"${open}>
+      <summary>看解题步骤（${sol.steps.length} 步）</summary>
+      <ol class="sol-list">${items}</ol>
+    </details>`;
+}
+
+/* 前端安全求值：只允许数字与 + - * / ( ) . 和 ^、abs()，
+ * 不接受任何标识符——解析数据虽由构建期校验，页面里也不该有 eval 面。 */
+function evalPlain(src) {
+  const s = String(src).replace(/\s+/g, '');
+  if (!/^[0-9+\-*/().^abs]+$/.test(s)) throw new Error('不允许的字符');
+  let i = 0;
+  const eat = (c) => { if (s[i] === c) { i++; return true; } return false; };
+  function expr() { let v = term(); for (;;) { if (eat('+')) v += term(); else if (eat('-')) v -= term(); else return v; } }
+  function term() { let v = unary(); for (;;) { if (eat('*')) v *= unary(); else if (eat('/')) v /= unary(); else return v; } }
+  function unary() { if (eat('-')) return -unary(); if (eat('+')) return unary(); return power(); }
+  function power() { const b = atom(); if (eat('^')) return Math.pow(b, unary()); return b; }
+  function atom() {
+    if (eat('(')) { const v = expr(); eat(')'); return v; }
+    if (s.startsWith('abs(', i)) { i += 4; const v = expr(); eat(')'); return Math.abs(v); }
+    const m = /^\d+(\.\d+)?/.exec(s.slice(i));
+    if (m) { i += m[0].length; return parseFloat(m[0]); }
+    throw new Error('无法解析');
+  }
+  const v = expr();
+  if (i !== s.length) throw new Error('有残留');
+  return v;
+}
+
 /* ============ 判分 ============ */
 function parseNumber(s) {
   if (s == null) return null;
@@ -194,8 +276,12 @@ function judge(q, input) {
 }
 
 /* ============ 状态 ============ */
+const ROUND_SIZE = 9;       // 每轮固定 9 题
+const PER_FAM = 3;          // 每族 3 题（恰好够诊断分档）
+
 const state = {
-  fam: 'all', seg: 'all', n: 10,
+  round: 0,                 // 第几轮（用于轮转选族）
+  plan: [],                 // 本轮覆盖的族（有规划感的来源）
   queue: [], idx: 0, records: [],
   answered: false, picked: null,
 };
@@ -285,54 +371,49 @@ function shuffle(arr) {
 
 /* 出题策略：诊断要下结论，每族至少需要 3 题。
  * 所以「全部」不是跨族撒一遍，而是按族轮转、每族凑够样本再换下一族。 */
-function pickQueue() {
-  const match = (q) =>
-    (state.fam === 'all' || q.fam === state.fam) &&
-    (state.seg === 'all' || q.seg === state.seg);
+/* 出题：按「族年均分值」降序，轮转取族，每族 3 题。
+ * 一轮 9 题 = 3 族 × 3 题 —— 既能判出结论（每族样本够），
+ * 又不至于做太久。下一轮自动换到接下来的族，几轮即可覆盖全部考点。 */
+function pickQueue(store) {
+  // 按年均分降序排族
+  const fams = Object.keys(FAM_META)
+    .map((id) => ({ id, avg: FAM_META[id].avgPerYear || 0, n: BANK.filter((q) => q.fam === id).length }))
+    .filter((f) => f.n >= 1)
+    .sort((a, b) => b.avg - a.avg);
 
-  const pool = BANK.filter(match);
-  if (!pool.length) return [];
+  // 轮转起点：每轮往后挪 3 个族
+  const startIdx = (state.round * 3) % fams.length;
 
-  const n = Math.min(state.n, pool.length);
-
-  // 指定了族：直接从该族取
-  if (state.fam !== 'all') {
-    return shuffle(pool).slice(0, n).map(shuffleOptions);
+  // 取出本轮要覆盖的族（优先取题多的，保证能凑够 3 题）
+  const chosen = [];
+  for (let k = 0; k < fams.length && chosen.length < 3; k++) {
+    const f = fams[(startIdx + k) % fams.length];
+    if (!chosen.some((c) => c.id === f.id)) chosen.push(f);
   }
 
-  // 「全部」：按族分组，每族取 min(3, 该族题数)，凑够 n 为止
-  const byFam = new Map();
-  for (const q of pool) {
-    if (!byFam.has(q.fam)) byFam.set(q.fam, []);
-    byFam.get(q.fam).push(q);
-  }
-  // 族按真题年均分值降序（分值高的优先练）
-  const famOrder = [...byFam.keys()].sort(
-    (a, b) => ((FAM_META[b] || {}).avgPerYear || 0) - ((FAM_META[a] || {}).avgPerYear || 0)
-  );
+  state.plan = chosen.map((f) => ({
+    id: f.id,
+    name: FAM_META[f.id].name,
+    avg: f.avg,
+  }));
 
+  // 每族取 PER_FAM 题
   const picked = [];
-  const MIN_PER_FAM = 3;
-  // 第一轮：每个族取 MIN_PER_FAM 题
-  for (const f of famOrder) {
-    const qs = shuffle(byFam.get(f));
-    picked.push(...qs.slice(0, MIN_PER_FAM));
-    if (picked.length >= n) break;
+  for (const f of chosen) {
+    const qs = shuffle(BANK.filter((q) => q.fam === f.id));
+    picked.push(...qs.slice(0, PER_FAM));
   }
-  // 第二轮：还不够就继续补（每族再加）
-  if (picked.length < n) {
+  // 若某族题不足 3 道，从其他族补齐到 9 题
+  if (picked.length < ROUND_SIZE) {
     const used = new Set(picked.map((q) => q.id));
-    for (const f of famOrder) {
-      for (const q of shuffle(byFam.get(f))) {
-        if (used.has(q.id)) continue;
-        picked.push(q);
-        used.add(q.id);
-        if (picked.length >= n) break;
-      }
-      if (picked.length >= n) break;
+    for (const q of shuffle(BANK)) {
+      if (used.has(q.id)) continue;
+      picked.push(q);
+      used.add(q.id);
+      if (picked.length >= ROUND_SIZE) break;
     }
   }
-  return picked.slice(0, n).map(shuffleOptions);
+  return picked.slice(0, ROUND_SIZE).map(shuffleOptions);
 }
 
 /* ============ 渲染题目 ============ */
@@ -412,7 +493,7 @@ function submit(input) {
   const fb = $('#fb');
   if (res.ok) {
     fb.className = 'fb ok';
-    fb.innerHTML = '<b>✓ 答对了</b>';
+    fb.innerHTML = '<b>✓ 答对了</b>' + renderSolution(q.id, true);
   } else {
     let extra = '';
     if (q.options && typeof res.picked === 'number' && q.options[res.picked].errTag) {
@@ -423,7 +504,7 @@ function submit(input) {
       extra = `<div class="why"><b>正确答案：</b><span class="ans">${shown}</span>${q.unit ? esc(q.unit) : ''}</div>`;
     }
     fb.className = 'fb no';
-    fb.innerHTML = `<b>✗ 答错了</b>${extra}`;
+    fb.innerHTML = `<b>✗ 答错了</b>${extra}` + renderSolution(q.id, false);
   }
 
   // 标记选项
@@ -577,8 +658,7 @@ function bindRedo(wrongList) {
     state.records = [];
     state.redo = true;
     $('#diag').style.display = 'none';
-    $('#setup').style.display = 'none';
-    $('#empty').style.display = 'none';
+    $('#intro').style.display = 'none';
     $('#quiz').style.display = 'block';
     renderQuestion();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -631,46 +711,30 @@ function renderHistory(hist, store) {
     </div>`;
 }
 
-function reset(keepScope) {
+function reset() {
+  state.round += 1;
   $('#diag').style.display = 'none';
-  $('#empty').style.display = 'none';
-  if (!keepScope) {
-    state.fam = 'all'; state.seg = 'all'; state.n = 10;
-    document.querySelectorAll('#famChips .chip').forEach(c => c.classList.toggle('on', c.dataset.fam === 'all'));
-    document.querySelectorAll('#segChips .chip').forEach(c => c.classList.toggle('on', c.dataset.seg === 'all'));
-    document.querySelectorAll('#numChips .chip').forEach(c => c.classList.toggle('on', c.dataset.n === '10'));
-  }
-  $('#setup').style.display = 'block';
+  $('#intro').style.display = 'block';
   $('#quiz').style.display = 'none';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ============ 交互绑定 ============ */
-function bindChips(sel, key, cast = (v) => v) {
-  $(sel).addEventListener('click', (e) => {
-    const c = e.target.closest('.chip');
-    if (!c) return;
-    document.querySelectorAll(sel + ' .chip').forEach(x => x.classList.remove('on'));
-    c.classList.add('on');
-    state[key] = cast(c.dataset[key === 'fam' ? 'fam' : key === 'seg' ? 'seg' : 'n']);
-  });
-}
-bindChips('#famChips', 'fam');
-bindChips('#segChips', 'seg');
-bindChips('#numChips', 'n', (v) => +v);
-
-$('#startBtn').onclick = () => {
+/* ============ 开始一轮诊断 ============ */
+function startRound() {
   state.queue = pickQueue();
-  if (!state.queue.length) { alert('这个范围下没有题目。'); return; }
+  if (!state.queue.length) { alert('题库为空。'); return; }
   state.idx = 0;
   state.records = [];
-  $('#setup').style.display = 'none';
-  $('#empty').style.display = 'none';
+  state.redo = false;
+  $('#intro').style.display = 'none';
   $('#diag').style.display = 'none';
   $('#quiz').style.display = 'block';
   renderQuestion();
   window.scrollTo({ top: 0, behavior: 'smooth' });
-};
+}
+
+const startBtn = $('#startBtn');
+if (startBtn) startBtn.onclick = startRound;
 
 $('#quitBtn').onclick = () => {
   if (!state.records.length) { reset(false); return; }

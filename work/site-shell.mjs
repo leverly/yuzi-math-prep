@@ -14,14 +14,15 @@ export const SITE = {
   exam: '西城区初一(上)期末',
 };
 
-/* 全站导航：单一来源，顺序与样式都在这里定 */
+/* 全站导航：单一来源，顺序与样式都在这里定
+ * 2026-11-25 移除「演示」（slides.html）——12 页里 10 页与其余页重复，
+ * 且唯一独有的「六周冲刺节奏」与 plan 页「不给具体时间和动作」的立场矛盾。 */
 export const NAV = [
   ['index.html', '总览'],
   ['papers.html', '逐年真题'],
   ['trend.html', '趋势与考点'],
   ['plan.html', '冲刺计划'],
   ['practice.html', '练习与诊断'],
-  ['slides.html', '演示', 'nav-slides'],
 ];
 
 /* 设计变量：全站唯一来源 */
@@ -90,12 +91,6 @@ export const HEAD_CSS = `
 }
 .hdr-nav a:hover{background:var(--accent-soft);color:var(--accent)}
 .hdr-nav a.on{background:var(--accent);color:#fff;font-weight:650;box-shadow:var(--shadow-accent)}
-.hdr-nav a.nav-slides{
-  background:var(--purple-soft);color:var(--purple);font-weight:650;
-  display:inline-flex;align-items:center;gap:5px;
-}
-.hdr-nav a.nav-slides::before{content:"▶";font-size:9px}
-.hdr-nav a.nav-slides:hover{background:var(--purple);color:#fff}
 `;
 
 /* 页头排版：各页共用（.head 容器与 .crumb 由调用页按需叠加） */
