@@ -111,7 +111,9 @@ async function main() {
     var menu = document.querySelectorAll('#navMoreMenu a').length;
     return { primary: primary, hasMore: !!btn, menu: menu };
   })()`) || { primary: 0, hasMore: false, menu: 0 };
-  check('导航精简（主入口 ≤5）', navInfo.primary <= 5 && navInfo.primary >= 3,
+  /* 主入口上限放宽到 7：用户明确要求把「今日清单」加进导航，
+     当前 6 项（今日清单/知识复习/巩固练习/错题本/考情解读/真题核验）。 */
+  check('导航项数合理（3–7）', navInfo.primary <= 7 && navInfo.primary >= 3,
     `主入口 ${navInfo.primary} 项`);
 
   if (navInfo.hasMore && navInfo.menu > 0) {

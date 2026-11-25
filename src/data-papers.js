@@ -199,6 +199,48 @@ export const PAPERS = [
       { no: 26, ch: 'ch-rational', cat: '新定义', score: 6, diff: 'top', name: '新定义「平衡点」', topic: '新定义（数轴类）', bonus: true },
     ],
   },
+
+  {
+    id: 'p2025',
+    year: '2025—2026',
+    date: '2026.1',
+    total: 100,
+    bonus: 10,
+    minutes: 100,
+    questions: 26,
+    solveSpec: '第17题20分；第18题6分；第19题12分；第20题5分；第21题7分；第22–24题各6分',
+    bonusSpec: '第25题4分；第26题6分',
+    /* 2026-11-25 补入。PDF 源，卷面自带【易】【较易】【中档】【较难】标注，
+       下面的 diff 是把它折算成统一四档后的结果。 */
+    items: [
+      { no: 1, ch: 'ch-rational', cat: '概念', score: 2, diff: 'easy', name: '相反数', topic: '相反数' },
+      { no: 2, ch: 'ch-op', cat: '概念', score: 2, diff: 'easy', name: '科学记数法', topic: '科学记数法' },
+      { no: 3, ch: 'ch-geo', cat: '空间', score: 2, diff: 'easy', name: '平面图形旋转成立体', topic: '三视图' },
+      { no: 4, ch: 'ch-rational', cat: '概念', score: 2, diff: 'mid', name: '数轴判断符号', topic: '数轴读符号' },
+      { no: 5, ch: 'ch-poly', cat: '计算', score: 2, diff: 'easy', name: '整式加减辨析', topic: '合并同类项辨析' },
+      { no: 6, ch: 'ch-expr', cat: '概念', score: 2, diff: 'easy', name: '反比例关系判断', topic: '反比例关系' },
+      { no: 7, ch: 'ch-eq', cat: '建模', score: 2, diff: 'mid', name: '列方程（工程问题）', topic: '方程应用（配套/分配）' },
+      { no: 8, ch: 'ch-rational', cat: '分类', score: 2, diff: 'mid', name: '数轴距离 + 分类讨论', topic: '数轴动点与分类' },
+      { no: 9, ch: 'ch-op', cat: '概念', score: 2, diff: 'easy', name: '四舍五入（精确到 0.001）', topic: '近似数与精确度' },
+      { no: 10, ch: 'ch-rational', cat: '概念', score: 2, diff: 'easy', name: '有理数比较大小', topic: '数轴读符号' },
+      { no: 11, ch: 'ch-poly', cat: '概念', score: 2, diff: 'mid', name: '单项式次数求参数', topic: '单项式概念（构造）' },
+      { no: 12, ch: 'ch-eq', cat: '概念', score: 2, diff: 'easy', name: '方程解求参数', topic: '方程解求参数' },
+      { no: 13, ch: 'ch-geo', cat: '计算', score: 2, diff: 'mid', name: '角的和差', topic: '角的和差计算' },
+      { no: 14, ch: 'ch-expr', cat: '推理', score: 2, diff: 'mid', name: '图形规律（棋子）', topic: '图形规律探究' },
+      { no: 15, ch: 'ch-op', cat: '概念', score: 2, diff: 'mid', name: '算筹记数（进位制）', topic: '进位制（综合与实践）' },
+      { no: 16, ch: 'ch-op', cat: '推理', score: 2, diff: 'mid', name: '数字填图（六边形）', topic: '数字填图（幻方类）' },
+      { no: 17, ch: 'ch-op', cat: '计算', score: 20, diff: 'mid', name: '有理数计算（4 小问）', topic: '有理数混合运算', note: '4 小问内部有梯度' },
+      { no: 18, ch: 'ch-poly', cat: '计算', score: 6, diff: 'easy', name: '整式化简求值', topic: '整式化简求值' },
+      { no: 19, ch: 'ch-eq', cat: '计算', score: 12, diff: 'mid', name: '解方程（2 小问）', topic: '解一元一次方程' },
+      { no: 20, ch: 'ch-geo', cat: '作图', score: 5, diff: 'mid', name: '尺规作图（截取线段）', topic: '尺规作图与说理' },
+      { no: 21, ch: 'ch-geo', cat: '建模', score: 7, diff: 'mid', name: '三棱柱包装（表面积）', topic: '几何建模' },
+      { no: 22, ch: 'ch-op', cat: '新定义', score: 6, diff: 'mid', name: '十六进制颜色编码', topic: '进位制（综合与实践）' },
+      { no: 23, ch: 'ch-rational', cat: '分类', score: 6, diff: 'mid', name: '数轴动点（单动点）', topic: '数轴动点与分类' },
+      { no: 24, ch: 'ch-geo', cat: '分类', score: 6, diff: 'top', name: '动角 + 角平分线（含参）', topic: '动角（旋转）' },
+      { no: 25, ch: 'ch-op', cat: '新定义', score: 4, diff: 'mid', name: '新定义运算（⊙）', topic: '新定义运算', bonus: true },
+      { no: 26, ch: 'ch-rational', cat: '新定义', score: 6, diff: 'top', name: '新定义「传送距离」', topic: '新定义（数轴类）', bonus: true },
+    ],
+  },
 ];
 
 /* ==========================================================
@@ -550,7 +592,7 @@ export const FAMILY_DEFS = [
 
   /* --- 新定义 --- */
   { id: 'f-newdef', name: '新定义（必做位）', ch: 'ch-rational', cat: '新定义',
-    topics: ['新定义（数轴）', '新定义运算', '新定义（数轴类）', '新定义（运算类）'],
+    topics: ['新定义（数轴）', '新定义运算', '新定义（数轴类）', '新定义（运算类）', '进位制（综合与实践）'],
     note: '给定义 → 判断 → 迁移；选做 26 题几乎年年也是新定义' },
 ];
 
@@ -857,7 +899,6 @@ export const MUST_TEST = [
   { k: '整式加减辨析', family: 'f-like', slot: '选择题', note: '4/4 年 · 考「哪些项能合并」', ch: 'ch-poly', cat: '计算' },
   { k: '数字填图 / 幻圆', family: 'f-magic', slot: '填空 16 题', note: '4/4 年 · 填空压轴位，三年换了三种图形', ch: 'ch-op', cat: '推理' },
   { k: '单项式 / 同类项求参与构造', family: 'f-mono', slot: '填空或选择', note: '4/4 年 · 反推系数与次数', ch: 'ch-poly', cat: '概念' },
-  { k: '余角 / 补角列方程', family: 'f-supp', slot: '选择题', note: '4/4 年 · 几何概念与方程的结合', ch: 'ch-eq', cat: '建模' },
   { k: '方程解求参数', family: 'f-eqparam', slot: '填空题', note: '4/4 年 · 代入求 k/a', ch: 'ch-eq', cat: '概念' },
   { k: '展开图与三视图', family: 'f-solid', slot: '选择第 3 或 4 题', note: '4/4 年 · 唯一空间想象题', ch: 'ch-geo', cat: '空间' },
 ];
@@ -866,8 +907,9 @@ export const MUST_TEST = [
    为什么单列：这 5 族合计 53 分，年均 13 分，比一半的必考族更值钱。
    只盯 4/4 年的必考点会漏掉它们。 */
 export const HIGH_FREQ = [
+  { k: '余角 / 补角列方程', family: 'f-supp', years: '4/5 年（2025-26 未考）', note: '合计 8 分 · 几何概念与方程的结合，选择位固定考点', ch: 'ch-eq', cat: '建模' },
+  { k: '新定义（必做位）', family: 'f-newdef', years: '4/5 年（2021-22 只出现在选做）', note: '合计 24 分 · 年均 4.8 分，是选做压轴主力', ch: 'ch-rational', cat: '新定义' },
   { k: '角度推理填空（几何说理）', family: 'f-anglereason', years: '3/4 年（2021-22 / 2022-23 / 2023-24）', note: '合计 19 分 · 年均 4.8 分；2024-25 改为压轴动角', ch: 'ch-geo', cat: '推理' },
-  { k: '新定义（必做位）', family: 'f-newdef', years: '3/4 年（2022-23 / 2023-24 / 2024-25）', note: '合计 16 分 · 年均 4 分；2021-22 只出现在选做', ch: 'ch-rational', cat: '新定义' },
   { k: '代数式求值（整体代入）', family: 'f-eval', years: '3/4 年（2021-22 / 2022-23 / 2023-24）', note: '合计 6 分 · 不求出单个字母', ch: 'ch-expr', cat: '计算' },
   { k: '列代数式建模', family: 'f-model-expr', years: '3/4 年（2022-23 / 2023-24 / 2024-25）', note: '合计 6 分 · 把文字条件翻译成式子', ch: 'ch-expr', cat: '建模' },
   { k: '线段中点', family: 'f-midpoint', years: '3/4 年（2021-22 / 2022-23 / 2023-24）', note: '合计 6 分；2023-24 升级为含参压轴', ch: 'ch-geo', cat: '计算' },

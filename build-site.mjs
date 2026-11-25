@@ -232,6 +232,7 @@ function newRenderers() {
    （app.js 的 planToday / famRecord / 族状态机）保留：
    drill 的族筛选、diag 的行动建议仍依赖族级状态，删掉会让诊断失去数据来源。 */
 const NAV_PRIMARY = [
+  ['today.html', '今日清单'],
   ['learn.html', '知识复习'],
   ['drill.html', '巩固练习'],
   ['wrong.html', '错题本'],
@@ -306,6 +307,7 @@ function footer(base) {
       <div class="yz-foot-sub">面向 ${esc(SITE.school)} ${esc(SITE.exam)} · 知识复习 / 巩固练习 / 错题 / 考情</div>
     </div>
     <div class="foot-links">
+      <a href="${base}today.html">今日清单</a>
       <a href="${base}learn.html">知识复习</a>
       <a href="${base}drill.html">巩固练习</a>
       <a href="${base}wrong.html">错题本</a>
@@ -372,8 +374,11 @@ function renderQuestion(q, R) {
       latest: tr.latest,
       latestNo: tr.latestDetail ? tr.latestDetail.no : null,
       latestScore: tr.latestDetail ? tr.latestDetail.score : null,
-      /* 精简的来源列表，避免分片膨胀 */
-      srcs: tr.sources.slice(0, 6).map((x) => x.year.slice(0, 4) + '#' + x.no + '(' + x.score + ')'),
+      /* 精简的来源列表，避免分片膨胀。带 paperId+no 供前端链到核验页原文 */
+      srcs: tr.sources.slice(0, 6).map((x) => ({
+        label: x.year.slice(0, 4) + '#' + x.no + '(' + x.score + ')',
+        paperId: x.paperId, no: x.no, year: x.year, score: x.score,
+      })),
     };
   }
   o.stemHtml = C(R.math.render(q.stem || ''));
@@ -2547,9 +2552,10 @@ function buildExamVerify() {
   const R = newRenderers();
   const C = R.math.compact;
   const TAGS = Object.keys(EXAM_FULL);
-  const YEAR_LABEL = { p2021: '2021—2022', p2022: '2022—2023', p2023: '2023—2024', p2024: '2024—2025' };
+  const YEAR_LABEL = { p2021: '2021—2022', p2022: '2022—2023', p2023: '2023—2024', p2024: '2024—2025', p2025: '2025—2026' };
   /* 只有 2022-23 有 PDF，可提供原卷页图 */
-  const HAS_PAGE_IMG = { p2022: 6 };
+  /* 有 PDF 源的两套可以给原卷页图；docx 三套没有 */
+  const HAS_PAGE_IMG = { p2022: 6, p2025: 7 };
 
   /* 片段渲染：文本直接输出，公式图引用 assets/exam-src/<tag>/<name> */
   function renderParts(parts, tag) {
@@ -2614,7 +2620,7 @@ function buildExamVerify() {
 
       (pageCount ? '<details class="ev-pages"><summary>展开原卷页图（' + pageCount + ' 页）</summary>' +
         '<div class="ev-pages-grid">' + Array.from({ length: pageCount }, (_, i) =>
-          '<figure><img src="assets/exam-src/pages/p2022-' + (i + 1) + '.png" alt="原卷第 ' + (i + 1) + ' 页" loading="lazy" onerror="this.parentNode.classList.add(\'ev-img-miss\')">' +
+          '<figure><img src="assets/exam-src/pages/' + tag + '-' + (i + 1) + '.png" alt="原卷第 ' + (i + 1) + ' 页" loading="lazy" onerror="this.parentNode.classList.add(\'ev-img-miss\')">' +
           '<figcaption>第 ' + (i + 1) + ' 页</figcaption></figure>'
         ).join('') + '</div></details>' : '') +
       '</section>';

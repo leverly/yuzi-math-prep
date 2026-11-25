@@ -4352,3 +4352,11 @@ details[open] > summary::before { content: '▾ '; }
   font-size: .82rem; color: var(--text-3);
   background: var(--bg-2); border: 1px dashed var(--line); border-radius: 8px;
 }
+
+/* 真题溯源链接：点进核验页看原题 */
+.se-trace-lnk {
+  display: inline-block; margin-left: 6px; padding: 1px 6px;
+  border-radius: 4px; background: var(--accent-soft); color: var(--accent);
+  font-size: .82em; text-decoration: none; font-variant-numeric: tabular-nums;
+}
+.se-trace-lnk:hover { background: var(--accent); color: #fff; }

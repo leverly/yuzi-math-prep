@@ -242,8 +242,16 @@
       h += '<div class="se-meta"><span class="se-tag">' + esc(q.tierName || '练习') + '</span>' +
         '<span class="se-stepno">' + ({single:'单选', calc:'计算', big:'大题', judge:'判断'}[qt] || '') + '</span></div>';
       if (q.trace && q.trace.n > 0) {
-        h += '<div class="se-trace">真题溯源 · 对应 ' + q.trace.n + ' 道 · 最近 ' +
-          esc(q.trace.latest || '') + ' 第 ' + q.trace.latestNo + ' 题（' + q.trace.latestScore + ' 分）</div>';
+        /* 真题溯源：列出可点的真题条目，点进核验页看原题原文 */
+        var tsrc = (q.trace.srcs || []);
+        var links = tsrc.map(function (x) {
+          if (!x || !x.paperId) return '';
+          return '<a class="se-trace-lnk" href="exam-verify.html#' + x.paperId + '-q' + x.no +
+            '" target="_blank" rel="noopener">' + esc(x.label) + '</a>';
+        }).filter(Boolean).join('');
+        h += '<div class="se-trace">真题溯源 · 对应 ' + q.trace.n + ' 道' +
+          (links ? '：' + links : ' · 最近 ' + esc(q.trace.latest || '') + ' 第 ' + q.trace.latestNo + ' 题') +
+          '</div>';
       }
       h += '<div class="se-stem">' + (q.stemHtml || esc(q.stem || '')) + '</div>';
       if (q.figHtml) h += '<div class="se-fig">' + q.figHtml + '</div>';
@@ -366,8 +374,16 @@
         '<span class="se-stepno">第 ' + (state.stepIdx + 1) + ' / ' + steps.length + ' 步</span></div>';
       /* 真题溯源：做题时就能看到「这道题对应真题哪道」 */
       if (q.trace && q.trace.n > 0) {
-        h += '<div class="se-trace">真题溯源 · 对应 ' + q.trace.n + ' 道 · 最近 ' +
-          esc(q.trace.latest || '') + ' 第 ' + q.trace.latestNo + ' 题（' + q.trace.latestScore + ' 分）</div>';
+        /* 真题溯源：列出可点的真题条目，点进核验页看原题原文 */
+        var tsrc = (q.trace.srcs || []);
+        var links = tsrc.map(function (x) {
+          if (!x || !x.paperId) return '';
+          return '<a class="se-trace-lnk" href="exam-verify.html#' + x.paperId + '-q' + x.no +
+            '" target="_blank" rel="noopener">' + esc(x.label) + '</a>';
+        }).filter(Boolean).join('');
+        h += '<div class="se-trace">真题溯源 · 对应 ' + q.trace.n + ' 道' +
+          (links ? '：' + links : ' · 最近 ' + esc(q.trace.latest || '') + ' 第 ' + q.trace.latestNo + ' 题') +
+          '</div>';
       }
       h += '<div class="se-stem">' + (q.stemHtml || esc(q.stem || '')) + '</div>';
       if (q.figHtml) h += '<div class="se-fig">' + q.figHtml + '</div>';
