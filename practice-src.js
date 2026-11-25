@@ -542,7 +542,6 @@ function showDiag() {
   const store = persistSession(state.records, d);
   const hist = diagnose(store.allRecords.map((r) => ({ id: r.id, ok: r.ok, picked: r.picked })));
   $('#quiz').style.display = 'none';
-  $('#setup').style.display = 'none';
   const host = $('#diag');
   host.style.display = 'block';
 
@@ -602,16 +601,16 @@ function showDiag() {
     if (!confirm('清空全部练习记录？这不会影响题库。')) return;
     try { localStorage.removeItem('xz-practice-v1'); } catch (e) {}
     alert('已清空。');
-    reset(false);
+    reset();
   };
 
-  $('#againBtn').onclick = () => reset(false);
+  $('#againBtn').onclick = () => reset();
   $('#weakBtn').onclick = () => {
     const weakFams = d.fams.filter(f => f.tier === 'weak' || f.tier === 'shaky').map(f => f.fam);
     if (!weakFams.length) { alert('这一轮没有明显薄弱的考点。'); return; }
     state.fam = weakFams[0];
     state.n = 999;
-    reset(true);
+    reset();
   };
   bindRedo(d.wrongList);
 
@@ -716,7 +715,31 @@ function reset() {
   $('#diag').style.display = 'none';
   $('#intro').style.display = 'block';
   $('#quiz').style.display = 'none';
+  renderPlanPreview();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* 预览本轮覆盖哪几个考点（不抽题，只算族） */
+function renderPlanPreview() {
+  const host = $('#planPreview');
+  if (!host) return;
+  // 复用 pickQueue 的选族逻辑：算一次计划（不渲染题目）
+  const fams = Object.keys(FAM_META)
+    .map((id) => ({ id, avg: FAM_META[id].avgPerYear || 0, n: BANK.filter((q) => q.fam === id).length }))
+    .filter((f) => f.n >= 1)
+    .sort((a, b) => b.avg - a.avg);
+  const startIdx = (state.round * 3) % fams.length;
+  const chosen = [];
+  for (let k = 0; k < fams.length && chosen.length < 3; k++) {
+    const f = fams[(startIdx + k) % fams.length];
+    if (!chosen.some((c) => c.id === f.id)) chosen.push(f);
+  }
+  host.innerHTML = chosen.map((f, i) => `
+    <div class="plan-item">
+      <div class="plan-k">考点 ${i + 1}</div>
+      <div class="plan-n">${esc(FAM_META[f.id].name)}</div>
+      <div class="plan-v">年均 ${f.avg} 分 · 3 题</div>
+    </div>`).join('');
 }
 
 /* ============ 开始一轮诊断 ============ */
@@ -736,9 +759,9 @@ function startRound() {
 const startBtn = $('#startBtn');
 if (startBtn) startBtn.onclick = startRound;
 
+renderPlanPreview();
+
 $('#quitBtn').onclick = () => {
-  if (!state.records.length) { reset(false); return; }
+  if (!state.records.length) { reset(); return; }
   if (confirm('结束本轮并看诊断结果？')) showDiag();
 };
-
-$('#empty').style.display = 'block';

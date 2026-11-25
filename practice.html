@@ -82,6 +82,22 @@ body{padding-bottom:80px}
 .crumb{font-size:13px;color:var(--text-3);margin-bottom:10px}
 .crumb a{color:var(--text-3);text-decoration:none}
 
+/* 诊断入口 */
+.intro{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:26px 28px;box-shadow:var(--shadow);margin-bottom:20px}
+.intro-eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin-bottom:10px}
+.intro-title{font-size:23px;font-weight:780;letter-spacing:-.02em;margin-bottom:10px}
+.intro-desc{font-size:14px;color:var(--text-2);line-height:1.75;max-width:640px}
+.plan{display:flex;gap:10px;margin:20px 0 22px;flex-wrap:wrap}
+.plan-item{flex:1;min-width:160px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:11px;padding:13px 15px}
+.plan-k{font-family:var(--mono);font-size:11px;color:var(--text-3);margin-bottom:5px}
+.plan-n{font-size:14.5px;font-weight:700;line-height:1.4}
+.plan-v{font-size:12px;color:var(--accent);font-weight:650;margin-top:5px}
+.intro-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.intro-hint{font-size:12.5px;color:var(--text-3)}
+
 /* 设置条 */
 .setup{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
   padding:18px 20px;box-shadow:var(--shadow);margin-bottom:20px}
@@ -274,49 +290,38 @@ body{padding-bottom:80px}
   </p>
 </div>
 
-<!-- 设置 -->
-<div class="setup" id="setup">
-  <div class="setup-row">
-    <span class="setup-label">范围</span>
-    <div class="chips" id="famChips">
-      <span class="chip on" data-fam="all">全部</span>
-      <span class="chip" data-fam="f-arith">有理数四则混合运算<span style="opacity:.6;font-size:11px"> 15</span></span><span class="chip" data-fam="f-solveeq">解一元一次方程<span style="opacity:.6;font-size:11px"> 13</span></span><span class="chip" data-fam="f-final">分类压轴（第23题位）<span style="opacity:.6;font-size:11px"> 4</span></span><span class="chip" data-fam="f-abs-line">绝对值与数轴<span style="opacity:.6;font-size:11px"> 10</span></span><span class="chip" data-fam="f-eqmodel">方程应用题<span style="opacity:.6;font-size:11px"> 5</span></span><span class="chip" data-fam="f-simplify">整式化简求值<span style="opacity:.6;font-size:11px"> 10</span></span><span class="chip" data-fam="f-construct">尺规作图与说理<span style="opacity:.6;font-size:11px"> 3</span></span><span class="chip" data-fam="f-poly">整式加减辨析<span style="opacity:.6;font-size:11px"> 7</span></span><span class="chip" data-fam="f-anglereason">角度推理填空（几何说理）<span style="opacity:.6;font-size:11px"> 3</span></span><span class="chip" data-fam="f-newdef">新定义（选做 / 24 题位）<span style="opacity:.6;font-size:11px"> 3</span></span><span class="chip" data-fam="f-eqconcept">方程概念辨析<span style="opacity:.6;font-size:11px"> 5</span></span><span class="chip" data-fam="f-space">展开图 / 三视图 / 面动成体<span style="opacity:.6;font-size:11px"> 4</span></span><span class="chip" data-fam="f-exprmodel">列代数式建模<span style="opacity:.6;font-size:11px"> 3</span></span><span class="chip" data-fam="f-scinote">科学记数法与近似数<span style="opacity:.6;font-size:11px"> 6</span></span><span class="chip" data-fam="f-fillnum">数字填图 / 幻方<span style="opacity:.6;font-size:11px"> 3</span></span><span class="chip" data-fam="f-compangle">余角 / 补角列方程<span style="opacity:.6;font-size:11px"> 5</span></span><span class="chip" data-fam="f-basicnum">进位制 / 综合与实践<span style="opacity:.6;font-size:11px"> 3</span></span><span class="chip" data-fam="f-exprval">代数式求值（整体代入）<span style="opacity:.6;font-size:11px"> 9</span></span><span class="chip" data-fam="f-pattern">图形规律（用含 n 式子表示）<span style="opacity:.6;font-size:11px"> 4</span></span><span class="chip" data-fam="f-read">阅读理解 / 规律探究<span style="opacity:.6;font-size:11px"> 2</span></span><span class="chip" data-fam="f-angleconv">角度换算（度分秒）<span style="opacity:.6;font-size:11px"> 5</span></span><span class="chip" data-fam="f-segmid">线段中点<span style="opacity:.6;font-size:11px"> 8</span></span><span class="chip" data-fam="f-anglesum">角的和差<span style="opacity:.6;font-size:11px"> 9</span></span>
+<!-- 诊断入口：不做选择题库，直接开始 -->
+<div class="intro" id="intro">
+  <div class="intro-main">
+    <div class="intro-eyebrow">本轮诊断</div>
+    <h2 class="intro-title">9 道题，覆盖 3 个高频考点</h2>
+    <p class="intro-desc">
+      每次 3 个考点、每个考点 3 题——题量刚好能判出结论，又不会拖太久。
+      下一轮自动换到后面的考点，几轮下来就把全部 23 个考点过一遍。
+    </p>
+    <div class="plan" id="planPreview"></div>
+    <div class="intro-actions">
+      <button class="btn primary" id="startBtn">开始诊断</button>
+      <span class="intro-hint">约 9 分钟 · 做完自动出诊断</span>
     </div>
-  </div>
-  <div class="setup-row">
-    <span class="setup-label">题量</span>
-    <div class="chips" id="numChips">
-      <span class="chip" data-n="5">5</span>
-      <span class="chip on" data-n="10">10</span>
-      <span class="chip" data-n="15">15</span>
-      <span class="chip" data-n="999">全部</span>
-    </div>
-    <button class="btn primary" id="startBtn" style="margin-left:auto">开始练习</button>
   </div>
 </div>
 
 <!-- 练习区 -->
 <div id="quiz" style="display:none">
   <div class="progress">
-    <span id="pText">第 1 / 10 题</span>
+    <span id="pText">第 1 / 9 题</span>
     <span class="pbar"><i id="pBar" style="width:0%"></i></span>
     <span id="pScore">已对 0</span>
   </div>
   <div id="qHost"></div>
   <div class="actions">
     <button class="btn ghost" id="quitBtn">结束本轮</button>
-    <button class="btn" id="skipBtn" style="display:none">跳过</button>
   </div>
 </div>
 
 <!-- 诊断区 -->
 <div id="diag" class="diag" style="display:none"></div>
-
-<!-- 空态 -->
-<div id="empty" class="empty" style="display:none">
-  <div class="big">🎯</div>
-  <p>选好范围和题量，点「开始练习」。</p>
-</div>
 </main>
 
 <script type="module">
@@ -865,7 +870,6 @@ function showDiag() {
   const store = persistSession(state.records, d);
   const hist = diagnose(store.allRecords.map((r) => ({ id: r.id, ok: r.ok, picked: r.picked })));
   $('#quiz').style.display = 'none';
-  $('#setup').style.display = 'none';
   const host = $('#diag');
   host.style.display = 'block';
 
@@ -925,16 +929,16 @@ function showDiag() {
     if (!confirm('清空全部练习记录？这不会影响题库。')) return;
     try { localStorage.removeItem('xz-practice-v1'); } catch (e) {}
     alert('已清空。');
-    reset(false);
+    reset();
   };
 
-  $('#againBtn').onclick = () => reset(false);
+  $('#againBtn').onclick = () => reset();
   $('#weakBtn').onclick = () => {
     const weakFams = d.fams.filter(f => f.tier === 'weak' || f.tier === 'shaky').map(f => f.fam);
     if (!weakFams.length) { alert('这一轮没有明显薄弱的考点。'); return; }
     state.fam = weakFams[0];
     state.n = 999;
-    reset(true);
+    reset();
   };
   bindRedo(d.wrongList);
 
@@ -1039,7 +1043,31 @@ function reset() {
   $('#diag').style.display = 'none';
   $('#intro').style.display = 'block';
   $('#quiz').style.display = 'none';
+  renderPlanPreview();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* 预览本轮覆盖哪几个考点（不抽题，只算族） */
+function renderPlanPreview() {
+  const host = $('#planPreview');
+  if (!host) return;
+  // 复用 pickQueue 的选族逻辑：算一次计划（不渲染题目）
+  const fams = Object.keys(FAM_META)
+    .map((id) => ({ id, avg: FAM_META[id].avgPerYear || 0, n: BANK.filter((q) => q.fam === id).length }))
+    .filter((f) => f.n >= 1)
+    .sort((a, b) => b.avg - a.avg);
+  const startIdx = (state.round * 3) % fams.length;
+  const chosen = [];
+  for (let k = 0; k < fams.length && chosen.length < 3; k++) {
+    const f = fams[(startIdx + k) % fams.length];
+    if (!chosen.some((c) => c.id === f.id)) chosen.push(f);
+  }
+  host.innerHTML = chosen.map((f, i) => `
+    <div class="plan-item">
+      <div class="plan-k">考点 ${i + 1}</div>
+      <div class="plan-n">${esc(FAM_META[f.id].name)}</div>
+      <div class="plan-v">年均 ${f.avg} 分 · 3 题</div>
+    </div>`).join('');
 }
 
 /* ============ 开始一轮诊断 ============ */
@@ -1059,12 +1087,12 @@ function startRound() {
 const startBtn = $('#startBtn');
 if (startBtn) startBtn.onclick = startRound;
 
+renderPlanPreview();
+
 $('#quitBtn').onclick = () => {
-  if (!state.records.length) { reset(false); return; }
+  if (!state.records.length) { reset(); return; }
   if (confirm('结束本轮并看诊断结果？')) showDiag();
 };
-
-$('#empty').style.display = 'block';
 </script>
 </body>
 </html>

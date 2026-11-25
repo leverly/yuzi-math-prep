@@ -17,6 +17,7 @@ const famList = Object.keys(FAM_META).map((id) => ({
   n: BANK.filter((q) => q.fam === id).length,
 })).sort((a, b) => b.avg - a.avg);
 
+const ROUND_SIZE = 9;
 const totalQ = BANK.length;
 const choiceN = BANK.filter((q) => q.options).length;
 const calcN = totalQ - choiceN;
@@ -31,6 +32,22 @@ body{padding-bottom:80px}
 .head{padding:38px 0 22px}
 .crumb{font-size:13px;color:var(--text-3);margin-bottom:10px}
 .crumb a{color:var(--text-3);text-decoration:none}
+
+/* 诊断入口 */
+.intro{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:26px 28px;box-shadow:var(--shadow);margin-bottom:20px}
+.intro-eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin-bottom:10px}
+.intro-title{font-size:23px;font-weight:780;letter-spacing:-.02em;margin-bottom:10px}
+.intro-desc{font-size:14px;color:var(--text-2);line-height:1.75;max-width:640px}
+.plan{display:flex;gap:10px;margin:20px 0 22px;flex-wrap:wrap}
+.plan-item{flex:1;min-width:160px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:11px;padding:13px 15px}
+.plan-k{font-family:var(--mono);font-size:11px;color:var(--text-3);margin-bottom:5px}
+.plan-n{font-size:14.5px;font-weight:700;line-height:1.4}
+.plan-v{font-size:12px;color:var(--accent);font-weight:650;margin-top:5px}
+.intro-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.intro-hint{font-size:12.5px;color:var(--text-3)}
 
 /* 设置条 */
 .setup{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
@@ -234,49 +251,38 @@ ${headerHtml('practice.html')}
   </p>
 </div>
 
-<!-- 设置 -->
-<div class="setup" id="setup">
-  <div class="setup-row">
-    <span class="setup-label">范围</span>
-    <div class="chips" id="famChips">
-      <span class="chip on" data-fam="all">全部</span>
-      ${famList.map((f) => `<span class="chip" data-fam="${f.id}">${esc(f.name)}<span style="opacity:.6;font-size:11px"> ${f.n}</span></span>`).join('')}
+<!-- 诊断入口：不做选择题库，直接开始 -->
+<div class="intro" id="intro">
+  <div class="intro-main">
+    <div class="intro-eyebrow">本轮诊断</div>
+    <h2 class="intro-title">${ROUND_SIZE} 道题，覆盖 ${3} 个高频考点</h2>
+    <p class="intro-desc">
+      每次 3 个考点、每个考点 3 题——题量刚好能判出结论，又不会拖太久。
+      下一轮自动换到后面的考点，几轮下来就把全部 ${famList.length} 个考点过一遍。
+    </p>
+    <div class="plan" id="planPreview"></div>
+    <div class="intro-actions">
+      <button class="btn primary" id="startBtn">开始诊断</button>
+      <span class="intro-hint">约 ${ROUND_SIZE} 分钟 · 做完自动出诊断</span>
     </div>
-  </div>
-  <div class="setup-row">
-    <span class="setup-label">题量</span>
-    <div class="chips" id="numChips">
-      <span class="chip" data-n="5">5</span>
-      <span class="chip on" data-n="10">10</span>
-      <span class="chip" data-n="15">15</span>
-      <span class="chip" data-n="999">全部</span>
-    </div>
-    <button class="btn primary" id="startBtn" style="margin-left:auto">开始练习</button>
   </div>
 </div>
 
 <!-- 练习区 -->
 <div id="quiz" style="display:none">
   <div class="progress">
-    <span id="pText">第 1 / 10 题</span>
+    <span id="pText">第 1 / ${ROUND_SIZE} 题</span>
     <span class="pbar"><i id="pBar" style="width:0%"></i></span>
     <span id="pScore">已对 0</span>
   </div>
   <div id="qHost"></div>
   <div class="actions">
     <button class="btn ghost" id="quitBtn">结束本轮</button>
-    <button class="btn" id="skipBtn" style="display:none">跳过</button>
   </div>
 </div>
 
 <!-- 诊断区 -->
 <div id="diag" class="diag" style="display:none"></div>
-
-<!-- 空态 -->
-<div id="empty" class="empty" style="display:none">
-  <div class="big">🎯</div>
-  <p>选好范围和题量，点「开始练习」。</p>
-</div>
 </main>
 
 <script type="module">${SCRIPT}</script>

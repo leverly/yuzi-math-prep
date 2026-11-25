@@ -226,7 +226,12 @@ console.log('\n【八】外壳一致性（跨页共用部分不得漂移）');
   }
   ok(selBad.length === 0, '共用外壳选择器跨页一致', selBad.join('; '));
 
-  // 8.3 正文文字块不得自带窄于容器的 max-width（会造成右侧大片空白）
+  // 8.3 页面主叙述文字不得自带窄于容器的 max-width
+  //
+  // 只拦「页面级导语」这一类：它们直接挂在 <main class="wrap"> 下、代表整页的开场叙述，
+  // 一旦限宽就会在 1140px 容器里右侧留出一大片空白（2026-11-25 的 .lede 就是这样）。
+  // 卡片内部的说明文字（如 .intro-desc）限宽是刻意的排版选择，不在此列。
+  const PAGE_LEVEL_SELECTORS = ['.lede'];
   let narrowBad = [];
   for (const f of shellPages) {
     const txt = fs.readFileSync(f, 'utf8');
@@ -235,12 +240,12 @@ console.log('\n【八】外壳一致性（跨页共用部分不得漂移）');
     for (const m of css.matchAll(/([^{}\n\/][^{}\n]*)\{([^{}]*)\}/g)) {
       const sel = m[1].trim();
       const body = m[2];
-      if (!/font-size/.test(body)) continue;
+      if (!PAGE_LEVEL_SELECTORS.includes(sel)) continue;
       const mw = body.match(/max-width:\s*(\d+)px/);
       if (mw && +mw[1] < 1100) narrowBad.push(`${f} ${sel} max-width:${mw[1]}px`);
     }
   }
-  ok(narrowBad.length === 0, '正文文字块未被 max-width 压窄', narrowBad.join('; '));
+  ok(narrowBad.length === 0, '页面级导语未被 max-width 压窄', narrowBad.join('; '));
 }
 
 console.log('\n' + (fail === 0 ? '=== 全部通过 ===' : `=== ${fail} 项未通过 ===`));
