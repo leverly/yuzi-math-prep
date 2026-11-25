@@ -7,7 +7,7 @@
 <title>柚子初一(上)数学期末复习 · 巩固练习与知识复习</title>
 <meta name="description" content="北师大实验中学 初一(上)期末复习：382 道题分步判定、23 张方法卡、50 张概念卡、46 条公式法则。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/style.css?v=346ecd77">
+<link rel="stylesheet" href="assets/style.css?v=3bbd2bcb">
 <script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
 </head>
 <body data-base=""><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
@@ -45,6 +45,7 @@
       </div>
     </div>
     <div class="cockpit-card" id="cockpit">
+      <div class="today-line" id="todayLine" style="display:none"></div>
       <div class="cockpit-top">
         <span class="kicker">我的进度</span>
         <span class="cockpit-sub" id="cockpitSub">还没有记录</span>
@@ -319,10 +320,56 @@ window.YZ.completeChains = function(pool){
       sub.textContent = nm.total ? ('已练 ' + nm.total + ' 题 · 错题 ' + n + ' 条') : '还没有记录，先做一组';
     }
   }
+  /* 今日一行：P0（熟练层）还剩几族没达标。
+     为什么只报 P0：卷面封顶 100，必做段丢分不可补，
+     所以熟练层没清零之前，练别的族都是次优解。
+     这一行是「打开就看到的第一步」，所以放在驾驶舱最上方。 */
+  function paintToday(){
+    var el = document.getElementById('todayLine');
+    if (!el) return;
+    var fams = (window.YZ.META && window.YZ.META.families) || [];
+    if (!fams.length || !Z.planToday) { el.style.display = 'none'; return; }
+
+    var plan = Z.planToday(fams);
+    var p0 = (plan.byBand && plan.byBand.P0) || [];
+    var p0Left = p0.filter(function(x){ return x.state !== 'passed'; });
+
+    if (!plan.items.length) {
+      el.innerHTML = '<span class="tl-label">今日</span>' +
+        '<span class="tl-text">全部达标，且没有到期复习。可以做一次整卷模考保持手感。</span>' +
+        '<a class="btn ghost sm" href="exam.html">模考</a>';
+      el.style.display = '';
+      return;
+    }
+
+    if (p0Left.length) {
+      var names = p0Left.slice(0, 2).map(function(x){ return x.name; });
+      var more = p0Left.length > 2 ? ' 等 ' + p0Left.length + ' 族' : '';
+      el.innerHTML = '<span class="tl-label">今日</span>' +
+        '<span class="tl-text">熟练层还有 <b>' + p0Left.length + ' 族</b>未达标（' +
+        escHtml(names.join('、')) + more + '）</span>' +
+        '<a class="btn primary sm" href="drill.html?family=' + encodeURIComponent(p0Left[0].id) + '&autostart=1">练第一个</a>';
+    } else {
+      var first = plan.items[0];
+      el.innerHTML = '<span class="tl-label">今日</span>' +
+        '<span class="tl-text">熟练层已清零，接下来练 <b>' + escHtml(first.name) + '</b></span>' +
+        '<a class="btn primary sm" href="drill.html?family=' + encodeURIComponent(first.id) + '&autostart=1">开始</a>';
+    }
+    el.style.display = '';
+  }
+  function escHtml(x){
+    return String(x == null ? '' : x).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
   Z.ready(function(){
     paint();
+    paintToday();
     document.addEventListener('yz:qlog', paint);
     document.addEventListener('yz:day', paint);
+    document.addEventListener('yz:family', paintToday);
+    Z.loadAll(Z.chapterIds()).then(function(){ paintToday(); });
   });
 })();
 </script>

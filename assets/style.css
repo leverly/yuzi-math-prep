@@ -4188,3 +4188,62 @@ details[open] > summary::before { content: '▾ '; }
 @media (max-width: 640px) {
   .proof-num { font-size: 2rem; }
 }
+
+/* ==========================================================
+   巩固练习：三行说明 + 做完诊断 + 首页今日一行
+   ========================================================== */
+.why-card { border-left: 4px solid var(--accent); padding: 20px 24px; }
+.why-row { display: flex; gap: 14px; align-items: baseline; padding: 7px 0; font-size: .94rem; }
+.why-row + .why-row { border-top: 1px dashed var(--border); }
+.why-k {
+  flex: none; width: 52px; font-size: .76rem; font-weight: 800;
+  color: var(--text-3); letter-spacing: .03em;
+}
+.why-what { font-size: 1.05rem; }
+.why-tag {
+  display: inline-block; margin-left: 8px; padding: 2px 9px;
+  border-radius: var(--r-pill); font-size: .72rem; font-weight: 700;
+  background: var(--accent-soft); color: var(--accent); vertical-align: middle;
+}
+.why-tag.ghost { background: var(--bg-3); color: var(--text-2); }
+.why-state { color: var(--text-2); font-size: .88rem; }
+.why-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+
+/* 做完诊断 */
+.diag-after { border-left: 4px solid var(--gold); padding: 20px 24px; }
+.da-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+.da-head b { font-size: 1.1rem; }
+.da-target { font-size: .86rem; color: var(--text-2); }
+.da-none { margin: 0; font-size: .92rem; color: var(--text-2); }
+.da-wrong { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.da-row { display: flex; gap: 14px; font-size: .92rem; }
+.da-k {
+  flex: none; width: 72px; font-size: .78rem; font-weight: 700;
+  color: var(--text-3);
+}
+.da-nm {
+  margin: 0 0 14px; padding: 10px 14px; font-size: .9rem;
+  background: var(--gold-soft); border-radius: var(--r-sm); color: var(--text);
+}
+.da-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* 首页今日一行 */
+.today-line {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 12px 16px; margin-bottom: 16px;
+  background: var(--accent-soft); border-radius: var(--r-sm);
+  border-left: 3px solid var(--accent);
+}
+.tl-label {
+  font-size: .72rem; font-weight: 800; color: var(--accent);
+  letter-spacing: .04em;
+}
+.tl-text { flex: 1; font-size: .9rem; min-width: 140px; }
+
+@media (max-width: 640px) {
+  .why-row { flex-direction: column; gap: 3px; }
+  .why-k { width: auto; }
+  .da-row { flex-direction: column; gap: 2px; }
+  .da-k { width: auto; }
+  .today-line { flex-direction: column; align-items: flex-start; }
+}

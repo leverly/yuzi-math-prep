@@ -545,6 +545,7 @@ function buildHome() {
       </div>
     </div>
     <div class="cockpit-card" id="cockpit">
+      <div class="today-line" id="todayLine" style="display:none"></div>
       <div class="cockpit-top">
         <span class="kicker">我的进度</span>
         <span class="cockpit-sub" id="cockpitSub">还没有记录</span>
@@ -699,10 +700,56 @@ function buildHome() {
       sub.textContent = nm.total ? ('已练 ' + nm.total + ' 题 · 错题 ' + n + ' 条') : '还没有记录，先做一组';
     }
   }
+  /* 今日一行：P0（熟练层）还剩几族没达标。
+     为什么只报 P0：卷面封顶 100，必做段丢分不可补，
+     所以熟练层没清零之前，练别的族都是次优解。
+     这一行是「打开就看到的第一步」，所以放在驾驶舱最上方。 */
+  function paintToday(){
+    var el = document.getElementById('todayLine');
+    if (!el) return;
+    var fams = (window.YZ.META && window.YZ.META.families) || [];
+    if (!fams.length || !Z.planToday) { el.style.display = 'none'; return; }
+
+    var plan = Z.planToday(fams);
+    var p0 = (plan.byBand && plan.byBand.P0) || [];
+    var p0Left = p0.filter(function(x){ return x.state !== 'passed'; });
+
+    if (!plan.items.length) {
+      el.innerHTML = '<span class="tl-label">今日</span>' +
+        '<span class="tl-text">全部达标，且没有到期复习。可以做一次整卷模考保持手感。</span>' +
+        '<a class="btn ghost sm" href="exam.html">模考</a>';
+      el.style.display = '';
+      return;
+    }
+
+    if (p0Left.length) {
+      var names = p0Left.slice(0, 2).map(function(x){ return x.name; });
+      var more = p0Left.length > 2 ? ' 等 ' + p0Left.length + ' 族' : '';
+      el.innerHTML = '<span class="tl-label">今日</span>' +
+        '<span class="tl-text">熟练层还有 <b>' + p0Left.length + ' 族</b>未达标（' +
+        escHtml(names.join('、')) + more + '）</span>' +
+        '<a class="btn primary sm" href="drill.html?family=' + encodeURIComponent(p0Left[0].id) + '&autostart=1">练第一个</a>';
+    } else {
+      var first = plan.items[0];
+      el.innerHTML = '<span class="tl-label">今日</span>' +
+        '<span class="tl-text">熟练层已清零，接下来练 <b>' + escHtml(first.name) + '</b></span>' +
+        '<a class="btn primary sm" href="drill.html?family=' + encodeURIComponent(first.id) + '&autostart=1">开始</a>';
+    }
+    el.style.display = '';
+  }
+  function escHtml(x){
+    return String(x == null ? '' : x).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
   Z.ready(function(){
     paint();
+    paintToday();
     document.addEventListener('yz:qlog', paint);
     document.addEventListener('yz:day', paint);
+    document.addEventListener('yz:family', paintToday);
+    Z.loadAll(Z.chapterIds()).then(function(){ paintToday(); });
   });
 })();
 `;
@@ -1262,7 +1309,11 @@ function buildConcept() {
         if (Z.csrsRate) Z.csrsRate(q.id, ok ? 2 : 0);
         Z.bumpDay('questions', 1);
       },
-      onFinish: function(res){ if (res.rate >= 90) Z.sfx('win'); }
+      onFinish: function(res){
+        if (res.rate >= 90) Z.sfx('win');
+        paintAfterDiag(res);
+        paintWhy();
+      }
     });
     document.getElementById('stageWrap').scrollIntoView({ behavior:'smooth', block:'start' });
   }
@@ -1302,15 +1353,26 @@ function buildDrill() {
 <div class="page-head">
   <div class="crumb"><a href="index.html">首页</a> / 巩固练习</div>
   <h1>巩固练习</h1>
-  <p class="lede">判定的单位是<b>步骤</b>，不是整题。答错时记下你卡在第几步，这是错题本分类与学情诊断的依据。</p>
-  <p class="desc" id="famNote" style="display:none;margin-top:10px;font-size:.9rem"></p>
 </div>
 
-<section class="section" style="margin-top:20px">
+<!-- 三行：练哪个族 · 为什么是它 · 现在什么状态 -->
+<section class="section" id="whyBox">
+  <div class="card why-card" id="whyCard">
+    <div class="why-row why-what"><span class="why-k">练什么</span><span id="whyWhat">正在选…</span></div>
+    <div class="why-row why-why"><span class="why-k">为什么</span><span id="whyWhy">—</span></div>
+    <div class="why-row why-state"><span class="why-k">状态</span><span id="whyState">—</span></div>
+    <div class="why-actions">
+      <button class="btn primary" id="startBtn">开始本组 →</button>
+      <button class="btn ghost sm" id="toggleSetup">换个范围</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="setupWrap" style="display:none">
   <div class="card setup-card">
     <div class="setup-head">
-      <h3>配置本组练习</h3>
-      <div class="setup-actions"><button class="btn primary" id="startBtn">开始 →</button></div>
+      <h3>换个范围</h3>
+      <div class="setup-actions"><button class="btn ghost sm" id="closeSetup">收起</button></div>
     </div>
     <div class="setup-grid">
       <div class="setup-group">
@@ -1369,6 +1431,11 @@ function buildDrill() {
 
 <section class="section" id="stageWrap" style="display:none">
   <div class="card"><div id="stage"></div></div>
+</section>
+
+<!-- 一组做完后的诊断：错在第几步 → 哪类错因 → 再练几题 -->
+<section class="section" id="diagAfter" style="display:none">
+  <div class="card diag-after" id="diagAfterCard"></div>
 </section>
 `;
 
@@ -1433,19 +1500,206 @@ function buildDrill() {
   ms.addEventListener('change', function(){ sel.method = ms.value; });
   cs.addEventListener('change', function(){ sel.chapter = cs.value; });
 
-  /* 从今日清单跳进来时，顶部说明「正在练哪一族」——
-     否则学生看到题不知道为什么是这些题。 */
-  if (sel.family) {
-    var famName = '';
+  /* ---------- 三行说明：练什么 · 为什么 · 现在什么状态 ----------
+     这三行替代了原来的配置页。学生点「巩固练习」就该开始做题，
+     不该先做「选章节/选方法/选分层/选题量」四个判断——
+     那是把诊断的责任推回给她，与诊断的目的相反。 */
+  var FAM_TARGET_LABEL = { l1: '熟练层', l2: '理解层', l3: '攻坚层' };
+  var BAND_LABEL = { P0: '熟练层优先', P1: '年年考且分值高', P2: '中档', P3: '压轴', P4: '少见' };
+
+  function famById(id){
     var fams = (window.YZ.META && window.YZ.META.families) || [];
-    fams.forEach(function(f){ if (f.id === sel.family) famName = f.name; });
-    var note = document.getElementById('famNote');
-    if (note) {
-      note.innerHTML = '正在练考点族：<b>' + (famName || sel.family) + '</b>' +
-        ' <a href="papers.html">← 看考情解读</a>';
-      note.style.display = '';
+    var hit = null;
+    fams.forEach(function(f){ if (f.id === id) hit = f; });
+    return hit;
+  }
+
+  /* 选一个族：URL 指定优先；否则读 planToday 的第一条 */
+  function pickFamily(){
+    if (sel.family) return famById(sel.family);
+    var fams = (window.YZ.META && window.YZ.META.families) || [];
+    if (!fams.length || !Z.planToday) return null;
+    var plan = Z.planToday(fams);
+    if (!plan.items.length) return null;
+    return famById(plan.items[0].id) || null;
+  }
+
+  function paintWhy(){
+    var f = pickFamily();
+    var what = document.getElementById('whyWhat');
+    var why = document.getElementById('whyWhy');
+    var stEl = document.getElementById('whyState');
+    if (!what) return;
+
+    if (!f) {
+      what.textContent = '全部达标';
+      why.textContent = '没有待练的族，可以做一次整卷模考';
+      stEl.textContent = '—';
+      var btn0 = document.getElementById('startBtn');
+      if (btn0) { btn0.textContent = '去做模考'; btn0.onclick = function(){ location.href = 'exam.html'; }; }
+      return;
+    }
+
+    sel.family = f.id;
+    var st = Z.famStats ? Z.famStats(f.id) : { n:0, rate:0, nearRate:0, state:'untested' };
+    var tier = Z.famTier ? Z.famTier(f) : 'l2';
+
+    /* 第一行：练什么 */
+    what.innerHTML = '<b>' + escH(f.name) + '</b>' +
+      '<span class="why-tag">' + (FAM_TARGET_LABEL[tier] || tier) + '</span>' +
+      '<span class="why-tag ghost">' + (f.hitYears || 0) + '/4 年考 · 年均 ' +
+      (Math.round((f.avgPerYear || 0) * 10) / 10) + ' 分</span>';
+
+    /* 第二行：为什么是它 */
+    if (st.state === 'untested') {
+      why.textContent = '还没测过——先做一组看正确率，这本身就是诊断。';
+    } else if (st.nearRate > 0.2) {
+      why.textContent = '正确率 ' + Math.round(st.rate * 100) + '%，但「会做但错」占 ' +
+        Math.round(st.nearRate * 100) + '%——路径都对，只是收尾不稳。';
+    } else {
+      why.textContent = '正确率 ' + Math.round(st.rate * 100) + '%，离这一层目标还差 ' +
+        Math.max(0, Math.round((({l1:0.98,l2:0.90,l3:0.50}[tier] || 0.9) - st.rate) * 100)) + ' 个点。';
+    }
+
+    /* 第三行：现在什么状态 */
+    var T = (Z.FAM_TARGET || {})[tier] || { rate: 0.9, minN: 8, streak: 0 };
+    if (st.state === 'untested') {
+      stEl.textContent = '未测 · 需 ' + T.minN + ' 题才能判定（本组默认 ' + sel.len + ' 题）';
+    } else {
+      var cond = '≥' + Math.round(T.rate * 100) + '%';
+      if (T.streak) cond += ' 且跨题连对 ≥' + T.streak;
+      stEl.textContent = '已练 ' + st.n + ' 题 · 当前 ' + Math.round(st.rate * 100) + '%' +
+        (st.streak ? ' · 连对 ' + st.streak : '') + ' · 达标线 ' + cond;
     }
   }
+  function escH(x){
+    return String(x == null ? '' : x).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  /* ---------- 做完一组之后的诊断 ----------
+     这是全站唯一真正的「诊断」：它紧接着产生一个动作。
+     输入只用本组数据，不做跨页聚合——跨页聚合必然变成报告，
+     而报告不会让人行动。
+
+     三段：
+       ① 本组成绩 vs 这一层的目标（不是 vs 60 分）
+       ② 错的那几题卡在哪一步 → 归到哪类错因（说清「不是算错」这种区别）
+       ③ 一个按钮：再练几题 / 换下一族 */
+  var ERR_LABEL = { sign:'符号错误', calc:'计算失误', concept:'概念边界',
+    method:'方法未掌握', model:'建模失败', express:'规范缺失' };
+  var ERR_FIX = { sign:'再练同类变号题', calc:'限时重复同一类',
+    concept:'回概念判断', method:'看识别信号 + 母题', model:'练建模四步', express:'练采分点' };
+
+  function paintAfterDiag(res){
+    var box = document.getElementById('diagAfter');
+    var card = document.getElementById('diagAfterCard');
+    if (!box || !card) return;
+
+    var f = famById(sel.family);
+    var tier = f && Z.famTier ? Z.famTier(f) : 'l2';
+    var T = (Z.FAM_TARGET || {})[tier] || { rate: 0.9 };
+    /* 引擎返回的 res.rate 已是百分数（内部 Math.round(x*100)），不能再乘 100 */
+    var pct = Math.round(res.rate || 0);
+    var target = Math.round(T.rate * 100);
+
+    var html = '';
+
+    /* ① 成绩 vs 目标 */
+    html += '<div class="da-head">' +
+      '<b>本组 ' + res.answered + ' 题，对 ' + res.correct + ' 题（' + pct + '%）</b>' +
+      '<span class="da-target">' + (FAM_TARGET_LABEL[tier] || tier) + '目标 ' + target + '%' +
+      (pct >= target ? ' · 已达标' : ' · 还差 ' + (target - pct) + ' 个点') + '</span>' +
+      '</div>';
+
+    /* ② 错题归因 */
+    var wrong = (res.results || []).filter(function(r){ return r.result !== 'right'; });
+    if (!wrong.length) {
+      html += '<p class="da-none">本组没有错题。' +
+        (pct >= target ? '这一族可以过了。' : '但样本还不够，再练一组确认。') + '</p>';
+      html += '<div class="da-actions">' +
+        '<button class="btn primary" id="daNext2">换下一族</button>' +
+        '<a class="btn ghost" href="drill.html?family=' + encodeURIComponent(sel.family || '') +
+        '&n=10&autostart=1">再练一组</a>' +
+        '</div>';
+    } else {
+      /* 统计卡点与错因 */
+      var stuckCount = {}, errCount = {};
+      var firstStuck = null, firstErr = null;
+      wrong.forEach(function(r){
+        var s = (r.stuckStep != null && r.stuckStep >= 0) ? r.stuckStep : -1;
+        if (s >= 0) {
+          stuckCount[s] = (stuckCount[s] || 0) + 1;
+          if (firstStuck == null) firstStuck = s;
+        }
+        var e = r.errTag || r.errorType;
+        if (e) {
+          errCount[e] = (errCount[e] || 0) + 1;
+          if (!firstErr) firstErr = e;
+        }
+      });
+
+      /* 卡在第几步 */
+      var stuckTxt = '';
+      if (firstStuck != null) {
+        stuckTxt = '卡在第 ' + (firstStuck + 1) + ' 步';
+        if (firstStuck === 0) stuckTxt += '（第一步就卡 → 方法或概念没到位，不是算错）';
+        else stuckTxt += '（前面都对 → 是收尾/执行问题）';
+      }
+
+      /* 哪类错因 */
+      var errTxt = '';
+      if (firstErr) {
+        errTxt = '<b>' + (ERR_LABEL[firstErr] || firstErr) + '</b>';
+        if (firstErr === 'sign') errTxt += '——不是算错，是变号。这两类的补法不同：变号要专项，算错要限时重复。';
+        else if (firstErr === 'calc') errTxt += '——会做但算错，补法是限时重复同一类。';
+        else if (firstErr === 'concept') errTxt += '——定义的条件没弄清，回概念判断。';
+      }
+
+      html += '<div class="da-wrong">';
+      html += '<div class="da-row"><span class="da-k">错了几题</span><span>' + wrong.length + ' 题</span></div>';
+      if (stuckTxt) html += '<div class="da-row"><span class="da-k">卡在哪</span><span>' + stuckTxt + '</span></div>';
+      if (errTxt) html += '<div class="da-row"><span class="da-k">哪类错</span><span>' + errTxt + '</span></div>';
+      html += '</div>';
+
+      /* nearMiss：会做但错 */
+      var nm = wrong.filter(function(r){ return r.nearMiss; }).length;
+      if (nm > 0) {
+        html += '<p class="da-nm">其中 <b>' + nm + '</b> 题是「会做但错」——除最后一步外全对。' +
+          '这不是不会，是收尾不稳。</p>';
+      }
+
+      /* ③ 动作按钮 */
+      var againN = Math.min(10, Math.max(6, wrong.length * 3));
+      var fixTxt = firstErr && ERR_FIX[firstErr] ? ERR_FIX[firstErr] : '再练同类';
+      html += '<div class="da-actions">' +
+        '<a class="btn primary" href="drill.html?family=' + encodeURIComponent(sel.family || '') +
+        '&n=' + againN + '&autostart=1">' + fixTxt + '（' + againN + ' 题）</a>' +
+        '<button class="btn ghost" id="daNext">换下一族</button>' +
+        '<a class="btn ghost sm" href="wrong.html">看错题本</a>' +
+        '</div>';
+    }
+
+    card.innerHTML = html;
+    box.style.display = '';
+
+    var nx2 = document.getElementById('daNext2');
+    if (nx2) nx2.addEventListener('click', function(){ location.href = 'drill.html'; });
+    var nx = document.getElementById('daNext');
+    if (nx) nx.addEventListener('click', function(){
+      /* 换下一族：清掉 family 参数重新载入，让 pickFamily 重新算 */
+      location.href = 'drill.html';
+    });
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* 折叠区开关 */
+  var setupWrap = document.getElementById('setupWrap');
+  var tg = document.getElementById('toggleSetup');
+  var cl = document.getElementById('closeSetup');
+  if (tg && setupWrap) tg.addEventListener('click', function(){ setupWrap.style.display = ''; });
+  if (cl && setupWrap) cl.addEventListener('click', function(){ setupWrap.style.display = 'none'; });
 
   function ensureDefs(){
     Object.keys(CH).forEach(function(cid){
@@ -1567,7 +1821,11 @@ function buildDrill() {
         if (q.variantOf && Z.methodRecord) Z.methodRecord(q.method, q.id, ok, q.changed);
         Z.bumpDay('questions', 1);
       },
-      onFinish: function(res){ if (res.rate >= 90) Z.sfx('win'); }
+      onFinish: function(res){
+        if (res.rate >= 90) Z.sfx('win');
+        paintAfterDiag(res);
+        paintWhy();
+      }
     });
     document.getElementById('stageWrap').scrollIntoView({ behavior:'smooth', block:'start' });
   });
@@ -1575,7 +1833,15 @@ function buildDrill() {
   Z.ready(function(){
     Z.loadAll(Z.chapterIds()).then(function(all){
       CH = all || {};
-      if (params.get('autostart') === '1') document.getElementById('startBtn').click();
+      paintWhy();
+      /* 直接出题：点「巩固练习」就该开始做，不该先配置。
+         带 family / ids / method 等参数时不自动开始（那是明确的定向练习）；
+         从首页或导航直接进来时自动开始。 */
+      var directed = sel.family && params.get('family')
+        || sel.ids.length || sel.method || sel.chapter;
+      if (params.get('autostart') === '1' || !directed) {
+        document.getElementById('startBtn').click();
+      }
     });
   });
 })();
