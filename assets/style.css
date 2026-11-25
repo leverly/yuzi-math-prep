@@ -13,9 +13,13 @@
   --max: 1140px;
   --ease: cubic-bezier(.22, .61, .36, 1);
   --ease-out: cubic-bezier(.16, 1, .3, 1);
-  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
-  --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
-  --en: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, system-ui, sans-serif;
+  /* 字体栈末尾补 Helvetica Neue / Arial：这两个在三大平台都有 U+2212
+     （数学减号）和 U+00D7、U+00F7 的字形。缺了它们，某些系统会让
+     「−18」「−2」这类含减号的选项回退到衬线字体，同一行选项里
+     出现两种字形——看着像字号不一致。 */
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --en: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* 亮色主题（默认，面向中小学生与家长） */
@@ -1769,8 +1773,12 @@ a.coverage-row:hover { border-color: var(--accent); transform: translateX(3px); 
   border: 1.5px solid var(--border-2); background: var(--surface);
   color: var(--text); font-size: .95rem; cursor: pointer;
   transition: border-color .18s var(--ease), background .18s var(--ease), transform .12s var(--ease);
-  font-family: inherit; line-height: 1.6;
+  /* 显式给字体栈：选项里常有「−18」这种含 U+2212 的内容，
+     靠继承 body 在某些系统上会回退到衬线体，同一组选项两种字形。 */
+  font-family: var(--sans); line-height: 1.6;
 }
+/* 选项文字（含公式图）统一基线，避免数字/图片混排时高低不齐 */
+.se-opt > span:last-child { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 2px; }
 .se-opt:hover:not(.locked) { border-color: var(--accent); background: var(--accent-soft); }
 .se-opt:active:not(.locked) { transform: scale(.99); }
 .se-opt.locked { cursor: default; }
@@ -4456,15 +4464,24 @@ details[open] > summary::before { content: '▾ '; }
 /* 独立成行的公式（题干里的 break 之后）可以稍高 */
 .se-stem .q-f { max-height: 1.7em; }
 
-/* 整项就是一张图的选项（如「下列平面图形绕轴旋转」的四张图、
-   四个方程选项）：1.5em 会把方程压成一条线，必须放大。
-   判据是 data-optfig，由渲染层给「选项内容只有一个 img」的项打上。 */
+/* 整项就是一张图的选项（四张旋转图、四个方程、分数）。
+   分数是竖图（152×248），压到 1.5em 会糊成一团看不清；
+   给 2.6em 让它有足够高度显示分子分母。
+   代价是这一组选项整体变高——所以下面把同组所有选项抬到同一高度。 */
 .se-opt[data-optfig] { align-items: center; }
 .se-opt[data-optfig] .q-f {
-  max-height: 3.2em;
-  margin: 2px 0;
+  max-height: 2.6em;
+  margin: 0;
 }
 .se-opt[data-optfig] .se-key { align-self: center; }
+
+/* 同一组选项高度必须一致。
+   踩过：文本项「−5」行高 52px、分数图项 81px，同一组里出现
+   「A/B 小字、C/D 大字」，看着像字号错乱，其实是行高不齐。
+   只在「组内确实有公式图」时抬高度——纯文本组（如 A=14/B=2/C=−18）
+   保持紧凑，不要无谓撑高。 */
+.se-opts:has(.q-f) { grid-auto-rows: minmax(76px, auto); }
+.se-opts:has(.q-f) .se-opt { min-height: 76px; }
 
 /* 反馈区（答错时的「正确答案」/解析）里的公式图。
    这里没被上面三条选择器覆盖，公式图会按 PNG 原始像素铺开——
@@ -4658,7 +4675,14 @@ details[open] > summary::before { content: '▾ '; }
   display: flex; align-items: center; gap: 8px;
   padding: 7px 11px; border-radius: 8px;
   background: var(--surface-2); border: 1px solid var(--border);
-  font-size: .89rem; line-height: 1.6;
+  /* 与 .se-opt 对齐字号和字体栈：同一道题在练习页和复盘页
+     应该长得一样，否则学生以为看错了题。 */
+  font-size: .95rem; line-height: 1.6; font-family: var(--sans);
+}
+/* 选项文字层与 .se-opt 一致：图片/数字混排时统一基线 */
+.wb-opts li > span:last-child,
+.wb-opts li > .wb-opt-k + span {
+  display: inline-flex; align-items: center; flex-wrap: wrap; gap: 2px;
 }
 .wb-opts li.on { background: var(--ok-soft); border-color: var(--ok); }
 .wb-opt-k {
@@ -4791,3 +4815,21 @@ details[open] > summary::before { content: '▾ '; }
    图也不强制放大到 320px——选项图通常只需要认出形状。 */
 .q-fig-compact { margin: 4px 0; gap: 0; }
 .q-fig-compact .q-fig-img { min-width: 0; max-height: 80px; }
+
+/* 题干内的表格（docx 真表格抽取后的行列结构） */
+.q-table-wrap { margin: 12px 0; overflow-x: auto; }
+.q-table {
+  border-collapse: collapse; font-size: .88rem;
+  background: var(--surface);
+}
+.q-table th, .q-table td {
+  border: 1px solid var(--border);
+  padding: 7px 12px; text-align: center;
+  white-space: nowrap;
+}
+.q-table th {
+  background: var(--surface-2); font-weight: 700; color: var(--text);
+}
+.q-table td { color: var(--text-2); }
+/* 空单元格（原卷故意留空，让题目去求）保留边框 */
+.q-table td:empty::after { content: ''; display: inline-block; min-width: 1.2em; }

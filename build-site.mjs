@@ -451,6 +451,19 @@ function renderQuestion(q, R) {
     o.stemHtml = q.stemParts.map((p) => {
       if (p.t === 'text') return C(R.math.render(p.v));
       if (p.t === 'break') return '<br>';
+      /* 表格：docx 里的真表格抽取后是行列结构，渲染成真正的 <table>。
+         不渲染的话会变成一串挤在一起的单元格文字，完全没法读。 */
+      if (p.t === 'table' && Array.isArray(p.rows)) {
+        const rows = p.rows;
+        const head = rows[0] || [];
+        const body = rows.slice(1);
+        return '<div class="q-table-wrap"><table class="q-table">' +
+          '<thead><tr>' + head.map((c) => '<th>' + C(R.math.render(String(c))) + '</th>').join('') + '</tr></thead>' +
+          '<tbody>' + body.map((r) =>
+            '<tr>' + r.map((c) => '<td>' + C(R.math.render(String(c))) + '</td>').join('') + '</tr>'
+          ).join('') + '</tbody>' +
+          '</table></div>';
+      }
       if (p.t === 'img' && p.src) {
         const name = p.src.split('/').pop();
         /* p2023 的公式是 MathType WMF，浏览器不支持；字符又是字体编码，
