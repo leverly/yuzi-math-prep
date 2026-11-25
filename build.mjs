@@ -35,6 +35,12 @@ const CALC3 = FAMILY_MAP.filter((f) => ['f-arith', 'f-solveeq', 'f-simplify'].in
 const DIFF_INDEX_MIN = Math.min(...PAPER_STATS.map((s) => s.diffIndex));
 const DIFF_INDEX_MAX = Math.max(...PAPER_STATS.map((s) => s.diffIndex));
 const famById = (id) => FAMILY_MAP.find((f) => f.id === id);
+
+// 考点族按章节分组：章节之间按五年总分降序，组内按年均分降序
+const CH_GROUPS = CH_ORDER.map((k) => {
+  const fams = FAMILY_MAP.filter((f) => f.ch === k).sort((a, b) => b.avgPerYear - a.avgPerYear);
+  return { k, name: CH_NAME[k], total: fams.reduce((a, f) => a + f.total, 0), fams };
+}).filter((g) => g.fams.length).sort((a, b) => b.total - a.total);
 // 压轴的「典型分值」用众数而非五年均值：2021-22 压轴为 0 会把均值拉低到 5.6
 const TOP_MODE = (() => {
   const v = DIFF_SCORE.top.per.filter((x) => x > 0);
@@ -274,6 +280,11 @@ tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none
 .dist-val{font-size:12.8px;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 
 /* ---------- 考点族卡 ---------- */
+.fam-tbl{table-layout:fixed;width:100%}
+.fam-tbl th:nth-child(1),.fam-tbl td:nth-child(1){width:auto}
+.fam-tbl th:nth-child(2),.fam-tbl td:nth-child(2){width:22%}
+.fam-tbl th:nth-child(3),.fam-tbl td:nth-child(3){width:22%}
+.fam-tbl td:first-child{white-space:normal}
 .fam{
   background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
   padding:17px 19px;box-shadow:var(--shadow-1);transition:.18s var(--ease);
@@ -599,7 +610,7 @@ ${section('必考清单', `五年年年考的 ${FREQ.must.length} 个考点族`,
       <div class="fam-note">${esc(f.note)}</div>
     </div>`).join('')}
 </div>
-<p style="margin-top:16px"><a href="trend.html#families" style="color:var(--accent);font-weight:650;text-decoration:none;font-size:13.5px">查看全部 ${FAMILY_MAP.length} 个考点族与频次判定 →</a></p>`)}
+<p style="margin-top:16px"><a href="trend.html#families" style="color:var(--accent);font-weight:650;text-decoration:none;font-size:13.5px">查看全部 ${FAMILY_MAP.length} 个考点年均分值 →</a></p>`)}
 
 ${section('一个必须说明的前提', '原始材料里有两份是同一套卷', '', `
 <div class="card">
@@ -696,7 +707,7 @@ function buildTrend() {
 <section class="hero" style="padding:44px 0 8px">
   <div class="hero-badge"><span class="dot-live"></span>五年趋势 · 考点频次</div>
   <h1>五年趋势与考点频次</h1>
-  <p class="lede">先看什么在变（章节、能力、难度），再看什么一直在考（考点族），最后看哪几道题的位置是钉死的。</p>
+  <p class="lede">先看什么在变（章节、能力、难度），再看各考点的年均分值——分值高的先练。</p>
 </section>
 
 ${section('章节', '各章分值五年走势', '极差 = 五年最高与最低之差', `
@@ -748,34 +759,27 @@ ${section('难度', '难度四级五年分布', `基础 ${DIFF_SCORE.easy.pct}% 
   难度标注说明：2025-26 卷自带官方标注（易/较易/中档/较难），已逐题比对；其余四套为人工判定。用于看<b>大致比例</b>，不宜精确到单题。
 </div>`, 'difficulty')}
 
-${section('考点族', '按「考法」归并，不按题干长相',
-    `共 ${FAMILY_MAP.length} 族 · 必考 ${FREQ.must.length} 族（${FREQ_SUMMARY.must.pct}%）/ 高频 ${FREQ.often.length} 族 / 偶考 ${FREQ.rare.length} 族`, `
-<div class="note warn">
-  <b>为什么必须归族：</b>「第 23 题」五年分别考数轴动点、动角、线段中点、数轴双动点、数轴动点——载体全换，
-  但如果按题干分组，每一族都会显示「只考过一次」，得出「不用重点练」的错误结论。
-  <b>按考法归并后，它是 5/5 必考、${famById('f-final').total} 分。</b>
-</div>
-<div class="grid g2" style="margin-top:16px">
-  ${FAMILY_MAP.map((f) => {
-    const tagCls = f.hitYears === N_PAPERS ? 'must' : f.hitYears === N_PAPERS - 1 ? 'often' : 'rare';
-    return `<div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">${esc(f.name)}</span>
-        <span class="tag ${tagCls}">${f.hitYears}/${N_PAPERS} 年</span>
-        <span class="fam-score">${f.total} 分 · 年均 ${f.avgPerYear}</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">${CH_NAME[f.ch]}</span>
-        <span class="tag cat">${CAT_NAME[f.cat]}</span>
-        <span>${f.count} 题</span>
-      </div>
-      <div class="fam-note">${esc(f.note)}</div>
-      <div class="fam-years">
-        ${YEARS.map((y) => `<span class="yr${f.perYear[y] > 0 ? ' hit' : ''}">${y}: ${f.perYear[y]}分</span>`).join('')}
-      </div>
-    </div>`;
-  }).join('')}
-</div>`, 'families')}
+${section('考点族', '各考点年均分值',
+    `按章节分组 · 组内按年均分降序 · 共 ${FAMILY_MAP.length} 族`, `
+<div class="tbl-wrap"><table class="fam-tbl">
+  <thead><tr><th>考点</th><th class="num">年均分</th><th class="num">出现年数</th></tr></thead>
+  <tbody>${CH_GROUPS.map((g) => `
+    <tr style="background:var(--bg-3)">
+      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
+        ${esc(g.name)}
+        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 ${g.total} 分</span>
+      </td>
+    </tr>
+    ${g.fams.map((f) => `<tr>
+      <td style="padding-left:26px">${esc(f.name)}</td>
+      <td class="num cell-hi">${f.avgPerYear || '—'}</td>
+      <td class="num">${f.hitYears}/${N_PAPERS}</td>
+    </tr>`).join('')}`).join('')}</tbody>
+  <tfoot><tr><td>合计</td><td class="num">${MAIN_GRAND / N_PAPERS}</td><td class="num">—</td></tr></tfoot>
+</table></div>
+<p style="margin-top:12px;font-size:12.8px;color:var(--text-3)">
+  年均分 = 五年必做分合计 ÷ ${N_PAPERS}。只出现在选做位的考点计 0 分（选做不计入必做 100 分）。
+</p>`, 'families')}
 
 ${section('诚实边界', '三个必须说明的限制', '', `
 <div class="card">

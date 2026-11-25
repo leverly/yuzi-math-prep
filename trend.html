@@ -235,6 +235,11 @@ tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none
 .dist-val{font-size:12.8px;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 
 /* ---------- 考点族卡 ---------- */
+.fam-tbl{table-layout:fixed;width:100%}
+.fam-tbl th:nth-child(1),.fam-tbl td:nth-child(1){width:auto}
+.fam-tbl th:nth-child(2),.fam-tbl td:nth-child(2){width:22%}
+.fam-tbl th:nth-child(3),.fam-tbl td:nth-child(3){width:22%}
+.fam-tbl td:first-child{white-space:normal}
 .fam{
   background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
   padding:17px 19px;box-shadow:var(--shadow-1);transition:.18s var(--ease);
@@ -350,7 +355,7 @@ footer b{color:var(--text-2)}
 <section class="hero" style="padding:44px 0 8px">
   <div class="hero-badge"><span class="dot-live"></span>五年趋势 · 考点频次</div>
   <h1>五年趋势与考点频次</h1>
-  <p class="lede">先看什么在变（章节、能力、难度），再看什么一直在考（考点族），最后看哪几道题的位置是钉死的。</p>
+  <p class="lede">先看什么在变（章节、能力、难度），再看各考点的年均分值——分值高的先练。</p>
 </section>
 
 
@@ -476,378 +481,156 @@ footer b{color:var(--text-2)}
 <section class="section" id="families">
   <div class="section-head"><div class="section-head-left">
     <span class="kicker">考点族</span>
-    <h2>按「考法」归并，不按题干长相</h2>
-    <span class="sub">共 24 族 · 必考 12 族（82%）/ 高频 1 族 / 偶考 11 族</span>
+    <h2>各考点年均分值</h2>
+    <span class="sub">按章节分组 · 组内按年均分降序 · 共 24 族</span>
   </div></div>
   
-<div class="note warn">
-  <b>为什么必须归族：</b>「第 23 题」五年分别考数轴动点、动角、线段中点、数轴双动点、数轴动点——载体全换，
-  但如果按题干分组，每一族都会显示「只考过一次」，得出「不用重点练」的错误结论。
-  <b>按考法归并后，它是 5/5 必考、46 分。</b>
-</div>
-<div class="grid g2" style="margin-top:16px">
-  <div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">有理数四则混合运算</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">92 分 · 年均 18.4</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">有理数的运算</span>
-        <span class="tag cat">计算求解</span>
-        <span>5 题</span>
-      </div>
-      <div class="fam-note">第 17 题，17–20 分，全卷单题最高分值，纯计算</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 18分</span><span class="yr hit">2022-23: 18分</span><span class="yr hit">2023-24: 17分</span><span class="yr hit">2024-25: 19分</span><span class="yr hit">2025-26: 20分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">解一元一次方程</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">58 分 · 年均 11.6</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">一元一次方程</span>
-        <span class="tag cat">计算求解</span>
-        <span>5 题</span>
-      </div>
-      <div class="fam-note">第 20 题位，11–12 分，去分母/去括号/移项全流程</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 11分</span><span class="yr hit">2022-23: 11分</span><span class="yr hit">2023-24: 12分</span><span class="yr hit">2024-25: 12分</span><span class="yr hit">2025-26: 12分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">分类压轴（第23题位）</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">46 分 · 年均 9.2</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">有理数</span>
-        <span class="tag cat">分类讨论</span>
-        <span>8 题</span>
-      </div>
-      <div class="fam-note">第 23 题固定题位，6–7 分；五套全是「分类」能力，载体每年换（数轴动点/动角/线段中点）</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 6分</span><span class="yr hit">2022-23: 7分</span><span class="yr hit">2023-24: 7分</span><span class="yr hit">2024-25: 13分</span><span class="yr hit">2025-26: 13分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">绝对值与数轴</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">44 分 · 年均 8.8</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">有理数</span>
-        <span class="tag cat">概念辨析</span>
-        <span>22 题</span>
-      </div>
-      <div class="fam-note">选择/填空前段，每年 3–4 题，考绝对值、相反数、数轴判符号</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 8分</span><span class="yr hit">2022-23: 8分</span><span class="yr hit">2023-24: 12分</span><span class="yr hit">2024-25: 6分</span><span class="yr hit">2025-26: 10分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">方程应用题</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">42 分 · 年均 8.4</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">一元一次方程</span>
-        <span class="tag cat">建模应用</span>
-        <span>8 题</span>
-      </div>
-      <div class="fam-note">解答题中段，5–8 分，从文字/表格建等量关系</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 8分</span><span class="yr hit">2022-23: 7分</span><span class="yr hit">2023-24: 9分</span><span class="yr hit">2024-25: 9分</span><span class="yr hit">2025-26: 9分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">整式化简求值</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">30 分 · 年均 6</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">整式的加减</span>
-        <span class="tag cat">计算求解</span>
-        <span>5 题</span>
-      </div>
-      <div class="fam-note">第 18 题固定位置，6 分，去括号+合并同类项+代值</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 6分</span><span class="yr hit">2022-23: 6分</span><span class="yr hit">2023-24: 6分</span><span class="yr hit">2024-25: 6分</span><span class="yr hit">2025-26: 6分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">尺规作图与说理</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">29 分 · 年均 5.8</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">几何图形初步</span>
-        <span class="tag cat">作图操作</span>
-        <span>5 题</span>
-      </div>
-      <div class="fam-note">第 19 题固定位置，6 分，作图+依据说理</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 6分</span><span class="yr hit">2022-23: 6分</span><span class="yr hit">2023-24: 6分</span><span class="yr hit">2024-25: 6分</span><span class="yr hit">2025-26: 5分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">整式加减辨析</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">22 分 · 年均 4.4</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">整式的加减</span>
-        <span class="tag cat">概念辨析</span>
-        <span>11 题</span>
-      </div>
-      <div class="fam-note">选择 1 题 + 填空 1 题，考概念辨析与构造</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 6分</span><span class="yr hit">2022-23: 4分</span><span class="yr hit">2023-24: 4分</span><span class="yr hit">2024-25: 4分</span><span class="yr hit">2025-26: 4分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">角度推理填空（几何说理）</span>
-        <span class="tag rare">3/5 年</span>
-        <span class="fam-score">19 分 · 年均 3.8</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">几何图形初步</span>
-        <span class="tag cat">推理说理</span>
-        <span>3 题</span>
-      </div>
-      <div class="fam-note">解答题，6–7 分，补全推理过程并填依据</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 7分</span><span class="yr hit">2022-23: 6分</span><span class="yr hit">2023-24: 6分</span><span class="yr">2024-25: 0分</span><span class="yr">2025-26: 0分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">新定义（选做 / 24 题位）</span>
-        <span class="tag rare">3/5 年</span>
-        <span class="fam-score">16 分 · 年均 3.2</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">有理数</span>
-        <span class="tag cat">新定义迁移</span>
-        <span>9 题</span>
-      </div>
-      <div class="fam-note">压轴或选做，给新规则→判断性质→迁移，是拉分主战场</div>
-      <div class="fam-years">
-        <span class="yr">2021-22: 0分</span><span class="yr hit">2022-23: 7分</span><span class="yr hit">2023-24: 7分</span><span class="yr hit">2024-25: 2分</span><span class="yr">2025-26: 0分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">方程概念辨析</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">14 分 · 年均 2.8</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">一元一次方程</span>
-        <span class="tag cat">概念辨析</span>
-        <span>7 题</span>
-      </div>
-      <div class="fam-note">选择 1 题 + 填空 1 题，考等式性质与解的定义</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 4分</span><span class="yr hit">2022-23: 2分</span><span class="yr hit">2023-24: 4分</span><span class="yr hit">2024-25: 2分</span><span class="yr hit">2025-26: 2分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">展开图 / 三视图 / 面动成体</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">12 分 · 年均 2.4</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">几何图形初步</span>
-        <span class="tag cat">空间想象</span>
-        <span>6 题</span>
-      </div>
-      <div class="fam-note">选择前段固定 1 题，考空间想象</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 2分</span><span class="yr hit">2022-23: 2分</span><span class="yr hit">2023-24: 2分</span><span class="yr hit">2024-25: 4分</span><span class="yr hit">2025-26: 2分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">列代数式建模</span>
-        <span class="tag rare">3/5 年</span>
-        <span class="fam-score">11 分 · 年均 2.2</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">代数式</span>
-        <span class="tag cat">建模应用</span>
-        <span>4 题</span>
-      </div>
-      <div class="fam-note">填空/选择位，考用字母表示量与判断关系</div>
-      <div class="fam-years">
-        <span class="yr">2021-22: 0分</span><span class="yr hit">2022-23: 2分</span><span class="yr">2023-24: 0分</span><span class="yr hit">2024-25: 7分</span><span class="yr hit">2025-26: 2分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">科学记数法与近似数</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">10 分 · 年均 2</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">有理数</span>
-        <span class="tag cat">概念辨析</span>
-        <span>5 题</span>
-      </div>
-      <div class="fam-note">每年选择第 2 题固定位置，2 分</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 2分</span><span class="yr hit">2022-23: 2分</span><span class="yr hit">2023-24: 2分</span><span class="yr hit">2024-25: 2分</span><span class="yr hit">2025-26: 2分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">数字填图 / 幻方</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">10 分 · 年均 2</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">有理数</span>
-        <span class="tag cat">推理说理</span>
-        <span>5 题</span>
-      </div>
-      <div class="fam-note">填空最后一题（16 题），每年必考，考整体代换与方程思想</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 2分</span><span class="yr hit">2022-23: 2分</span><span class="yr hit">2023-24: 2分</span><span class="yr hit">2024-25: 2分</span><span class="yr hit">2025-26: 2分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">余角 / 补角列方程</span>
-        <span class="tag often">4/5 年</span>
-        <span class="fam-score">8 分 · 年均 1.6</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">几何图形初步</span>
-        <span class="tag cat">建模应用</span>
-        <span>4 题</span>
-      </div>
-      <div class="fam-note">选择位，余补角定义转方程</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 2分</span><span class="yr hit">2022-23: 2分</span><span class="yr hit">2023-24: 2分</span><span class="yr hit">2024-25: 2分</span><span class="yr">2025-26: 0分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">进位制 / 综合与实践</span>
-        <span class="tag rare">1/5 年</span>
-        <span class="fam-score">7 分 · 年均 1.4</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">有理数的运算</span>
-        <span class="tag cat">推理说理</span>
-        <span>3 题</span>
-      </div>
-      <div class="fam-note">2024-25 起出现，给换算规则→照做→逆向，属新情境</div>
-      <div class="fam-years">
-        <span class="yr">2021-22: 0分</span><span class="yr">2022-23: 0分</span><span class="yr">2023-24: 0分</span><span class="yr">2024-25: 0分</span><span class="yr hit">2025-26: 7分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">代数式求值（整体代入）</span>
-        <span class="tag rare">3/5 年</span>
-        <span class="fam-score">6 分 · 年均 1.2</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">代数式</span>
-        <span class="tag cat">计算求解</span>
-        <span>3 题</span>
-      </div>
-      <div class="fam-note">填空位，考整体代入而非逐项展开</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 2分</span><span class="yr hit">2022-23: 2分</span><span class="yr hit">2023-24: 2分</span><span class="yr">2024-25: 0分</span><span class="yr">2025-26: 0分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">图形规律（用含 n 式子表示）</span>
-        <span class="tag rare">3/5 年</span>
-        <span class="fam-score">6 分 · 年均 1.2</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">代数式</span>
-        <span class="tag cat">推理说理</span>
-        <span>3 题</span>
-      </div>
-      <div class="fam-note">选择或填空，考从具体到一般的归纳</div>
-      <div class="fam-years">
-        <span class="yr">2021-22: 0分</span><span class="yr hit">2022-23: 2分</span><span class="yr">2023-24: 0分</span><span class="yr hit">2024-25: 2分</span><span class="yr hit">2025-26: 2分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">阅读理解 / 规律探究</span>
-        <span class="tag rare">1/5 年</span>
-        <span class="fam-score">6 分 · 年均 1.2</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">有理数的运算</span>
-        <span class="tag cat">推理说理</span>
-        <span>2 题</span>
-      </div>
-      <div class="fam-note">解答或选做位，读材料→补表→说理</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 6分</span><span class="yr">2022-23: 0分</span><span class="yr">2023-24: 0分</span><span class="yr">2024-25: 0分</span><span class="yr">2025-26: 0分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">角度换算（度分秒）</span>
-        <span class="tag rare">2/5 年</span>
-        <span class="fam-score">4 分 · 年均 0.8</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">几何图形初步</span>
-        <span class="tag cat">计算求解</span>
-        <span>2 题</span>
-      </div>
-      <div class="fam-note">填空前段，60 进制换算是固定失分点</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 2分</span><span class="yr hit">2022-23: 2分</span><span class="yr">2023-24: 0分</span><span class="yr">2024-25: 0分</span><span class="yr">2025-26: 0分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">线段中点</span>
-        <span class="tag rare">2/5 年</span>
-        <span class="fam-score">4 分 · 年均 0.8</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">几何图形初步</span>
-        <span class="tag cat">计算求解</span>
-        <span>2 题</span>
-      </div>
-      <div class="fam-note">填空位，考中点定义与线段和差</div>
-      <div class="fam-years">
-        <span class="yr hit">2021-22: 2分</span><span class="yr hit">2022-23: 2分</span><span class="yr">2023-24: 0分</span><span class="yr">2024-25: 0分</span><span class="yr">2025-26: 0分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">角的和差</span>
-        <span class="tag rare">2/5 年</span>
-        <span class="fam-score">4 分 · 年均 0.8</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">几何图形初步</span>
-        <span class="tag cat">计算求解</span>
-        <span>2 题</span>
-      </div>
-      <div class="fam-note">填空位，纯角度加减</div>
-      <div class="fam-years">
-        <span class="yr">2021-22: 0分</span><span class="yr">2022-23: 0分</span><span class="yr">2023-24: 0分</span><span class="yr hit">2024-25: 2分</span><span class="yr hit">2025-26: 2分</span>
-      </div>
-    </div><div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">三角尺拼角</span>
-        <span class="tag rare">0/5 年</span>
-        <span class="fam-score">0 分 · 年均 0</span>
-      </div>
-      <div class="fam-meta">
-        <span class="tag ch">几何图形初步</span>
-        <span class="tag cat">作图操作</span>
-        <span>1 题</span>
-      </div>
-      <div class="fam-note">选做位，用一副三角尺构造特殊角</div>
-      <div class="fam-years">
-        <span class="yr">2021-22: 0分</span><span class="yr">2022-23: 0分</span><span class="yr">2023-24: 0分</span><span class="yr">2024-25: 0分</span><span class="yr">2025-26: 0分</span>
-      </div>
-    </div>
-</div>
+<div class="tbl-wrap"><table class="fam-tbl">
+  <thead><tr><th>考点</th><th class="num">年均分</th><th class="num">出现年数</th></tr></thead>
+  <tbody>
+    <tr style="background:var(--bg-3)">
+      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
+        有理数
+        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 126 分</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-left:26px">分类压轴（第23题位）</td>
+      <td class="num cell-hi">9.2</td>
+      <td class="num">5/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">绝对值与数轴</td>
+      <td class="num cell-hi">8.8</td>
+      <td class="num">5/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">新定义（选做 / 24 题位）</td>
+      <td class="num cell-hi">3.2</td>
+      <td class="num">3/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">科学记数法与近似数</td>
+      <td class="num cell-hi">2</td>
+      <td class="num">5/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">数字填图 / 幻方</td>
+      <td class="num cell-hi">2</td>
+      <td class="num">5/5</td>
+    </tr>
+    <tr style="background:var(--bg-3)">
+      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
+        一元一次方程
+        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 114 分</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-left:26px">解一元一次方程</td>
+      <td class="num cell-hi">11.6</td>
+      <td class="num">5/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">方程应用题</td>
+      <td class="num cell-hi">8.4</td>
+      <td class="num">5/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">方程概念辨析</td>
+      <td class="num cell-hi">2.8</td>
+      <td class="num">5/5</td>
+    </tr>
+    <tr style="background:var(--bg-3)">
+      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
+        有理数的运算
+        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 105 分</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-left:26px">有理数四则混合运算</td>
+      <td class="num cell-hi">18.4</td>
+      <td class="num">5/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">进位制 / 综合与实践</td>
+      <td class="num cell-hi">1.4</td>
+      <td class="num">1/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">阅读理解 / 规律探究</td>
+      <td class="num cell-hi">1.2</td>
+      <td class="num">1/5</td>
+    </tr>
+    <tr style="background:var(--bg-3)">
+      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
+        几何图形初步
+        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 80 分</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-left:26px">尺规作图与说理</td>
+      <td class="num cell-hi">5.8</td>
+      <td class="num">5/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">角度推理填空（几何说理）</td>
+      <td class="num cell-hi">3.8</td>
+      <td class="num">3/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">展开图 / 三视图 / 面动成体</td>
+      <td class="num cell-hi">2.4</td>
+      <td class="num">5/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">余角 / 补角列方程</td>
+      <td class="num cell-hi">1.6</td>
+      <td class="num">4/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">角度换算（度分秒）</td>
+      <td class="num cell-hi">0.8</td>
+      <td class="num">2/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">线段中点</td>
+      <td class="num cell-hi">0.8</td>
+      <td class="num">2/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">角的和差</td>
+      <td class="num cell-hi">0.8</td>
+      <td class="num">2/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">三角尺拼角</td>
+      <td class="num cell-hi">—</td>
+      <td class="num">0/5</td>
+    </tr>
+    <tr style="background:var(--bg-3)">
+      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
+        整式的加减
+        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 52 分</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-left:26px">整式化简求值</td>
+      <td class="num cell-hi">6</td>
+      <td class="num">5/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">整式加减辨析</td>
+      <td class="num cell-hi">4.4</td>
+      <td class="num">5/5</td>
+    </tr>
+    <tr style="background:var(--bg-3)">
+      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
+        代数式
+        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 23 分</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-left:26px">列代数式建模</td>
+      <td class="num cell-hi">2.2</td>
+      <td class="num">3/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">代数式求值（整体代入）</td>
+      <td class="num cell-hi">1.2</td>
+      <td class="num">3/5</td>
+    </tr><tr>
+      <td style="padding-left:26px">图形规律（用含 n 式子表示）</td>
+      <td class="num cell-hi">1.2</td>
+      <td class="num">3/5</td>
+    </tr></tbody>
+  <tfoot><tr><td>合计</td><td class="num">100</td><td class="num">—</td></tr></tfoot>
+</table></div>
+<p style="margin-top:12px;font-size:12.8px;color:var(--text-3)">
+  年均分 = 五年必做分合计 ÷ 5。只出现在选做位的考点计 0 分（选做不计入必做 100 分）。
+</p>
 </section>
 
 
