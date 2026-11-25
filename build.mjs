@@ -112,6 +112,12 @@ a{color:inherit}
 }
 .hdr-nav a:hover{background:var(--accent-soft);color:var(--accent)}
 .hdr-nav a.on{background:var(--accent);color:#fff;font-weight:650;box-shadow:var(--shadow-accent)}
+.hdr-nav a.nav-slides{
+  background:var(--purple-soft);color:var(--purple);font-weight:650;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.hdr-nav a.nav-slides::before{content:"▶";font-size:9px}
+.hdr-nav a.nav-slides:hover{background:var(--purple);color:#fff}
 
 /* ---------- Hero ---------- */
 .hero{padding:54px 0 30px;position:relative;background:var(--hero-glow)}
@@ -386,6 +392,7 @@ const NAV = [
   ['papers.html', '逐年真题'],
   ['trend.html', '趋势与考点'],
   ['plan.html', '满分计划'],
+  ['slides.html', '演示', 'nav-slides'],
 ];
 
 function page(active, title, desc, body) {
@@ -405,7 +412,7 @@ function page(active, title, desc, body) {
     <span>${esc(SITE.short)}<small>初一上·期末</small></span>
   </a>
   <nav class="hdr-nav">
-    ${NAV.map(([h, t]) => `<a href="${h}"${h === active ? ' class="on"' : ''}>${t}</a>`).join('')}
+    ${NAV.map(([h, t, cls]) => `<a href="${h}"${cls ? ` class="${cls}"` : (h === active ? ' class="on"' : '')}>${t}</a>`).join('')}
   </nav>
 </div></header>
 <main class="wrap">

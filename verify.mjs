@@ -73,5 +73,25 @@ for (const h of htmls) {
 }
 ok(dead === 0, '所有内部链接可达', dead + ' 个死链');
 
+console.log('\n【六】幻灯片（slides.html）');
+if (fs.existsSync('slides.html')) {
+  const sl = fs.readFileSync('slides.html', 'utf8');
+  ok(sl.includes(`>${LEDGER.length}<`), `题数 ${LEDGER.length} 派生正确`);
+  ok(sl.includes(`覆盖必做分 ${S.FREQ_SUMMARY.must.pct}%`), '必考覆盖率派生正确');
+  // 「其余 N 族」文案必须与表格显示项互补，不重不漏
+  const listed = S.FREQ.must.slice(0, 8).map((f) => f.name);
+  const rest = S.FREQ.must.slice(8).map((f) => f.name);
+  const m = sl.match(/其余 \d+ 族（([^）]*)）/);
+  ok(!!m, '其余族文案存在');
+  if (m) {
+    const txt = m[1];
+    ok(listed.filter((n) => txt.includes(n)).length === 0, '其余族文案不含表格已有项（不重）');
+    ok(rest.filter((n) => !txt.includes(n)).length === 0, '其余族文案覆盖全部剩余项（不漏）');
+  }
+  ok((sl.match(/class="slide/g) || []).length >= 10, `页数 ${(sl.match(/class="slide/g) || []).length}`);
+} else {
+  ok(false, 'slides.html 已生成');
+}
+
 console.log('\n' + (fail === 0 ? '=== 全部通过 ===' : `=== ${fail} 项未通过 ===`));
 process.exit(fail === 0 ? 0 : 1);
