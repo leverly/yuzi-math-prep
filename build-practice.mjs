@@ -71,13 +71,23 @@ const usedFams = [...new Set(BANK.map((q) => q.fam))];
 const famMetaUsed = {};
 for (const k of usedFams) if (famMeta[k]) famMetaUsed[k] = famMeta[k];
 
+// 解题步骤：只挂到题库里确实存在的题上（题号漂移后不会挂空）
+const { SOLUTIONS } = await import('./work/practice/solutions.mjs');
+const solOut = {};
+for (const q of out) {
+  if (SOLUTIONS[q.id]) solOut[q.id] = SOLUTIONS[q.id];
+}
+
 const header = `// 自动生成，请勿手改。源文件：work/practice/bank.mjs
-// 答案由 verify-bank.mjs 独立验算后回填。
+// 答案由 verify-bank.mjs 独立验算后回填；解析由 work/practice/verify-solutions.mjs 逐步验算。
 // 生成时间：${new Date().toISOString().slice(0, 19)}
 
 export const BANK = ${JSON.stringify(out, null, 1)};
 
 export const FAM_META = ${JSON.stringify(famMetaUsed, null, 1)};
+
+/* 解题步骤：只覆盖主战场 8 族；其余族靠图形与说理，公式表达不了 */
+export const SOLUTIONS = ${JSON.stringify(solOut, null, 1)};
 `;
 
 writeFileSync('practice-data.mjs', header, 'utf8');

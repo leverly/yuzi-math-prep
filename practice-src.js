@@ -19,22 +19,37 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
 
 /* 把 {a/b} 渲染成竖式分数（先转义，再替换标记） */
 function mathText(raw) {
-  let t = esc(raw);
-  const fracHtml = (n, d) => {
-    const num = n.replace('−', '-');
+  // 先 esc 会把后面拼的 <span> 一起转义，所以改为：按分数标记切分，
+  // 只对「非标记的文本片段」做 esc，拼出来的 HTML 保持原样。
+  const src = String(raw);
+  // 两种写法：花括号标记 {a/b}，以及整段就是一个分数 a/b
+  const toFrac = (n, d) => {
+    const num = n.replace('\u2212', '-');
     const neg = num.startsWith('-');
-    // 负号不放进分子，由 .frac-neg::before 画在分数线左侧，避免与分数线混淆
     return '<span class="frac' + (neg ? ' frac-neg' : '') + '">' +
-      '<span class="fn">' + (neg ? num.slice(1) : num) + '</span>' +
-      '<span class="fd">' + d + '</span></span>';
+      '<span class="fn">' + esc(neg ? num.slice(1) : num) + '</span>' +
+      '<span class="fd">' + esc(d) + '</span></span>';
   };
-  // 1) 花括号标记 {a/b}
-  t = t.replace(/\{([−-]?\d+)\/(\d+)\}/g, (_, n, d) => fracHtml(n, d));
-  // 2) 整段就是一个分数（选项里常见 -15/2）：直接渲染竖式，
-  //    避免学生把它读成带分数或「−15 除以 2」
-  t = t.replace(/^([−-]?\d+)\/(\d+)$/, (_, n, d) => fracHtml(n, d));
-  return t;
+
+  // 情形 1：整段就是一个分数（选项里常见）
+  const whole = /^([\u2212-]?\d+)\/(\d+)$/.exec(src.trim());
+  if (whole) return toFrac(whole[1], whole[2]);
+
+  // 情形 2：句中含 {a/b}
+  const re = /\{([\u2212-]?\d+)\/(\d+)\}/g;
+  let out = '';
+  let last = 0;
+  let m;
+  while ((m = re.exec(src)) !== null) {
+    out += esc(src.slice(last, m.index));
+    out += toFrac(m[1], m[2]);
+    last = m.index + m[0].length;
+  }
+  out += esc(src.slice(last));
+  return out;
 }
+
+
 
 const ERR_FIX = {
   '符号错误': '把这一步单独抄出来重做，先标符号再算数值',
@@ -111,7 +126,6 @@ function diagnose(records) {
       priority: (meta.avgPerYear || 1) * (1 - rate) * (enough ? 1 : 0.3),
     };
   });
-
   const order = { weak: 0, shaky: 1, insufficient: 2, solid: 3 };
   fams.sort((a, b) => order[a.tier] - order[b.tier] || b.priority - a.priority);
 
@@ -136,9 +150,18 @@ function diagnose(records) {
 
   const totalQ = fams.reduce((a, f) => a + f.total, 0);
   const totalOk = fams.reduce((a, f) => a + f.ok, 0);
+  // 错题清单：按「族年均分 × 该题所属族权重」排序，分值高的族里的错题先重做
+  const wrongList = [...agg.values()]
+    .flatMap((a) => a.wrong.map((w) => ({
+      ...w,
+      fam: a.fam,
+      famName: (FAM_META[a.fam] || {}).name || a.fam,
+      avg: (FAM_META[a.fam] || {}).avgPerYear || 0,
+    })))
+    .sort((x, y) => y.avg - x.avg);
   return {
     totalQ, totalOk, rate: totalQ ? totalOk / totalQ : 0,
-    fams, actions: actions.slice(0, 6),
+    fams, actions: actions.slice(0, 6), wrongList,
     weak: fams.filter(f => f.tier === 'weak').length,
     shaky: fams.filter(f => f.tier === 'shaky').length,
     solid: fams.filter(f => f.tier === 'solid').length,
@@ -481,6 +504,8 @@ function showDiag() {
       这一轮全对。可以换一个范围再练，或者去「趋势与考点」看看哪些考点分值更高。
     </div>`}
 
+    ${renderWrong(d.wrongList)}
+
     ${renderHistory(hist, store)}
 
     <div class="actions" style="margin-top:26px">
@@ -494,7 +519,7 @@ function showDiag() {
   const ch = $('#clearHist');
   if (ch) ch.onclick = () => {
     if (!confirm('清空全部练习记录？这不会影响题库。')) return;
-    try { localStorage.removeItem(LS_KEY); } catch (e) {}
+    try { localStorage.removeItem('xz-practice-v1'); } catch (e) {}
     alert('已清空。');
     reset(false);
   };
@@ -507,8 +532,57 @@ function showDiag() {
     state.n = 999;
     reset(true);
   };
+  bindRedo(d.wrongList);
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* 错题清单：把本轮做错的题逐条列出，可一键重做
+ * 这是站点自己立的验收标准「同一道题第二次做是否还错」的落点——
+ * 之前错题只用于统计错因，从不出现在界面上，闭环断在这里。 */
+function renderWrong(wrongList) {
+  if (!wrongList || !wrongList.length) return '';
+  const rows = wrongList.map((w) => `
+    <div class="wrong-row">
+      <span class="wrong-fam">${esc(w.famName)}</span>
+      <span class="wrong-stem">${mathText(w.stem)}</span>
+      ${w.errCat ? `<span class="wrong-err">${esc(w.errCat)}</span>` : ''}
+    </div>`).join('');
+  return `
+    <div style="margin-top:26px">
+      <div class="diag-head">
+        <span class="kicker">Redo</span>
+        <h2 style="font-size:19px">本轮错题 ${wrongList.length} 道</h2>
+      </div>
+      <div class="note" style="margin-bottom:14px">
+        衡量标准不是「做了多少题」，而是<b>同一道题第二次做是否还错</b>。先重做这几道。
+      </div>
+      <div class="wrong-list">${rows}</div>
+      <div class="actions" style="margin-top:14px">
+        <button class="btn primary" id="redoBtn">重做这 ${wrongList.length} 道错题</button>
+      </div>
+    </div>`;
+}
+
+/* 重做错题：用指定 id 列表直接组卷，不走随机抽题 */
+function bindRedo(wrongList) {
+  const btn = $('#redoBtn');
+  if (!btn || !wrongList || !wrongList.length) return;
+  btn.onclick = () => {
+    const byId = new Map(BANK.map((q) => [q.id, q]));
+    const qs = wrongList.map((w) => byId.get(w.id)).filter(Boolean).map(shuffleOptions);
+    if (!qs.length) { alert('这些题已不在题库中。'); return; }
+    state.queue = qs;
+    state.idx = 0;
+    state.records = [];
+    state.redo = true;
+    $('#diag').style.display = 'none';
+    $('#setup').style.display = 'none';
+    $('#empty').style.display = 'none';
+    $('#quiz').style.display = 'block';
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 }
 
 /* 历史累计面板：把全部历史作答聚合后的诊断 */

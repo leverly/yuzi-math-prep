@@ -153,7 +153,14 @@ body{padding-bottom:80px}
 .rate-insufficient{color:var(--text-3)}
 
 .act-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
-.act{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);
+/* 错题清单：本轮做错的题逐条列出，可一键重做 */
+.wrong-list{display:flex;flex-direction:column;gap:8px}
+.wrong-row{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--rose);
+  border-radius:0 10px 10px 0;padding:11px 15px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.wrong-fam{font-size:11.5px;font-weight:650;color:var(--rose);background:var(--rose-soft);
+  padding:2px 8px;border-radius:5px;white-space:nowrap;flex:none}
+.wrong-stem{font-size:14px;color:var(--text);flex:1;min-width:180px;line-height:1.6}
+.wrong-err{font-size:12px;color:var(--text-3);white-space:nowrap}.act{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);
   border-radius:0 12px 12px 0;padding:14px 18px;font-size:14px;line-height:1.75;color:var(--text-2)}
 .act.weak{border-left-color:var(--rose)}
 .act.shaky{border-left-color:var(--gold)}
