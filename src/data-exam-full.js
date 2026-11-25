@@ -13607,31 +13607,34 @@ export const EXAM_FULL = {
     "options": [
      {
       "key": "A",
-      "text": "A．﹣6",
+      "text": "A．",
       "parts": [
        {
-        "t": "text",
-        "v": "﹣6"
+        "t": "img",
+        "src": "media/q1-opt-A.png",
+        "kind": "option"
        }
       ]
      },
      {
       "key": "B",
-      "text": "B．6",
+      "text": "B．",
       "parts": [
        {
-        "t": "text",
-        "v": "6"
+        "t": "img",
+        "src": "media/q1-opt-B.png",
+        "kind": "option"
        }
       ]
      },
      {
       "key": "C",
-      "text": "C．﹣",
+      "text": "C．",
       "parts": [
        {
-        "t": "text",
-        "v": "﹣"
+        "t": "img",
+        "src": "media/q1-opt-C.png",
+        "kind": "option"
        }
       ]
      },
@@ -13640,8 +13643,9 @@ export const EXAM_FULL = {
       "text": "D．",
       "parts": [
        {
-        "t": "text",
-        "v": ""
+        "t": "img",
+        "src": "media/q1-opt-D.png",
+        "kind": "option"
        }
       ]
      }
