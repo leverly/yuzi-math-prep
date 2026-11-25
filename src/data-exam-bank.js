@@ -847,7 +847,7 @@ export const EXAM_BANK = [
   "paperId": "p2021",
   "year": "2021—2022",
   "no": 9,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "计算",
   "score": 2,
@@ -892,14 +892,17 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "38.5"
+  "officialKey": "38.5",
+  "accept": [
+   "38.5"
+  ]
  },
  {
   "id": "p2021-q10",
   "paperId": "p2021",
   "year": "2021—2022",
   "no": 10,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-op",
   "cat": "概念",
   "score": 2,
@@ -950,7 +953,10 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "3.79"
+  "officialKey": "3.79",
+  "accept": [
+   "3.79"
+  ]
  },
  {
   "id": "p2021-q11",
@@ -1043,7 +1049,7 @@ export const EXAM_BANK = [
   "paperId": "p2021",
   "year": "2021—2022",
   "no": 12,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-expr",
   "cat": "计算",
   "score": 2,
@@ -1098,14 +1104,17 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "0"
+  "officialKey": "0",
+  "accept": [
+   "0"
+  ]
  },
  {
   "id": "p2021-q13",
   "paperId": "p2021",
   "year": "2021—2022",
   "no": 13,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-eq",
   "cat": "概念",
   "score": 2,
@@ -1176,7 +1185,10 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "-2"
+  "officialKey": "-2",
+  "accept": [
+   "-2"
+  ]
  },
  {
   "id": "p2021-q14",
@@ -10816,7 +10828,7 @@ export const EXAM_BANK = [
   "paperId": "p2024",
   "year": "2024—2025",
   "no": 9,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-rational",
   "cat": "概念",
   "score": 2,
@@ -10951,14 +10963,17 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "3"
+  "officialKey": "3",
+  "accept": [
+   "3"
+  ]
  },
  {
   "id": "p2024-q10",
   "paperId": "p2024",
   "year": "2024—2025",
   "no": 10,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "概念",
   "score": 2,
@@ -11035,7 +11050,12 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "点P在直线l外"
+  "officialKey": "点P在直线l外",
+  "accept": [
+   "点P在直线l外",
+   "点P在直线l外．",
+   "点P在直线l外。"
+  ]
  },
  {
   "id": "p2024-q11",
@@ -11092,7 +11112,7 @@ export const EXAM_BANK = [
   "paperId": "p2024",
   "year": "2024—2025",
   "no": 12,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-eq",
   "cat": "概念",
   "score": 2,
@@ -11163,14 +11183,17 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "6"
+  "officialKey": "6",
+  "accept": [
+   "6"
+  ]
  },
  {
   "id": "p2024-q13",
   "paperId": "p2024",
   "year": "2024—2025",
   "no": 13,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "计算",
   "score": 2,
@@ -11255,7 +11278,11 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "76"
+  "officialKey": "76",
+  "accept": [
+   "76",
+   "76°"
+  ]
  },
  {
   "id": "p2024-q14",
@@ -15120,7 +15147,7 @@ export const EXAM_BANK = [
   "paperId": "p2025",
   "year": "2025—2026",
   "no": 7,
-  "qtype": "single",
+  "qtype": "big",
   "chapter": "ch-eq",
   "cat": "建模",
   "score": 2,
@@ -15145,41 +15172,11 @@ export const EXAM_BANK = [
    "C．",
    "D．"
   ],
-  "options": [
-   "",
-   "",
-   "",
-   ""
-  ],
-  "optionParts": [
-   [
-    {
-     "t": "text",
-     "v": ""
-    }
-   ],
-   [
-    {
-     "t": "text",
-     "v": ""
-    }
-   ],
-   [
-    {
-     "t": "text",
-     "v": ""
-    }
-   ],
-   [
-    {
-     "t": "text",
-     "v": ""
-    }
-   ]
-  ],
-  "key": 0,
+  "options": null,
+  "optionParts": null,
   "answer": "",
-  "officialKey": "A"
+  "officialKey": "A",
+  "__optUnavailable": "本题在原卷中是选择题，四个选项均为分式方程（公式图），未能提取。正确答案：A。请对照原卷作答。"
  },
  {
   "id": "p2025-q8",
