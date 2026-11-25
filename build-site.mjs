@@ -376,6 +376,23 @@ function emit(relPath, html) {
 
    图片加载失败时降级为可点回原卷的占位：assets/exam-src/ 因版权
    不进仓库，线上（GitHub Pages）这些图全部 404。没有 onerror 就是满屏破图。 */
+/* 读 PNG 头拿宽高（不解码整张图，够快）。
+   用来判断「竖图」——分数是上下两行的竖图，需要比单行公式更高的显示高度。 */
+const _pngSizeCache = new Map();
+function pngSize(rel) {
+  if (_pngSizeCache.has(rel)) return _pngSizeCache.get(rel);
+  let out = null;
+  try {
+    const buf = readFileSync(join(__dir, rel));
+    /* PNG: 8 字节签名 + 4 字节长度 + 'IHDR' + 4 宽 + 4 高 */
+    if (buf.length > 24 && buf.toString('ascii', 12, 16) === 'IHDR') {
+      out = { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+    }
+  } catch (e) { /* 图不存在就按非竖图处理 */ }
+  _pngSizeCache.set(rel, out);
+  return out;
+}
+
 function figImg(base, name, examRef, kind, compact) {
   const ref = examRef || {};
   const href = ref.paperId ? ('exam-verify.html#' + ref.paperId + '-q' + ref.no) : '';
@@ -408,7 +425,11 @@ function figImg(base, name, examRef, kind, compact) {
       '<button class="q-zoom-close" type="button">关闭</button>' +
       '</dialog>';
   }
-  return '<img class="q-f" src="' + base + name + '" alt="公式" loading="lazy"' +
+  /* 竖图（高/宽 > 1.5）= 分数这类上下两行的公式，样式里给更高上限。
+     不区分的话，分数会被压成一条线看不清分子分母。 */
+  const sz = pngSize(base + name);
+  const tall = sz && sz.h > sz.w * 1.5 ? ' data-tall' : '';
+  return '<img class="q-f" src="' + base + name + '" alt="公式" loading="lazy"' + tall +
     ' onerror="this.outerHTML=\'' + fallback.replace(/'/g, "\\'") + '\'">';
 }
 

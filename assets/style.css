@@ -4465,23 +4465,27 @@ details[open] > summary::before { content: '▾ '; }
 .se-stem .q-f { max-height: 1.7em; }
 
 /* 整项就是一张图的选项（四张旋转图、四个方程、分数）。
-   分数是竖图（152×248），压到 1.5em 会糊成一团看不清；
-   给 2.6em 让它有足够高度显示分子分母。
-   代价是这一组选项整体变高——所以下面把同组所有选项抬到同一高度。 */
+   高度按「与正文相当」定：正文行高约 1.5em，单行公式图给 1.7em
+   ——图里的笔画已经裁到贴边（trim-figures.py），这个高度就是
+   笔画实际高度。
+   分数例外：它是上下两行的竖图（如 62×205），1.7em 会糊成一团，
+   需要 2.4em 才看得清分子分母。 */
 .se-opt[data-optfig] { align-items: center; }
 .se-opt[data-optfig] .q-f {
-  max-height: 2.6em;
+  max-height: 1.7em;
   margin: 0;
 }
+.se-opt[data-optfig] .q-f[data-tall] { max-height: 2.4em; }
 .se-opt[data-optfig] .se-key { align-self: center; }
 
 /* 同一组选项高度必须一致。
    踩过：文本项「−5」行高 52px、分数图项 81px，同一组里出现
    「A/B 小字、C/D 大字」，看着像字号错乱，其实是行高不齐。
-   只在「组内确实有公式图」时抬高度——纯文本组（如 A=14/B=2/C=−18）
-   保持紧凑，不要无谓撑高。 */
-.se-opts:has(.q-f) { grid-auto-rows: minmax(76px, auto); }
-.se-opts:has(.q-f) .se-opt { min-height: 76px; }
+   只在「组内确实有公式图」时抬高度——纯文本组保持紧凑。 */
+.se-opts:has(.q-f) { grid-auto-rows: minmax(60px, auto); }
+.se-opts:has(.q-f) .se-opt { min-height: 60px; }
+.se-opts:has(.q-f[data-tall]) { grid-auto-rows: minmax(76px, auto); }
+.se-opts:has(.q-f[data-tall]) .se-opt { min-height: 76px; }
 
 /* 反馈区（答错时的「正确答案」/解析）里的公式图。
    这里没被上面三条选择器覆盖，公式图会按 PNG 原始像素铺开——
@@ -4814,7 +4818,16 @@ details[open] > summary::before { content: '▾ '; }
    不加「点击图片放大」说明（四个选项各一行会把卡片撑高，四选一没法一眼扫完），
    图也不强制放大到 320px——选项图通常只需要认出形状。 */
 .q-fig-compact { margin: 4px 0; gap: 0; }
-.q-fig-compact .q-fig-img { min-width: 0; max-height: 80px; }
+/* 选项内的图形统一高度：四张几何图内容不同，自然尺寸各不相同
+   （实测同一题出现 67/70/69/73px），并排看参差不齐。
+   给固定高度 + object-fit:contain，图按比例缩放、不裁切。 */
+.q-fig-compact .q-fig-img {
+  min-width: 0;
+  height: 80px;
+  width: auto;
+  max-height: 80px;
+  object-fit: contain;
+}
 
 /* 题干内的表格（docx 真表格抽取后的行列结构） */
 .q-table-wrap { margin: 12px 0; overflow-x: auto; }
