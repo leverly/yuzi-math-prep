@@ -11,7 +11,8 @@ import {
   SCORE_TIERS, MAIN_GRAND, N_PAPERS,
 } from './work/papers/stats.mjs';
 import { CH_NAME, CH_ORDER, CAT_NAME, CAT_ORDER, DIFF_NAME, DIFF_ORDER, LEDGER } from './work/papers/ledger.mjs';
-import { SITE, NAV, TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml } from './work/site-shell.mjs';
+import { SITE, NAV, TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml, ROUND_SIZE } from './work/site-shell.mjs';
+import { BANK as PRACTICE_BANK } from './practice-data.mjs';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const sum = (a) => a.reduce((x, y) => x + y, 0);
@@ -43,12 +44,20 @@ const TOP_MODE = (() => {
   return +Object.entries(c).sort((a, b) => b[1] - a[1])[0][0];
 })();
 
+/* 首页首屏要说的「今天该干什么」。
+ * 题量来自练习题库实测，轮次题量来自 site-shell（与练习页同源），章数来自台账。 */
+const PRACTICE_TOTAL = PRACTICE_BANK.length;
+const ROUND_Q = ROUND_SIZE;              // 一轮题数（= 章数 × 每章题数）
+const CH_COUNT = CH_GROUPS.length;       // 覆盖的章数
+
 /* ============================ 设计系统 ============================ */
 // 设计变量 / 顶栏 / 页头排版来自 work/site-shell.mjs（全站唯一来源）
 const CSS = TOKENS + HEAD_CSS + PAGEHEAD_CSS + `
 /* ---------- Hero ---------- */
 .hero{padding:54px 0 30px;position:relative;background:var(--hero-glow)}
 .hero-split{display:grid;grid-template-columns:1.12fr .98fr;gap:38px;align-items:start}
+/* grid 子项默认 min-width:auto，长文本/宽内容会把整列顶出容器；窄屏下尤其明显 */
+.hero-split>div,.hero-split>aside{min-width:0}
 .hero-badge{
   display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;
   color:var(--accent);border:1px solid rgba(37,99,235,.24);background:var(--surface);
@@ -92,6 +101,17 @@ const CSS = TOKENS + HEAD_CSS + PAGEHEAD_CSS + `
 .metric-row .mv.ok{color:var(--ok)}
 .metric-row .ml{font-size:12.5px;color:var(--text-2);line-height:1.45}
 .metric-row .ml b{display:block;color:var(--text);font-weight:650;font-size:13.5px}
+
+/* 首页右侧：各章五年年均分值条（回答「先看哪一章」）
+ * minmax(0,1fr) 而非 1fr：grid 的 1fr 最小尺寸默认是 auto，
+ * 窄屏下会被内容顶宽，整块溢出容器右侧。 */
+.ch-bar-row{display:grid;grid-template-columns:88px minmax(0,1fr) 34px;align-items:center;gap:10px;padding:7px 0}
+.ch-bar-name{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.ch-bar-track{display:block;height:7px;background:var(--bg-3);border-radius:var(--r-pill);overflow:hidden}
+.ch-bar-track i{display:block;height:100%;background:var(--accent-grad);border-radius:var(--r-pill)}
+.ch-bar-row:first-of-type .ch-bar-track i{background:var(--gold-grad)}
+.ch-bar-val{font-size:12.5px;font-weight:700;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums}
+
 .mission-list{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px}
 .mission-item{
   display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:11px;
@@ -342,57 +362,56 @@ const distBar = (name, val, max, unit, cls = '') => {
 
 /* ============================ 首页 ============================ */
 function buildHome() {
-  const topFams = FAMILY_MAP.slice(0, 4);
+  // 首页的活是「让柚子今天就去练一轮」。
+  // 考情论证（82 分是主体、按考法归并、按题型认）看过一次就够，压缩成一条并列在下方，
+  // 完整版都在 trend / papers / plan，首页不再复述。
+
+  // 右侧卡：各章五年年均分值条。回答「先看哪一章」——
+  // 比原来那三行「82/18/57%」更能导向动作：它直接对应练习页的章节维度。
+  const chAvg = CH_GROUPS.map((g) => ({
+    name: g.name,
+    avg: +g.fams.reduce((a, f) => a + f.avgPerYear, 0).toFixed(1),
+  })).sort((a, b) => b.avg - a.avg);
+  const chMax = Math.max(...chAvg.map((c) => c.avg));
+  const chBars = chAvg.map((c) => `
+      <div class="ch-bar-row">
+        <span class="ch-bar-name">${esc(c.name)}</span>
+        <span class="ch-bar-track"><i style="width:${Math.round((c.avg / chMax) * 100)}%"></i></span>
+        <span class="ch-bar-val">${c.avg}</span>
+      </div>`).join('');
 
   const body = `
 <section class="hero">
   <div class="hero-split">
     <div>
       <div class="hero-badge"><span class="dot-live"></span>西城区区统考 · 五年真题逐题拆解</div>
-      <h1>丢分的不是难题，<br><span class="accent-word">是会做但没做对</span></h1>
+      <h1>先把<span class="accent-word">会做的做对</span><br>再去攻压轴</h1>
       <p class="lede">
-        五年里，<b>基础题 + 中档题稳定在 ${BASE_MIN}–${BASE_MAX} 分</b>，较难 + 压轴只有 ${HARD_MIN}–${HARD_MAX} 分。
-        本站把五套卷逐题拆开，告诉你每年考什么、五年什么在变、先练什么更划算。
+        ${BASE_MIN}–${BASE_MAX} 分是可以练到零失误的——这部分的丢分几乎都是<b>会做但没做对</b>。
+        做一轮 ${ROUND_Q} 题，覆盖全部 ${CH_COUNT} 章，做完直接告诉你哪一章在丢分。
       </p>
       <div class="hero-cta">
-        <a class="btn primary" href="plan.html">看冲刺计划 <span aria-hidden="true">→</span></a>
-        <a class="btn" href="trend.html">先看五年趋势</a>
-      </div>
-      <div class="hero-trust">
-        <span><b>✓</b> 五套真题</span>
-        <span><b>✓</b> ${LEDGER.length} 题逐题标注</span>
-        <span><b>✓</b> 数字全部派生</span>
-        <span><b>✓</b> 不押题</span>
+        <a class="btn primary" href="practice.html">开始诊断 <span aria-hidden="true">→</span></a>
+        <a class="btn" href="history.html">看学情诊断</a>
       </div>
       <div class="hero-stats">
-        <div><b>${LEDGER.length}</b><span>题逐题标注</span></div>
-        <div><b>${FAMILY_MAP.length}</b><span>个考点族</span></div>
-        <div><b>${FREQ.must.length}</b><span>个五年必考</span></div>
-        <div><b>${BASE_AVG}<span class="hs-of">分</span></b><span>基础+中档均值</span></div>
+        <div><b>${ROUND_Q}</b><span>题一轮</span></div>
+        <div><b>${CH_COUNT}</b><span>章全覆盖</span></div>
+        <div><b>${PRACTICE_TOTAL}</b><span>题题库</span></div>
+        <div><b>${pct(BASE_AVG)}<span class="hs-of">分</span></b><span>可练到零失误</span></div>
       </div>
     </div>
 
     <aside class="cockpit">
       <div class="cockpit-top">
-        <span class="level-pill">分值结构</span>
-        <span style="font-size:12px;color:var(--text-3)">五年均值</span>
+        <span class="level-pill">先看哪一章</span>
+        <span style="font-size:12px;color:var(--text-3)">五年年均分值</span>
       </div>
-      <div class="metric-row">
-        <span class="mv accent">${pct(BASE_AVG)}</span>
-        <span class="ml"><b>基础 + 中档</b>分值主体，五年 ${BASE_MIN}–${BASE_MAX} 分</span>
-      </div>
-      <div class="metric-row">
-        <span class="mv gold">${pct(HARD_AVG)}</span>
-        <span class="ml"><b>较难 + 压轴</b>五年 ${HARD_MIN}–${HARD_MAX} 分，压轴多为分类讨论</span>
-      </div>
-      <div class="metric-row">
-        <span class="mv ok">${CALC_CONCEPT}<span style="font-size:15px">%</span></span>
-        <span class="ml"><b>计算 + 概念</b>靠「准确」而不是「灵感」</span>
-      </div>
+      ${chBars}
       <div class="mission-list">
-        <a class="mission-item" href="papers.html">
-          <span class="mi-ico blue">📄</span>
-          <span class="mi-main"><b>逐年真题</b><small>五套卷逐套看结构与差异</small></span>
+        <a class="mission-item" href="plan.html">
+          <span class="mi-ico gold">🎯</span>
+          <span class="mi-main"><b>冲刺计划</b><small>五级优先级，先练什么后练什么</small></span>
           <span class="mi-go">去看 →</span>
         </a>
         <a class="mission-item" href="trend.html">
@@ -400,9 +419,9 @@ function buildHome() {
           <span class="mi-main"><b>趋势与考点</b><small>什么在变、什么年年考</small></span>
           <span class="mi-go">去看 →</span>
         </a>
-        <a class="mission-item" href="plan.html">
-          <span class="mi-ico gold">🎯</span>
-          <span class="mi-main"><b>冲刺计划</b><small>五级优先级，先练什么后练什么</small></span>
+        <a class="mission-item" href="papers.html">
+          <span class="mi-ico blue">📄</span>
+          <span class="mi-main"><b>逐年真题</b><small>五套卷逐套看结构与差异</small></span>
           <span class="mi-go">去看 →</span>
         </a>
       </div>
@@ -410,91 +429,47 @@ function buildHome() {
   </div>
 </section>
 
-${section('分数从哪来', '三个判断，决定复习顺序', '这三个判断都不是经验之谈，是从五年分值分布算出来的', `
-<div class="sell-rows">
-  <div class="sell-row">
-    <div class="sell-pain">
-      <span class="sell-no">01</span>
-      <b>难题全丢，大部分分数仍然在</b>
-      <span class="sell-pain-sub">丢分的大头也不在压轴</span>
-    </div>
-    <div class="sell-fix">
-      <span class="sell-tag">分值结构</span>
-      <p>五年难度分布几乎不动：基础 + 中档 <b>${BASE_MIN}–${BASE_MAX} 分</b>，较难 + 压轴 <b>${HARD_MIN}–${HARD_MAX} 分</b>。
-      难度指数五年在 ${DIFF_INDEX_MIN}–${DIFF_INDEX_MAX} 之间。<b>所以复习顺序应该把「计算零失误」排在「攻压轴」前面</b>——不是因为它更难，而是因为它更值钱、更可控。</p>
-      <a class="sell-link" href="trend.html#difficulty">看难度五年分布 →</a>
-    </div>
+${section('为什么先练这块', '一个判断，决定复习顺序', '不是经验之谈，是从五年分值分布算出来的', `
+<div class="sell-row">
+  <div class="sell-pain">
+    <span class="sell-no">01</span>
+    <b>压轴只占 ${pct(HARD_AVG)} 分，${pct(BASE_AVG)} 分是能练稳的</b>
+    <span class="sell-pain-sub">所以顺序是先保计算零失误，再攻压轴</span>
   </div>
-  <div class="sell-row">
-    <div class="sell-pain">
-      <span class="sell-no">02</span>
-      <b>同一道题，换年换个载体就认不出</b>
-      <span class="sell-pain-sub">按题干分组会把「必考」误判成「偶考」</span>
-    </div>
-    <div class="sell-fix">
-      <span class="sell-tag">考点族</span>
-      <p>第 23 题五年分别考数轴动点、动角、线段中点、数轴双动点、数轴动点——<b>载体全换</b>。
-      如果按题干分组，每一族都会显示「只考过一次」，得出「不用重点练」的错误结论。
-      <b>按考法归并后，它是 5/5 必考、${famById('f-final').total} 分。</b></p>
-      <a class="sell-link" href="trend.html#families">看 ${FAMILY_MAP.length} 个考点族 →</a>
-    </div>
-  </div>
-  <div class="sell-row">
-    <div class="sell-pain">
-      <span class="sell-no">03</span>
-      <b>卷面骨架五年没变，但题位会互换</b>
-      <span class="sell-pain-sub">按题号背「第 19 题是作图」会失手</span>
-    </div>
-    <div class="sell-fix">
-      <span class="sell-tag">卷面结构</span>
-      <p>26 题 / 100 分钟 / 选择 16 + 填空 16 + 解答 68，五年一动没动。
-      但 2025-26 把「解方程」放到第 19 题（12 分）、「尺规作图」放到第 20 题（5 分），与往年相反——<b>要按题型认，不按题号认。</b></p>
-      <a class="sell-link" href="papers.html">看逐年真题 →</a>
-    </div>
+  <div class="sell-fix">
+    <span class="sell-tag">分值结构</span>
+    <p>五年难度分布几乎不动：基础 + 中档 <b>${BASE_MIN}–${BASE_MAX} 分</b>，较难 + 压轴只有 <b>${HARD_MIN}–${HARD_MAX} 分</b>，
+    难度指数五年都在 ${DIFF_INDEX_MIN}–${DIFF_INDEX_MAX} 之间。
+    <b>把「计算零失误」排在「攻压轴」前面</b>——不是因为它更难，而是因为它更值钱、更可控。</p>
+    <a class="sell-link" href="trend.html#difficulty">看难度五年分布 →</a>
   </div>
 </div>`)}
 
-${section('分值分区', '100 分不是均匀分布的', '三块的目标不同，练法也不同', `
-<div class="tier-grid">
-  <a class="tier-card t-blue" href="plan.html">
-    <div class="tier-n">${pct(BASE_AVG)}<small>分</small></div>
-    <div class="tier-l">基础 + 中档</div>
-    <div class="tier-d">计算、概念辨析、常规几何与方程</div>
-    <div class="tier-goal">目标：100% 正确，一分不丢</div>
-  </a>
-  <a class="tier-card t-gold" href="plan.html">
-    <div class="tier-n">${pct(HARD_AVG - TOP_MODE)}<small>分</small></div>
-    <div class="tier-l">较难</div>
-    <div class="tier-d">选择末题、填空末题、解答中段的思维题</div>
-    <div class="tier-goal">目标：争取大部分</div>
-  </a>
-  <a class="tier-card t-rose" href="plan.html">
-    <div class="tier-n">${TOP_MODE}<small>分</small></div>
-    <div class="tier-l">压轴</div>
-    <div class="tier-d">第 23 题分类讨论 + 第 24 题动角/新定义</div>
-    <div class="tier-goal">目标：分类不漏就不亏</div>
-  </a>
+${section('一轮之后', '做完这 18 题，你会拿到四样东西', '不是给个分数就完事——每一项都直接对应下一步动作', `
+<div class="grid g4">
+  <div class="card">
+    <h3>正确率</h3>
+    <p style="font-size:13.4px;color:var(--text-2);line-height:1.7">这一轮对了几题。只看这一项说明不了什么，它只是下面三项的起点。</p>
+  </div>
+  <div class="card">
+    <h3>各章分档</h3>
+    <p style="font-size:13.4px;color:var(--text-2);line-height:1.7">6 章分别判为「薄弱 / 不稳 / 掌握」。样本不够 3 题的章不下结论，标「样本不足」。</p>
+  </div>
+  <div class="card">
+    <h3>下一步做什么</h3>
+    <p style="font-size:13.4px;color:var(--text-2);line-height:1.7">按「年均分值 × 失分率」排序，给出先补哪一章、主要错在什么类型。</p>
+  </div>
+  <div class="card">
+    <h3>错题清单</h3>
+    <p style="font-size:13.4px;color:var(--text-2);line-height:1.7">逐题列出这一轮做错的，可一键重做。衡量标准是「同一题第二次做是否还错」。</p>
+  </div>
 </div>
-<div class="note" style="margin-top:16px">
-  <b>读法：</b>蓝色那块（${pct(BASE_AVG)} 分）是「会做但没做对」的重灾区，也是唯一能靠训练做到 100% 的部分。
-  金色与红色两块合计 ${pct(HARD_AVG)} 分，其中有相当部分靠方法而非熟练度。<b>先把蓝色做到零失误，再谈另外两块。</b>
-</div>`)}
-
-${section('必考清单', `五年年年考的 ${FREQ.must.length} 个考点族`, `覆盖必做分 ${FREQ_SUMMARY.must.pct}%（${FREQ_SUMMARY.must.score}/${MAIN_GRAND} 分）`, `
-<div class="grid g2">
-  ${topFams.map((f) => `
-    <div class="fam">
-      <div class="fam-head">
-        <span class="fam-name">${esc(f.name)}</span>
-        <span class="tag must">5/5 年</span>
-        <span class="fam-score">${f.total} 分 · 年均 ${f.avgPerYear}</span>
-      </div>
-      <div class="fam-note">${esc(f.note)}</div>
-    </div>`).join('')}
-</div>
-<p style="margin-top:16px"><a href="trend.html#families" style="color:var(--accent);font-weight:650;text-decoration:none;font-size:13.5px">查看全部 ${FAMILY_MAP.length} 个考点年均分值 →</a></p>`)}
+<p style="margin-top:18px;font-size:13.5px;color:var(--text-3)">
+  每道题答错都有解题步骤，一步一步算给你看。
+  <a href="practice.html" style="color:var(--accent);font-weight:650;text-decoration:none">现在就做一轮 →</a>
+</p>`)}
 `;
-  return page('index.html', SITE.name, '西城区初一上数学期末五年真题考情分析与冲刺计划', body);
+  return page('index.html', SITE.name, '西城区初一上数学期末五年真题考情分析与冲刺练习', body);
 }
 
 /* ============================ 逐年真题 ============================ */

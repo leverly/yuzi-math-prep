@@ -52,11 +52,24 @@ for (const p of pages) ok(fs.existsSync(p), `${p} 已生成`);
 const idx = fs.readFileSync('index.html', 'utf8');
 const tr = fs.readFileSync('trend.html', 'utf8');
 const pl = fs.readFileSync('plan.html', 'utf8');
-// hero-stats 里的三个计数：<b>130</b><span>题逐题标注</span> 这类结构
-ok(idx.includes(`<b>${LEDGER.length}</b><span>题逐题标注</span>`), '首页题数派生正确');
-ok(idx.includes(`<b>${S.FAMILY_MAP.length}</b><span>个考点族</span>`), '首页族数派生正确');
-ok(idx.includes(`<b>${S.FREQ.must.length}</b><span>个五年必考</span>`), '首页必考族数派生正确');
-ok(idx.includes(`覆盖必做分 ${S.FREQ_SUMMARY.must.pct}%`), '首页必考覆盖率派生正确');
+// 首页已改为行动入口：首屏说「做一轮多少题、覆盖几章、题库多大」，
+// 这些数字必须与练习页/题库同源，不能是手写字面量。
+const { ROUND_SIZE } = await import('./work/site-shell.mjs');
+const { BANK: PRACTICE_BANK } = await import('./practice-data.mjs');
+const chCount = new Set(S.FAMILY_MAP.map((f) => f.ch)).size;
+ok(idx.includes(`<b>${ROUND_SIZE}</b><span>题一轮</span>`), '首页轮次题量派生正确');
+ok(idx.includes(`<b>${chCount}</b><span>章全覆盖</span>`), '首页章数派生正确');
+ok(idx.includes(`<b>${PRACTICE_BANK.length}</b><span>题题库</span>`), '首页题库题数派生正确');
+// 练习页与首页必须承诺同一个题量
+const pr0 = fs.readFileSync('practice.html', 'utf8');
+ok(pr0.includes(`每轮 ${ROUND_SIZE} 道题`), '练习页轮次题量与首页同源');
+// 首屏两个主按钮都应导向练习/诊断，而不是分析页
+ok(/class="btn primary" href="practice\.html"/.test(idx), '首屏主按钮指向练习页');
+ok(idx.includes('href="history.html"'), '首屏有学情诊断入口');
+// 已删掉的四处重叠内容不应回归
+ok(!idx.includes('三个判断'), '首页不再有「三个判断」与分值分区重复');
+ok(!idx.includes('100 分不是均匀分布的'), '首页不再有重复的分值分区屏');
+ok(!idx.includes('五年年年考的'), '首页不再复述必考清单');
 ok(tr.includes(`共 ${S.FAMILY_MAP.length} 族`), '趋势页族数派生正确');
 // 冲刺计划页已去掉分数目标（避免给孩子压力），改为检查「三类题」结构与五级优先级
 ok(pl.includes('冲刺计划'), '计划页标题为「冲刺计划」');

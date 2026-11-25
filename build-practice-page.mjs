@@ -6,7 +6,7 @@ import { writeFileSync, readFileSync } from 'node:fs';
 import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';
 import { FAMILY_MAP } from './work/papers/stats.mjs';
 import { CH_NAME } from './work/papers/ledger.mjs';
-import { TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml } from './work/site-shell.mjs';
+import { TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml, ROUND_SIZE } from './work/site-shell.mjs';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -18,7 +18,6 @@ const famList = Object.keys(FAM_META).map((id) => ({
   n: BANK.filter((q) => q.fam === id).length,
 })).sort((a, b) => b.avg - a.avg);
 
-const ROUND_SIZE = 18;
 const totalQ = BANK.length;
 const choiceN = BANK.filter((q) => q.options).length;
 const calcN = totalQ - choiceN;

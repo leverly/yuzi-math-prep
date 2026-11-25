@@ -85,6 +85,8 @@ h1{font-size:clamp(28px,3.6vw,42px);line-height:1.22;font-weight:800;letter-spac
 /* ---------- Hero ---------- */
 .hero{padding:54px 0 30px;position:relative;background:var(--hero-glow)}
 .hero-split{display:grid;grid-template-columns:1.12fr .98fr;gap:38px;align-items:start}
+/* grid 子项默认 min-width:auto，长文本/宽内容会把整列顶出容器；窄屏下尤其明显 */
+.hero-split>div,.hero-split>aside{min-width:0}
 .hero-badge{
   display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;
   color:var(--accent);border:1px solid rgba(37,99,235,.24);background:var(--surface);
@@ -128,6 +130,17 @@ h1{font-size:clamp(28px,3.6vw,42px);line-height:1.22;font-weight:800;letter-spac
 .metric-row .mv.ok{color:var(--ok)}
 .metric-row .ml{font-size:12.5px;color:var(--text-2);line-height:1.45}
 .metric-row .ml b{display:block;color:var(--text);font-weight:650;font-size:13.5px}
+
+/* 首页右侧：各章五年年均分值条（回答「先看哪一章」）
+ * minmax(0,1fr) 而非 1fr：grid 的 1fr 最小尺寸默认是 auto，
+ * 窄屏下会被内容顶宽，整块溢出容器右侧。 */
+.ch-bar-row{display:grid;grid-template-columns:88px minmax(0,1fr) 34px;align-items:center;gap:10px;padding:7px 0}
+.ch-bar-name{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.ch-bar-track{display:block;height:7px;background:var(--bg-3);border-radius:var(--r-pill);overflow:hidden}
+.ch-bar-track i{display:block;height:100%;background:var(--accent-grad);border-radius:var(--r-pill)}
+.ch-bar-row:first-of-type .ch-bar-track i{background:var(--gold-grad)}
+.ch-bar-val{font-size:12.5px;font-weight:700;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums}
+
 .mission-list{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px}
 .mission-item{
   display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:11px;

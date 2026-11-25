@@ -9,8 +9,7 @@
 
 export const SITE = {
   short: '西城初一数学',
-  name: '西城区初一(上)数学期末 · 五年考情与冲刺计划',
-  full: '西城区初一(上)数学期末考情分析站',
+  name: '西城区初一(上)数学期末 · 五年考情与冲刺计划',  full: '西城区初一(上)数学期末考情分析站',
   exam: '西城区初一(上)期末',
 };
 
@@ -25,6 +24,12 @@ export const NAV = [
   ['practice.html', '练习与诊断'],
   ['history.html', '学情数据'],
 ];
+
+/* 练习轮次：全站唯一来源
+ * 一轮 = 每章 PER_CH 题 × 章数。首页说「做一轮 N 题」、练习页显示「第 1 / N 题」、
+ * 出题逻辑取 N 题——三处必须同源，否则首页承诺的题量与实际出题对不上。 */
+export const PER_CH = 3;
+export const ROUND_SIZE = 18;   // = 6 章 × 3 题
 
 /* 设计变量：全站唯一来源 */
 export const TOKENS = `
