@@ -1,497 +1,967 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
-<title>考情解读 · 初一(上)数学期末复习</title>
-<meta name="description" content="5 份西城初一(上)期末真题的考点族频次、分值分布、跨年对比与备考优先级。">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/style.css?v=d9cb7326">
-<script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>逐年真题拆解 · 西城初一数学</title>
+<meta name="description" content="西城区初一上数学期末五套真题逐卷结构分析">
+<style>
+:root{
+  --r:16px; --r-sm:10px; --r-lg:22px; --r-pill:999px;
+  --max:1140px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+
+  --bg:#f6f8fc; --bg-2:#fff; --bg-3:#edf2f9;
+  --surface:#fff; --surface-2:#f8fafd;
+  --border:rgba(15,23,42,.085); --border-2:rgba(15,23,42,.16);
+  --text:#0f172a; --text-2:#475569; --text-3:#64748b;
+
+  --accent:#2563eb; --accent-h:#1d4ed8;
+  --accent-soft:rgba(37,99,235,.08); --accent-soft-2:rgba(37,99,235,.14);
+  --accent-grad:linear-gradient(135deg,#2563eb 0%,#4f46e5 100%);
+
+  --purple:#7c3aed; --purple-soft:rgba(124,58,237,.09);
+  --gold:#d97706; --gold-soft:rgba(245,158,11,.12);
+  --gold-grad:linear-gradient(135deg,#f59e0b 0%,#d97706 100%);
+  --ok:#059669; --ok-soft:rgba(16,185,129,.10);
+  --rose:#e11d48; --rose-soft:rgba(225,29,72,.085);
+
+  --shadow-1:0 1px 2px rgba(15,23,42,.04),0 1px 3px rgba(15,23,42,.03);
+  --shadow-2:0 4px 12px -2px rgba(15,23,42,.06),0 2px 4px -1px rgba(15,23,42,.04);
+  --shadow-3:0 16px 36px -10px rgba(15,23,42,.11),0 4px 12px -2px rgba(15,23,42,.05);
+  --shadow-accent:0 10px 26px -8px rgba(37,99,235,.36);
+  --hero-glow:radial-gradient(ellipse 80% 55% at 50% -10%,rgba(37,99,235,.11),transparent 70%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  font-family:var(--sans); background:var(--bg); color:var(--text);
+  line-height:1.68; font-size:15px; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* ---------- 顶栏 ---------- */
+.site-head{
+  position:sticky;top:0;z-index:60;
+  background:rgba(246,248,252,.86);
+  backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.hdr-in{max-width:var(--max);margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:750;font-size:15px;letter-spacing:-.01em;white-space:nowrap}
+.brand-mark{
+  width:30px;height:30px;border-radius:9px;background:var(--accent-grad);
+  display:grid;place-items:center;color:#fff;font-size:14px;font-weight:800;
+  box-shadow:var(--shadow-accent);flex:none;
+}
+.brand small{font-family:var(--mono);font-size:.68rem;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:2px 6px;border-radius:5px;margin-left:2px}
+.hdr-nav{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.hdr-nav::-webkit-scrollbar{display:none}
+.hdr-nav a{
+  padding:7px 13px;border-radius:9px;color:var(--text-2);text-decoration:none;
+  font-size:14px;font-weight:550;white-space:nowrap;transition:.16s var(--ease);
+}
+.hdr-nav a:hover{background:var(--accent-soft);color:var(--accent)}
+.hdr-nav a.on{background:var(--accent);color:#fff;font-weight:650;box-shadow:var(--shadow-accent)}
+
+/* ---------- Hero ---------- */
+.hero{padding:54px 0 30px;position:relative;background:var(--hero-glow)}
+.hero-split{display:grid;grid-template-columns:1.12fr .98fr;gap:38px;align-items:start}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;
+  color:var(--accent);border:1px solid rgba(37,99,235,.24);background:var(--surface);
+  padding:5px 13px;border-radius:var(--r-pill);margin-bottom:20px;box-shadow:var(--shadow-1);
+}
+.dot-live{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.16)}
+h1{font-size:clamp(28px,3.6vw,42px);line-height:1.22;font-weight:800;letter-spacing:-.03em;margin-bottom:16px}
+.accent-word{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:15.5px;color:var(--text-2);max-width:560px;line-height:1.75}
+.lede b{color:var(--text);font-weight:650}
+.hero-cta{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;padding:11px 20px;border-radius:11px;
+  font-size:14.5px;font-weight:650;text-decoration:none;border:1px solid var(--border-2);
+  background:var(--surface);color:var(--text);transition:.18s var(--ease);box-shadow:var(--shadow-1);
+}
+.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-2)}
+.btn.primary{background:var(--accent-grad);color:#fff;border-color:transparent;box-shadow:var(--shadow-accent)}
+.btn.primary:hover{box-shadow:0 14px 30px -8px rgba(37,99,235,.46)}
+.hero-trust{display:flex;gap:16px;margin-top:20px;flex-wrap:wrap;font-size:12.8px;color:var(--text-3)}
+.hero-trust b{color:var(--ok);margin-right:3px}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:24px;padding-top:20px;
+  border-top:1px solid var(--border);
+}
+.hero-stats>div{display:flex;flex-direction:column;gap:1px}
+.hero-stats b{font-size:26px;font-weight:780;letter-spacing:-.03em;line-height:1.15;font-variant-numeric:tabular-nums}
+.hero-stats .hs-of{font-size:14px;font-weight:650;color:var(--text-3)}
+.hero-stats span{font-size:12px;color:var(--text-3)}
+
+/* ---------- 侧栏数据卡 ---------- */
+.cockpit{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:22px;box-shadow:var(--shadow-3);position:relative;overflow:hidden;
+}
+.cockpit::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--accent-grad)}
+.cockpit-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.level-pill{font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:4px 11px;border-radius:var(--r-pill)}
+.metric-row{display:flex;align-items:baseline;gap:11px;padding:12px 0;border-bottom:1px solid var(--border)}
+.metric-row:last-of-type{border-bottom:none}
+.metric-row .mv{font-size:25px;font-weight:780;letter-spacing:-.03em;font-variant-numeric:tabular-nums;min-width:54px}
+.metric-row .mv.accent{color:var(--accent)}
+.metric-row .mv.gold{color:var(--gold)}
+.metric-row .mv.ok{color:var(--ok)}
+.metric-row .ml{font-size:12.5px;color:var(--text-2);line-height:1.45}
+.metric-row .ml b{display:block;color:var(--text);font-weight:650;font-size:13.5px}
+.mission-list{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px}
+.mission-item{
+  display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:11px;
+  text-decoration:none;color:var(--text);transition:.16s var(--ease);
+}
+.mission-item:hover{background:var(--surface-2)}
+.mi-ico{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-size:15px;flex:none}
+.mi-ico.blue{background:var(--accent-soft)}
+.mi-ico.purple{background:var(--purple-soft)}
+.mi-ico.gold{background:var(--gold-soft)}
+.mi-main{display:flex;flex-direction:column;line-height:1.4;min-width:0}
+.mi-main b{font-size:13.5px;font-weight:650}
+.mi-main small{font-size:11.8px;color:var(--text-3)}
+.mi-go{margin-left:auto;font-size:12px;font-weight:600;color:var(--accent);white-space:nowrap}
+
+/* ---------- 区块 ---------- */
+.section{margin:54px 0}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.section-head-left{min-width:0}
+.kicker{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin-bottom:8px;display:block;
+}
+h2{font-size:clamp(21px,2.4vw,27px);font-weight:780;letter-spacing:-.025em;line-height:1.3}
+.sub{font-size:13.2px;color:var(--text-3);display:block;margin-top:6px}
+h3{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
+
+/* ---------- 卡片 ---------- */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px;box-shadow:var(--shadow-1)}
+.card+.card{margin-top:14px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+
+/* ---------- 编号卡（三判断） ---------- */
+.sell-rows{display:flex;flex-direction:column;gap:12px}
+.sell-row{
+  display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:0;
+  border:1px solid var(--border);border-radius:var(--r);background:var(--surface);
+  overflow:hidden;transition:.18s var(--ease);
+}
+.sell-row:hover{border-color:rgba(37,99,235,.3);box-shadow:var(--shadow-2)}
+.sell-pain{padding:22px 24px;background:var(--bg-3);display:flex;flex-direction:column;gap:7px;position:relative}
+.sell-no{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--accent);opacity:.75}
+.sell-pain b{font-size:15px;font-weight:700;line-height:1.45;letter-spacing:-.01em}
+.sell-pain-sub{font-size:12.8px;color:var(--text-3)}
+.sell-fix{padding:22px 24px;display:flex;flex-direction:column;gap:9px}
+.sell-tag{
+  align-self:flex-start;font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:var(--r-pill);
+  background:var(--accent-soft);color:var(--accent);letter-spacing:.02em;
+}
+.sell-fix p{font-size:13.6px;color:var(--text-2);line-height:1.72}
+.sell-fix p b{color:var(--text);font-weight:650}
+.sell-link{font-size:13px;font-weight:650;color:var(--accent);text-decoration:none;margin-top:auto}
+.sell-link:hover{text-decoration:underline}
+
+/* ---------- 三色分值卡 ---------- */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tier-card{
+  display:block;text-decoration:none;color:var(--text);background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow-1);
+  transition:.18s var(--ease);position:relative;overflow:hidden;
+}
+.tier-card::before{content:"";position:absolute;inset:0 auto 0 0;width:4px}
+.tier-card.t-blue::before{background:var(--accent)}
+.tier-card.t-gold::before{background:var(--gold)}
+.tier-card.t-rose::before{background:var(--rose)}
+.tier-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-2)}
+.tier-n{font-size:31px;font-weight:800;letter-spacing:-.035em;line-height:1.1;font-variant-numeric:tabular-nums}
+.tier-card.t-blue .tier-n{color:var(--accent)}
+.tier-card.t-gold .tier-n{color:var(--gold)}
+.tier-card.t-rose .tier-n{color:var(--rose)}
+.tier-n small{font-size:14px;font-weight:650;color:var(--text-3);margin-left:2px}
+.tier-l{font-size:13px;font-weight:650;margin-top:5px}
+.tier-d{font-size:12.4px;color:var(--text-3);margin-top:3px;line-height:1.55}
+.tier-goal{font-size:12px;font-weight:700;color:var(--accent);margin-top:10px;padding-top:9px;border-top:1px solid var(--border)}
+
+/* ---------- 表格 ---------- */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r);border:1px solid var(--border);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:13.4px}
+th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+th{font-size:11.5px;font-weight:700;color:var(--text-3);letter-spacing:.04em;background:var(--surface-2);border-bottom:1px solid var(--border-2)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--surface-2)}
+tbody tr:last-child td{border-bottom:none}
+tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none;background:var(--bg-3)}
+.cell-hi{color:var(--accent);font-weight:700}
+.diff-table th:first-child,.diff-table td:first-child{width:20%}
+.diff-k{font-weight:700;color:var(--text);white-space:nowrap}
+.diff-old{color:var(--text-3);font-size:13px}
+.diff-new{color:var(--text);font-size:13px}
+.diff-new b{color:var(--accent)}
+
+/* ---------- 标签 ---------- */
+.tag{display:inline-block;font-size:11.5px;font-weight:650;padding:2.5px 8px;border-radius:6px;line-height:1.55;white-space:nowrap}
+.tag.must{background:var(--rose-soft);color:var(--rose)}
+.tag.often{background:var(--gold-soft);color:var(--gold)}
+.tag.rare{background:var(--bg-3);color:var(--text-3)}
+.tag.easy{background:var(--ok-soft);color:var(--ok)}
+.tag.mid{background:var(--accent-soft);color:var(--accent)}
+.tag.hard{background:var(--gold-soft);color:var(--gold)}
+.tag.top{background:var(--rose-soft);color:var(--rose)}
+.tag.bonus{background:var(--purple-soft);color:var(--purple)}
+.tag.ch{background:var(--accent-soft);color:var(--accent)}
+.tag.cat{background:var(--bg-3);color:var(--text-2)}
+
+/* ---------- 条形 ---------- */
+.dist-row{display:grid;grid-template-columns:110px 1fr 92px;align-items:center;gap:12px;padding:7px 0}
+.dist-name{font-size:13.4px;font-weight:600;color:var(--text)}
+.dist-bar-wrap{display:block;height:8px;background:var(--bg-3);border-radius:var(--r-pill);overflow:hidden}
+.dist-bar{display:block;height:100%;background:var(--accent-grad);border-radius:var(--r-pill)}
+.dist-bar.gold{background:var(--gold-grad)}
+.dist-bar.ok{background:linear-gradient(135deg,#10b981,#059669)}
+.dist-bar.rose{background:linear-gradient(135deg,#f43f5e,#e11d48)}
+.dist-val{font-size:12.8px;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+
+/* ---------- 考点族卡 ---------- */
+.fam{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:17px 19px;box-shadow:var(--shadow-1);transition:.18s var(--ease);
+}
+.fam:hover{border-color:rgba(37,99,235,.28);box-shadow:var(--shadow-2)}
+.fam-head{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:7px}
+.fam-name{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.fam-score{font-size:12.6px;color:var(--text-3);font-variant-numeric:tabular-nums;margin-left:auto}
+.fam-meta{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;font-size:11.5px;color:var(--text-3);align-items:center}
+.fam-note{font-size:12.9px;color:var(--text-2);line-height:1.65}
+.fam-years{display:flex;gap:4px;margin-top:10px;flex-wrap:wrap}
+.yr{font-size:11px;padding:2px 6px;border-radius:5px;background:var(--bg-3);color:var(--text-3);font-variant-numeric:tabular-nums}
+.yr.hit{background:var(--accent-soft);color:var(--accent);font-weight:650}
+
+/* ---------- 提示条 ---------- */
+.note{
+  border-left:3px solid var(--accent);background:var(--accent-soft);
+  padding:14px 18px;border-radius:0 var(--r-sm) var(--r-sm) 0;
+  font-size:13.6px;color:var(--text-2);line-height:1.72;
+}
+.note b{color:var(--text)}
+.note.warn{border-color:var(--gold);background:var(--gold-soft)}
+.note.info{border-color:var(--accent);background:var(--accent-soft)}
+.note.risk{border-color:var(--rose);background:var(--rose-soft)}
+.note+.note{margin-top:10px}
+
+/* ---------- 列表 ---------- */
+ul.clean{list-style:none}
+ul.clean li{position:relative;padding-left:20px;margin:9px 0;font-size:13.8px;color:var(--text-2);line-height:1.72}
+ul.clean li::before{content:"";position:absolute;left:5px;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+ul.clean li b{color:var(--text);font-weight:650}
+
+/* ---------- 优先级卡 ---------- */
+.pri{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:19px 21px;box-shadow:var(--shadow-1);position:relative;overflow:hidden;
+  transition:.18s var(--ease);
+}
+.pri:hover{box-shadow:var(--shadow-2)}
+.pri::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--accent)}
+.pri.p2::before{background:var(--purple)}
+.pri.p3::before{background:var(--ok)}
+.pri.p4::before{background:var(--gold)}
+.pri.p5::before{background:var(--text-3)}
+.pri-rank{font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.09em;color:var(--accent);display:block;margin-bottom:7px}
+.pri.p2 .pri-rank{color:var(--purple)}
+.pri.p3 .pri-rank{color:var(--ok)}
+.pri.p4 .pri-rank{color:var(--gold)}
+.pri.p5 .pri-rank{color:var(--text-3)}
+.pri h3{margin:0 0 7px;font-size:15px;font-weight:700}
+.pri .meta{font-size:12.3px;color:var(--text-3);margin-bottom:10px;font-variant-numeric:tabular-nums;padding-bottom:9px;border-bottom:1px solid var(--border)}
+.pri p{font-size:13.3px;color:var(--text-2);line-height:1.72}
+.pri p b{color:var(--text);font-weight:650}
+
+/* ---------- 阶段表 ---------- */
+.phase{display:grid;grid-template-columns:104px 1fr;border:1px solid var(--border);background:var(--surface);overflow:hidden}
+.phase:first-of-type{border-radius:var(--r) var(--r) 0 0}
+.phase:last-of-type{border-radius:0 0 var(--r) var(--r)}
+.phase+.phase{border-top:none}
+.phase-w{
+  background:var(--bg-3);padding:16px 13px;font-size:12.2px;font-weight:700;color:var(--accent);
+  border-right:1px solid var(--border);display:flex;align-items:center;white-space:nowrap;
+}
+.phase-b{padding:16px 18px}
+.phase-b h4{font-size:14px;font-weight:700;margin-bottom:5px}
+.phase-b p{font-size:13.2px;color:var(--text-2);line-height:1.65}
+.phase-ok{font-size:12.2px;color:var(--ok);margin-top:8px;font-weight:650}
+
+/* ---------- 题位矩阵 ---------- */
+.slot-tbl td{white-space:normal;font-size:12.3px;line-height:1.5;min-width:104px}
+.slot-no{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ---------- 页脚 ---------- */
+footer{margin-top:60px;padding:30px 0 40px;border-top:1px solid var(--border);font-size:12.5px;color:var(--text-3)}
+footer p{margin:5px 0}
+footer b{color:var(--text-2)}
+
+/* ---------- 响应式 ---------- */
+@media(max-width:960px){
+  .hero-split{grid-template-columns:1fr;gap:26px}
+  .g3,.g4,.tier-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:680px){
+  body{font-size:14.5px}
+  .wrap,.hdr-in{padding:0 16px}
+  .hdr-in{height:58px}
+  .brand small{display:none}
+  .hero{padding:34px 0 22px}
+  .hero-stats{grid-template-columns:repeat(2,1fr);gap:12px 0}
+  .hero-stats b{font-size:22px}
+  .g2,.g3,.g4,.tier-grid{grid-template-columns:1fr}
+  .sell-row{grid-template-columns:1fr}
+  .section{margin:38px 0}
+  .card{padding:17px}
+  .cockpit{padding:18px}
+  .dist-row{grid-template-columns:92px 1fr 74px;gap:9px}
+  table{font-size:12.4px}
+  th,td{padding:8px 9px}
+  .phase{grid-template-columns:1fr}
+  .phase-w{border-right:none;border-bottom:1px solid var(--border)}
+  .pri{padding:16px 18px}
+}
+</style>
 </head>
-<body data-base=""><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
-<div class="scroll-progress"></div>
-<header class="hdr">
-  <div class="hdr-in">
-    <a class="logo" href="index.html"><span class="logo-mark">柚</span><span>初一(上)数学期末复习</span></a>
-    <nav class="hdr-nav" id="nav">
-      <a href="sprint.html">冲刺计划</a><a href="wrong.html">错题本</a><a href="diag.html">学情诊断</a><a href="learn.html">知识复习</a>
-      
-    </nav>
-    <div class="hdr-tools">
-      <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
-      <button class="menu-btn" id="navToggle" aria-label="菜单">☰</button>
-    </div>
-  </div>
-</header>
-<main class="main">
-<div class="wrap">
+<body>
+<header class="site-head"><div class="hdr-in">
+  <a class="brand" href="index.html">
+    <span class="brand-mark">西</span>
+    <span>西城初一数学<small>初一上·期末</small></span>
+  </a>
+  <nav class="hdr-nav">
+    <a href="index.html">总览</a><a href="papers.html" class="on">逐年真题</a><a href="trend.html">趋势与考点</a><a href="plan.html">满分计划</a>
+  </nav>
+</div></header>
+<main class="wrap">
 
-<div class="page-head">
-  <div class="crumb"><a href="index.html">首页</a> / 考情解读</div>
-  <h1>考情解读</h1>
-  <p class="lede">5 份西城期末卷（2021–2022、2022–2023、2023–2024、2024–2025、2025–2026）逐题拆解 130 道，按 <b>章节 → 能力 → 难度 → 考点</b> 四个维度统计，最后对比 5 年间的变化。</p>
-</div>
-
-<!-- ========== 三、汇总：章节分值 ========== -->
-<section class="section">
-  <div class="section-head"><div class="section-head-left">
-    <span class="kicker">① 章节</span>
-    <h2>各章分值</h2>
-    <span class="sub">条长是 5 年平均分值</span>
-  </div></div>
-  <div class="card">
-    <div class="dist-row">
-        <span class="dist-name">有理数</span>
-        <span class="dist-bar-wrap"><span class="dist-bar" style="width:52%"></span></span>
-        <span class="dist-val">13.2 分</span>
-      </div><div class="dist-row">
-        <span class="dist-name">有理数的运算</span>
-        <span class="dist-bar-wrap"><span class="dist-bar" style="width:100%"></span></span>
-        <span class="dist-val">25.4 分</span>
-      </div><div class="dist-row">
-        <span class="dist-name">代数式</span>
-        <span class="dist-bar-wrap"><span class="dist-bar" style="width:19%"></span></span>
-        <span class="dist-val">4.8 分</span>
-      </div><div class="dist-row">
-        <span class="dist-name">整式的加减</span>
-        <span class="dist-bar-wrap"><span class="dist-bar" style="width:41%"></span></span>
-        <span class="dist-val">10.4 分</span>
-      </div><div class="dist-row">
-        <span class="dist-name">一元一次方程</span>
-        <span class="dist-bar-wrap"><span class="dist-bar" style="width:96%"></span></span>
-        <span class="dist-val">24.4 分</span>
-      </div><div class="dist-row">
-        <span class="dist-name">几何图形初步</span>
-        <span class="dist-bar-wrap"><span class="dist-bar" style="width:86%"></span></span>
-        <span class="dist-val">21.8 分</span>
-      </div>
-  </div>
-
+<section class="hero" style="padding:44px 0 8px">
+  <div class="hero-badge"><span class="dot-live"></span>五套卷 · 逐套拆解</div>
+  <h1>逐年真题拆解</h1>
+  <p class="lede">五套卷逐套看：结构、章节、能力、难度各是什么样，以及<b>这一年跟别的年份有什么不同</b>。</p>
 </section>
 
-<!-- ========== 六、能力维度 ========== -->
+
 <section class="section">
   <div class="section-head"><div class="section-head-left">
-    <span class="kicker">② 能力</span>
-    <h2>各能力分值</h2>
-    <span class="sub">计算 / 概念 / 建模 / 推理 / 分类 / 作图 / 空间 / 新定义，右侧为趋势</span>
+    <span class="kicker">2021-22</span>
+    <h2>2021—2022 学年</h2>
+    <span class="sub">24 必做 + 2 选做 ｜ 必做 100 分 ｜ 难度指数 1.69</span>
   </div></div>
-  <div class="card">
-    <div class="dist-row has-trend">
-        <span class="dist-name">计算</span>
-        <span class="dist-bar-wrap"><span class="dist-bar hot" style="width:100%"></span></span>
-        <span class="dist-val">42.0 分</span>
-        <span class="dist-trend flat">→ 稳定</span>
-      </div><div class="dist-row has-trend">
-        <span class="dist-name">概念</span>
-        <span class="dist-bar-wrap"><span class="dist-bar " style="width:36%"></span></span>
-        <span class="dist-val">15.2 分</span>
-        <span class="dist-trend flat">→ 稳定</span>
-      </div><div class="dist-row has-trend">
-        <span class="dist-name">建模</span>
-        <span class="dist-bar-wrap"><span class="dist-bar " style="width:28%"></span></span>
-        <span class="dist-val">11.8 分</span>
-        <span class="dist-trend flat">→ 稳定</span>
-      </div><div class="dist-row has-trend">
-        <span class="dist-name">推理</span>
-        <span class="dist-bar-wrap"><span class="dist-bar " style="width:24%"></span></span>
-        <span class="dist-val">10.0 分</span>
-        <span class="dist-trend flat">→ 稳定</span>
-      </div><div class="dist-row has-trend">
-        <span class="dist-name">分类</span>
-        <span class="dist-bar-wrap"><span class="dist-bar " style="width:24%"></span></span>
-        <span class="dist-val">10.0 分</span>
-        <span class="dist-trend up">↑ 上升</span>
-      </div><div class="dist-row has-trend">
-        <span class="dist-name">作图</span>
-        <span class="dist-bar-wrap"><span class="dist-bar " style="width:14%"></span></span>
-        <span class="dist-val">5.8 分</span>
-        <span class="dist-trend flat">→ 稳定</span>
-      </div><div class="dist-row has-trend">
-        <span class="dist-name">空间</span>
-        <span class="dist-bar-wrap"><span class="dist-bar " style="width:5%"></span></span>
-        <span class="dist-val">2.0 分</span>
-        <span class="dist-trend flat">→ 稳定</span>
-      </div><div class="dist-row has-trend">
-        <span class="dist-name">新定义</span>
-        <span class="dist-bar-wrap"><span class="dist-bar " style="width:8%"></span></span>
-        <span class="dist-val">3.2 分</span>
-        <span class="dist-trend flat">→ 稳定</span>
-      </div>
+  <div class="grid g2">
+        <div class="card">
+          <h3>章节分值</h3>
+          <div class="dist-row">
+    <span class="dist-name">有理数</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:80%"></span></span>
+    <span class="dist-val">24 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">有理数的运算</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:60%"></span></span>
+    <span class="dist-val">18 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">代数式</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:7%"></span></span>
+    <span class="dist-val">2 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">整式的加减</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:40%"></span></span>
+    <span class="dist-val">12 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">一元一次方程</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:77%"></span></span>
+    <span class="dist-val">23 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">几何图形初步</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:70%"></span></span>
+    <span class="dist-val">21 分</span>
   </div>
-</section>
-
-<!-- ========== 五、难度分析 ========== -->
-<section class="section">
-  <div class="section-head"><div class="section-head-left">
-    <span class="kicker">③ 难度</span>
-    <h2>难度四级分布</h2>
-    <span class="sub">按分值与题量两种口径统计</span>
-  </div></div>
-
-  <div class="card">
-    <div class="kicker" style="margin-bottom:10px">分值口径（占多少分）</div>
-    <div class="diff-stack">
-      <div class="diff-seg easy" style="width:14%">
-          <b>14%</b><span>基础</span>
-        </div><div class="diff-seg mid" style="width:66%">
-          <b>66%</b><span>中档</span>
-        </div><div class="diff-seg hard" style="width:8%">
-          <b>8%</b><span>较难</span>
-        </div><div class="diff-seg top" style="width:12%">
-          <b>12%</b><span>压轴</span>
         </div>
-    </div>
-
-
-    <div class="kicker" style="margin:18px 0 10px">题量口径（占多少题）</div>
-    <div class="diff-stack">
-      <div class="diff-seg easy" style="width:29%">
-          <b>29%</b><span>基础</span>
-        </div><div class="diff-seg mid" style="width:51%">
-          <b>51%</b><span>中档</span>
-        </div><div class="diff-seg hard" style="width:13%">
-          <b>13%</b><span>较难</span>
-        </div><div class="diff-seg top" style="width:8%">
-          <b>8%</b><span>压轴</span>
+        <div class="card">
+          <h3>难度分布</h3>
+          <div class="dist-row">
+    <span class="dist-name">基础</span>
+    <span class="dist-bar-wrap"><span class="dist-bar ok" style="width:85%"></span></span>
+    <span class="dist-val">51 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">中档</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:48%"></span></span>
+    <span class="dist-val">29 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">较难</span>
+    <span class="dist-bar-wrap"><span class="dist-bar gold" style="width:33%"></span></span>
+    <span class="dist-val">20 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">压轴</span>
+    <span class="dist-bar-wrap"><span class="dist-bar rose" style="width:0%"></span></span>
+    <span class="dist-val">0 分</span>
+  </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
+            题量：基础 11 · 中档 7 · 较难 6 · 压轴 0
+          </div>
         </div>
-    </div>
-
-
-    <div class="dual-note">难度指数（基础 1 → 压轴 4 加权）：2.08 · 2.2 · 2.18 · 2.25 · 2.19</div>
-    <div class="dual-note">压轴分值：6 / 14 / 14 / 13 / 13 分</div>
-  </div>
-
+      </div>
+      <div class="card">
+        <h3>本卷结构</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>大题</th><th class="num">分值</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>一、选择</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
+            <tr><td>二、填空</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
+            <tr><td>三、解答</td><td class="num">68</td><td>第17题18分；第18、19题各6分；第20题11分；第21题7分；第22题8分；第23、24题各6分</td></tr>
+            <tr><td>四、选做</td><td class="num">10</td><td>第25、26题各5分（计入总分，卷面封顶 100）</td></tr>
+          </tbody>
+          <tfoot><tr><td>必做合计</td><td class="num">100</td><td>卷面封顶 100 分</td></tr></tfoot>
+        </table></div>
+        <div style="margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <span style="font-size:12.4px;color:var(--text-3)">选做考什么：</span>
+          <span class="tag bonus">三角尺拼角（作图）</span> <span class="tag bonus">新定义（数轴类）（新定义）</span>
+        </div>
+      </div>
 </section>
-
-<!-- ========== 考点族：按章节分组 ========== -->
 <section class="section">
   <div class="section-head"><div class="section-head-left">
-    <span class="kicker">④ 考点</span>
-    <h2>考点族与权重</h2>
-    <span class="sub">圆点大小 = 分值权重，颜色 = 出现频次；悬停看具体考点</span>
+    <span class="kicker">2022-23</span>
+    <h2>2022—2023 学年</h2>
+    <span class="sub">24 必做 + 2 选做 ｜ 必做 100 分 ｜ 难度指数 1.74</span>
   </div></div>
-
-  <div class="card cloud-card">
-    <div class="cloud-groups">
-      <div class="cloud-group">
-        <span class="cloud-ch">有理数</span>
-        <span class="cloud-dots">
-          <span class="cloud-dot always" style="--d:32px"
-            data-name="绝对值与数轴" data-total="34" data-avg="6.8" data-years="5"></span><span class="cloud-dot rare" style="--d:27px"
-            data-name="新定义（必做位）" data-total="16" data-avg="3.2" data-years="3"></span>
-        </span>
-      </div><div class="cloud-group">
-        <span class="cloud-ch">有理数的运算</span>
-        <span class="cloud-dots">
-          <span class="cloud-dot always" style="--d:44px"
-            data-name="有理数四则混合运算" data-total="92" data-avg="18.4" data-years="5"></span><span class="cloud-dot always" style="--d:27px"
-            data-name="科学记数法与近似数" data-total="16" data-avg="3.2" data-years="5"></span><span class="cloud-dot always" style="--d:24px"
-            data-name="数字填图 / 幻圆" data-total="10" data-avg="2" data-years="5"></span>
-        </span>
-      </div><div class="cloud-group">
-        <span class="cloud-ch">代数式</span>
-        <span class="cloud-dots">
-          <span class="cloud-dot rare" style="--d:25px"
-            data-name="阅读理解 / 综合与实践（新情境）" data-total="13" data-avg="2.6" data-years="2"></span><span class="cloud-dot rare" style="--d:22px"
-            data-name="代数式求值（整体代入）" data-total="6" data-avg="1.2" data-years="3"></span><span class="cloud-dot rare" style="--d:22px"
-            data-name="图形规律（用含 n 式子表示）" data-total="6" data-avg="1.2" data-years="3"></span><span class="cloud-dot rare" style="--d:22px"
-            data-name="列代数式建模" data-total="6" data-avg="1.2" data-years="3"></span><span class="cloud-dot rare" style="--d:20px"
-            data-name="反比例关系判断" data-total="4" data-avg="0.8" data-years="2"></span>
-        </span>
-      </div><div class="cloud-group">
-        <span class="cloud-ch">整式的加减</span>
-        <span class="cloud-dots">
-          <span class="cloud-dot always" style="--d:31px"
-            data-name="整式化简求值" data-total="30" data-avg="6" data-years="5"></span><span class="cloud-dot always" style="--d:25px"
-            data-name="整式加减辨析" data-total="12" data-avg="2.4" data-years="5"></span><span class="cloud-dot always" style="--d:24px"
-            data-name="单项式 / 同类项求参与构造" data-total="10" data-avg="2" data-years="5"></span>
-        </span>
-      </div><div class="cloud-group">
-        <span class="cloud-ch">一元一次方程</span>
-        <span class="cloud-dots">
-          <span class="cloud-dot always" style="--d:38px"
-            data-name="解方程（含去分母）" data-total="58" data-avg="11.6" data-years="5"></span><span class="cloud-dot always" style="--d:33px"
-            data-name="方程应用题" data-total="38" data-avg="7.6" data-years="5"></span><span class="cloud-dot always" style="--d:24px"
-            data-name="方程解求参数" data-total="10" data-avg="2" data-years="5"></span><span class="cloud-dot often" style="--d:23px"
-            data-name="余角 / 补角列方程" data-total="8" data-avg="1.6" data-years="4"></span><span class="cloud-dot rare" style="--d:20px"
-            data-name="方程概念辨析" data-total="4" data-avg="0.8" data-years="2"></span>
-        </span>
-      </div><div class="cloud-group">
-        <span class="cloud-ch">几何图形初步</span>
-        <span class="cloud-dots">
-          <span class="cloud-dot always" style="--d:35px"
-            data-name="压轴综合题（23–24 题位）" data-total="46" data-avg="9.2" data-years="5"></span><span class="cloud-dot always" style="--d:31px"
-            data-name="尺规作图与说理" data-total="29" data-avg="5.8" data-years="5"></span><span class="cloud-dot rare" style="--d:28px"
-            data-name="角度推理填空（几何说理）" data-total="19" data-avg="3.8" data-years="3"></span><span class="cloud-dot always" style="--d:24px"
-            data-name="展开图、三视图与面动成体" data-total="10" data-avg="2" data-years="5"></span><span class="cloud-dot rare" style="--d:22px"
-            data-name="线段中点" data-total="6" data-avg="1.2" data-years="3"></span><span class="cloud-dot rare" style="--d:22px"
-            data-name="角的和差" data-total="6" data-avg="1.2" data-years="3"></span><span class="cloud-dot rare" style="--d:21px"
-            data-name="几何建模（图形中的代数）" data-total="5" data-avg="1" data-years="1"></span><span class="cloud-dot rare" style="--d:20px"
-            data-name="角度换算（度分秒）" data-total="4" data-avg="0.8" data-years="2"></span><span class="cloud-dot rare" style="--d:18px"
-            data-name="点与直线位置关系" data-total="2" data-avg="0.4" data-years="1"></span>
-        </span>
-      </div>
-    </div>
-    <div class="cloud-legend">
-      <span><i class="cloud-dot always" style="--d:20px"></i>年年考</span>
-      <span><i class="cloud-dot often" style="--d:16px"></i>高频</span>
-      <span><i class="cloud-dot rare" style="--d:13px"></i>少见</span>
-      <span class="legend-sep">圆越大 = 分值越高</span>
-    </div>
+  <div class="grid g2">
+        <div class="card">
+          <h3>章节分值</h3>
+          <div class="dist-row">
+    <span class="dist-name">有理数</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:63%"></span></span>
+    <span class="dist-val">19 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">有理数的运算</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:60%"></span></span>
+    <span class="dist-val">18 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">代数式</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:20%"></span></span>
+    <span class="dist-val">6 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">整式的加减</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:33%"></span></span>
+    <span class="dist-val">10 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">一元一次方程</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:67%"></span></span>
+    <span class="dist-val">20 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">几何图形初步</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:90%"></span></span>
+    <span class="dist-val">27 分</span>
   </div>
-  <div class="cloud-tip" id="cloudTip" role="tooltip"></div>
+        </div>
+        <div class="card">
+          <h3>难度分布</h3>
+          <div class="dist-row">
+    <span class="dist-name">基础</span>
+    <span class="dist-bar-wrap"><span class="dist-bar ok" style="width:85%"></span></span>
+    <span class="dist-val">51 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">中档</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:52%"></span></span>
+    <span class="dist-val">31 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">较难</span>
+    <span class="dist-bar-wrap"><span class="dist-bar gold" style="width:18%"></span></span>
+    <span class="dist-val">11 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">压轴</span>
+    <span class="dist-bar-wrap"><span class="dist-bar rose" style="width:12%"></span></span>
+    <span class="dist-val">7 分</span>
+  </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
+            题量：基础 11 · 中档 9 · 较难 3 · 压轴 1
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>本卷结构</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>大题</th><th class="num">分值</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>一、选择</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
+            <tr><td>二、填空</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
+            <tr><td>三、解答</td><td class="num">68</td><td>第17题18分；第18、19题各6分；第20题11分；第21题6分；第22-24题各7分</td></tr>
+            <tr><td>四、选做</td><td class="num">10</td><td>第25题4分，第26题6分（计入总分，卷面封顶 100）</td></tr>
+          </tbody>
+          <tfoot><tr><td>必做合计</td><td class="num">100</td><td>卷面封顶 100 分</td></tr></tfoot>
+        </table></div>
+        <div style="margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <span style="font-size:12.4px;color:var(--text-3)">选做考什么：</span>
+          <span class="tag bonus">新定义（运算类）（新定义）</span> <span class="tag bonus">数轴动点与分类（分类）</span>
+        </div>
+      </div>
 </section>
-
-<!-- ========== 二点五、跨年整体分析 ========== -->
 <section class="section">
   <div class="section-head"><div class="section-head-left">
-    <span class="kicker">⑤ 跨年对比</span>
-    <h2>5 年间的变化</h2>
-    <span class="sub">只列变化明显的（极差 4 分及以上）</span>
+    <span class="kicker">2023-24</span>
+    <h2>2023—2024 学年</h2>
+    <span class="sub">24 必做 + 2 选做 ｜ 必做 100 分 ｜ 难度指数 1.76</span>
   </div></div>
-
-  <p class="desc" style="font-size:.88rem;color:var(--text-2);margin:0 0 4px">
-    结构 5 年未变：26 题 · 100 分钟 · 100+10 分
-  </p>
-
-  <!-- 稳定性：只列变化明显的（极差超过 3 分） -->
-  <div class="grid c2" style="margin-top:16px">
-    <div class="card">
-      <div class="kicker" style="margin-bottom:10px">章节分值变化（极差 4 分及以上）</div>
-      <div class="stab-row">
-        <span class="stab-name">有理数的运算</span>
-        <span class="stab-vals">24 / 24 / 21 / 25 / 33</span>
-        <span class="stab-r bad">±12</span>
-      </div><div class="stab-row">
-        <span class="stab-name">几何图形初步</span>
-        <span class="stab-vals">19 / 25 / 25 / 24 / 16</span>
-        <span class="stab-r bad">±9</span>
-      </div><div class="stab-row">
-        <span class="stab-name">代数式</span>
-        <span class="stab-vals">8 / 6 / 2 / 4 / 4</span>
-        <span class="stab-r bad">±6</span>
-      </div><div class="stab-row">
-        <span class="stab-name">一元一次方程</span>
-        <span class="stab-vals">25 / 22 / 27 / 25 / 23</span>
-        <span class="stab-r bad">±5</span>
-      </div>
-      <p class="desc" style="margin-top:10px;font-size:.82rem;color:var(--text-2)">
-        <span class="quiet">稳定：有理数 ±3 · 整式的加减 ±2</span>
-      </p>
-    </div>
-    <div class="card">
-      <div class="kicker" style="margin-bottom:10px">能力分值变化（极差 4 分及以上）</div>
-      <div class="stab-row">
-        <span class="stab-name">推理</span>
-        <span class="stab-vals">15 / 10 / 8 / 4 / 13</span>
-        <span class="stab-r bad">±11</span>
-      </div><div class="stab-row">
-        <span class="stab-name">建模</span>
-        <span class="stab-vals">10 / 11 / 11 / 18 / 9</span>
-        <span class="stab-r bad">±9</span>
-      </div><div class="stab-row">
-        <span class="stab-name">新定义</span>
-        <span class="stab-vals">0 / 7 / 7 / 2 / 0</span>
-        <span class="stab-r bad">±7</span>
-      </div><div class="stab-row">
-        <span class="stab-name">分类</span>
-        <span class="stab-vals">8 / 7 / 9 / 13 / 13</span>
-        <span class="stab-r bad">±6</span>
-      </div>
-      <p class="desc" style="margin-top:10px;font-size:.82rem;color:var(--text-2)">
-        <span class="quiet">稳定：计算 ±2 · 概念 ±2 · 作图 ±1 · 空间 ±0</span>
-      </p>
-    </div>
+  <div class="grid g2">
+        <div class="card">
+          <h3>章节分值</h3>
+          <div class="dist-row">
+    <span class="dist-name">有理数</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:77%"></span></span>
+    <span class="dist-val">23 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">有理数的运算</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:57%"></span></span>
+    <span class="dist-val">17 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">代数式</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:7%"></span></span>
+    <span class="dist-val">2 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">整式的加减</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:33%"></span></span>
+    <span class="dist-val">10 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">一元一次方程</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:83%"></span></span>
+    <span class="dist-val">25 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">几何图形初步</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:77%"></span></span>
+    <span class="dist-val">23 分</span>
   </div>
-
-  <!-- 核心 vs 外围 -->
-  <div class="card" style="margin-top:16px">
-    <div class="kicker" style="margin-bottom:10px">核心 / 外围的分数结构</div>
-    <div class="core-bar">
-      <div class="core-seg core" style="width:79%">
-        <b>79%</b>
-        <span>13 个核心族</span>
-      </div>
-      <div class="core-seg peri" style="width:21%">
-        <b>21%</b>
-        <span>14 个外围族</span>
-      </div>
-    </div>
-    <div class="grid c2" style="margin-top:14px">
-      <div>
-        <b>核心族 · 13 个 · 79%</b>
-        <p class="desc" style="font-size:.84rem;margin-top:4px">5 年全部出现</p>
-      </div>
-      <div>
-        <b>外围族 · 14 个 · 21%</b>
-        <p class="desc" style="font-size:.84rem;margin-top:4px">出现 1–4 年</p>
-      </div>
-    </div>
+        </div>
+        <div class="card">
+          <h3>难度分布</h3>
+          <div class="dist-row">
+    <span class="dist-name">基础</span>
+    <span class="dist-bar-wrap"><span class="dist-bar ok" style="width:82%"></span></span>
+    <span class="dist-val">49 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">中档</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:55%"></span></span>
+    <span class="dist-val">33 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">较难</span>
+    <span class="dist-bar-wrap"><span class="dist-bar gold" style="width:18%"></span></span>
+    <span class="dist-val">11 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">压轴</span>
+    <span class="dist-bar-wrap"><span class="dist-bar rose" style="width:12%"></span></span>
+    <span class="dist-val">7 分</span>
   </div>
-
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
+            题量：基础 10 · 中档 10 · 较难 3 · 压轴 1
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>本卷结构</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>大题</th><th class="num">分值</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>一、选择</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
+            <tr><td>二、填空</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
+            <tr><td>三、解答</td><td class="num">68</td><td>第17题17分；第18、19题各6分；第20题12分；第21题6分；第22-24题各7分</td></tr>
+            <tr><td>四、选做</td><td class="num">10</td><td>第25题4分，第26题6分（计入总分，卷面封顶 100）</td></tr>
+          </tbody>
+          <tfoot><tr><td>必做合计</td><td class="num">100</td><td>卷面封顶 100 分</td></tr></tfoot>
+        </table></div>
+        <div style="margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <span style="font-size:12.4px;color:var(--text-3)">选做考什么：</span>
+          <span class="tag bonus">规律探究（迭代运算）（推理）</span> <span class="tag bonus">新定义（角·特征值）（新定义）</span>
+        </div>
+      </div>
+</section>
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">2024-25</span>
+    <h2>2024—2025 学年</h2>
+    <span class="sub">24 必做 + 2 选做 ｜ 必做 100 分 ｜ 难度指数 1.71</span>
+  </div></div>
+  <div class="grid g2">
+        <div class="card">
+          <h3>章节分值</h3>
+          <div class="dist-row">
+    <span class="dist-name">有理数</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:53%"></span></span>
+    <span class="dist-val">16 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">有理数的运算</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:70%"></span></span>
+    <span class="dist-val">21 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">代数式</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:30%"></span></span>
+    <span class="dist-val">9 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">整式的加减</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:33%"></span></span>
+    <span class="dist-val">10 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">一元一次方程</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:77%"></span></span>
+    <span class="dist-val">23 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">几何图形初步</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:70%"></span></span>
+    <span class="dist-val">21 分</span>
+  </div>
+        </div>
+        <div class="card">
+          <h3>难度分布</h3>
+          <div class="dist-row">
+    <span class="dist-name">基础</span>
+    <span class="dist-bar-wrap"><span class="dist-bar ok" style="width:88%"></span></span>
+    <span class="dist-val">53 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">中档</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:50%"></span></span>
+    <span class="dist-val">30 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">较难</span>
+    <span class="dist-bar-wrap"><span class="dist-bar gold" style="width:17%"></span></span>
+    <span class="dist-val">10 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">压轴</span>
+    <span class="dist-bar-wrap"><span class="dist-bar rose" style="width:12%"></span></span>
+    <span class="dist-val">7 分</span>
+  </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
+            题量：基础 11 · 中档 9 · 较难 3 · 压轴 1
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>本卷结构</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>大题</th><th class="num">分值</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>一、选择</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
+            <tr><td>二、填空</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
+            <tr><td>三、解答</td><td class="num">68</td><td>第17题19分；第18、19题各6分；第20题12分；第21题7分；第22题5分；第23题6分；第24题7分</td></tr>
+            <tr><td>四、选做</td><td class="num">10</td><td>第25题4分，第26题6分（计入总分，卷面封顶 100）</td></tr>
+          </tbody>
+          <tfoot><tr><td>必做合计</td><td class="num">100</td><td>卷面封顶 100 分</td></tr></tfoot>
+        </table></div>
+        <div style="margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <span style="font-size:12.4px;color:var(--text-3)">选做考什么：</span>
+          <span class="tag bonus">进位制（综合与实践）（推理）</span> <span class="tag bonus">新定义（平衡点）（新定义）</span>
+        </div>
+      </div>
+</section>
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">2025-26</span>
+    <h2>2025—2026 学年</h2>
+    <span class="sub">24 必做 + 2 选做 ｜ 必做 100 分 ｜ 难度指数 1.76</span>
+  </div></div>
+  <div class="grid g2">
+        <div class="card">
+          <h3>章节分值</h3>
+          <div class="dist-row">
+    <span class="dist-name">有理数</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:67%"></span></span>
+    <span class="dist-val">20 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">有理数的运算</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:90%"></span></span>
+    <span class="dist-val">27 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">代数式</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:13%"></span></span>
+    <span class="dist-val">4 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">整式的加减</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:33%"></span></span>
+    <span class="dist-val">10 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">一元一次方程</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:77%"></span></span>
+    <span class="dist-val">23 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">几何图形初步</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:53%"></span></span>
+    <span class="dist-val">16 分</span>
+  </div>
+        </div>
+        <div class="card">
+          <h3>难度分布</h3>
+          <div class="dist-row">
+    <span class="dist-name">基础</span>
+    <span class="dist-bar-wrap"><span class="dist-bar ok" style="width:83%"></span></span>
+    <span class="dist-val">50 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">中档</span>
+    <span class="dist-bar-wrap"><span class="dist-bar " style="width:52%"></span></span>
+    <span class="dist-val">31 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">较难</span>
+    <span class="dist-bar-wrap"><span class="dist-bar gold" style="width:20%"></span></span>
+    <span class="dist-val">12 分</span>
+  </div><div class="dist-row">
+    <span class="dist-name">压轴</span>
+    <span class="dist-bar-wrap"><span class="dist-bar rose" style="width:12%"></span></span>
+    <span class="dist-val">7 分</span>
+  </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
+            题量：基础 9 · 中档 10 · 较难 4 · 压轴 1
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>本卷结构</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>大题</th><th class="num">分值</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>一、选择</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
+            <tr><td>二、填空</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
+            <tr><td>三、解答</td><td class="num">68</td><td>第17题20分；第18题6分；第19题12分；第20题5分；第21题7分；第22题5分；第23题6分；第24题7分</td></tr>
+            <tr><td>四、选做</td><td class="num">10</td><td>第25题4分，第26题6分（计入总分，卷面封顶 100）</td></tr>
+          </tbody>
+          <tfoot><tr><td>必做合计</td><td class="num">100</td><td>卷面封顶 100 分</td></tr></tfoot>
+        </table></div>
+        <div style="margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <span style="font-size:12.4px;color:var(--text-3)">选做考什么：</span>
+          <span class="tag bonus">新定义运算（新定义）</span> <span class="tag bonus">新定义（传送距离）（新定义）</span>
+        </div>
+      </div>
 </section>
 
 
+<section class="section" id="compare">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">横向对照</span>
+    <h2>五套卷放在一起看</h2>
+    <span class="sub">哪一年最难、哪一年几何最重</span>
+  </div></div>
+  
+<div class="tbl-wrap"><table>
+  <thead><tr><th>年份</th><th class="num">基础</th><th class="num">中档</th><th class="num">较难</th><th class="num">压轴</th><th class="num">难度指数</th><th class="num">几何</th><th class="num">方程</th><th class="num">运算</th></tr></thead>
+  <tbody><tr>
+    <td><b>2021-22</b></td>
+    <td class="num">51</td>
+    <td class="num">29</td>
+    <td class="num">20</td>
+    <td class="num">0</td>
+    <td class="num cell-hi">1.69</td>
+    <td class="num">21</td>
+    <td class="num">23</td>
+    <td class="num">18</td>
+  </tr><tr>
+    <td><b>2022-23</b></td>
+    <td class="num">51</td>
+    <td class="num">31</td>
+    <td class="num">11</td>
+    <td class="num">7</td>
+    <td class="num cell-hi">1.74</td>
+    <td class="num">27</td>
+    <td class="num">20</td>
+    <td class="num">18</td>
+  </tr><tr>
+    <td><b>2023-24</b></td>
+    <td class="num">49</td>
+    <td class="num">33</td>
+    <td class="num">11</td>
+    <td class="num">7</td>
+    <td class="num cell-hi">1.76</td>
+    <td class="num">23</td>
+    <td class="num">25</td>
+    <td class="num">17</td>
+  </tr><tr>
+    <td><b>2024-25</b></td>
+    <td class="num">53</td>
+    <td class="num">30</td>
+    <td class="num">10</td>
+    <td class="num">7</td>
+    <td class="num cell-hi">1.71</td>
+    <td class="num">21</td>
+    <td class="num">23</td>
+    <td class="num">21</td>
+  </tr><tr>
+    <td><b>2025-26</b></td>
+    <td class="num">50</td>
+    <td class="num">31</td>
+    <td class="num">12</td>
+    <td class="num">7</td>
+    <td class="num cell-hi">1.76</td>
+    <td class="num">16</td>
+    <td class="num">23</td>
+    <td class="num">27</td>
+  </tr></tbody>
+</table></div>
+<p style="margin-top:12px;font-size:12.8px;color:var(--text-3)">
+  难度指数 = 按分值加权（基础 1 / 中档 2 / 较难 3 / 压轴 4）后归一。五年在 1.69–1.76 之间，几乎没有变化。
+</p>
+</section>
+
+
+<section class="section" id="slots">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">题位骨架</span>
+    <h2>每一题的位置都在考什么</h2>
+    <span class="sub">26 行 × 5 年，稳定与分散一目了然</span>
+  </div></div>
+  
+<div class="tbl-wrap"><table class="slot-tbl">
+  <thead><tr><th>题号</th><th class="num">分值</th><th>稳定族</th><th>2021-22</th><th>2022-23</th><th>2023-24</th><th>2024-25</th><th>2025-26</th></tr></thead>
+  <tbody><tr>
+      <td class="slot-no">1</td>
+      <td class="num">2</td>
+      <td><span class="tag must">5/5</span> 绝对值与数轴</td>
+      <td>绝对值</td><td>相反数</td><td>绝对值</td><td>绝对值</td><td>相反数</td>
+    </tr><tr>
+      <td class="slot-no">2</td>
+      <td class="num">2</td>
+      <td><span class="tag must">5/5</span> 科学记数法与近似数</td>
+      <td>科学记数法</td><td>科学记数法</td><td>科学记数法</td><td>科学记数法</td><td>科学记数法</td>
+    </tr><tr>
+      <td class="slot-no">3</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>数轴读符号</td><td>展开图识别</td><td>展开图识别</td><td>数轴与相反数</td><td>面动成体</td>
+    </tr><tr>
+      <td class="slot-no">4</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>合并同类项辨析</td><td>数轴读符号</td><td>合并同类项辨析</td><td>展开图识别</td><td>数轴读符号</td>
+    </tr><tr>
+      <td class="slot-no">5</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>余角补角列方程</td><td>合并同类项辨析</td><td>余角补角列方程</td><td>合并同类项辨析</td><td>合并同类项辨析</td>
+    </tr><tr>
+      <td class="slot-no">6</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>整式加减（图形边长）</td><td>余角补角列方程</td><td>数轴读符号</td><td>余角补角列方程</td><td>反比例关系</td>
+    </tr><tr>
+      <td class="slot-no">7</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>方程变形与等式性质</td><td>代数式求值</td><td>方程变形与等式性质</td><td>反比例关系</td><td>列方程（工程）</td>
+    </tr><tr>
+      <td class="slot-no">8</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>三视图</td><td>图形规律探究</td><td>数轴距离最值</td><td>新定义运算</td><td>数轴距离最值</td>
+    </tr><tr>
+      <td class="slot-no">9</td>
+      <td class="num">2</td>
+      <td><span class="tag often">4/5</span> 绝对值与数轴</td>
+      <td>角度换算（度分秒）</td><td>近似数与精确度</td><td>正负数意义</td><td>正负数意义</td><td>近似数与精确度</td>
+    </tr><tr>
+      <td class="slot-no">10</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>近似数与精确度</td><td>角度换算（度分秒）</td><td>有理数大小比较</td><td>点线面概念</td><td>有理数大小比较</td>
+    </tr><tr>
+      <td class="slot-no">11</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>同类项概念</td><td>绝对值非负性</td><td>有理数大小比较</td><td>单项式概念（构造）</td><td>单项式概念（构造）</td>
+    </tr><tr>
+      <td class="slot-no">12</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>代数式求值</td><td>单项式概念（构造）</td><td>同类项概念</td><td>方程解求参数</td><td>方程解求参数</td>
+    </tr><tr>
+      <td class="slot-no">13</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>方程解求参数</td><td>线段中点计算</td><td>方程解求参数</td><td>角的和差计算</td><td>角的和差计算</td>
+    </tr><tr>
+      <td class="slot-no">14</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>数轴读符号</td><td>方程解求参数</td><td>代数式求值</td><td>图形规律探究</td><td>图形规律探究</td>
+    </tr><tr>
+      <td class="slot-no">15</td>
+      <td class="num">2</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>线段中点计算</td><td>列代数式</td><td>列方程（分配）</td><td>列方程（分配）</td><td>进位制（综合与实践）</td>
+    </tr><tr>
+      <td class="slot-no">16</td>
+      <td class="num">2</td>
+      <td><span class="tag must">5/5</span> 数字填图 / 幻方</td>
+      <td>数字填图（幻方类）</td><td>数字填图（幻方类）</td><td>数字填图（幻方类）</td><td>数字填图（幻方类）</td><td>数字填图（幻方类）</td>
+    </tr><tr>
+      <td class="slot-no">17</td>
+      <td class="num">17–20</td>
+      <td><span class="tag must">5/5</span> 有理数四则混合运算</td>
+      <td>有理数混合运算</td><td>有理数混合运算</td><td>有理数混合运算</td><td>有理数混合运算</td><td>有理数混合运算</td>
+    </tr><tr>
+      <td class="slot-no">18</td>
+      <td class="num">6</td>
+      <td><span class="tag often">4/5</span> 整式化简求值</td>
+      <td>整式化简求值</td><td>尺规作图与说理</td><td>整式化简求值</td><td>整式化简求值</td><td>整式化简求值</td>
+    </tr><tr>
+      <td class="slot-no">19</td>
+      <td class="num">6–12</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>尺规作图与说理</td><td>整式化简求值</td><td>尺规作图与说理</td><td>尺规作图与说理</td><td>解一元一次方程</td>
+    </tr><tr>
+      <td class="slot-no">20</td>
+      <td class="num">5–12</td>
+      <td><span class="tag often">4/5</span> 解一元一次方程</td>
+      <td>解一元一次方程</td><td>解一元一次方程</td><td>解一元一次方程</td><td>解一元一次方程</td><td>尺规作图与说理</td>
+    </tr><tr>
+      <td class="slot-no">21</td>
+      <td class="num">6–7</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>角度推理与说理</td><td>角度推理与说理</td><td>角度推理与说理</td><td>方程应用（表格数据）</td><td>方程应用（配套/分配）</td>
+    </tr><tr>
+      <td class="slot-no">22</td>
+      <td class="num">5–8</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>方程应用（配套/分配）</td><td>方程应用（配套/分配）</td><td>方程应用（工程）</td><td>列代数式（几何建模）</td><td>进位制（综合与实践）</td>
+    </tr><tr>
+      <td class="slot-no">23</td>
+      <td class="num">6–7</td>
+      <td><span class="tag must">5/5</span> 分类压轴（第23题位）</td>
+      <td>数轴动点与分类</td><td>动角（旋转）</td><td>线段中点压轴（含参）</td><td>数轴动点与分类</td><td>数轴动点与分类</td>
+    </tr><tr>
+      <td class="slot-no">24</td>
+      <td class="num">6–7</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>阅读理解型</td><td>新定义（数轴类）</td><td>新定义（变速点）</td><td>动角（旋转）</td><td>动角（旋转）</td>
+    </tr><tr>
+      <td class="slot-no">25 <span class="tag bonus">选</span></td>
+      <td class="num">4–5</td>
+      <td><span style="color:var(--text-3)">分散</span></td>
+      <td>三角尺拼角</td><td>新定义（运算类）</td><td>规律探究（迭代运算）</td><td>进位制（综合与实践）</td><td>新定义运算</td>
+    </tr><tr>
+      <td class="slot-no">26 <span class="tag bonus">选</span></td>
+      <td class="num">5–6</td>
+      <td><span class="tag often">4/5</span> 新定义（选做 / 24 题位）</td>
+      <td>新定义（数轴类）</td><td>数轴动点与分类</td><td>新定义（角·特征值）</td><td>新定义（平衡点）</td><td>新定义（传送距离）</td>
+    </tr></tbody>
+</table></div>
+<div class="note warn" style="margin-top:14px">
+  <b>提醒：</b>第 19、20 题的内容会在年份之间<b>互换位置</b>——2025-26 把「解方程」放到第 19 题（12 分）、「尺规作图」放到第 20 题（5 分），与往年相反。<b>按题号背会失手，要按题型认。</b>
 </div>
+</section>
+
 </main>
-<footer class="foot">
-  <div class="foot-in yz-foot">
-    <div>
-      <div class="yz-foot-title">柚子初一(上)数学期末复习</div>
-      <div class="yz-foot-sub">面向 北师大实验中学 初一(上)期末 · 10 天冲刺 / 真题练习 / 错题解析 / 学情诊断</div>
-    </div>
-    <div class="foot-links">
-      <a href="sprint.html">冲刺计划</a>
-      <a href="wrong.html">错题本</a>
-      <a href="diag.html">学情诊断</a>
-      <a href="learn.html">知识复习</a>
-    </div>
-  </div>
+<footer class="wrap">
+  <p><b>西城区初一(上)数学期末考情分析站</b> · 样本：西城区 2021-22 / 2022-23 / 2023-24 / 2024-25 / 2025-26 五套期末真题，共 130 题逐题标注</p>
+  <p>所有统计数字由逐题台账派生，非人工填写。频次结论基于 5 套样本，不构成押题。</p>
 </footer>
-<script src="assets/app.js?v=c829ace1"></script>
-
-<script src="dist/data/meta.js?v=c829ace1"></script>
-<script>
-window.YZ = window.YZ || {};
-window.YZ.loadAll = function(chapters){
-  if (!chapters || !chapters.length) return Promise.resolve({});
-  var CH = window.YZ.CH = window.YZ.CH || {};
-  var need = chapters.filter(function(id){ return !CH[id]; });
-  return Promise.all(need.map(function(id){
-    return new Promise(function(res){
-      var s = document.createElement('script');
-      s.src = "" + 'dist/data/ch/' + id + '.js?v=' + "c829ace1";
-      s.onload = function(){ res(); };
-      s.onerror = function(){ res(); };
-      document.head.appendChild(s);
-    });
-  })).then(function(){
-    /* 分片自带字形 defs：动态加载的页面本身没有字形定义，
-       不注入的话公式会全部不可见。 */
-    Object.keys(CH).forEach(function(id){
-      var d = CH[id];
-      if (!d || !d.defs) return;
-      if (document.querySelector('[data-defs="' + id + '"]')) return;
-      var box = document.createElement('div');
-      box.setAttribute('data-defs', id);
-      box.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
-      box.innerHTML = d.defs;
-      document.body.appendChild(box);
-    });
-    return CH;
-  });
-};
-window.YZ.chapterIds = function(){
-  var M = window.YZ.META || {};
-  return (M.chapters || []).map(function(c){ return c.id; });
-};
-
-/* ==========================================================
-   三级组卷：把题按「改数字 → 改条件 → 逆向问」排成链
-   这是全站练习内容的统一口径——不是随机抽题，而是按三级递进出题。
-   输入：题目池；输出：按 method 分组后、每组按三级顺序排列的题
-   ========================================================== */
-window.YZ.buildLadders = function(pool){
-  var LEVEL = { number: 0, condition: 1, reverse: 2 };
-  var byMethod = {};
-  (pool || []).forEach(function(q){
-    var key = q.method || ('__ch_' + (q.chapter || '') );
-    if (!byMethod[key]) byMethod[key] = { mothers: [], levels: {}, others: [] };
-    if (q.variantOf && q.changed != null && LEVEL[q.changed] != null) {
-      /* 三级变式：每级取第一道（同方法同级别通常只有一道） */
-      var li = LEVEL[q.changed];
-      if (!byMethod[key].levels[li]) byMethod[key].levels[li] = q;
-      else byMethod[key].others.push(q);
-    } else if (!q.variantOf) {
-      byMethod[key].mothers.push(q);
-    } else {
-      byMethod[key].others.push(q);
-    }
-  });
-  var out = [];
-  Object.keys(byMethod).forEach(function(k){
-    var g = byMethod[k];
-    var hasAll = g.levels[0] && g.levels[1] && g.levels[2];
-    /* 有完整三级：先出「三级链」（这是本组核心），再出其余母题与题 */
-    if (hasAll) {
-      out.push({ q: g.levels[0], group: k, role: 'L1' });
-      out.push({ q: g.levels[1], group: k, role: 'L2' });
-      out.push({ q: g.levels[2], group: k, role: 'L3' });
-    } else {
-      [0,1,2].forEach(function(i){ if (g.levels[i]) out.push({ q: g.levels[i], group: k, role: '' }); });
-    }
-    /* 其余题全部保留，不能丢 */
-    g.mothers.forEach(function(q){ out.push({ q: q, group: k, role: 'mother' }); });
-    g.others.forEach(function(q){ out.push({ q: q, group: k, role: '' }); });
-  });
-  return out;
-};
-
-/* 只取「有完整三级链」的组，用于达标判定 */
-window.YZ.completeChains = function(pool){
-  var built = window.YZ.buildLadders(pool);
-  var byGroup = {};
-  built.forEach(function(x){ (byGroup[x.group] = byGroup[x.group] || []).push(x); });
-  var out = [];
-  Object.keys(byGroup).forEach(function(k){
-    var g = byGroup[k];
-    var l1 = g.filter(function(x){ return x.role === 'L1'; })[0];
-    var l2 = g.filter(function(x){ return x.role === 'L2'; })[0];
-    var l3 = g.filter(function(x){ return x.role === 'L3'; })[0];
-    var m = g.filter(function(x){ return x.role === 'mother'; })[0];
-    if (l1 && l2 && l3) out.push({ group: k, mother: m ? m.q : null, qs: [l1.q, l2.q, l3.q] });
-  });
-  return out;
-};</script>
-<script>
-(function(){
-  var tip = document.getElementById('cloudTip');
-  if (!tip) return;
-  var OFFSET = 14;           // 与光标的距离
-  var lastX = 0, lastY = 0;
-
-  /* 跟随光标：夹在视口内，靠近右/下边缘时翻到另一侧 */
-  function place(x, y){
-    var w = tip.offsetWidth, h = tip.offsetHeight;
-    var vw = window.innerWidth, vh = window.innerHeight;
-    var left = x + OFFSET;
-    var top  = y + OFFSET;
-    if (left + w > vw - 8) left = x - w - OFFSET;
-    if (top + h > vh - 8)  top  = y - h - OFFSET;
-    tip.style.left = Math.max(8, left) + 'px';
-    tip.style.top  = Math.max(8, top)  + 'px';
-  }
-
-  function show(el, x, y){
-    var d = el.dataset;
-    tip.innerHTML = '<b>' + d.name + '</b><span>' + d.total + ' 分 · ' + d.years + '/5 年</span>';
-    tip.classList.add('on');
-    place(x, y);
-  }
-  function hide(){ tip.classList.remove('on'); }
-
-  [].forEach.call(document.querySelectorAll('.cloud-dots .cloud-dot'), function(el){
-    el.addEventListener('mouseenter', function(e){
-      lastX = e.clientX; lastY = e.clientY;
-      show(el, lastX, lastY);
-    });
-    /* 光标在圆点上移动时提示跟着走 */
-    el.addEventListener('mousemove', function(e){
-      lastX = e.clientX; lastY = e.clientY;
-      place(lastX, lastY);
-    });
-    el.addEventListener('mouseleave', hide);
-    /* 键盘聚焦（无鼠标位置）时贴在圆点右下 */
-    el.addEventListener('focus', function(){
-      var r = el.getBoundingClientRect();
-      show(el, r.right, r.bottom);
-    });
-    el.addEventListener('blur', hide);
-  });
-})();
-</script>
 </body>
 </html>
