@@ -1,7 +1,7 @@
 
 import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';
 
-/* ============ 诊断逻辑（与 work/practice/diagnose.mjs 同源，内联以便单文件运行） ============ */
+/* ============ 诊断逻辑（内联以便单文件运行，file:// 可直开） ============ */
 const TIER_RULE = { minSample: 3, weak: 0.6, solid: 0.85 };
 
 const CALC_HINTS = {
@@ -159,9 +159,41 @@ function diagnose(records) {
       avg: (FAM_META[a.fam] || {}).avgPerYear || 0,
     })))
     .sort((x, y) => y.avg - x.avg);
+  // 按章节再做一层聚合：学生/家长听得懂的是「哪一章弱」，不是族名
+  const chAgg = new Map();
+  const famToCh = {};
+  for (const [fid, meta] of Object.entries(FAM_META)) famToCh[fid] = meta.ch;
+  for (const f of fams) {
+    const ch = famToCh[f.fam] || 'unknown';
+    if (!chAgg.has(ch)) chAgg.set(ch, { ch, total: 0, ok: 0, totalScoreW: 0, errMix: {} });
+    const a = chAgg.get(ch);
+    a.total += f.total;
+    a.ok += f.ok;
+    a.totalScoreW += f.avg;
+    for (const [k, v] of Object.entries(f.errMix || {})) a.errMix[k] = (a.errMix[k] || 0) + v;
+  }
+  const chs = [...chAgg.values()].map((a) => {
+    const rate = a.total ? a.ok / a.total : 0;
+    const enough = a.total >= TIER_RULE.minSample;
+    let tier = !enough ? 'insufficient'
+      : rate < TIER_RULE.weak ? 'weak'
+      : rate < TIER_RULE.solid ? 'shaky' : 'solid';
+    const top = Object.entries(a.errMix).sort((x, y) => y[1] - x[1])[0];
+    return {
+      ch: a.ch,
+      name: (typeof CH_NAME !== 'undefined' && CH_NAME[a.ch]) || a.ch,
+      total: a.total, ok: a.ok, rate, tier, enough,
+      topErr: top ? { cat: top[0], fix: ERR_FIX[top[0]] } : null,
+      scoreW: a.totalScoreW,
+    };
+  }).sort((a, b) => {
+    const ord = { weak: 0, shaky: 1, insufficient: 2, solid: 3 };
+    return ord[a.tier] - ord[b.tier] || b.scoreW - a.scoreW;
+  });
+
   return {
     totalQ, totalOk, rate: totalQ ? totalOk / totalQ : 0,
-    fams, actions: actions.slice(0, 6), wrongList,
+    fams, chs, actions: actions.slice(0, 6), wrongList,
     weak: fams.filter(f => f.tier === 'weak').length,
     shaky: fams.filter(f => f.tier === 'shaky').length,
     solid: fams.filter(f => f.tier === 'solid').length,
@@ -276,8 +308,8 @@ function judge(q, input) {
 }
 
 /* ============ 状态 ============ */
-const ROUND_SIZE = 9;       // 每轮固定 9 题
-const PER_FAM = 3;          // 每族 3 题（恰好够诊断分档）
+const ROUND_SIZE = 18;      // 每轮 18 题 = 6 章 × 3 题
+const PER_CH = 3;           // 每章 3 题（恰好够诊断分档的样本下限）
 
 const state = {
   round: 0,                 // 第几轮（用于轮转选族）
@@ -371,48 +403,63 @@ function shuffle(arr) {
 
 /* 出题策略：诊断要下结论，每族至少需要 3 题。
  * 所以「全部」不是跨族撒一遍，而是按族轮转、每族凑够样本再换下一族。 */
-/* 出题：按「族年均分值」降序，轮转取族，每族 3 题。
- * 一轮 9 题 = 3 族 × 3 题 —— 既能判出结论（每族样本够），
- * 又不至于做太久。下一轮自动换到接下来的族，几轮即可覆盖全部考点。 */
-function pickQueue(store) {
-  // 按年均分降序排族
-  const fams = Object.keys(FAM_META)
-    .map((id) => ({ id, avg: FAM_META[id].avgPerYear || 0, n: BANK.filter((q) => q.fam === id).length }))
-    .filter((f) => f.n >= 1)
-    .sort((a, b) => b.avg - a.avg);
-
-  // 轮转起点：每轮往后挪 3 个族
-  const startIdx = (state.round * 3) % fams.length;
-
-  // 取出本轮要覆盖的族（优先取题多的，保证能凑够 3 题）
-  const chosen = [];
-  for (let k = 0; k < fams.length && chosen.length < 3; k++) {
-    const f = fams[(startIdx + k) % fams.length];
-    if (!chosen.some((c) => c.id === f.id)) chosen.push(f);
+/* 出题：按「章节」均衡取题，6 章 × 每章 3 题 = 18 题。
+ *
+ * 为什么按章而不是按族：
+ *   - 诊断要回答「整体学情」，章节是学生和家长都听得懂的粒度
+ *   - 23 个考点族全覆盖要 69 题（约 46 分钟），太久了
+ *   - 6 章 × 3 题只要 12 分钟，且每章都能判出结论
+ *
+ * 章内取题：优先取该章「年均分最高」的族的题，保证权重高的考点先被覆盖。 */
+function pickQueue() {
+  // 章节 → 该章的族（按年均分降序）
+  const chMap = new Map();
+  for (const q of BANK) {
+    const meta = FAM_META[q.fam] || {};
+    const ch = meta.ch || 'unknown';
+    if (!chMap.has(ch)) chMap.set(ch, new Map());
+    const fams = chMap.get(ch);
+    if (!fams.has(q.fam)) {
+      fams.set(q.fam, { id: q.fam, avg: meta.avgPerYear || 0, qs: [] });
+    }
+    fams.get(q.fam).qs.push(q);
   }
 
-  state.plan = chosen.map((f) => ({
-    id: f.id,
-    name: FAM_META[f.id].name,
-    avg: f.avg,
-  }));
+  // 章节按「该章总年均分」降序
+  const chapters = [...chMap.entries()].map(([ch, fams]) => {
+    const list = [...fams.values()].sort((a, b) => b.avg - a.avg);
+    const total = list.reduce((a, f) => a + f.avg, 0);
+    return { ch, fams: list, total };
+  }).sort((a, b) => b.total - a.total);
 
-  // 每族取 PER_FAM 题
   const picked = [];
-  for (const f of chosen) {
-    const qs = shuffle(BANK.filter((q) => q.fam === f.id));
-    picked.push(...qs.slice(0, PER_FAM));
-  }
-  // 若某族题不足 3 道，从其他族补齐到 9 题
-  if (picked.length < ROUND_SIZE) {
-    const used = new Set(picked.map((q) => q.id));
-    for (const q of shuffle(BANK)) {
-      if (used.has(q.id)) continue;
-      picked.push(q);
-      used.add(q.id);
-      if (picked.length >= ROUND_SIZE) break;
+  const usedIds = new Set();
+
+  // 每章取 PER_CH 题。关键：尽量集中在同一族，让该族样本够 3 题、
+  // 能判出结论。只有该族题不够时才从章内其他族补。
+  for (const c of chapters) {
+    let got = 0;
+    // 章内族按年均分降序，先主族取满，再往次族扩
+    for (const f of c.fams) {
+      if (got >= PER_CH) break;
+      const qs = shuffle(f.qs);
+      for (const q of qs) {
+        if (got >= PER_CH) break;
+        if (usedIds.has(q.id)) continue;
+        picked.push(q);
+        usedIds.add(q.id);
+        got++;
+      }
     }
   }
+
+  state.plan = chapters.map((c) => ({
+    ch: c.ch,
+    name: (typeof CH_NAME !== 'undefined' && CH_NAME[c.ch]) || c.ch,
+    total: Math.round(c.total * 10) / 10,
+    fams: c.fams.map((f) => f.id),
+  }));
+
   return picked.slice(0, ROUND_SIZE).map(shuffleOptions);
 }
 
@@ -556,20 +603,20 @@ function showDiag() {
 
     <div class="summary">
       <div class="sm total"><div class="n">${Math.round(d.rate * 100)}%</div><div class="l">总正确率</div></div>
-      <div class="sm weak"><div class="n">${d.weak}</div><div class="l">薄弱考点</div></div>
-      <div class="sm shaky"><div class="n">${d.shaky}</div><div class="l">不够稳</div></div>
-      <div class="sm solid"><div class="n">${d.solid}</div><div class="l">已掌握</div></div>
+      <div class="sm weak"><div class="n">${d.chs.filter(c=>c.tier==='weak').length}</div><div class="l">薄弱章节</div></div>
+      <div class="sm shaky"><div class="n">${d.chs.filter(c=>c.tier==='shaky').length}</div><div class="l">不够稳</div></div>
+      <div class="sm solid"><div class="n">${d.chs.filter(c=>c.tier==='solid').length}</div><div class="l">已掌握</div></div>
     </div>
 
     <div class="fam-rows">
-      ${d.fams.map(f => `
+      ${d.chs.map(c => `
         <div class="fam-row">
           <div>
-            <div class="fam-name">${esc(f.name)}</div>
-            <div class="fam-sub">${f.ok}/${f.total} 题正确${f.topErr ? ' · 主错因：' + esc(f.topErr.cat) : ''}</div>
+            <div class="fam-name">${esc(c.name)}</div>
+            <div class="fam-sub">${c.ok}/${c.total} 题正确${c.topErr ? ' · 主错因：' + esc(c.topErr.cat) : ''}</div>
           </div>
-          <div class="fam-rate ${rateCls(f.tier)}">${Math.round(f.rate * 100)}%</div>
-          <div class="fam-tier tier-${f.tier}">${tierName[f.tier]}</div>
+          <div class="fam-rate ${rateCls(c.tier)}">${Math.round(c.rate * 100)}%</div>
+          <div class="fam-tier tier-${c.tier}">${tierName[c.tier]}</div>
         </div>`).join('')}
     </div>
 
@@ -719,26 +766,34 @@ function reset() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* 预览本轮覆盖哪几个考点（不抽题，只算族） */
+/* 预览本轮覆盖的章节（6 章各 3 题） */
 function renderPlanPreview() {
   const host = $('#planPreview');
   if (!host) return;
-  // 复用 pickQueue 的选族逻辑：算一次计划（不渲染题目）
-  const fams = Object.keys(FAM_META)
-    .map((id) => ({ id, avg: FAM_META[id].avgPerYear || 0, n: BANK.filter((q) => q.fam === id).length }))
-    .filter((f) => f.n >= 1)
-    .sort((a, b) => b.avg - a.avg);
-  const startIdx = (state.round * 3) % fams.length;
-  const chosen = [];
-  for (let k = 0; k < fams.length && chosen.length < 3; k++) {
-    const f = fams[(startIdx + k) % fams.length];
-    if (!chosen.some((c) => c.id === f.id)) chosen.push(f);
+
+  // 按章聚合（与 pickQueue 同源逻辑）
+  const chMap = new Map();
+  for (const q of BANK) {
+    const meta = FAM_META[q.fam] || {};
+    const ch = meta.ch || 'unknown';
+    if (!chMap.has(ch)) chMap.set(ch, { n: 0, total: 0, fams: new Set() });
+    const d = chMap.get(ch);
+    d.n++;
+    d.fams.add(q.fam);
   }
-  host.innerHTML = chosen.map((f, i) => `
+  // 每章总分 = 该章各族年均分之和
+  for (const [ch, d] of chMap) {
+    let s = 0;
+    for (const f of d.fams) s += (FAM_META[f] || {}).avgPerYear || 0;
+    d.total = s;
+  }
+  const list = [...chMap.entries()].sort((a, b) => b[1].total - a[1].total);
+
+  host.innerHTML = list.map(([ch, d], i) => `
     <div class="plan-item">
-      <div class="plan-k">考点 ${i + 1}</div>
-      <div class="plan-n">${esc(FAM_META[f.id].name)}</div>
-      <div class="plan-v">年均 ${f.avg} 分 · 3 题</div>
+      <div class="plan-k">第 ${i + 1} 章</div>
+      <div class="plan-n">${esc((typeof CH_NAME !== 'undefined' && CH_NAME[ch]) || ch)}</div>
+      <div class="plan-v">年均 ${Math.round(d.total * 10) / 10} 分 · ${PER_CH} 题</div>
     </div>`).join('');
 }
 

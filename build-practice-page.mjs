@@ -5,6 +5,7 @@ import { writeFileSync, readFileSync } from 'node:fs';
 
 import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';
 import { FAMILY_MAP } from './work/papers/stats.mjs';
+import { CH_NAME } from './work/papers/ledger.mjs';
 import { TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml } from './work/site-shell.mjs';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -17,7 +18,7 @@ const famList = Object.keys(FAM_META).map((id) => ({
   n: BANK.filter((q) => q.fam === id).length,
 })).sort((a, b) => b.avg - a.avg);
 
-const ROUND_SIZE = 9;
+const ROUND_SIZE = 18;
 const totalQ = BANK.length;
 const choiceN = BANK.filter((q) => q.options).length;
 const calcN = totalQ - choiceN;
@@ -40,12 +41,14 @@ body{padding-bottom:80px}
   color:var(--accent);font-weight:600;margin-bottom:10px}
 .intro-title{font-size:23px;font-weight:780;letter-spacing:-.02em;margin-bottom:10px}
 .intro-desc{font-size:14px;color:var(--text-2);line-height:1.75;max-width:640px}
-.plan{display:flex;gap:10px;margin:20px 0 22px;flex-wrap:wrap}
-.plan-item{flex:1;min-width:160px;background:var(--surface-2);border:1px solid var(--border);
+.plan{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0 22px}
+.plan-item{background:var(--surface-2);border:1px solid var(--border);
   border-radius:11px;padding:13px 15px}
 .plan-k{font-family:var(--mono);font-size:11px;color:var(--text-3);margin-bottom:5px}
 .plan-n{font-size:14.5px;font-weight:700;line-height:1.4}
 .plan-v{font-size:12px;color:var(--accent);font-weight:650;margin-top:5px}
+.plan-item{min-width:0}
+@media(max-width:680px){.plan{grid-template-columns:1fr 1fr}}
 .intro-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .intro-hint{font-size:12.5px;color:var(--text-3)}
 
@@ -224,7 +227,10 @@ let SCRIPT = readFileSync('practice-src.js', 'utf8');
 // 数据内联：file:// 下 import 会被 CORS 拦截，所以直接把题库嵌进页面
 SCRIPT = SCRIPT.replace(
   "import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';",
-  'const BANK = ' + JSON.stringify(BANK) + ';\nconst FAM_META = ' + JSON.stringify(FAM_META) + ';\nconst SOLUTIONS = ' + JSON.stringify(SOLUTIONS) + ';'
+  'const BANK = ' + JSON.stringify(BANK) + ';\n' +
+  'const FAM_META = ' + JSON.stringify(FAM_META) + ';\n' +
+  'const SOLUTIONS = ' + JSON.stringify(SOLUTIONS) + ';\n' +
+  'const CH_NAME = ' + JSON.stringify(CH_NAME) + ';'
 );
 
 /* 页面 HTML */
@@ -245,9 +251,9 @@ ${headerHtml('practice.html')}
   <div class="crumb"><a href="index.html">首页</a> / 练习与诊断</div>
   <h1>练习与诊断</h1>
   <p class="lede">
-    每轮 ${ROUND_SIZE} 道题，按西城真题的考点分布与难度编制，全部为单选题。
+    每轮 ${ROUND_SIZE} 道题覆盖全部 6 章，按西城真题的考点分布与难度编制，全部为单选题。
     计算类题目也以「选出正确结果」的形式出现——省去手写步骤，但考点与真题第 17/18/19 题位一致。
-    做完自动判分，并按考点族告诉你<b>先补哪里、怎么补</b>。
+    做完自动判分，按章节告诉你<b>哪一章要补、怎么补</b>。
   </p>
 </div>
 
@@ -255,15 +261,15 @@ ${headerHtml('practice.html')}
 <div class="intro" id="intro">
   <div class="intro-main">
     <div class="intro-eyebrow">本轮诊断</div>
-    <h2 class="intro-title">${ROUND_SIZE} 道题，覆盖 ${3} 个高频考点</h2>
+    <h2 class="intro-title">${ROUND_SIZE} 道题，覆盖全部 6 章</h2>
     <p class="intro-desc">
-      每次 3 个考点、每个考点 3 题——题量刚好能判出结论，又不会拖太久。
-      下一轮自动换到后面的考点，几轮下来就把全部 ${famList.length} 个考点过一遍。
+      每章 3 题——题量刚好够判出每章的强弱，又不会拖太久。
+      一轮下来能看到整张卷子的学情全貌：哪一章稳、哪一章要补。
     </p>
     <div class="plan" id="planPreview"></div>
     <div class="intro-actions">
       <button class="btn primary" id="startBtn">开始诊断</button>
-      <span class="intro-hint">约 ${ROUND_SIZE} 分钟 · 做完自动出诊断</span>
+      <span class="intro-hint">约 12 分钟 · 做完自动出诊断</span>
     </div>
   </div>
 </div>

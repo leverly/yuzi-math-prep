@@ -84,8 +84,10 @@ console.log('\n【七】练习页（practice.html）');
 if (fs.existsSync('practice.html')) {
   const pr = fs.readFileSync('practice.html', 'utf8');
   const { BANK } = await import('./practice-data.mjs');
-  ok(pr.includes('每轮 9 道题'), '导语说明每轮题量（不再强调总题数）');
-  ok(pr.includes('覆盖 3 个高频考点'), '说明本轮覆盖的考点数');
+  ok(pr.includes('每轮 18 道题覆盖全部 6 章'), '导语说明每轮题量与覆盖范围');
+  ok(pr.includes('18 道题，覆盖全部 6 章'), '预告卡标题正确');
+  // 诊断面板必须按章节展示（不是按族，族太细会导致样本不足）
+  ok(pr.includes('薄弱章节'), '诊断按章节汇总');
   ok(pr.includes('const BANK = ['), '题库已内联（file:// 可直开）');
   // 构建器用字符串 replace 注入数据：import 行一改，replace 静默失配，
   // 产物会「构建成功」但只剩 40KB 空壳。这里硬断言数据真的进去了。
