@@ -133,5 +133,102 @@ if (fs.existsSync('practice.html')) {
   ok(false, 'practice.html 已生成');
 }
 
+/* 【八】外壳一致性：各页共用部分必须逐字相同
+ *
+ * 背景：practice.html 曾自带一份设计系统副本，与另外四页持续漂移——
+ * 先是顶栏样式不同，后是页头 .lede 多了 max-width:720px 造成大片空白。
+ * 这类问题肉眼要翻页面才看得见，所以在这里机器化拦住：
+ *   1) 所有页面必须引用同一份顶栏（class、导航项、品牌角标一致）
+ *   2) 跨页同名选择器不得给出不同声明（顶栏 / 页头排版 / 设计变量）
+ *   3) 正文文字块不得自带把容器压窄的 max-width
+ */
+console.log('\n【八】外壳一致性（跨页共用部分不得漂移）');
+{
+  const PAGE_FILES = ['index.html', 'papers.html', 'trend.html', 'plan.html', 'practice.html'];
+
+  // 8.1 顶栏标记一致：品牌 + 导航项（href/文字/高亮/演示样式）必须与共享来源同构
+  const { headerHtml } = await import('./work/site-shell.mjs');
+  const shellPages = PAGE_FILES.filter((f) => fs.existsSync(f));
+  // 把顶栏解析成结构化签名，避免被空格/换行/属性顺序影响
+  const hdrSig = (html) => {
+    const m = html.match(/<header class="site-head">[\s\S]*?<\/header>/);
+    if (!m) return null;
+    const h = m[0];
+    const brand = (h.match(/class="brand-mark"[^>]*>([^<]*)</) || [])[1] || '';
+    const sub = (h.match(/<small>([^<]*)<\/small>/) || [])[1] || '';
+    const links = [...h.matchAll(/<a href="([^"]+)"([^>]*)>([^<]*)<\/a>/g)].map((x) => ({
+      href: x[1],
+      text: x[3].trim(),
+      on: /class="on"/.test(x[2]),
+      slides: /nav-slides/.test(x[2]),
+    }));
+    // 顶栏容器 class 也纳入（.hdr 与 .hdr-in 的漂移曾发生过）
+    const container = (h.match(/<header class="site-head"><div class="([^"]+)"/) || [])[1] || '';
+    return JSON.stringify({ brand, sub, container, links });
+  };
+  let hdrBad = [];
+  for (const f of shellPages) {
+    const txt = fs.readFileSync(f, 'utf8');
+    const got = hdrSig(txt);
+    if (!got) { hdrBad.push(f + '(缺顶栏)'); continue; }
+    // 期望签名：用该页自己的 active 项生成
+    const want = hdrSig(headerHtml(f));
+    if (want !== got) hdrBad.push(f);
+  }
+  ok(hdrBad.length === 0, '顶栏标记与共享来源一致', hdrBad.join(', '));
+
+  // 8.2 跨页同名选择器：声明必须相同（只查共用外壳类，业务组件各页本就不同）
+  const SHELL_SELECTORS = [
+    '.site-head', '.hdr-in', '.brand', '.brand-mark', '.brand small',
+    '.hdr-nav', '.hdr-nav a', '.hdr-nav a:hover', '.hdr-nav a.on',
+    '.hdr-nav a.nav-slides', '.hdr-nav a.nav-slides::before', '.hdr-nav a.nav-slides:hover',
+    'h1', '.lede', '.lede b', '.wrap',
+  ];
+  const declOf = (css) => {
+    const map = {};
+    for (const m of css.matchAll(/([^{}\n\/][^{}\n]*)\{([^{}]*)\}/g)) {
+      const sel = m[1].trim().replace(/\s+/g, ' ');
+      // 媒体查询里的规则带前导空白，这里按选择器文本聚合（同名多条用 | 连起来）
+      map[sel] = map[sel] ? map[sel] + '|' + m[2].trim() : m[2].trim();
+    }
+    return map;
+  };
+  const decls = {};
+  for (const f of shellPages) {
+    const txt = fs.readFileSync(f, 'utf8');
+    const i = txt.indexOf('<style>'), j = txt.indexOf('</style>');
+    decls[f] = declOf(txt.slice(i, j));
+  }
+  let selBad = [];
+  for (const sel of SHELL_SELECTORS) {
+    const seen = new Map(); // 声明 -> 首次出现的文件
+    for (const f of shellPages) {
+      const d = decls[f][sel];
+      if (d === undefined) continue;
+      if (seen.has(d)) continue;
+      if (seen.size === 0) { seen.set(d, f); continue; }
+      selBad.push(`${sel}（${[...seen.values()][0]} vs ${f}）`);
+      break;
+    }
+  }
+  ok(selBad.length === 0, '共用外壳选择器跨页一致', selBad.join('; '));
+
+  // 8.3 正文文字块不得自带窄于容器的 max-width（会造成右侧大片空白）
+  let narrowBad = [];
+  for (const f of shellPages) {
+    const txt = fs.readFileSync(f, 'utf8');
+    const i = txt.indexOf('<style>'), j = txt.indexOf('</style>');
+    const css = txt.slice(i, j);
+    for (const m of css.matchAll(/([^{}\n\/][^{}\n]*)\{([^{}]*)\}/g)) {
+      const sel = m[1].trim();
+      const body = m[2];
+      if (!/font-size/.test(body)) continue;
+      const mw = body.match(/max-width:\s*(\d+)px/);
+      if (mw && +mw[1] < 1100) narrowBad.push(`${f} ${sel} max-width:${mw[1]}px`);
+    }
+  }
+  ok(narrowBad.length === 0, '正文文字块未被 max-width 压窄', narrowBad.join('; '));
+}
+
 console.log('\n' + (fail === 0 ? '=== 全部通过 ===' : `=== ${fail} 项未通过 ===`));
 process.exit(fail === 0 ? 0 : 1);
