@@ -30,6 +30,8 @@ import { SLOT_QUESTIONS } from './data-slot-questions.js';
 import { SLOT_FORMAT_QUESTIONS } from './data-slot-format.js';
 import { QTYPE_MAP } from './data-qtype.js';
 import { EXAM_BANK } from './data-exam-bank.js';
+import { SOLUTIONS } from './data-solutions.js';
+import { SPRINT_DAYS, pickDayQuestions } from './data-sprint.js';
 import { buildFamilyMap } from './data-family-map.js';
 import { KNOW, FAMILY_ASSETS } from './data-know.js';
 import {
@@ -43,6 +45,8 @@ import {
 } from './data-papers.js';
 
 export { CHAPTERS, EXAM_STRUCTURE, TIERS, DAILY, PHASES, METHODS, CONCEPTS, CALC_QUESTIONS, FORMULAS };
+/* 10 天冲刺计划 */
+export { SPRINT_DAYS, pickDayQuestions };
 /* 方法卡配套题（不含计算专项）——校验器需要区分两者 */
 export { METHOD_QUESTIONS, GEO_QUESTIONS, PAPER_GAP_QUESTIONS, BALANCE_QUESTIONS, BALANCE_QUESTIONS_2, BALANCE_QUESTIONS_3, EQ_QUESTIONS, MAGIC_QUESTIONS, GAP_QUESTIONS, METHOD_FILL_QUESTIONS, BIG_QUESTIONS, SLOT_QUESTIONS, SLOT_FORMAT_QUESTIONS };
 /* 槽位专项（满分版训练结构） */
@@ -92,7 +96,11 @@ export const ALL_QUESTIONS = EXAM_BANK.map((q) => {
     errorTags: ['exam'],
     stemParts: q.stemParts,
     stem: q.stemText,
-    solution: '',
+    /* 解析与干扰项错因来自 data-solutions.js（逐题手写）。
+       没写解析的题留空，页面会标「暂无解析」而不是假装有。 */
+    solution: (SOLUTIONS[q.id] && SOLUTIONS[q.id].solution) || '',
+    pitfall: (SOLUTIONS[q.id] && SOLUTIONS[q.id].pitfall) || '',
+    optTags: (SOLUTIONS[q.id] && SOLUTIONS[q.id].optTags) || {},
     examRef: { paperId: q.paperId, year: q.year, no: q.no, score: q.score, bonus: q.bonus },
     topic: q.topic || '',
     hasAnswer: q.hasAnswer,

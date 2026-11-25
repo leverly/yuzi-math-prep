@@ -1905,6 +1905,29 @@ a.coverage-row:hover { border-color: var(--accent); transform: translateX(3px); 
 .se-solbox:empty { display: none; }
 .se-solbox { display: flex; flex-direction: column; gap: 12px; }
 
+/* 答错时摊开的解析块。在 .se-fb（红底）里，所以用白底反衬，
+   保证「为什么」这一段是可读的正文，不是警示色的一小块。 */
+.se-fb .se-solbox {
+  margin-top: 10px; padding: 12px 14px; background: var(--bg);
+  border-radius: var(--r-sm); color: var(--text); font-weight: 400;
+  font-size: .89rem; line-height: 1.85; white-space: pre-wrap;
+}
+.se-fb .se-solbox > b {
+  display: block; margin-bottom: 6px; color: var(--text-2);
+  font-size: .76rem; letter-spacing: .06em; text-transform: uppercase;
+}
+.se-pit-box {
+  margin-top: 10px; padding: 11px 14px; background: #fff8e6;
+  border-left: 3px solid #d9a441; border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  color: var(--text); font-weight: 400; font-size: .87rem; line-height: 1.8;
+}
+.se-pit-box > b {
+  display: block; margin-bottom: 4px; color: #8a6516;
+  font-size: .76rem; letter-spacing: .06em;
+}
+.se-pit { display: block; margin-top: 8px; color: var(--text-2); font-weight: 400; }
+.se-nosol { display: block; margin-top: 8px; color: var(--text-2); font-style: italic; }
+
 /* 移动端 */
 @media (max-width: 640px) {
   .se-card { padding: 15px; gap: 12px; }

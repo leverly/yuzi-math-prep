@@ -4399,7 +4399,7 @@ export const EXAM_BANK = [
   "topic": "相反数",
   "name": "相反数",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "⟨公式⟩的相反数是（     ）",
   "stemParts": [
    {
@@ -4488,9 +4488,9 @@ export const EXAM_BANK = [
     }
    ]
   ],
-  "key": null,
-  "answer": null,
-  "officialKey": null
+  "key": 2,
+  "answer": "⟨公式⟩",
+  "officialKey": "C"
  },
  {
   "id": "p2022-q2",
@@ -4505,7 +4505,7 @@ export const EXAM_BANK = [
   "topic": "科学记数法",
   "name": "科学记数法",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "红树林、海草床和滨海盐沼组成三大滨海“蓝碳”生态系统．相关数据显示，按全球平均值估算，我国三大滨海“蓝碳”生态系统的年碳汇量最高可达约3080000吨二氧化碳．将3080000用科学记数法表示应为（    ）",
   "stemParts": [
    {
@@ -4609,9 +4609,9 @@ export const EXAM_BANK = [
     }
    ]
   ],
-  "key": null,
-  "answer": null,
-  "officialKey": null
+  "key": 1,
+  "answer": "⟨公式⟩",
+  "officialKey": "B"
  },
  {
   "id": "p2022-q3",
@@ -4626,7 +4626,7 @@ export const EXAM_BANK = [
   "topic": "展开图识别",
   "name": "展开图识别（棱柱）",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "如图是某个几何体的展开图，则该几何体是（    ）",
   "stemParts": [
    {
@@ -4710,9 +4710,9 @@ export const EXAM_BANK = [
     }
    ]
   ],
-  "key": null,
-  "answer": null,
-  "officialKey": null
+  "key": 0,
+  "answer": "五棱柱",
+  "officialKey": "A"
  },
  {
   "id": "p2022-q4",
@@ -4727,7 +4727,7 @@ export const EXAM_BANK = [
   "topic": "数轴读符号",
   "name": "数轴判断符号",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "有理数⟨公式⟩在数轴上的对应点的位置如图所示，则下列结论正确的是（    ）",
   "stemParts": [
    {
@@ -4824,9 +4824,9 @@ export const EXAM_BANK = [
     }
    ]
   ],
-  "key": null,
-  "answer": null,
-  "officialKey": null
+  "key": 1,
+  "answer": "⟨公式⟩",
+  "officialKey": "B"
  },
  {
   "id": "p2022-q5",
@@ -4841,7 +4841,7 @@ export const EXAM_BANK = [
   "topic": "合并同类项辨析",
   "name": "整式加减辨析",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "下列计算中正确的是（    ）",
   "stemParts": [
    {
@@ -4926,9 +4926,9 @@ export const EXAM_BANK = [
     }
    ]
   ],
-  "key": null,
-  "answer": null,
-  "officialKey": null
+  "key": 3,
+  "answer": "⟨公式⟩",
+  "officialKey": "D"
  },
  {
   "id": "p2022-q6",
@@ -4943,7 +4943,7 @@ export const EXAM_BANK = [
   "topic": "余角补角列方程",
   "name": "补角列方程",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "已知一个角比它的补角小⟨公式⟩，则这个角的大小为（    ）",
   "stemParts": [
    {
@@ -5040,9 +5040,9 @@ export const EXAM_BANK = [
     }
    ]
   ],
-  "key": null,
-  "answer": null,
-  "officialKey": null
+  "key": 2,
+  "answer": "⟨公式⟩",
+  "officialKey": "C"
  },
  {
   "id": "p2022-q7",
@@ -5057,7 +5057,7 @@ export const EXAM_BANK = [
   "topic": "代数式求值",
   "name": "整体代入求值",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "若⟨公式⟩，则⟨公式⟩的值为（   ）",
   "stemParts": [
    {
@@ -5161,9 +5161,9 @@ export const EXAM_BANK = [
     }
    ]
   ],
-  "key": null,
-  "answer": null,
-  "officialKey": null
+  "key": 3,
+  "answer": "⟨公式⟩",
+  "officialKey": "D"
  },
  {
   "id": "p2022-q8",
@@ -5178,7 +5178,7 @@ export const EXAM_BANK = [
   "topic": "图形规律探究",
   "name": "图形规律（卡片拼图）",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "用边长相等的正方形和等边三角形卡片按如图所示的方式和规律拼出图形．拼第1个图形所用两种卡片的总数为7枚，拼第2个图形所用两种卡片的总数为12枚⟨公式⟩若按照这样的规律拼出的第⟨公式⟩个图形中，所用正方形卡片比等边三角形卡片多10枚，则拼第⟨公式⟩个图形所用两种卡片的总数为（    ）",
   "stemParts": [
    {
@@ -5345,16 +5345,16 @@ export const EXAM_BANK = [
     }
    ]
   ],
-  "key": null,
-  "answer": null,
-  "officialKey": null
+  "key": 1,
+  "answer": "52枚",
+  "officialKey": "B"
  },
  {
   "id": "p2022-q9",
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 9,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-op",
   "cat": "概念",
   "score": 2,
@@ -5362,7 +5362,7 @@ export const EXAM_BANK = [
   "topic": "近似数与精确度",
   "name": "四舍五入",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "用四舍五入法把4.0692精确到0.01，所得到的近似数为______．",
   "stemParts": [
    {
@@ -5404,15 +5404,18 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "4.07",
+  "accept": [
+   "4.07"
+  ],
+  "officialKey": "4.07"
  },
  {
   "id": "p2022-q10",
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 10,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "计算",
   "score": 2,
@@ -5420,7 +5423,7 @@ export const EXAM_BANK = [
   "topic": "角度换算（度分秒）",
   "name": "角度换算（乘 4）",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "计算：⟨公式⟩______°．",
   "stemParts": [
    {
@@ -5455,15 +5458,18 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "125",
+  "accept": [
+   "125"
+  ],
+  "officialKey": "125"
  },
  {
   "id": "p2022-q11",
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 11,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-rational",
   "cat": "概念",
   "score": 2,
@@ -5471,7 +5477,7 @@ export const EXAM_BANK = [
   "topic": "绝对值非负性",
   "name": "绝对值非负性求值",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "若⟨公式⟩，则⟨公式⟩的值为______．",
   "stemParts": [
    {
@@ -5515,15 +5521,18 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "-9",
+  "accept": [
+   "-9"
+  ],
+  "officialKey": "-9"
  },
  {
   "id": "p2022-q12",
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 12,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-poly",
   "cat": "概念",
   "score": 2,
@@ -5531,7 +5540,7 @@ export const EXAM_BANK = [
   "topic": "单项式概念（构造）",
   "name": "构造单项式（系数/次数）",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "写出一个同时满足以下两个条件的单项式：①系数是负数；②次数是5．这个单项式可以是：______．",
   "stemParts": [
    {
@@ -5581,15 +5590,18 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "-2x^3y^2",
+  "accept": [
+   "-2x^3y^2"
+  ],
+  "officialKey": "-2x^3y^2"
  },
  {
   "id": "p2022-q13",
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 13,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "计算",
   "score": 2,
@@ -5597,7 +5609,7 @@ export const EXAM_BANK = [
   "topic": "线段中点计算",
   "name": "线段中点",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "如图，⟨公式⟩是线段⟨公式⟩的中点，点⟨公式⟩在线段⟨公式⟩上，⟨公式⟩是线段⟨公式⟩的中点．若⟨公式⟩，⟨公式⟩，则⟨公式⟩的长为______．",
   "stemParts": [
    {
@@ -5704,15 +5716,18 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "3",
+  "accept": [
+   "3"
+  ],
+  "officialKey": "3"
  },
  {
   "id": "p2022-q14",
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 14,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-eq",
   "cat": "概念",
   "score": 2,
@@ -5720,7 +5735,7 @@ export const EXAM_BANK = [
   "topic": "方程解求参数",
   "name": "方程解求参数",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "若⟨公式⟩是关于⟨公式⟩的方程⟨公式⟩的解，则⟨公式⟩的值为______．",
   "stemParts": [
    {
@@ -5782,15 +5797,18 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "-5",
+  "accept": [
+   "-5"
+  ],
+  "officialKey": "-5"
  },
  {
   "id": "p2022-q15",
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 15,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-expr",
   "cat": "建模",
   "score": 2,
@@ -5798,7 +5816,7 @@ export const EXAM_BANK = [
   "topic": "列代数式",
   "name": "列代数式（两次降价）",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "某商品原价是每件⟨公式⟩元，第一次降价打“九折”，第二次降价每件又减50元，则第二次降价后的售价为每件______元．（用含⟨公式⟩的式子表示）",
   "stemParts": [
    {
@@ -5850,8 +5868,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "0.9a-50",
+  "accept": [
+   "0.9a-50"
+  ],
+  "officialKey": "0.9a-50"
  },
  {
   "id": "p2022-q16",
@@ -9468,7 +9489,7 @@ export const EXAM_BANK = [
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 9,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-rational",
   "cat": "概念",
   "score": 2,
@@ -9476,7 +9497,7 @@ export const EXAM_BANK = [
   "topic": "相反数",
   "name": "正负数意义",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "如果向东走5米记作米，那么向西走10米可记作________米．",
   "stemParts": [
    {
@@ -9522,8 +9543,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "-10",
+  "accept": [
+   "-10"
+  ],
+  "officialKey": "-10"
  },
  {
   "id": "p2023-q10",
@@ -9688,7 +9712,7 @@ export const EXAM_BANK = [
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 13,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-eq",
   "cat": "概念",
   "score": 2,
@@ -9696,7 +9720,7 @@ export const EXAM_BANK = [
   "topic": "方程解求参数",
   "name": "方程解求参数",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "若是关于x的方程的解，则a的值为________．",
   "stemParts": [
    {
@@ -9746,8 +9770,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "1/3",
+  "accept": [
+   "1/3"
+  ],
+  "officialKey": "1/3"
  },
  {
   "id": "p2023-q14",
@@ -9812,7 +9839,7 @@ export const EXAM_BANK = [
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 15,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-eq",
   "cat": "建模",
   "score": 2,
@@ -9820,7 +9847,7 @@ export const EXAM_BANK = [
   "topic": "列方程（分配）",
   "name": "列方程（算法统宗·客房）",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "我国古代《算法统宗》里有这样一首诗：“我问开店李三公，众客都来到店中，一房七客多七客，一房九客一房空．”诗中后面两句的意思是：如果每一间客房住 7人，那么有7人无房可住；如果每一间客房住9人，那么就空出一间客房．设有x间客房，可列方程为：_____．",
   "stemParts": [
    {
@@ -9894,8 +9921,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "7x+7=9(x-1)",
+  "accept": [
+   "7x+7=9(x-1)"
+  ],
+  "officialKey": "7x+7=9(x-1)"
  },
  {
   "id": "p2023-q16",
@@ -13459,7 +13489,7 @@ export const EXAM_BANK = [
   "paperId": "p2024",
   "year": "2024—2025",
   "no": 14,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-expr",
   "cat": "推理",
   "score": 2,
@@ -13467,7 +13497,7 @@ export const EXAM_BANK = [
   "topic": "图形规律探究",
   "name": "图形规律（阴影正方形）",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "如图，边长相等的小正方形组成一组有规律的图案，其中部分小正方形涂有阴影．按照这样的规律，第n个图案中涂有阴影的小正方形的个数为________（用含n的式子表示）．",
   "stemParts": [
    {
@@ -13509,15 +13539,18 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "3n+2",
+  "accept": [
+   "3n+2"
+  ],
+  "officialKey": "3n+2"
  },
  {
   "id": "p2024-q15",
   "paperId": "p2024",
   "year": "2024—2025",
   "no": 15,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-eq",
   "cat": "建模",
   "score": 2,
@@ -13525,7 +13558,7 @@ export const EXAM_BANK = [
   "topic": "列代数式",
   "name": "列方程（劳动分配）",
   "bonus": false,
-  "hasAnswer": false,
+  "hasAnswer": true,
   "stemText": "在一次劳动课上，有⟨公式⟩名同学在甲处劳动，有⟨公式⟩名同学在乙处劳动．现在另调⟨公式⟩人也去这两处劳动，使得在甲处劳动的人数是在乙处劳动的人数的⟨公式⟩倍，应调往甲处多少人？如果设调往甲处⟨公式⟩人，那么依题意可列方程为________．",
   "stemParts": [
    {
@@ -13596,8 +13629,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": null
+  "answer": "35+x=2(21+25-x)",
+  "accept": [
+   "35+x=2(21+25-x)"
+  ],
+  "officialKey": "35+x=2(21+25-x)"
  },
  {
   "id": "p2024-q16",

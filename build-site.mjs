@@ -32,6 +32,7 @@ import {
   LADDERS, LADDER_QUESTIONS, FAMILY_MAP,
   FAMILY_OF_Q, Q_BY_FAMILY,
   SLOTS, SLOT_STATS, MUST100,
+  SPRINT_DAYS, pickDayQuestions,
 } from './src/index.js';
 import { EXAM_FULL } from './src/data-exam-full.js';
 import { createMathRenderer } from './tools/math-render.mjs';
@@ -411,6 +412,8 @@ function renderQuestion(q, R) {
     o.stemHtml = C(R.math.render(q.stem || ''));
   }
   if (q.solution) o.solutionHtml = C(R.math.render(q.solution));
+  /* 「易错」一句：答错时单独一行显示，比混在解析里更容易被读到 */
+  if (q.pitfall) o.pitfallHtml = C(R.math.render(q.pitfall));
 
   /* ---------- 四类题型：渲染层按 qtype 决定形态 ----------
      single 单选 —— 四选一，自动判分，选错能反推错因
@@ -449,6 +452,10 @@ function renderQuestion(q, R) {
     o.distractors = (q.distractors || []).map((d) => ({
       v: d.v, vHtml: C(R.math.render(String(d.v))), errTag: d.errTag, why: d.why,
     }));
+    /* 真题的干扰项错因按「选项下标」标注（data-solutions.js 的 optTags）。
+       比按选项文本匹配可靠——选项常是公式图，文本是 ⟨公式⟩ 占位符，匹配不上。
+       引擎选错时直接用下标查这张表，拿到四类错因之一。 */
+    if (q.optTags && Object.keys(q.optTags).length) o.optTags = q.optTags;
   } else if (o.qtype === 'calc') {
     o.accept = q.accept || (q.answer != null ? [String(q.answer)] : []);
     o.acceptHtml = o.accept.map((a) => C(R.math.render(String(a))));
@@ -499,6 +506,20 @@ function emitShards() {
     calcTypes: Object.fromEntries(Object.entries(CALC_TYPE_NAME).map(([k, v]) => [k, v])),
     calcCounts: Object.fromEntries([...CALC_BY_TYPE.entries()].map(([k, v]) => [k, v.length])),
     stats: STATS,
+    /* 10 天冲刺计划。ids 在构建期按 pickDayQuestions 算好，
+       运行时不用加载全库就能知道「第 N 天练哪几题」。
+       这是全站的入口结构：不是按知识点组织，是按「第几天」组织。 */
+    sprint: SPRINT_DAYS.map((d) => {
+      const qs = pickDayQuestions(d, ALL_QUESTIONS, new Set());
+      return {
+        day: d.day, title: d.title, goal: d.goal, kind: d.kind,
+        minutes: d.minutes, why: d.why,
+        ids: qs.map((q) => q.id),
+        /* 分值合计：让学生看到「今天这组值多少分」，不是「多少题」 */
+        score: qs.reduce((a, q) => a + (q.score || 0), 0),
+        paperCount: new Set(qs.map((q) => q.examRef && q.examRef.paperId).filter(Boolean)).size,
+      };
+    }),
     /* 考点族：排序（planToday）与回流（famRecord）共用。
        只带排序与展示需要的字段，不带 topics/slots 明细——
        后者在 papers 页用，塞进 meta 会让每个页面都多下载一份。

@@ -235,6 +235,17 @@
        大题 big    —— 只给题干 + 完整解答，不判分（真题解答题靠老师批）
        判断 judge  —— 概念/方法辨析，仍是两步按钮
        ---------------------------------------------------------- */
+    /* 答错时立刻把解析摊开——不藏在 <details> 里。
+       用户要求「错题要有解析」，藏在折叠里的解析等于没有。 */
+    function solBox(q) {
+      if (!q.solutionHtml && !q.solution) {
+        return '<span class="se-nosol">本题暂无解析（原卷未提供答案）</span>';
+      }
+      return '<div class="se-solbox"><b>为什么</b>' +
+        (q.solutionHtml || esc(q.solution)) + '</div>' +
+        (q.pitfallHtml ? '<div class="se-pit-box"><b>易错</b>' + q.pitfallHtml + '</div>' : '');
+    }
+
     function drawByQtype() {
       var q = state.q;
       var qt = q.qtype || 'calc';
@@ -316,12 +327,20 @@
               return;
             }
             var ok = k === q.key;
-            /* 选错时找这个选项对应的干扰项，拿到 errTag */
+            /* 选错时反推错因。两条路，优先按下标查：
+               ① optTags[k]——真题的干扰项错因按选项下标手写（选项是公式图，
+                  文本是占位符，按文本匹配根本匹配不上）；
+               ② distractors——原创题按选项文本匹配。
+               两条都拿不到就给 null，不硬猜。 */
             var errTag = null, whyTxt = '';
-            if (!ok && q.distractors) {
-              var dv = (q.options || [])[k];
-              var d = q.distractors.filter(function (x) { return String(x.v) === String(dv); })[0];
-              if (d) { errTag = d.errTag; whyTxt = d.why || ''; }
+            if (!ok) {
+              if (q.optTags && q.optTags[k]) {
+                errTag = q.optTags[k];
+              } else if (q.distractors) {
+                var dv = (q.options || [])[k];
+                var d = q.distractors.filter(function (x) { return String(x.v) === String(dv); })[0];
+                if (d) { errTag = d.errTag; whyTxt = d.why || ''; }
+              }
             }
             [].forEach.call(btns, function (x) {
               var xi = parseInt(x.getAttribute('data-k'), 10);
@@ -331,9 +350,10 @@
             });
             fb.className = 'se-fb ' + (ok ? 'ok' : 'bad');
             fb.innerHTML = ok
-              ? '<b>✓ 正确</b>' + (q.solutionHtml ? '<span>' + q.solutionHtml + '</span>' : '')
+              ? '<b>✓ 正确</b>' + (q.pitfallHtml ? '<span class="se-pit">这类题的坑：' + q.pitfallHtml + '</span>' : '')
               : '<b>✕ 选错了</b>' + (whyTxt ? '<span>你选的这项：' + esc(whyTxt) + '</span>' : '') +
-                (q.answerHtml ? '<span>正确答案是 <b>' + q.answerHtml + '</b></span>' : '');
+                (q.answerHtml ? '<span>正确答案是 <b>' + q.answerHtml + '</b></span>' : '') +
+                solBox(q);
             record(ok, errTag, (q.options || [])[k]);
           });
         });
@@ -353,9 +373,9 @@
           inp.readOnly = true;
           fb.className = 'se-fb ' + (ok ? 'ok' : 'bad');
           fb.innerHTML = ok
-            ? '<b>✓ 正确</b>' + (q.solutionHtml ? '<span>' + q.solutionHtml + '</span>' : '')
+            ? '<b>✓ 正确</b>' + (q.pitfallHtml ? '<span class="se-pit">这类题的坑：' + q.pitfallHtml + '</span>' : '')
             : '<b>✕ 答案不对</b>' + (q.answerHtml ? '<span>正确答案是 <b>' + q.answerHtml + '</b></span>' : '') +
-              (q.solutionHtml ? '<span>' + q.solutionHtml + '</span>' : '');
+              solBox(q);
           record(ok, ok ? null : 'calc', v);
         };
         if (submit) submit.addEventListener('click', doSubmit);
@@ -364,7 +384,8 @@
         /* 大题不判分：直接展示完整解答，用户自评 */
         fb.className = 'se-fb';
         fb.innerHTML = '<div class="se-solbox"><b>完整解答</b>' +
-          (q.solutionHtml || esc(q.solution || '（暂无解答）')) + '</div>' +
+          (q.solutionHtml || esc(q.solution || '（本题暂无解析）')) + '</div>' +
+          (q.pitfallHtml ? '<div class="se-pit-box"><b>易错</b>' + q.pitfallHtml + '</div>' : '') +
           '<div class="se-selfnote">大题不自动判分。对照解答自己看：过程写全了吗？每步依据写了吗？</div>';
         record(true, null, '');
       }
