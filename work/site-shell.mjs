@@ -100,6 +100,15 @@ export const PAGEHEAD_CSS = `
 h1{font-size:clamp(28px,3.6vw,42px);line-height:1.22;font-weight:800;letter-spacing:-.03em;margin-bottom:16px}
 .lede{font-size:15.5px;color:var(--text-2);line-height:1.75}
 .lede b{color:var(--text);font-weight:650}
+
+/* 页头小标签（胶囊 + 圆点）：所有内页页头统一用它，不用面包屑 */
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;
+  color:var(--accent);border:1px solid rgba(37,99,235,.24);background:var(--surface);
+  padding:5px 13px;border-radius:var(--r-pill);margin-bottom:20px;box-shadow:var(--shadow-1);
+}
+.dot-live{width:6px;height:6px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 3px rgba(37,99,235,.16)}
 `;
 
 /* 响应式中与外壳相关的部分（各页媒体查询里必须一致的那几条） */

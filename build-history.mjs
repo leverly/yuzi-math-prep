@@ -15,8 +15,6 @@ const chList = CH_ORDER.filter((c) => BANK.some((q) => (FAM_META[q.fam] || {}).c
 const CSS = TOKENS + HEAD_CSS + PAGEHEAD_CSS + `
 body{padding-bottom:80px}
 .head{padding:38px 0 18px}
-.crumb{font-size:13px;color:var(--text-3);margin-bottom:10px}
-.crumb a{color:var(--text-3);text-decoration:none}
 
 /* 汇总卡 */
 .sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
@@ -343,7 +341,7 @@ const html = `<!DOCTYPE html>
 ${headerHtml('history.html')}
 <main class="wrap">
 <div class="head">
-  <div class="crumb"><a href="index.html">首页</a> / <a href="practice.html">练习与诊断</a> / 学情诊断</div>
+  <div class="hero-badge"><span class="dot-live"></span>逐轮记录 · 多轮汇总</div>
   <h1>学情诊断</h1>
   <p class="lede">每次练习的结果都存在本机浏览器里。这里逐轮列出，并把多轮合并成各章的掌握情况——告诉你哪一章该先补。</p>
 </div>

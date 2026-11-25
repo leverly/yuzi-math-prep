@@ -279,5 +279,25 @@ if (fs.existsSync('history.html')) {
   ok(false, 'history.html 已生成');
 }
 
+console.log('\n【十】页头一致性');
+// 所有内页的页头统一用 .hero-badge（胶囊 + 圆点），不用面包屑。
+// 这条是硬约束：practice/history 曾长期用面包屑，与另外四页明显不同。
+const innerPages = ['papers.html', 'trend.html', 'plan.html', 'practice.html', 'history.html'];
+let badgeOk = 0, crumbPages = [];
+for (const p of innerPages) {
+  if (!fs.existsSync(p)) continue;
+  const h = fs.readFileSync(p, 'utf8');
+  if (h.includes('<div class="hero-badge">') && h.includes('.hero-badge{')) badgeOk++;
+  else badgePagesFail = (badgePagesFail || []).concat(p);
+  if (h.includes('class="crumb"')) crumbPages.push(p);
+}
+let badgePagesFail = [];
+ok(badgeOk === innerPages.length, `内页均有页头 badge（${badgeOk}/${innerPages.length}）`,
+  (badgePagesFail || []).join(','));
+ok(crumbPages.length === 0, '内页均不再用面包屑', crumbPages.join(','));
+// badge 样式必须来自共享外壳（site-shell），不能被某页私自覆盖
+const shell = fs.readFileSync('work/site-shell.mjs', 'utf8');
+ok(shell.includes('.hero-badge{'), 'badge 样式定义在共享外壳');
+
 console.log('\n' + (fail === 0 ? '=== 全部通过 ===' : `=== ${fail} 项未通过 ===`));
 process.exit(fail === 0 ? 0 : 1);

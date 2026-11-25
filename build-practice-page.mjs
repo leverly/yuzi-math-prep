@@ -31,8 +31,6 @@ body{padding-bottom:80px}
 
 /* 页头（h1 / .lede 排版来自 site-shell 的 PAGEHEAD_CSS，此处不再重复定义） */
 .head{padding:38px 0 22px}
-.crumb{font-size:13px;color:var(--text-3);margin-bottom:10px}
-.crumb a{color:var(--text-3);text-decoration:none}
 
 /* 诊断入口 */
 .intro{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
@@ -248,7 +246,7 @@ ${headerHtml('practice.html')}
 
 <main class="wrap">
 <div class="head">
-  <div class="crumb"><a href="index.html">首页</a> / 练习与诊断</div>
+  <div class="hero-badge"><span class="dot-live"></span>18 题诊断 · 覆盖全部 6 章</div>
   <h1>练习与诊断</h1>
   <p class="lede">
     每轮 ${ROUND_SIZE} 道题覆盖全部 6 章，按西城真题的考点分布与难度编制，全部为单选题。
