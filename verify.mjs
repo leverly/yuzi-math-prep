@@ -251,11 +251,11 @@ console.log('\n【八】外壳一致性（跨页共用部分不得漂移）');
   ok(narrowBad.length === 0, '页面级导语未被 max-width 压窄', narrowBad.join('; '));
 }
 
-console.log('\n【九】学情诊断页（history.html）');
+console.log('\n【九】学情数据页（history.html）');
 if (fs.existsSync('history.html')) {
   const hs = fs.readFileSync('history.html', 'utf8');
-  ok(hs.includes('<title>学情诊断'), '页面标题为「学情诊断」');
-  ok(hs.includes('<h1>学情诊断</h1>'), '页面主标题为「学情诊断」');
+  ok(hs.includes('<title>学情数据'), '页面标题为「学情数据」');
+  ok(hs.includes('<h1>学情数据</h1>'), '页面主标题为「学情数据」');
   ok(hs.includes('各章累计掌握情况'), '有章节汇总区');
   ok(hs.includes('逐轮记录'), '有逐轮记录区');
   ok(hs.includes('const BANK = '), '题库已内联');
@@ -270,8 +270,8 @@ if (fs.existsSync('history.html')) {
   if (navM) {
     const items = [...navM[1].matchAll(/<a href="([^"]+)"[^>]*>([^<]+)<\/a>/g)].map((m) => m[2]);
     const iP = items.indexOf('练习与诊断');
-    const iH = items.indexOf('学情诊断');
-    ok(iP >= 0 && iH === iP + 1, '导航中「学情诊断」紧跟「练习与诊断」', items.join('|'));
+    const iH = items.indexOf('学情数据');
+    ok(iP >= 0 && iH === iP + 1, '导航中「学情数据」紧跟「练习与诊断」', items.join('|'));
   } else {
     ok(false, '顶栏导航存在');
   }

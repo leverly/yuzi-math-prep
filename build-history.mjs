@@ -333,7 +333,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>学情诊断 · 西城初一数学</title>
+<title>学情数据 · 西城初一数学</title>
 <meta name="description" content="逐轮练习记录与各章累计掌握情况，按章节汇总薄弱环节">
 <style>${CSS}</style>
 </head>
@@ -342,8 +342,8 @@ ${headerHtml('history.html')}
 <main class="wrap">
 <div class="head">
   <div class="hero-badge"><span class="dot-live"></span>逐轮记录 · 多轮汇总</div>
-  <h1>学情诊断</h1>
-  <p class="lede">每次练习的结果都存在本机浏览器里。这里逐轮列出，并把多轮合并成各章的掌握情况——告诉你哪一章该先补。</p>
+  <h1>学情数据</h1>
+  <p class="lede">每次练习的结果都存在本机浏览器里。这里逐轮列出，并把多轮合并成各章的掌握情况，可以看出哪一章在进步、哪一章还欠着。</p>
 </div>
 <div id="root"></div>
 </main>
