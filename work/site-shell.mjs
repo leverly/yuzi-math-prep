@@ -23,6 +23,7 @@ export const NAV = [
   ['plan.html', '冲刺计划'],
   ['practice.html', '练习与诊断'],
   ['history.html', '学情数据'],
+  ['slides.html', '演示', 'nav-slides'],
 ];
 
 /* 练习轮次：全站唯一来源
@@ -97,6 +98,11 @@ export const HEAD_CSS = `
 }
 .hdr-nav a:hover{background:var(--accent-soft);color:var(--accent)}
 .hdr-nav a.on{background:var(--accent);color:#fff;font-weight:650;box-shadow:var(--shadow-accent)}
+/* 「演示」入口：紫色，与内容页区分开 */
+.hdr-nav a.nav-slides{background:var(--purple-soft,#f3e8ff);color:var(--purple,#7c3aed);font-weight:650;
+  display:inline-flex;align-items:center;gap:5px}
+.hdr-nav a.nav-slides::before{content:"▶";font-size:8px}
+.hdr-nav a.nav-slides:hover{background:var(--purple,#7c3aed);color:#fff}
 `;
 
 /* 页头排版：各页共用（.head 容器与 .crumb 由调用页按需叠加） */

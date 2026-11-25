@@ -67,6 +67,11 @@ a{color:inherit}
 }
 .hdr-nav a:hover{background:var(--accent-soft);color:var(--accent)}
 .hdr-nav a.on{background:var(--accent);color:#fff;font-weight:650;box-shadow:var(--shadow-accent)}
+/* 「演示」入口：紫色，与内容页区分开 */
+.hdr-nav a.nav-slides{background:var(--purple-soft,#f3e8ff);color:var(--purple,#7c3aed);font-weight:650;
+  display:inline-flex;align-items:center;gap:5px}
+.hdr-nav a.nav-slides::before{content:"▶";font-size:8px}
+.hdr-nav a.nav-slides:hover{background:var(--purple,#7c3aed);color:#fff}
 
 /* ---------- 页头排版 ---------- */
 h1{font-size:clamp(28px,3.6vw,42px);line-height:1.22;font-weight:800;letter-spacing:-.03em;margin-bottom:16px}
@@ -351,7 +356,7 @@ footer b{color:var(--text-2)}
     <span>西城初一数学<small>初一上·期末</small></span>
   </a>
   <nav class="hdr-nav">
-    <a href="index.html">总览</a><a href="papers.html">逐年真题</a><a href="trend.html" class="on">趋势与考点</a><a href="plan.html">冲刺计划</a><a href="practice.html">练习与诊断</a><a href="history.html">学情数据</a>
+    <a href="index.html">总览</a><a href="papers.html">逐年真题</a><a href="trend.html" class="on">趋势与考点</a><a href="plan.html">冲刺计划</a><a href="practice.html">练习与诊断</a><a href="history.html">学情数据</a><a href="slides.html" class="nav-slides">演示</a>
   </nav>
 </div></header>
 <main class="wrap">

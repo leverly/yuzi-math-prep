@@ -312,5 +312,24 @@ ok(crumbPages.length === 0, '内页均不再用面包屑', crumbPages.join(','))
 const shell = fs.readFileSync('work/site-shell.mjs', 'utf8');
 ok(shell.includes('.hero-badge{'), 'badge 样式定义在共享外壳');
 
+console.log('\n【十一】演示幻灯片（slides.html）');
+if (fs.existsSync('slides.html')) {
+  const sl = fs.readFileSync('slides.html', 'utf8');
+  ok(sl.includes(`${LEDGER.length}</b><span>题逐题标注`), `题数 ${LEDGER.length} 派生正确`);
+  ok(sl.includes(`${S.FAMILY_MAP.length}</b><span>个考点族`), `族数 ${S.FAMILY_MAP.length} 派生正确`);
+  ok(sl.includes(`${S.FREQ.must.length}</b><span>个必考族`), `必考族 ${S.FREQ.must.length} 派生正确`);
+  ok(sl.includes(`基础+中档占`), '有基础+中档占比论断');
+  const slideN = (sl.match(/class="slide/g) || []).length;
+  ok(slideN >= 9, `页数 ${slideN}`);
+  // 交互必须齐备
+  ok(sl.includes('ArrowRight') && sl.includes('requestFullscreen') && sl.includes('data-go'),
+    '键盘翻页 / 全屏 / 总览交互齐备');
+  ok(sl.includes('/^([0-9]+)$/') || sl.includes('p=(\\d+)'), '支持 ?p=N 定位');
+  // 与英语站同一套舞台尺寸
+  ok(sl.includes('window.innerWidth/1280') && sl.includes('window.innerHeight/720'), '16:9 舞台按窗口缩放');
+} else {
+  ok(false, 'slides.html 已生成');
+}
+
 console.log('\n' + (fail === 0 ? '=== 全部通过 ===' : `=== ${fail} 项未通过 ===`));
 process.exit(fail === 0 ? 0 : 1);
