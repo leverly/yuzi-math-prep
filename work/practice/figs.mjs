@@ -161,6 +161,40 @@ export const FIGS = {
     { w: 360 }
   ),
 
+  /* AC=10, BC=14，M 是 AC 中点、N 是 BC 中点 */
+  'sm-06': () => segFig(
+    [
+      { t: 0, name: 'A', below: true },
+      { t: 5 / 24, name: 'M' },
+      { t: 10 / 24, name: 'C', below: true },
+      { t: 17 / 24, name: 'N' },
+      { t: 1, name: 'B', below: true },
+    ],
+    { w: 380 }
+  ),
+
+  /* ∠AOB=75°，OC 在内部且 ∠AOC=4∠BOC → B=0°, C=15°, A=75° */
+  'as-06': () => angleFig(
+    [{ deg: 0, name: 'B' }, { deg: 15, name: 'C' }, { deg: 75, name: 'A' }],
+    { w: 310, h: 200, ox: 75, oy: 165, len: 150,
+      arcs: [{ from: 0, to: 15, r: 34 }, { from: 15, to: 75, r: 56 }] }
+  ),
+
+  /* ∠AOB=140°，OC 平分(70°)，OD 平分∠AOC(35°)，OE 平分∠AOD(17.5°) */
+  'as-07': () => angleFig(
+    [{ deg: 0, name: 'B' }, { deg: 17.5, name: 'E' }, { deg: 35, name: 'D' },
+     { deg: 70, name: 'C' }, { deg: 140, name: 'A' }],
+    { w: 360, h: 210, ox: 105, oy: 175, len: 145,
+      arcs: [{ from: 0, to: 70, r: 36 }, { from: 70, to: 140, r: 36 }] }
+  ),
+
+  /* ∠AOB=90°，OC 在外部使 ∠AOC=130°（即 C 在 A 的另一侧），OD 平分∠BOC */
+  'as-09': () => angleFig(
+    [{ deg: 0, name: 'B' }, { deg: 90, name: 'A' }, { deg: 130, name: 'C' }, { deg: 65, name: 'D' }],
+    { w: 330, h: 240, ox: 95, oy: 175, len: 130,
+      arcs: [{ from: 0, to: 65, r: 40 }, { from: 65, to: 130, r: 40 }] }
+  ),
+
   /* 展开图四选项：A 一行6, B 田字+2, C 1-4-1, D 凹字 */
   /* A：六个排成一行（必然首尾重叠，折不成正方体） */
   'sp3-04-a': () => netFig(

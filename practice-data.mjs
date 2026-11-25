@@ -1,6 +1,6 @@
 // 自动生成，请勿手改。源文件：work/practice/bank.mjs
 // 答案由 verify-bank.mjs 独立验算后回填。
-// 生成时间：2026-11-25T09:07:40
+// 生成时间：2026-11-25T09:32:17
 
 export const BANK = [
  {
@@ -120,7 +120,7 @@ export const BANK = [
   "fam": "f-solveeq",
   "seg": "解答",
   "diff": "mid",
-  "stem": "解方程：{2x − 3/5} = {3x − 1/2} + 1",
+  "stem": "解方程：(2x − 3)/5 = (3x − 1)/2 + 1",
   "answer": -1
  },
  {
@@ -136,7 +136,7 @@ export const BANK = [
   "fam": "f-solveeq",
   "seg": "解答",
   "diff": "easy",
-  "stem": "解方程：{x + 1/2} − {2x − 1/3} = 1",
+  "stem": "解方程：(x + 1)/2 − (2x − 1)/3 = 1",
   "answer": -1
  },
  {
@@ -152,7 +152,7 @@ export const BANK = [
   "fam": "f-solveeq",
   "seg": "解答",
   "diff": "easy",
-  "stem": "解方程：{3x − 1/4} = {x + 3/2}",
+  "stem": "解方程：(3x − 1)/4 = (x + 3)/2",
   "answer": 7
  },
  {
@@ -168,7 +168,7 @@ export const BANK = [
   "fam": "f-solveeq",
   "seg": "解答",
   "diff": "mid",
-  "stem": "解方程：{2x + 1/3} − {5x − 1/6} = 1",
+  "stem": "解方程：(2x + 1)/3 − (5x − 1)/6 = 1",
   "answer": -3
  },
  {
@@ -1348,6 +1348,312 @@ export const BANK = [
    }
   ],
   "key": 2
+ },
+ {
+  "id": "sm-06",
+  "fam": "f-segmid",
+  "fig": "sm-06",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "点 C 在线段 AB 上，AC = 10，BC = 14。点 M 是 AC 的中点，点 N 是 BC 的中点，则 MN = ______",
+  "answer": 12,
+  "figSvg": "<svg viewBox=\"0 0 380 110\" width=\"100%\" style=\"max-width:380px;height:auto;display:block;margin:0 auto\"><line x1=\"46\" y1=\"52\" x2=\"334\" y2=\"52\" stroke=\"#334155\" stroke-width=\"1.6\" /><circle cx=\"46\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"46\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"106\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"106\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">M</text><circle cx=\"166\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"166\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><circle cx=\"250\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"250\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">N</text><circle cx=\"334\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"334\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text></svg>"
+ },
+ {
+  "id": "sm-07",
+  "fam": "f-segmid",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "点 C 在直线 AB 上，AC = a，BC = b（a > b），点 M 是 AC 的中点，点 N 是 BC 的中点。若 a + b = 16，则 MN = ______",
+  "answer": 8
+ },
+ {
+  "id": "sm-08",
+  "fam": "f-segmid",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "线段 AB = 12，点 C 在 AB 上且 AC = 4，点 M 从 A 出发以每秒 1 个单位向 B 运动，点 N 从 B 出发以每秒 2 个单位向 A 运动。若 M、N 同时出发，第 ______ 秒时 M、N 相遇",
+  "answer": 4
+ },
+ {
+  "id": "as-06",
+  "fam": "f-anglesum",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "∠AOB = 75°，射线 OC 在 ∠AOB 内部，且 ∠AOC = 4∠BOC，则 ∠BOC = ______°",
+  "unit": "°",
+  "answer": 15
+ },
+ {
+  "id": "as-07",
+  "fam": "f-anglesum",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "∠AOB = 140°，OC 平分 ∠AOB，OD 平分 ∠AOC，OE 平分 ∠AOD，则 ∠BOE = ______°",
+  "unit": "°",
+  "answer": 122.5
+ },
+ {
+  "id": "as-08",
+  "fam": "f-anglesum",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "一个角的补角是它的余角的 3 倍，则这个角 = ______°",
+  "unit": "°",
+  "answer": 45
+ },
+ {
+  "id": "as-09",
+  "fam": "f-anglesum",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "∠AOB = 90°，OC 在 ∠AOB 外部，且 ∠AOC = 130°，OD 平分 ∠BOC，则 ∠AOD = ______°",
+  "unit": "°",
+  "answer": 110
+ },
+ {
+  "id": "ev-07",
+  "fam": "f-exprval",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "若 2x² + 3x + 1 = 5，则 4x² + 6x − 3 = ______",
+  "answer": 5
+ },
+ {
+  "id": "ev-08",
+  "fam": "f-exprval",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "若 a − b = 3，ab = 2，则 2a − 2b + 3ab = ______",
+  "answer": 12
+ },
+ {
+  "id": "ev-09",
+  "fam": "f-exprval",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "若 |x − 2| + (y + 3)² = 0，则 x + y = ______",
+  "answer": -1
+ },
+ {
+  "id": "ar-13",
+  "fam": "f-arith",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "计算：−2³ ÷ (−4) − (−3)² × ({1/3} − 1)",
+  "answer": 8
+ },
+ {
+  "id": "ar-14",
+  "fam": "f-arith",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "计算：−1²⁰²⁵ + (−2)³ × ({1/4} − {5/6} + {1/2})",
+  "answer": -0.3333333333
+ },
+ {
+  "id": "ar-15",
+  "fam": "f-arith",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "计算：|{−2/3}| × ({−9/4}) − (−1)²⁰²⁶ ÷ (−{1/2})",
+  "answer": 0.5
+ },
+ {
+  "id": "eq-11",
+  "fam": "f-solveeq",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "解方程：(0.1x − 0.2)/0.02 − (x + 1)/0.5 = 3",
+  "answer": -8
+ },
+ {
+  "id": "eq-12",
+  "fam": "f-solveeq",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "解方程：(x − 1)/2 − (2x + 3)/3 = 1",
+  "answer": -11
+ },
+ {
+  "id": "eq-13",
+  "fam": "f-solveeq",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "若关于 x 的方程 2x + a = 3(x − 1) 的解是 x = 4，则 a = ______",
+  "answer": 1
+ },
+ {
+  "id": "sp-09",
+  "fam": "f-simplify",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "先化简，再求值：3(a² − 2ab) − [2a² − (ab − 3b²)]，其中 a = 2，b = −1",
+  "answer": 11
+ },
+ {
+  "id": "sp-10",
+  "fam": "f-simplify",
+  "seg": "解答",
+  "diff": "hard",
+  "stem": "先化简，再求值：2x²y − [3xy² + 2(x²y − 2xy²)]，其中 x = −1，y = 3",
+  "answer": -9
+ },
+ {
+  "id": "ab-09",
+  "fam": "f-abs-line",
+  "seg": "选择",
+  "diff": "hard",
+  "stem": "数轴上点 A 表示 −3，点 B 表示 5。若点 P 到 A 的距离是到 B 的距离的 3 倍，则点 P 表示的数是（　）",
+  "options": [
+   {
+    "t": "3 或 9",
+    "errTag": null
+   },
+   {
+    "t": "9",
+    "errTag": "不完整：漏了 P 在 A、B 之间时 x=3 的情形"
+   },
+   {
+    "t": "3",
+    "errTag": "不完整：漏了 P 在 B 右侧时 x=9 的情形"
+   },
+   {
+    "t": "−3 或 9",
+    "errTag": "符号错误：把 A 的坐标当成了答案"
+   }
+  ],
+  "key": 0
+ },
+ {
+  "id": "ab-10",
+  "fam": "f-abs-line",
+  "seg": "选择",
+  "diff": "hard",
+  "stem": "若 |a| = 3，|b| = 5，且 a + b < 0，则 a − b 的值是（　）",
+  "options": [
+   {
+    "t": "8 或 2",
+    "errTag": null
+   },
+   {
+    "t": "2 或 −8",
+    "errTag": "符号错误：a−b 应为 a+(−b)"
+   },
+   {
+    "t": "8",
+    "errTag": "不完整：漏了 a=−3, b=−5 时值为 2"
+   },
+   {
+    "t": "2",
+    "errTag": "不完整：漏了 a=3, b=−5 时值为 8"
+   }
+  ],
+  "key": 0
+ },
+ {
+  "id": "pl-07",
+  "fam": "f-poly",
+  "seg": "选择",
+  "diff": "hard",
+  "stem": "若多项式 2x² + 3x − 5 减去另一个多项式得到 5x² − 2x + 1，则另一个多项式是（　）",
+  "options": [
+   {
+    "t": "−3x² + 5x − 6",
+    "errTag": null
+   },
+   {
+    "t": "3x² + 5x − 6",
+    "errTag": "符号错误：减数与被减数搞反"
+   },
+   {
+    "t": "−3x² + x − 4",
+    "errTag": "合并错误：一次项符号写错"
+   },
+   {
+    "t": "−3x² + 5x − 4",
+    "errTag": "常数项：−5 − 1 = −6 而非 −4"
+   }
+  ],
+  "key": 0
+ },
+ {
+  "id": "ec-05",
+  "fam": "f-eqconcept",
+  "seg": "选择",
+  "diff": "hard",
+  "stem": "若关于 x 的方程 (m − 1)x 的 |m| 次方 + 3 = 0 是一元一次方程，则 m 的值是（　）",
+  "options": [
+   {
+    "t": "1",
+    "errTag": "概念不清：m=1 时一次项系数为 0"
+   },
+   {
+    "t": "−1",
+    "errTag": null
+   },
+   {
+    "t": "±1",
+    "errTag": "未排除 m=1"
+   },
+   {
+    "t": "0",
+    "errTag": "次数不对：|0|≠1"
+   }
+  ],
+  "key": 1
+ },
+ {
+  "id": "cp-05",
+  "fam": "f-compangle",
+  "seg": "选择",
+  "diff": "hard",
+  "stem": "一个角的余角比它的补角的 {1/3} 大 10°，则这个角是（　）",
+  "options": [
+   {
+    "t": "30°",
+    "errTag": null
+   },
+   {
+    "t": "60°",
+    "errTag": "方程列错：把余角写成了补角"
+   },
+   {
+    "t": "45°",
+    "errTag": "关系搞反：误用了「补角的余角」"
+   },
+   {
+    "t": "15°",
+    "errTag": "计算错误：移项时符号错"
+   }
+  ],
+  "key": 0
+ },
+ {
+  "id": "pt-04",
+  "fam": "f-pattern",
+  "seg": "选择",
+  "diff": "hard",
+  "stem": "用火柴棒摆正方形：第 1 个用 4 根，第 2 个用 7 根，第 3 个用 10 根……摆第 n 个用 3n + 1 根。若某次共用了 2026 根，则摆到第（　）个正方形",
+  "options": [
+   {
+    "t": "675",
+    "errTag": null
+   },
+   {
+    "t": "676",
+    "errTag": "计算错误：(2026+1)/3 而非 (2026-1)/3"
+   },
+   {
+    "t": "675.3",
+    "errTag": "未取整"
+   },
+   {
+    "t": "674",
+    "errTag": "计算错误：边界少算一个"
+   }
+  ],
+  "key": 0
  }
 ];
 

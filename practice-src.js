@@ -165,6 +165,62 @@ const state = {
 };
 
 const $ = (s) => document.querySelector(s);
+
+/* ============ 持久化：作答记录与历史诊断存在 localStorage ============ */
+const LS_KEY = 'xz-practice-v1';
+const LS_MAX_SESSIONS = 20;   // 最多保留 20 轮记录
+
+function loadStore() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return { sessions: [], allRecords: [] };
+    const o = JSON.parse(raw);
+    return { sessions: o.sessions || [], allRecords: o.allRecords || [] };
+  } catch (e) {
+    return { sessions: [], allRecords: [] };
+  }
+}
+
+function saveStore(store) {
+  try {
+    // 只保留最近 N 轮；allRecords 用于累计诊断，单独裁剪
+    store.sessions = store.sessions.slice(-LS_MAX_SESSIONS);
+    if (store.allRecords.length > 2000) {
+      store.allRecords = store.allRecords.slice(-2000);
+    }
+    localStorage.setItem(LS_KEY, JSON.stringify(store));
+  } catch (e) {
+    // 隐私模式或配额满，静默降级（不影响本轮作答）
+  }
+}
+
+/* 一轮做完后落盘 */
+function persistSession(records, diagResult) {
+  const store = loadStore();
+  const ts = Date.now();
+  store.sessions.push({
+    at: ts,
+    n: records.length,
+    ok: records.filter((r) => r.ok).length,
+    scope: state.fam === 'all' ? '全部' : ((FAM_META[state.fam] || {}).name || state.fam),
+    seg: state.seg,
+    fams: diagResult.fams.map((f) => ({
+      fam: f.fam, name: f.name, total: f.total, ok: f.ok, tier: f.tier,
+    })),
+  });
+  // 累计记录：用于「历史累计诊断」
+  for (const r of records) {
+    store.allRecords.push({ id: r.id, ok: r.ok, picked: r.picked, at: ts });
+  }
+  saveStore(store);
+  return store;
+}
+
+/* 历史累计诊断：把全部历史作答记录再诊断一遍 */
+function diagnoseHistory() {
+  const store = loadStore();
+  return diagnose(store.allRecords.map((r) => ({ id: r.id, ok: r.ok, picked: r.picked })));
+}
 const DIFF_NAME = { easy: '基础', mid: '中档', hard: '较难' };
 
 /* 选项打散：避免答案总在同一个位置 */
@@ -365,6 +421,9 @@ function next() {
 /* ============ 诊断面板 ============ */
 function showDiag() {
   const d = diagnose(state.records);
+  // 落盘：本轮 + 累计
+  const store = persistSession(state.records, d);
+  const hist = diagnose(store.allRecords.map((r) => ({ id: r.id, ok: r.ok, picked: r.picked })));
   $('#quiz').style.display = 'none';
   $('#setup').style.display = 'none';
   const host = $('#diag');
@@ -409,12 +468,23 @@ function showDiag() {
       这一轮全对。可以换一个范围再练，或者去「趋势与考点」看看哪些考点分值更高。
     </div>`}
 
+    ${renderHistory(hist, store)}
+
     <div class="actions" style="margin-top:26px">
       <button class="btn primary" id="againBtn">再练一轮</button>
       <button class="btn" id="weakBtn">只练薄弱考点</button>
+      <button class="btn ghost" id="clearHist">清空历史</button>
       <a class="btn ghost" href="plan.html">看冲刺计划</a>
     </div>
   `;
+
+  const ch = $('#clearHist');
+  if (ch) ch.onclick = () => {
+    if (!confirm('清空全部练习记录？这不会影响题库。')) return;
+    try { localStorage.removeItem(LS_KEY); } catch (e) {}
+    alert('已清空。');
+    reset(false);
+  };
 
   $('#againBtn').onclick = () => reset(false);
   $('#weakBtn').onclick = () => {
@@ -426,6 +496,52 @@ function showDiag() {
   };
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* 历史累计面板：把全部历史作答聚合后的诊断 */
+function renderHistory(hist, store) {
+  const sess = store.sessions.length;
+  if (sess <= 1) {
+    return `
+      <div style="margin-top:26px">
+        <div class="diag-head"><span class="kicker">History</span><h2 style="font-size:19px">累计记录</h2></div>
+        <div class="act need-more">
+          这是第 1 轮练习。之后的每一轮都会自动保存在本机，累计诊断会在这里显示——
+          练得越多，对薄弱考点的判断越准。
+        </div>
+      </div>`;
+  }
+  const tierName = { weak: '薄弱', shaky: '不稳', solid: '掌握', insufficient: '样本不足' };
+  const rows = hist.fams.filter((f) => f.total > 0).slice(0, 10);
+  return `
+    <div style="margin-top:30px">
+      <div class="diag-head">
+        <span class="kicker">History</span>
+        <h2 style="font-size:19px">累计记录与诊断</h2>
+        <span style="font-size:12.5px;color:var(--text-3)">已练 ${sess} 轮 · 累计 ${hist.totalQ} 题</span>
+      </div>
+      <div class="summary">
+        <div class="sm total"><div class="n">${Math.round(hist.rate * 100)}%</div><div class="l">累计正确率</div></div>
+        <div class="sm weak"><div class="n">${hist.weak}</div><div class="l">薄弱考点</div></div>
+        <div class="sm shaky"><div class="n">${hist.shaky}</div><div class="l">不够稳</div></div>
+        <div class="sm solid"><div class="n">${hist.solid}</div><div class="l">已掌握</div></div>
+      </div>
+      <div class="fam-rows">
+        ${rows.map((f) => `
+          <div class="fam-row">
+            <div>
+              <div class="fam-name">${esc(f.name)}</div>
+              <div class="fam-sub">累计 ${f.ok}/${f.total} 题正确${f.topErr ? ' · 主错因：' + esc(f.topErr.cat) : ''}</div>
+            </div>
+            <div class="fam-rate rate-${f.tier}">${Math.round(f.rate * 100)}%</div>
+            <div class="fam-tier tier-${f.tier}">${tierName[f.tier]}</div>
+          </div>`).join('')}
+      </div>
+      ${hist.actions.length ? `
+      <div class="act-list" style="margin-top:14px">
+        ${hist.actions.slice(0, 3).map((a) => `<div class="act ${a.kind}">${a.text}</div>`).join('')}
+      </div>` : ''}
+    </div>`;
 }
 
 function reset(keepScope) {
