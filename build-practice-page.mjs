@@ -99,6 +99,15 @@ h1{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.25;margin-
 .q-no{font-family:var(--mono);font-size:12px;color:var(--text-3);margin-left:auto}
 .q-stem{font-size:16.5px;line-height:1.85;margin-bottom:20px;font-weight:500}
 
+/* 题干配图 */
+.q-fig{margin:4px 0 18px;padding:14px;background:var(--surface-2);
+  border:1px solid var(--border);border-radius:10px}
+
+/* 选项配图（四个展开图并排） */
+.opt-fig{padding:12px 14px}
+.opt-figbox{flex:1;display:block}
+.opt-figbox svg{max-width:150px!important}
+
 /* 竖式分数 */
 .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;
   font-family:var(--mono);font-size:.86em;line-height:1.15;margin:0 2px;position:relative;top:-1px}

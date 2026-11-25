@@ -257,8 +257,9 @@ function renderQuestion() {
 
   const optsHtml = q.options ? `
     <div class="opts" id="opts">
-      ${q.options.map((o, i) => `<div class="opt" data-i="${i}">
-        <span class="opt-k">${'ABCD'[i]}</span><span>${mathText(o.t)}</span>
+      ${q.options.map((o, i) => `<div class="opt${o.figSvg ? ' opt-fig' : ''}" data-i="${i}">
+        <span class="opt-k">${'ABCD'[i]}</span>
+        ${o.figSvg ? `<span class="opt-figbox">${o.figSvg}</span>` : `<span>${mathText(o.t)}</span>`}
       </div>`).join('')}
     </div>` : `
     <div class="fill">
@@ -277,6 +278,7 @@ function renderQuestion() {
         <span class="q-no">${q.id}</span>
       </div>
       <div class="q-stem">${mathText(q.stem)}</div>
+      ${q.figSvg ? `<div class="q-fig">${q.figSvg}</div>` : ''}
       ${optsHtml}
       <div id="fb"></div>
       <div class="actions" id="qActions" style="display:none">

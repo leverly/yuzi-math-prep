@@ -1,6 +1,6 @@
 // 自动生成，请勿手改。源文件：work/practice/bank.mjs
 // 答案由 verify-bank.mjs 独立验算后回填。
-// 生成时间：2026-11-25T08:33:03
+// 生成时间：2026-11-25T09:07:40
 
 export const BANK = [
  {
@@ -23,7 +23,7 @@ export const BANK = [
   "id": "ar-03",
   "fam": "f-arith",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "计算：({−3/16} − {7/24} + {5/6}) × (−48)",
   "answer": -17
  },
@@ -47,7 +47,7 @@ export const BANK = [
   "id": "ar-06",
   "fam": "f-arith",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "计算：(−36) × ({1/4} − {5/9} + {7/12})",
   "answer": -10
  },
@@ -55,7 +55,7 @@ export const BANK = [
   "id": "ar-07",
   "fam": "f-arith",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "计算：(−2)³ ÷ 4 − (−3) × 2",
   "answer": 4
  },
@@ -63,7 +63,7 @@ export const BANK = [
   "id": "ar-08",
   "fam": "f-arith",
   "seg": "解答",
-  "diff": "hard",
+  "diff": "mid",
   "stem": "计算：−1⁴ − (1 − 0.5) × {1/3} × [2 − (−3)²]",
   "answer": 0.1666666667
  },
@@ -79,7 +79,7 @@ export const BANK = [
   "id": "ar-10",
   "fam": "f-arith",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "计算：({−3/4}) × ({−8/9}) ÷ ({−2/3})",
   "answer": -1
  },
@@ -87,7 +87,7 @@ export const BANK = [
   "id": "ar-11",
   "fam": "f-arith",
   "seg": "解答",
-  "diff": "hard",
+  "diff": "mid",
   "stem": "计算：−2² × ({−1/2})³ − |−3|",
   "answer": -2.5
  },
@@ -95,7 +95,7 @@ export const BANK = [
   "id": "ar-12",
   "fam": "f-arith",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "计算：5 − (−3)² ÷ 9 × ({−1/3})",
   "answer": 5.3333333333
  },
@@ -135,7 +135,7 @@ export const BANK = [
   "id": "eq-05",
   "fam": "f-solveeq",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "解方程：{x + 1/2} − {2x − 1/3} = 1",
   "answer": -1
  },
@@ -151,7 +151,7 @@ export const BANK = [
   "id": "eq-07",
   "fam": "f-solveeq",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "解方程：{3x − 1/4} = {x + 3/2}",
   "answer": 7
  },
@@ -167,7 +167,7 @@ export const BANK = [
   "id": "eq-09",
   "fam": "f-solveeq",
   "seg": "解答",
-  "diff": "hard",
+  "diff": "mid",
   "stem": "解方程：{2x + 1/3} − {5x − 1/6} = 1",
   "answer": -3
  },
@@ -175,7 +175,7 @@ export const BANK = [
   "id": "eq-10",
   "fam": "f-solveeq",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "解方程：0.3x − 0.1 = 0.2(x + 1)",
   "answer": 3
  },
@@ -199,7 +199,7 @@ export const BANK = [
   "id": "sp-03",
   "fam": "f-simplify",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "先化简，再求值：2(x² − 3x) − (x² − 4x + 1)，其中 x = −2",
   "answer": 7
  },
@@ -207,7 +207,7 @@ export const BANK = [
   "id": "sp-04",
   "fam": "f-simplify",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "先化简，再求值：3(2x²y − xy²) − (xy² + 4x²y)，其中 x = −1，y = 2",
   "answer": 20
  },
@@ -215,7 +215,7 @@ export const BANK = [
   "id": "sp-05",
   "fam": "f-simplify",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "先化简，再求值：5(a²b − ab²) − 2(a²b − 3ab²)，其中 a = 2，b = −1",
   "answer": -10
  },
@@ -223,7 +223,7 @@ export const BANK = [
   "id": "sp-06",
   "fam": "f-simplify",
   "seg": "解答",
-  "diff": "hard",
+  "diff": "mid",
   "stem": "先化简，再求值：4x² − [3x − 2(x² − x + 1)]，其中 x = {1/2}",
   "answer": 1
  },
@@ -231,7 +231,7 @@ export const BANK = [
   "id": "sp-07",
   "fam": "f-simplify",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "先化简，再求值：2(3a² − 2ab) − 3(2a² − ab + 1)，其中 a = −1，b = 2",
   "answer": -1
  },
@@ -239,7 +239,7 @@ export const BANK = [
   "id": "sp-08",
   "fam": "f-simplify",
   "seg": "解答",
-  "diff": "hard",
+  "diff": "easy",
   "stem": "先化简，再求值：3x²y − 2[xy² + 2(x²y − xy²)]，其中 x = −2，y = {1/2}",
   "answer": -3
  },
@@ -304,7 +304,7 @@ export const BANK = [
   "id": "ac-02",
   "fam": "f-angleconv",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "计算：31°15′ × 4 = ______°",
   "unit": "°",
   "answer": 125
@@ -322,7 +322,7 @@ export const BANK = [
   "id": "ac-04",
   "fam": "f-angleconv",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "计算：45°36′ = ______°",
   "unit": "°",
   "answer": 45.6
@@ -331,7 +331,7 @@ export const BANK = [
   "id": "ac-05",
   "fam": "f-angleconv",
   "seg": "解答",
-  "diff": "mid",
+  "diff": "easy",
   "stem": "计算：12°20′ × 3 = ______°",
   "unit": "°",
   "answer": 37
@@ -346,62 +346,74 @@ export const BANK = [
  },
  {
   "id": "sm-02",
+  "fig": "sm-02",
   "fam": "f-segmid",
   "seg": "解答",
   "diff": "mid",
   "stem": "线段 AB = 14，C 是 AB 的中点，点 D 在 CB 上，E 是 DB 的中点。若 EB = 2，则 CD = ______",
-  "answer": 3
+  "answer": 3,
+  "figSvg": "<svg viewBox=\"0 0 380 110\" width=\"100%\" style=\"max-width:380px;height:auto;display:block;margin:0 auto\"><line x1=\"46\" y1=\"52\" x2=\"334\" y2=\"52\" stroke=\"#334155\" stroke-width=\"1.6\" /><circle cx=\"46\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"46\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"190\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><circle cx=\"292.8571428571429\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"292.8571428571429\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">D</text><circle cx=\"292.8571428571429\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"292.8571428571429\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">E</text><circle cx=\"334\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"334\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text></svg>"
  },
  {
   "id": "sm-03",
+  "fig": "sm-03",
   "fam": "f-segmid",
   "seg": "解答",
   "diff": "mid",
   "stem": "线段 AB = 12，点 C 在 AB 上，AC = 4，M 是 BC 的中点，则 AM = ______",
-  "answer": 8
+  "answer": 8,
+  "figSvg": "<svg viewBox=\"0 0 340 110\" width=\"100%\" style=\"max-width:340px;height:auto;display:block;margin:0 auto\"><line x1=\"46\" y1=\"52\" x2=\"294\" y2=\"52\" stroke=\"#334155\" stroke-width=\"1.6\" /><circle cx=\"46\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"46\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"128.66666666666666\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"128.66666666666666\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><circle cx=\"211.33333333333331\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"211.33333333333331\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">M</text><circle cx=\"294\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"294\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text></svg>"
  },
  {
   "id": "sm-04",
   "fam": "f-segmid",
   "seg": "解答",
   "diff": "hard",
-  "stem": "线段 AB = 8，C 是 AB 的中点，点 D 在直线 AB 上，BD = 3，则 CD = ______（只填一个正数解中的较大者）",
+  "stem": "线段 AB = 8，C 是 AB 的中点，点 D 在线段 AB 的延长线上，BD = 3，则 CD = ______",
   "answer": 7
  },
  {
   "id": "sm-05",
+  "fig": "sm-05",
   "fam": "f-segmid",
   "seg": "解答",
   "diff": "mid",
   "stem": "点 C 在线段 AB 上，AC = 6，BC = 4，M 是 AC 的中点，N 是 BC 的中点，则 MN = ______",
-  "answer": 5
+  "answer": 5,
+  "figSvg": "<svg viewBox=\"0 0 360 110\" width=\"100%\" style=\"max-width:360px;height:auto;display:block;margin:0 auto\"><line x1=\"46\" y1=\"52\" x2=\"314\" y2=\"52\" stroke=\"#334155\" stroke-width=\"1.6\" /><circle cx=\"46\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"46\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"126.39999999999999\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"126.39999999999999\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">M</text><circle cx=\"206.79999999999998\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"206.79999999999998\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><circle cx=\"260.4\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"260.4\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">N</text><circle cx=\"314\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"314\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text></svg>"
  },
  {
   "id": "as-01",
+  "fig": "as-01",
   "fam": "f-anglesum",
   "seg": "解答",
   "diff": "mid",
   "stem": "如图，∠BOC = 12°，∠COD = 62°，∠AOB = 3∠BOC，且 OA、OB、OC、OD 依次排列，则 ∠AOD = ______°",
   "unit": "°",
-  "answer": 110
+  "answer": 110,
+  "figSvg": "<svg viewBox=\"0 0 330 220\" width=\"100%\" style=\"max-width:330px;height:auto;display:block;margin:0 auto\"><line x1=\"70\" y1=\"175\" x2=\"230\" y2=\"175\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"70\" y1=\"175\" x2=\"145.11545004574253\" y2=\"33.72838514257171\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"70\" y1=\"175\" x2=\"114.10197693071987\" y2=\"21.198128649868977\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"70\" y1=\"175\" x2=\"15.276777067893008\" y2=\"24.649180674254637\" stroke=\"#334155\" stroke-width=\"1.6\" /><path d=\"M88.8 139.7 A40 40 0 0 0 81.0 136.5\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><path d=\"M126.0 175.0 A56 56 0 0 0 96.3 125.6\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><text x=\"244\" y=\"179\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">D</text><text x=\"151.68805192474503\" y=\"25.367118842546716\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><text x=\"117.96089991215786\" y=\"22\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text><text x=\"22\" y=\"22\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"70\" cy=\"175\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"54\" y=\"195\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">O</text></svg>"
  },
  {
   "id": "as-02",
+  "fig": "as-02",
   "fam": "f-anglesum",
   "seg": "解答",
   "diff": "easy",
   "stem": "∠AOB = 70°，OC 在 ∠AOB 内部，∠AOC = 30°，则 ∠BOC = ______°",
   "unit": "°",
-  "answer": 40
+  "answer": 40,
+  "figSvg": "<svg viewBox=\"0 0 300 190\" width=\"100%\" style=\"max-width:300px;height:auto;display:block;margin:0 auto\"><line x1=\"65\" y1=\"150\" x2=\"215\" y2=\"150\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"65\" y1=\"150\" x2=\"194.9038105676658\" y2=\"75.00000000000001\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"65\" y1=\"150\" x2=\"116.30302149885031\" y2=\"9.046106882113747\" stroke=\"#334155\" stroke-width=\"1.6\" /><path d=\"M103.1 128.0 A44 44 0 0 0 80.0 108.7\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><text x=\"229\" y=\"154\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text><text x=\"207.02816622064796\" y=\"72.00000000000001\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><text x=\"121.09130350540968\" y=\"22\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"65\" cy=\"150\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"49\" y=\"170\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">O</text></svg>"
  },
  {
   "id": "as-03",
+  "fig": "as-03",
   "fam": "f-anglesum",
   "seg": "解答",
   "diff": "mid",
   "stem": "∠AOB = 90°，OC 平分 ∠AOB，∠BOD = 20°，OD 在 ∠AOB 外部，则 ∠COD = ______°",
   "unit": "°",
-  "answer": 65
+  "answer": 65,
+  "figSvg": "<svg viewBox=\"0 0 320 250\" width=\"100%\" style=\"max-width:320px;height:auto;display:block;margin:0 auto\"><line x1=\"95\" y1=\"155\" x2=\"220\" y2=\"155\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"95\" y1=\"155\" x2=\"183.38834764831844\" y2=\"66.61165235168157\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"95\" y1=\"155\" x2=\"95.00000000000001\" y2=\"30\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"95\" y1=\"155\" x2=\"212.46157759823853\" y2=\"197.75251791570858\" stroke=\"#334155\" stroke-width=\"1.6\" /><path d=\"M137.0 155.0 A42 42 0 0 0 124.7 125.3\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><path d=\"M123.2 165.3 A30 30 0 0 0 125.0 155.0\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><text x=\"234\" y=\"159\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text><text x=\"193.2878425849301\" y=\"60.712157415069896\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><text x=\"95.00000000000001\" y=\"22\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><text x=\"225.61727428924127\" y=\"206.54079992226795\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">D</text><circle cx=\"95\" cy=\"155\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"79\" y=\"175\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">O</text></svg>"
  },
  {
   "id": "as-04",
@@ -414,12 +426,14 @@ export const BANK = [
  },
  {
   "id": "as-05",
+  "fig": "as-05",
   "fam": "f-anglesum",
   "seg": "解答",
   "diff": "hard",
   "stem": "∠AOB = 120°，OC 平分 ∠AOB，OD 平分 ∠AOC，则 ∠BOD = ______°",
   "unit": "°",
-  "answer": 90
+  "answer": 90,
+  "figSvg": "<svg viewBox=\"0 0 360 230\" width=\"100%\" style=\"max-width:360px;height:auto;display:block;margin:0 auto\"><line x1=\"110\" y1=\"180\" x2=\"250\" y2=\"180\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"110\" y1=\"180\" x2=\"180\" y2=\"58.756443470178596\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"110\" y1=\"180\" x2=\"110.00000000000001\" y2=\"40\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"110\" y1=\"180\" x2=\"40.00000000000003\" y2=\"58.75644347017858\" stroke=\"#334155\" stroke-width=\"1.6\" /><path d=\"M146.0 180.0 A36 36 0 0 0 128.0 148.8\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><path d=\"M128.0 148.8 A36 36 0 0 0 92.0 148.8\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><text x=\"264\" y=\"184\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text><text x=\"187\" y=\"50.632087817196464\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><text x=\"110.00000000000001\" y=\"30\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">D</text><text x=\"33.00000000000003\" y=\"50.632087817196435\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"110\" cy=\"180\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"94\" y=\"200\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">O</text></svg>"
  },
  {
   "id": "ab-01",
@@ -1313,20 +1327,24 @@ export const BANK = [
   "stem": "下列图形中，能折成正方体的是（　）",
   "options": [
    {
-    "t": "六个正方形排成一行",
-    "errTag": "空间想象：一字形会首尾重叠，围不成"
+    "t": "",
+    "errTag": "空间想象：一字形会首尾重叠，围不成",
+    "figSvg": "<svg viewBox=\"0 0 128 28\" width=\"100%\" style=\"max-width:128px;height:auto;display:block;margin:0 auto\"><rect x=\"4\" y=\"4\" width=\"120\" height=\"20\" fill=\"#f8fafd\" stroke=\"#e2e8f0\"/><rect x=\"4\" y=\"4\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"24\" y=\"4\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"44\" y=\"4\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"64\" y=\"4\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"84\" y=\"4\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"104\" y=\"4\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/></svg>"
    },
    {
-    "t": "四个正方形围成「田」字再加两个",
-    "errTag": "空间想象：田字格必重叠"
+    "t": "",
+    "errTag": "空间想象：田字格必重叠",
+    "figSvg": "<svg viewBox=\"0 0 88 48\" width=\"100%\" style=\"max-width:88px;height:auto;display:block;margin:0 auto\"><rect x=\"4\" y=\"4\" width=\"80\" height=\"40\" fill=\"#f8fafd\" stroke=\"#e2e8f0\"/><rect x=\"4\" y=\"4\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"24\" y=\"4\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"4\" y=\"24\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"24\" y=\"24\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"44\" y=\"24\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"64\" y=\"24\" width=\"20\" height=\"20\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/></svg>"
    },
    {
-    "t": "上中下三层，分别为 1、4、1 个",
-    "errTag": null
+    "t": "",
+    "errTag": null,
+    "figSvg": "<svg viewBox=\"0 0 96 74\" width=\"100%\" style=\"max-width:96px;height:auto;display:block;margin:0 auto\"><rect x=\"4\" y=\"4\" width=\"88\" height=\"66\" fill=\"#f8fafd\" stroke=\"#e2e8f0\"/><rect x=\"26\" y=\"4\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"4\" y=\"26\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"26\" y=\"26\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"48\" y=\"26\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"70\" y=\"26\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"26\" y=\"48\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/></svg>"
    },
    {
-    "t": "排成「凹」字形",
-    "errTag": "空间想象：凹字形必重叠"
+    "t": "",
+    "errTag": "空间想象：凹字形必重叠",
+    "figSvg": "<svg viewBox=\"0 0 74 52\" width=\"100%\" style=\"max-width:74px;height:auto;display:block;margin:0 auto\"><rect x=\"4\" y=\"4\" width=\"66\" height=\"44\" fill=\"#f8fafd\" stroke=\"#e2e8f0\"/><rect x=\"4\" y=\"4\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"26\" y=\"4\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"48\" y=\"4\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"4\" y=\"26\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"48\" y=\"26\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/><rect x=\"26\" y=\"26\" width=\"22\" height=\"22\"\n      fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.4\"/></svg>"
    }
   ],
   "key": 2

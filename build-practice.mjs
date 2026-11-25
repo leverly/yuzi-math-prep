@@ -23,6 +23,7 @@ function evalExpr(src) {
 }
 
 const { BANK } = await import('./work/practice/bank.mjs');
+const { FIGS } = await import('./work/practice/figs.mjs');
 const { FAMILY_MAP } = await import('./work/papers/stats.mjs');
 
 // 回填答案
@@ -32,13 +33,19 @@ const out = BANK.map((q) => {
     o.answer = +evalExpr(q.expr).toFixed(10);
   }
   // 选择题：把数值型选项也留一份（用于展示校验，不用于判分）
-  if (q.options) {
-    o.options = q.options.map((opt) => ({
-      t: opt.t,
-      errTag: opt.errTag || null,
-    }));
-  }
   delete o.expr;      // 前端不需要表达式
+
+  // 题干图：渲染成内联 SVG
+  if (q.fig && FIGS[q.fig]) o.figSvg = FIGS[q.fig]();
+
+  // 选项图：sp3-04 这类「四个展开图选一个」
+  if (q.options) {
+    o.options = o.options.map((opt) => {
+      const x = { t: opt.t, errTag: opt.errTag || null };
+      if (opt.fig && FIGS[opt.fig]) x.figSvg = FIGS[opt.fig]();
+      return x;
+    });
+  }
   return o;
 });
 

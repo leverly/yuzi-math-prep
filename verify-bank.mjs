@@ -162,6 +162,54 @@ for (const eq of EQUATIONS) {
   }
 }
 
+/* ---------- 第四类：图形完备性 ---------- */
+// 题干提到「如图」就必须有图，否则学生无从作答
+const noFig = BANK.filter((q) => /如图|图中|下图|该图/.test(q.stem) && !q.fig);
+for (const q of noFig) { problems.push(`${q.id}: 题干说「如图」但没有配图`); fail++; }
+
+// 选项全是空文本（既无文字也无图）说明数据坏了
+for (const q of BANK) {
+  if (q.options && q.options.some((o) => !o.t && !o.fig)) {
+    problems.push(`${q.id}: 存在既无文字也无图的选项`);
+    fail++;
+  }
+}
+
+/* ---------- 第四类补充：图必须能渲染出来 ---------- */
+const { FIGS } = await import('./work/practice/figs.mjs');
+for (const q of BANK) {
+  if (q.fig) {
+    if (!FIGS[q.fig]) { problems.push(`${q.id}: 声明了 fig='${q.fig}' 但没有对应绘图函数`); fail++; }
+    else {
+      const svg = FIGS[q.fig]();
+      if (!svg || !svg.includes('<line') && !svg.includes('<rect')) {
+        problems.push(`${q.id}: 图 '${q.fig}' 渲染结果为空`); fail++;
+      }
+    }
+  }
+  if (q.options) {
+    for (const o of q.options) {
+      if (o.fig && !FIGS[o.fig]) { problems.push(`${q.id}: 选项图 '${o.fig}' 无绘图函数`); fail++; }
+    }
+  }
+}
+
+/* ---------- 第五类：难度分布需贴近真题 ---------- */
+// 真题里第 17/18/19/20 题位（计算题）难度指数约 1.0，几乎全是基础题。
+// 若题库这几族的中档/较难占比过高，说明标得偏难，会让学生误以为真题很难。
+const W = { easy: 1, mid: 2, hard: 3, top: 4 };
+const CALC_FAMS = ['f-arith', 'f-solveeq', 'f-simplify', 'f-angleconv'];
+for (const fid of CALC_FAMS) {
+  const qs = BANK.filter((b) => b.fam === fid);
+  if (!qs.length) continue;
+  const idx = qs.reduce((a, b) => a + (W[b.diff] || 2), 0) / qs.length;
+  // 真题这几族难度指数为 1.0–1.5，允许 1.8 上限
+  if (idx > 1.8) {
+    problems.push(`${fid}: 难度指数 ${idx.toFixed(2)} 偏高（真题约 1.0–1.5），标得比真题难`);
+    fail++;
+  }
+}
+
 /* ---------- 输出 ---------- */
 console.log('=== 题库校验 ===');
 console.log(`  题目数：${BANK.length}`);
