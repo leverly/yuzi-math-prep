@@ -58,7 +58,10 @@ ok(idx.includes(`<b>${S.FAMILY_MAP.length}</b><span>个考点族</span>`), '首�
 ok(idx.includes(`<b>${S.FREQ.must.length}</b><span>个五年必考</span>`), '首页必考族数派生正确');
 ok(idx.includes(`覆盖必做分 ${S.FREQ_SUMMARY.must.pct}%`), '首页必考覆盖率派生正确');
 ok(tr.includes(`共 ${S.FAMILY_MAP.length} 族`), '趋势页族数派生正确');
-ok(pl.includes(`<div class="tier-n">${S.CAT_SCORE['计算'].pct + S.CAT_SCORE['概念'].pct}<small>%</small></div>`), '计划页计算+概念占比派生正确');
+// 冲刺计划页已去掉分数目标（避免给孩子压力），改为检查「三类题」结构与五级优先级
+ok(pl.includes('冲刺计划'), '计划页标题为「冲刺计划」');
+ok(pl.includes('练得稳') && pl.includes('要想一想') && pl.includes('尽力就好'), '计划页三类题结构存在');
+ok(!/先保约\s*\d+\s*分|总分\s*≥\s*\d+|目标正确率\s*100%/.test(pl), '计划页不含分数目标（无施压量化）');
 
 console.log('\n【五】死链');
 const htmls = fs.readdirSync('.').filter((f) => f.endsWith('.html'));

@@ -222,14 +222,14 @@ function slides() {
     html: `
 <div class="slide s-cover on">
   <div class="cover-badge"><i></i>西城区区统考 · 五年真题逐题拆解</div>
-  <h1 class="cover-h">初一（上）数学期末<br><em>考情分析与满分策略</em></h1>
+  <h1 class="cover-h">初一（上）数学期末<br><em>考情分析与冲刺计划</em></h1>
   <p class="cover-sub">
     ${YEARS.join(' / ')} 五套区统考卷，${LEDGER.length} 道题逐题标注。
   </p>
   <div class="cover-points">
     <div class="cp"><span class="cp-n">01</span><b>每年考什么</b><span>五套卷逐套拆解结构、章节、能力、难度</span></div>
     <div class="cp"><span class="cp-n">02</span><b>五年什么在变</b><span>哪些稳如磐石，哪些在漂移，哪些已经消失</span></div>
-    <div class="cp"><span class="cp-n">03</span><b>冲满分先练什么</b><span>按分值 × 确定性排出五级优先级</span></div>
+    <div class="cp"><span class="cp-n">03</span><b>先练什么更划算</b><span>按「能不能练稳」排出五级优先级</span></div>
   </div>
   <div class="cover-meta">
     <div><b>${LEDGER.length}</b><span>题逐题标注</span></div>
@@ -313,7 +313,7 @@ function slides() {
 <div class="slide">
   <div class="s-head">
     <span class="s-kicker">Key Finding</span>
-    <h2 class="s-title">满分的主战场不是压轴</h2>
+    <h2 class="s-title">分数的主体不是压轴</h2>
     <p class="s-sub">是那约 ${pct(BASE_AVG)} 分的基础+中档</p>
   </div>
   <div class="s-body">
@@ -326,8 +326,7 @@ function slides() {
         <div class="bn-d">靠「准确」而不是「灵感」</div></div>
     </div>
     <div class="callout rose" style="margin-top:28px;font-size:16px">
-      <b>推论：</b>压轴 ${pct(HARD_AVG)} 分全丢也还有 ${pct(BASE_AVG)} 分；
-      但基础段丢 3 分、压轴再丢 3 分，就只剩 94 分。<br>
+      <b>推论：</b>压轴全丢，大部分分数仍然在；但基础段每丢一处，都是实打实的损失。<br>
       <b>所以复习顺序应该把「计算零失误」排在「攻压轴」前面</b>——不是因为它更难，而是因为它更值钱、更可控。
     </div>
   </div>
@@ -504,8 +503,8 @@ function slides() {
 <div class="slide">
   <div class="s-head">
     <span class="s-kicker">Priority</span>
-    <h2 class="s-title">五级优先，按性价比排序</h2>
-    <p class="s-sub">分值 × 确定性 —— 顺序由五年分值分布决定</p>
+    <h2 class="s-title">五级优先，按「能不能练稳」排序</h2>
+    <p class="s-sub">顺序由五年真题的考法分布决定</p>
   </div>
   <div class="s-body">
     <div class="pri-list">
@@ -525,7 +524,7 @@ function slides() {
     ['第 2–3 周', '概念清单', '把五套卷选择题的错误选项归类，做成「陷阱清单」'],
     ['第 3–4 周', '几何格式', '作图专练「画 + 写依据」；角度推理补全过程'],
     ['第 4–5 周', '分类压轴', '五套卷第 23 题逐题重做，练「分几种情况」'],
-    ['第 5–6 周', '整卷实战', '五套真题限时 100 分钟，目标 ≥ 95'],
+    ['第 5–6 周', '整卷实战', '五套真题限时整卷，熟悉节奏为主'],
     ['考前 3 天', '只回看', '只过错题与陷阱清单，不做新题'],
   ];
   out.push({
@@ -561,7 +560,7 @@ function slides() {
 <div class="slide s-end">
   <h2 class="end-h">三句话总结</h2>
   <div class="end-list">
-    <div class="end-item"><span class="end-dot"></span><span>卷面五年不变，<b>基础+中档稳定 ${BASE_MIN}–${BASE_MAX} 分</b>——满分瓶颈就在这里</span></div>
+    <div class="end-item"><span class="end-dot"></span><span>卷面五年不变，<b>基础+中档稳定 ${BASE_MIN}–${BASE_MAX} 分</b>——分数主体就在这里</span></div>
     <div class="end-item"><span class="end-dot"></span><span><b>${FREQ.must.length} 个必考族覆盖 ${FREQ_SUMMARY.must.pct}% 分值</b>，其中计算三块合计 ${CALC3} 分</span></div>
     <div class="end-item"><span class="end-dot"></span><span>复习顺序应该是<b>先保计算零失误，再攻分类压轴</b>，而不是反过来</span></div>
   </div>

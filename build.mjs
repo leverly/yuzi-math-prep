@@ -14,7 +14,7 @@ import { CH_NAME, CH_ORDER, CAT_NAME, CAT_ORDER, DIFF_NAME, DIFF_ORDER, LEDGER }
 
 const SITE = {
   short: '西城初一数学',
-  name: '西城区初一(上)数学期末 · 五年考情与满分冲刺',
+  name: '西城区初一(上)数学期末 · 五年考情与冲刺计划',
   full: '西城区初一(上)数学期末考情分析站',
   exam: '西城区初一(上)期末',
 };
@@ -391,7 +391,7 @@ const NAV = [
   ['index.html', '总览'],
   ['papers.html', '逐年真题'],
   ['trend.html', '趋势与考点'],
-  ['plan.html', '满分计划'],
+  ['plan.html', '冲刺计划'],
   ['slides.html', '演示', 'nav-slides'],
 ];
 
@@ -457,11 +457,11 @@ function buildHome() {
       <h1>丢分的不是难题，<br><span class="accent-word">是会做但没做对</span></h1>
       <p class="lede">
         五年里，<b>基础题 + 中档题稳定在 ${BASE_MIN}–${BASE_MAX} 分</b>，较难 + 压轴只有 ${HARD_MIN}–${HARD_MAX} 分。
-        也就是说：<b>丢 3 分基础题，就已经不是满分了</b>——而这 3 分跟「会不会做难题」毫无关系。
-        本站把五套卷逐题拆开，告诉你每年考什么、五年什么在变、冲满分该先练什么。
+        也就是说：<b>大部分分数来自那些「会做」的题</b>，丢分也多半丢在这里——跟会不会做难题关系不大。
+        本站把五套卷逐题拆开，告诉你每年考什么、五年什么在变、先练什么更划算。
       </p>
       <div class="hero-cta">
-        <a class="btn primary" href="plan.html">看满分冲刺计划 <span aria-hidden="true">→</span></a>
+        <a class="btn primary" href="plan.html">看冲刺计划 <span aria-hidden="true">→</span></a>
         <a class="btn" href="trend.html">先看五年趋势</a>
       </div>
       <div class="hero-trust">
@@ -480,12 +480,12 @@ function buildHome() {
 
     <aside class="cockpit">
       <div class="cockpit-top">
-        <span class="level-pill">满分结构</span>
+        <span class="level-pill">分值结构</span>
         <span style="font-size:12px;color:var(--text-3)">五年均值</span>
       </div>
       <div class="metric-row">
         <span class="mv accent">${pct(BASE_AVG)}</span>
-        <span class="ml"><b>基础 + 中档</b>满分主战场，五年 ${BASE_MIN}–${BASE_MAX} 分</span>
+        <span class="ml"><b>基础 + 中档</b>分值主体，五年 ${BASE_MIN}–${BASE_MAX} 分</span>
       </div>
       <div class="metric-row">
         <span class="mv gold">${pct(HARD_AVG)}</span>
@@ -508,7 +508,7 @@ function buildHome() {
         </a>
         <a class="mission-item" href="plan.html">
           <span class="mi-ico gold">🎯</span>
-          <span class="mi-main"><b>满分计划</b><small>五级优先级 + 六周节奏</small></span>
+          <span class="mi-main"><b>冲刺计划</b><small>五级优先级 + 六周节奏</small></span>
           <span class="mi-go">去看 →</span>
         </a>
       </div>
@@ -516,13 +516,13 @@ function buildHome() {
   </div>
 </section>
 
-${section('满分从哪来', '三个判断，决定复习顺序', '这三个判断都不是经验之谈，是从五年分值分布算出来的', `
+${section('分数从哪来', '三个判断，决定复习顺序', '这三个判断都不是经验之谈，是从五年分值分布算出来的', `
 <div class="sell-rows">
   <div class="sell-row">
     <div class="sell-pain">
       <span class="sell-no">01</span>
-      <b>压轴 ${pct(HARD_AVG)} 分全丢，也还有 ${pct(BASE_AVG)} 分</b>
-      <span class="sell-pain-sub">满分的瓶颈不在压轴</span>
+      <b>难题全丢，大部分分数仍然在</b>
+      <span class="sell-pain-sub">丢分的大头也不在压轴</span>
     </div>
     <div class="sell-fix">
       <span class="sell-tag">分值结构</span>
@@ -600,7 +600,7 @@ ${section('必考清单', `五年年年考的 ${FREQ.must.length} 个考点族`,
 </div>
 <p style="margin-top:16px"><a href="trend.html#families" style="color:var(--accent);font-weight:650;text-decoration:none;font-size:13.5px">查看全部 ${FAMILY_MAP.length} 个考点年均分值 →</a></p>`)}
 `;
-  return page('index.html', SITE.name, '西城区初一上数学期末五年真题考情分析与满分备考建议', body);
+  return page('index.html', SITE.name, '西城区初一上数学期末五年真题考情分析与冲刺计划', body);
 }
 
 /* ============================ 逐年真题 ============================ */
@@ -766,84 +766,85 @@ ${section('诚实边界', '三个必须说明的限制', '', `
   return page('trend.html', '五年趋势与考点频次 · ' + SITE.short, '西城区初一上数学期末五年考情趋势与考点族频次', body);
 }
 
-/* ============================ 满分计划 ============================ */
+/* ============================ 冲刺计划 ============================ */
 function buildPlan() {
   const pri = [
     {
       cls: 'p1', rank: '第一优先', title: '计算零失误',
-      meta: `${CALC3} 分 / ${MAIN_GRAND} 分 = ${Math.round(CALC3 / MAIN_GRAND * 100)}%`,
-      body: `有理数四则混合运算（第 17 题，年均 ${famById('f-arith').avgPerYear} 分）是<b>单题最高分值</b>；
-             解一元一次方程（年均 ${famById('f-solveeq').avgPerYear} 分）考全流程；
-             整式化简求值（第 18 题固定，年均 ${famById('f-simplify').avgPerYear} 分）考去括号+合并+代值。
-             <br>固定失分点：符号、乘方、分配律漏乘、去分母漏乘常数项、代值时负数忘加括号。<b>目标正确率 100%，不是 95%。</b>`,
+      meta: '全卷单题分值最高的三块，也是最能练稳的三块',
+      body: `有理数四则混合运算（第 17 题）是<b>单题分值最高</b>的一道；
+             解一元一次方程考全流程；
+             整式化简求值（第 18 题固定）考去括号+合并+代值。
+             <br>固定失分点：符号、乘方、分配律漏乘、去分母漏乘常数项、代值时负数忘加括号。<b>练到不假思索地对。</b>`,
     },
     {
       cls: 'p2', rank: '第二优先', title: '概念辨析：靠清单不靠刷题',
-      meta: `${CAT_SCORE['概念'].pct}% 分值 · 每年 4–8 道选择/填空`,
+      meta: '每年 4–8 道选择填空，题型高度固定',
       body: `固定考法：合并同类项能不能合并（字母或指数不同就不能）、等式性质用错、科学记数法的 a 必须在 [1,10)、近似数的精确位。
              <br><b>这一类不需要大量练习，需要的是一张「陷阱清单」</b>——把每年选择题的错误选项整理出来，看清命题人怎么设套。`,
     },
     {
       cls: 'p3', rank: '第三优先', title: '几何的「说理格式」',
-      meta: `作图 ${famById('f-construct').total} 分 + 角度推理 19 分`,
+      meta: '作图题与角度推理，都是「写规范就得分」的题',
       body: `尺规作图五年都考，<b>画完必须写「依据」</b>（两点之间线段最短、两边之和大于第三边）。
              角度推理是「补全过程并填理由」，固定就那几个：同角的余角相等、角平分线的定义、等量代换。
              <br><b>这是「格式分」不是「智力分」，写规范就能拿满。</b>`,
     },
     {
       cls: 'p4', rank: '第四优先', title: '分类压轴（第 23 题）',
-      meta: `${famById('f-final').total} 分 · 5/5 年必考 · 年均 ${famById('f-final').avgPerYear} 分`,
+      meta: '五年年年都考，载体年年换',
       body: `载体每年换（数轴动点→动角→线段中点→数轴双动点→数轴动点），<b>但内核永远是：把动态过程分成几段，每段列一个式子。</b>
              <br>训练方法不是刷各种载体，而是练<b>「分类的完备性」</b>：动点在哪些区间？动角转到哪些位置？端点重合算不算？<b>漏一种就是丢一半分。</b>`,
     },
     {
       cls: 'p5', rank: '量力而行', title: '选做：新定义与综合实践',
-      meta: `10 分 · 计入总分但卷面封顶 100`,
-      body: `选做<b>不能弥补必做的失误</b>——必做丢 5 分、选做全对也只有 100 分。所以必做优先级永远高于选做。
-             <br>但选做全对能提供缓冲：万一必做丢 2 分，选做能补回来。2025-26 起新定义已从必做位移到选做位。`,
+      meta: '锦上添花的部分，不必强求',
+      body: `选做<b>不能弥补必做的失误</b>——卷面封顶 100，所以必做永远优先于选做。
+             <br>但做出来是额外收获：2025-26 起新定义已从必做位移到选做位，难度也降了一档。`,
     },
   ];
 
   const phases = [
-    { w: '第 1–2 周', t: '计算固化', b: '每天 1 组第 17 题（4 小问）+ 1 组解方程 + 1 道化简求值，限时完成。', ok: '达标：连续 5 天全对，且用时 ≤ 12 分钟' },
+    { w: '第 1–2 周', t: '计算固化', b: '每天 1 组第 17 题（4 小问）+ 1 组解方程 + 1 道化简求值，限时完成。', ok: '达标：连续 5 天全对，且不再超时' },
     { w: '第 2–3 周', t: '概念清单', b: '把五套卷所有选择题的错误选项归类，做成「陷阱清单」，每类写出识别方法。', ok: '达标：能说出每类陷阱怎么识别' },
     { w: '第 3–4 周', t: '几何格式', b: '作图题专练「画 + 写依据」；角度推理专练补全过程与理由用词。', ok: '达标：依据写全、理由用词准确' },
     { w: '第 4–5 周', t: '分类压轴', b: '五套卷第 23 题逐题重做，重点练「分几种情况、为什么是这几种」。', ok: '达标：每道题能说清分类为什么完备、不漏' },
-    { w: '第 5–6 周', t: '整卷实战', b: '五套真题限时 100 分钟整卷，按真实考试节奏做。', ok: '达标：基础+中档零失误，总分 ≥ 95' },
+    { w: '第 5–6 周', t: '整卷实战', b: '五套真题限时整卷，按真实考试节奏走一遍，主要是熟悉节奏。', ok: '达标：基础段没有非受迫性失误' },
     { w: '考前 3 天', t: '只回看', b: '只过错题与陷阱清单，不做新题。', ok: '达标：错题清单上的题都能说出错在哪' },
   ];
 
   const body = `
 <section class="hero" style="padding:44px 0 8px">
   <div class="hero-badge"><span class="dot-live"></span>五级优先级 · 六周节奏</div>
-  <h1>冲刺满分：先保约 ${pct(BASE_AVG)} 分，再抢约 ${pct(HARD_AVG)} 分</h1>
-  <p class="lede">按「投入产出比」排优先级。顺序不是随便定的——它由五年真题的分值分布决定。</p>
+  <h1>冲刺计划</h1>
+  <p class="lede">按「先练什么、后练什么」排顺序。顺序不是凭感觉定的——它由五年真题的考法分布决定。</p>
 </section>
 
-${section('算清楚', '「满分」到底要求什么', '', `
+${section('分清主次', '三类题，三种练法', '不是按难易排，是按「能不能练稳」排', `
 <div class="tier-grid">
   <div class="tier-card t-blue" style="cursor:default">
-    <div class="tier-n">${pct(BASE_AVG)}<small>分</small></div>
-    <div class="tier-l">基础 + 中档（五年均值）</div>
-    <div class="tier-d">唯一能靠训练做到 100% 的部分</div>
+    <div class="tier-n" style="font-size:24px;letter-spacing:-.02em">练得稳</div>
+    <div class="tier-l">计算、概念、常规几何与方程</div>
+    <div class="tier-d">套路固定，靠熟练度就能做到几乎不出错</div>
   </div>
   <div class="tier-card t-gold" style="cursor:default">
-    <div class="tier-n">${pct(HARD_AVG)}<small>分</small></div>
-    <div class="tier-l">较难 + 压轴（五年均值）</div>
-    <div class="tier-d">其中压轴约 ${TOP_MODE} 分多为分类讨论</div>
+    <div class="tier-n" style="font-size:24px;letter-spacing:-.02em">要想一想</div>
+    <div class="tier-l">选择末题、填空末题、解答中段的思维题</div>
+    <div class="tier-d">有方法可循，练过同类题就有感觉</div>
   </div>
   <div class="tier-card t-rose" style="cursor:default">
-    <div class="tier-n">${CALC_CONCEPT}<small>%</small></div>
-    <div class="tier-l">计算 + 概念占比</div>
-    <div class="tier-d">靠准确而不是灵感</div>
+    <div class="tier-n" style="font-size:24px;letter-spacing:-.02em">尽力就好</div>
+    <div class="tier-l">第 23 题分类讨论、第 24 题动角</div>
+    <div class="tier-d">想全不容易，做到「不漏大类」就很值</div>
   </div>
 </div>
 <div class="note" style="margin-top:16px">
-  <b>关键推论：</b>压轴 ${pct(HARD_AVG)} 分全丢也还有 ${pct(BASE_AVG)} 分；但基础段丢 3 分、压轴再丢 3 分，就只有 94 分。
-  <b>满分的瓶颈不在压轴，在那约 ${pct(BASE_AVG)} 分。</b>所以下面的优先级把「计算」排在「压轴」前面——不是因为它更难，而是因为它更值钱、更可控。
+  <b>为什么先练第一类：</b>它套路最固定、最不依赖临场状态，练到位之后几乎不会再丢分。
+  而第二、三类受题目和状态影响大，投入同样的时间，回报反而没那么确定。
+  <b>先把稳的那块拿住，再去碰需要灵感的题。</b>
 </div>`, 'math')}
 
-${section('优先级', '五级优先，按性价比排序', '分值 × 确定性', `
+${section('优先级', '五级优先，按「能不能练稳」排序', '顺序由五年真题的考法分布决定', `
 <div class="grid g2">
   ${pri.map((p) => `<div class="pri ${p.cls}">
     <span class="pri-rank">${p.rank}</span>
@@ -867,8 +868,8 @@ ${section('提醒', '三条反直觉的建议', '', `
 <div class="card">
   <ul class="clean">
     <li><b>别把时间花在「押压轴题型」上。</b>第 23 题载体五年换了四次，押具体载体的命中率极低；押「分类讨论」这个方法，五年 5/5。</li>
-    <li><b>别忽略「选做封顶」这个规则。</b>选做不能弥补必做的失误，只能不拖后腿。必做优先级永远高于选做。</li>
-    <li><b>别用「刷题量」衡量进度。</b>约 ${pct(BASE_AVG)} 分是基础+中档，反复练的是「不错」不是「不会」。衡量指标应是「同一道题第二次做是否还错」。</li>
+    <li><b>别在选做上耗太久。</b>选做不弥补必做，先把必做的题稳稳做完，再看选做。</li>
+    <li><b>别用「刷题量」衡量进度。</b>反复练的是「不错」不是「不会」。衡量指标应是「同一道题第二次做是否还错」。</li>
   </ul>
 </div>`, 'tips')}
 
@@ -890,7 +891,7 @@ ${section('自检', '一份可以打印的考前清单', '按题位检查，不�
   </tbody>
 </table></div>`, 'checklist')}
 `;
-  return page('plan.html', '满分冲刺计划 · ' + SITE.short, '西城区初一上数学期末满分备考优先级与六周计划', body);
+  return page('plan.html', '冲刺计划 · ' + SITE.short, '西城区初一上数学期末冲刺计划：五级优先级与六周节奏', body);
 }
 
 /* ============================ 输出 ============================ */
