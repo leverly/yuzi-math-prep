@@ -4456,6 +4456,16 @@ details[open] > summary::before { content: '▾ '; }
 /* 独立成行的公式（题干里的 break 之后）可以稍高 */
 .se-stem .q-f { max-height: 1.7em; }
 
+/* 整项就是一张图的选项（如「下列平面图形绕轴旋转」的四张图、
+   四个方程选项）：1.5em 会把方程压成一条线，必须放大。
+   判据是 data-optfig，由渲染层给「选项内容只有一个 img」的项打上。 */
+.se-opt[data-optfig] { align-items: center; }
+.se-opt[data-optfig] .q-f {
+  max-height: 3.2em;
+  margin: 2px 0;
+}
+.se-opt[data-optfig] .se-key { align-self: center; }
+
 /* 反馈区（答错时的「正确答案」/解析）里的公式图。
    这里没被上面三条选择器覆盖，公式图会按 PNG 原始像素铺开——
    一张 400×150 的图能把整个卡片撑爆。 */

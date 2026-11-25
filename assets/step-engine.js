@@ -316,8 +316,13 @@
       if (qt === 'single') {
         h += '<div class="se-opts">';
         (q.optionsHtml || q.options || []).forEach(function (o, k) {
-          h += '<button class="se-opt" data-k="' + k + '"><span class="se-key">' +
-            'ABCD'[k] + '</span><span>' + (q.optionsHtml ? q.optionsHtml[k] : esc(o)) + '</span></button>';
+          /* 整项只有一张图（四张图形/四个方程选项）：打 data-optfig，
+             样式据此放大图片。判据：HTML 里除 img 外没有别的实义内容。 */
+          var inner = q.optionsHtml ? q.optionsHtml[k] : esc(o);
+          var figOnly = /<img/.test(inner) && !inner.replace(/<img[^>]*>/g, '').replace(/<[^>]+>/g, '').trim();
+          h += '<button class="se-opt"' + (figOnly ? ' data-optfig' : '') +
+            ' data-k="' + k + '"><span class="se-key">' +
+            'ABCD'[k] + '</span><span>' + inner + '</span></button>';
         });
         h += '</div>';
       } else if (qt === 'calc') {
