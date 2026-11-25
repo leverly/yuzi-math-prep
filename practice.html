@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>练习与诊断 · 西城初一数学</title>
+<meta name="description" content="对标西城期末真题的选择题与计算题练习，自动判分并按考点族诊断薄弱环节">
+<style>
+:root{
+  --r:16px; --r-sm:10px; --r-pill:999px; --max:1000px;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --bg:#f6f8fc; --surface:#fff; --surface-2:#f8fafd;
+  --border:rgba(15,23,42,.09); --text:#0f172a; --text-2:#475569; --text-3:#64748b;
+  --accent:#2563eb; --accent-grad:linear-gradient(135deg,#2563eb,#4f46e5);
+  --accent-soft:rgba(37,99,235,.08);
+  --ok:#059669; --ok-soft:rgba(16,185,129,.10);
+  --gold:#d97706; --gold-soft:rgba(245,158,11,.12);
+  --rose:#e11d48; --rose-soft:rgba(225,29,72,.085);
+  --shadow:0 4px 12px -2px rgba(15,23,42,.06),0 2px 4px -1px rgba(15,23,42,.04);
+  --shadow-3:0 16px 36px -10px rgba(15,23,42,.11),0 4px 12px -2px rgba(15,23,42,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.68;
+  font-size:15px;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+
+/* 顶栏 */
+.site-head{position:sticky;top:0;z-index:60;background:rgba(246,248,252,.9);
+  backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--border)}
+.hdr{max-width:var(--max);margin:0 auto;padding:0 20px;height:60px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:750;font-size:15px;color:var(--text)}
+.brand-mark{width:28px;height:28px;border-radius:8px;background:var(--accent-grad);display:grid;
+  place-items:center;color:#fff;font-size:13px;font-weight:800}
+.hdr-nav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.hdr-nav::-webkit-scrollbar{display:none}
+.hdr-nav a{padding:7px 12px;border-radius:9px;color:var(--text-2);text-decoration:none;font-size:14px;white-space:nowrap}
+.hdr-nav a:hover{background:var(--accent-soft);color:var(--accent)}
+.hdr-nav a.on{background:var(--accent);color:#fff;font-weight:650}
+
+/* 页头 */
+.head{padding:38px 0 22px}
+.crumb{font-size:13px;color:var(--text-3);margin-bottom:10px}
+.crumb a{color:var(--text-3);text-decoration:none}
+h1{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.25;margin-bottom:12px}
+.lede{font-size:15px;color:var(--text-2);max-width:720px}
+.lede b{color:var(--text)}
+
+/* 设置条 */
+.setup{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:18px 20px;box-shadow:var(--shadow);margin-bottom:20px}
+.setup-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.setup-row:last-child{margin-bottom:0}
+.setup-label{font-size:13px;font-weight:650;color:var(--text-2);min-width:64px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:5px 12px;border-radius:var(--r-pill);border:1px solid var(--border);
+  background:var(--surface);font-size:13px;cursor:pointer;transition:.15s;color:var(--text-2)}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:650}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:11px;
+  font-size:14.5px;font-weight:650;border:1px solid var(--border);background:var(--surface);
+  color:var(--text);cursor:pointer;transition:.15s;box-shadow:var(--shadow);font-family:inherit}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--accent-grad);color:#fff;border-color:transparent;
+  box-shadow:0 10px 26px -8px rgba(37,99,235,.36)}
+.btn.ghost{box-shadow:none;background:transparent}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* 进度 */
+.progress{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:13px;color:var(--text-3)}
+.pbar{flex:1;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--accent-grad);border-radius:3px;transition:width .3s}
+
+/* 题目卡 */
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:24px;box-shadow:var(--shadow)}
+.q-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-size:11.5px;font-weight:650;padding:2.5px 8px;border-radius:6px}
+.tag.fam{background:var(--accent-soft);color:var(--accent)}
+.tag.easy{background:var(--ok-soft);color:var(--ok)}
+.tag.mid{background:var(--accent-soft);color:var(--accent)}
+.tag.hard{background:var(--gold-soft);color:var(--gold)}
+.tag.seg{background:#eef3f8;color:#3a5a78}
+.q-no{font-family:var(--mono);font-size:12px;color:var(--text-3);margin-left:auto}
+.q-stem{font-size:16.5px;line-height:1.85;margin-bottom:20px;font-weight:500}
+
+/* 竖式分数 */
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;
+  font-family:var(--mono);font-size:.86em;line-height:1.15;margin:0 2px;position:relative;top:-1px}
+.frac .fn{border-bottom:1px solid currentColor;padding:0 3px}
+.frac .fd{padding:0 3px}
+
+/* 选项 */
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:flex-start;gap:11px;padding:12px 15px;border:1px solid var(--border);
+  border-radius:11px;cursor:pointer;transition:.15s;background:var(--surface)}
+.opt:hover{border-color:var(--accent);background:var(--accent-soft)}
+.opt.picked{border-color:var(--accent);background:var(--accent-soft);font-weight:600}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--rose);background:var(--rose-soft)}
+.opt-k{font-family:var(--mono);font-weight:700;color:var(--text-3);flex:none;width:18px}
+.opt.picked .opt-k{color:var(--accent)}
+.opt.right .opt-k{color:var(--ok)}
+.opt.wrong .opt-k{color:var(--rose)}
+
+/* 填空 */
+.fill{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fill input{flex:1;min-width:180px;padding:12px 15px;border:1px solid var(--border);border-radius:11px;
+  font-size:16px;font-family:var(--mono);background:var(--surface);color:var(--text)}
+.fill input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.fill .unit{font-size:15px;color:var(--text-3);font-weight:600}
+
+/* 反馈 */
+.fb{margin-top:16px;padding:14px 18px;border-radius:11px;font-size:14px;line-height:1.75}
+.fb.ok{background:var(--ok-soft);border-left:3px solid var(--ok);color:#065f46}
+.fb.no{background:var(--rose-soft);border-left:3px solid var(--rose);color:#9f1239}
+.fb b{font-weight:700}
+.fb .ans{font-family:var(--mono);font-weight:700}
+.fb .why{margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.08);font-size:13.5px;color:var(--text-2)}
+.fb .why b{color:var(--text)}
+
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+
+/* 诊断面板 */
+.diag{margin-top:26px}
+.diag-head{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);font-weight:600}
+.diag-head h2{font-size:22px;font-weight:780;letter-spacing:-.02em}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.sm{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.sm .n{font-size:26px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
+.sm .l{font-size:12px;color:var(--text-3);margin-top:4px}
+.sm.weak .n{color:var(--rose)}
+.sm.shaky .n{color:var(--gold)}
+.sm.solid .n{color:var(--ok)}
+.sm.total .n{color:var(--accent)}
+
+.fam-rows{display:flex;flex-direction:column;gap:8px}
+.fam-row{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:13px 16px;display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center}
+.fam-name{font-size:14.5px;font-weight:650}
+.fam-sub{font-size:12px;color:var(--text-3);margin-top:2px}
+.fam-rate{font-family:var(--mono);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.fam-tier{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:var(--r-pill);white-space:nowrap}
+.tier-weak{background:var(--rose-soft);color:var(--rose)}
+.tier-shaky{background:var(--gold-soft);color:var(--gold)}
+.tier-solid{background:var(--ok-soft);color:var(--ok)}
+.tier-insufficient{background:#e2e8f0;color:var(--text-3)}
+.rate-weak{color:var(--rose)}
+.rate-shaky{color:var(--gold)}
+.rate-solid{color:var(--ok)}
+.rate-insufficient{color:var(--text-3)}
+
+.act-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.act{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);
+  border-radius:0 12px 12px 0;padding:14px 18px;font-size:14px;line-height:1.75;color:var(--text-2)}
+.act.weak{border-left-color:var(--rose)}
+.act.shaky{border-left-color:var(--gold)}
+.act.need-more{border-left-color:var(--text-3)}
+.act b{color:var(--text)}
+
+.empty{text-align:center;padding:50px 20px;color:var(--text-3)}
+.empty .big{font-size:40px;margin-bottom:12px}
+
+@media(max-width:640px){
+  body{font-size:14.5px}
+  .wrap,.hdr{padding:0 14px}
+  h1{font-size:24px}
+  .q-card{padding:18px}
+  .summary{grid-template-columns:repeat(2,1fr)}
+  .fam-row{grid-template-columns:1fr auto;gap:8px}
+  .fam-tier{grid-column:2}
+}
+</style>
+</head>
+<body>
+<header class="site-head"><div class="hdr">
+  <a class="brand" href="index.html"><span class="brand-mark">西</span>西城初一数学</a>
+  <nav class="hdr-nav">
+    <a href="index.html">总览</a>
+    <a href="papers.html">逐年真题</a>
+    <a href="trend.html">趋势与考点</a>
+    <a href="plan.html">冲刺计划</a>
+    <a href="practice.html" class="on">练习与诊断</a>
+    <a href="slides.html">演示</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+<div class="head">
+  <div class="crumb"><a href="index.html">首页</a> / 练习与诊断</div>
+  <h1>练习与诊断</h1>
+  <p class="lede">
+    86 道题，按西城真题的考点分布与题型编制：<b>35 道选择题</b>对标第 1–16 题位，<b>51 道计算题</b>对标第 17/18/19 题位。
+    做完自动判分，并按考点族告诉你<b>先补哪里、怎么补</b>。
+  </p>
+</div>
+
+<!-- 设置 -->
+<div class="setup" id="setup">
+  <div class="setup-row">
+    <span class="setup-label">范围</span>
+    <div class="chips" id="famChips">
+      <span class="chip on" data-fam="all">全部</span>
+      <span class="chip" data-fam="f-arith">有理数四则混合运算<span style="opacity:.6;font-size:11px"> 12</span></span><span class="chip" data-fam="f-solveeq">解一元一次方程<span style="opacity:.6;font-size:11px"> 10</span></span><span class="chip" data-fam="f-abs-line">绝对值与数轴<span style="opacity:.6;font-size:11px"> 8</span></span><span class="chip" data-fam="f-simplify">整式化简求值<span style="opacity:.6;font-size:11px"> 8</span></span><span class="chip" data-fam="f-poly">整式加减辨析<span style="opacity:.6;font-size:11px"> 6</span></span><span class="chip" data-fam="f-eqconcept">方程概念辨析<span style="opacity:.6;font-size:11px"> 4</span></span><span class="chip" data-fam="f-space">展开图 / 三视图 / 面动成体<span style="opacity:.6;font-size:11px"> 4</span></span><span class="chip" data-fam="f-scinote">科学记数法与近似数<span style="opacity:.6;font-size:11px"> 6</span></span><span class="chip" data-fam="f-compangle">余角 / 补角列方程<span style="opacity:.6;font-size:11px"> 4</span></span><span class="chip" data-fam="f-exprval">代数式求值（整体代入）<span style="opacity:.6;font-size:11px"> 6</span></span><span class="chip" data-fam="f-pattern">图形规律（用含 n 式子表示）<span style="opacity:.6;font-size:11px"> 3</span></span><span class="chip" data-fam="f-angleconv">角度换算（度分秒）<span style="opacity:.6;font-size:11px"> 5</span></span><span class="chip" data-fam="f-segmid">线段中点<span style="opacity:.6;font-size:11px"> 5</span></span><span class="chip" data-fam="f-anglesum">角的和差<span style="opacity:.6;font-size:11px"> 5</span></span>
+    </div>
+  </div>
+  <div class="setup-row">
+    <span class="setup-label">题型</span>
+    <div class="chips" id="segChips">
+      <span class="chip on" data-seg="all">全部</span>
+      <span class="chip" data-seg="选择">选择题 35</span>
+      <span class="chip" data-seg="解答">计算题 51</span>
+    </div>
+  </div>
+  <div class="setup-row">
+    <span class="setup-label">题量</span>
+    <div class="chips" id="numChips">
+      <span class="chip" data-n="5">5</span>
+      <span class="chip on" data-n="10">10</span>
+      <span class="chip" data-n="15">15</span>
+      <span class="chip" data-n="999">全部</span>
+    </div>
+    <button class="btn primary" id="startBtn" style="margin-left:auto">开始练习</button>
+  </div>
+</div>
+
+<!-- 练习区 -->
+<div id="quiz" style="display:none">
+  <div class="progress">
+    <span id="pText">第 1 / 10 题</span>
+    <span class="pbar"><i id="pBar" style="width:0%"></i></span>
+    <span id="pScore">已对 0</span>
+  </div>
+  <div id="qHost"></div>
+  <div class="actions">
+    <button class="btn ghost" id="quitBtn">结束本轮</button>
+    <button class="btn" id="skipBtn" style="display:none">跳过</button>
+  </div>
+</div>
+
+<!-- 诊断区 -->
+<div id="diag" class="diag" style="display:none"></div>
+
+<!-- 空态 -->
+<div id="empty" class="empty" style="display:none">
+  <div class="big">🎯</div>
+  <p>选好范围和题量，点「开始练习」。</p>
+</div>
+</main>
+
+<script type="module">
+const BANK = [{"id":"ar-01","fam":"f-arith","seg":"解答","diff":"easy","stem":"计算：−12 + (−6) − (−28)","answer":10},{"id":"ar-02","fam":"f-arith","seg":"解答","diff":"easy","stem":"计算：{−8/5} × {15/4} ÷ (−9)","answer":0.6666666667},{"id":"ar-03","fam":"f-arith","seg":"解答","diff":"mid","stem":"计算：({−3/16} − {7/24} + {5/6}) × (−48)","answer":-17},{"id":"ar-04","fam":"f-arith","seg":"解答","diff":"mid","stem":"计算：−3² + ({7/8} − 1) × (−2)²","answer":-9.5},{"id":"ar-05","fam":"f-arith","seg":"解答","diff":"easy","stem":"计算：−7 + 13 − (−5) + (−20)","answer":-9},{"id":"ar-06","fam":"f-arith","seg":"解答","diff":"mid","stem":"计算：(−36) × ({1/4} − {5/9} + {7/12})","answer":-10},{"id":"ar-07","fam":"f-arith","seg":"解答","diff":"mid","stem":"计算：(−2)³ ÷ 4 − (−3) × 2","answer":4},{"id":"ar-08","fam":"f-arith","seg":"解答","diff":"hard","stem":"计算：−1⁴ − (1 − 0.5) × {1/3} × [2 − (−3)²]","answer":0.1666666667},{"id":"ar-09","fam":"f-arith","seg":"解答","diff":"easy","stem":"计算：18 + 6 ÷ (−3) − (−2) × 5","answer":26},{"id":"ar-10","fam":"f-arith","seg":"解答","diff":"mid","stem":"计算：({−3/4}) × ({−8/9}) ÷ ({−2/3})","answer":-1},{"id":"ar-11","fam":"f-arith","seg":"解答","diff":"hard","stem":"计算：−2² × ({−1/2})³ − |−3|","answer":-2.5},{"id":"ar-12","fam":"f-arith","seg":"解答","diff":"mid","stem":"计算：5 − (−3)² ÷ 9 × ({−1/3})","answer":5.3333333333},{"id":"eq-01","fam":"f-solveeq","seg":"解答","diff":"easy","stem":"解方程：2x + 5(x + 1) = 6","answer":0.1428571429},{"id":"eq-02","fam":"f-solveeq","seg":"解答","diff":"easy","stem":"解方程：7x − 20 = 2(3 − 3x)","answer":2},{"id":"eq-03","fam":"f-solveeq","seg":"解答","diff":"mid","stem":"解方程：{2x − 3/5} = {3x − 1/2} + 1","answer":-1},{"id":"eq-04","fam":"f-solveeq","seg":"解答","diff":"easy","stem":"解方程：3(x − 2) − 2(x + 1) = 4","answer":12},{"id":"eq-05","fam":"f-solveeq","seg":"解答","diff":"mid","stem":"解方程：{x + 1/2} − {2x − 1/3} = 1","answer":-1},{"id":"eq-06","fam":"f-solveeq","seg":"解答","diff":"easy","stem":"解方程：5x − 3 = 2(x + 3)","answer":3},{"id":"eq-07","fam":"f-solveeq","seg":"解答","diff":"mid","stem":"解方程：{3x − 1/4} = {x + 3/2}","answer":7},{"id":"eq-08","fam":"f-solveeq","seg":"解答","diff":"easy","stem":"解方程：4 − 3(x − 2) = 2x","answer":2},{"id":"eq-09","fam":"f-solveeq","seg":"解答","diff":"hard","stem":"解方程：{2x + 1/3} − {5x − 1/6} = 1","answer":-3},{"id":"eq-10","fam":"f-solveeq","seg":"解答","diff":"mid","stem":"解方程：0.3x − 0.1 = 0.2(x + 1)","answer":3},{"id":"sp-01","fam":"f-simplify","seg":"解答","diff":"easy","stem":"先化简，再求值：3(2a − b) − 2(a − 3b)，其中 a = 1，b = −2","answer":-2},{"id":"sp-02","fam":"f-simplify","seg":"解答","diff":"easy","stem":"先化简，再求值：10xy − 3xy² − 2(5xy − xy²)，其中 x = 2，y = −1","answer":-2},{"id":"sp-03","fam":"f-simplify","seg":"解答","diff":"mid","stem":"先化简，再求值：2(x² − 3x) − (x² − 4x + 1)，其中 x = −2","answer":7},{"id":"sp-04","fam":"f-simplify","seg":"解答","diff":"mid","stem":"先化简，再求值：3(2x²y − xy²) − (xy² + 4x²y)，其中 x = −1，y = 2","answer":20},{"id":"sp-05","fam":"f-simplify","seg":"解答","diff":"mid","stem":"先化简，再求值：5(a²b − ab²) − 2(a²b − 3ab²)，其中 a = 2，b = −1","answer":-10},{"id":"sp-06","fam":"f-simplify","seg":"解答","diff":"hard","stem":"先化简，再求值：4x² − [3x − 2(x² − x + 1)]，其中 x = {1/2}","answer":1},{"id":"sp-07","fam":"f-simplify","seg":"解答","diff":"mid","stem":"先化简，再求值：2(3a² − 2ab) − 3(2a² − ab + 1)，其中 a = −1，b = 2","answer":-1},{"id":"sp-08","fam":"f-simplify","seg":"解答","diff":"hard","stem":"先化简，再求值：3x²y − 2[xy² + 2(x²y − xy²)]，其中 x = −2，y = {1/2}","answer":-3},{"id":"ev-01","fam":"f-exprval","seg":"解答","diff":"mid","stem":"若 x − 3y = −4，求 (x − 3y)² + 2x − 6y − 10 的值","answer":-2},{"id":"ev-02","fam":"f-exprval","seg":"解答","diff":"easy","stem":"若 a + b = 3，求 2(a + b)² − (a + b) + 1 的值","answer":16},{"id":"ev-03","fam":"f-exprval","seg":"解答","diff":"mid","stem":"若 2m − n = 5，求 6m − 3n + 2 的值","answer":17},{"id":"ev-04","fam":"f-exprval","seg":"解答","diff":"mid","stem":"若 x² + x = 2，求 2x² + 2x − 3 的值","answer":1},{"id":"ev-05","fam":"f-exprval","seg":"解答","diff":"easy","stem":"若 a − 2b = 1，求 3a − 6b + 4 的值","answer":7},{"id":"ev-06","fam":"f-exprval","seg":"解答","diff":"mid","stem":"若 x + 2y = −3，求 2x + 4y − 5 的值","answer":-11},{"id":"ac-01","fam":"f-angleconv","seg":"解答","diff":"easy","stem":"计算：38°30′ = ______°","unit":"°","answer":38.5},{"id":"ac-02","fam":"f-angleconv","seg":"解答","diff":"mid","stem":"计算：31°15′ × 4 = ______°","unit":"°","answer":125},{"id":"ac-03","fam":"f-angleconv","seg":"解答","diff":"easy","stem":"计算：1.5° = ______′","unit":"′","answer":90},{"id":"ac-04","fam":"f-angleconv","seg":"解答","diff":"mid","stem":"计算：45°36′ = ______°","unit":"°","answer":45.6},{"id":"ac-05","fam":"f-angleconv","seg":"解答","diff":"mid","stem":"计算：12°20′ × 3 = ______°","unit":"°","answer":37},{"id":"sm-01","fam":"f-segmid","seg":"解答","diff":"easy","stem":"线段 AB = 10，C 是 AB 的中点，则 AC = ______","answer":5},{"id":"sm-02","fam":"f-segmid","seg":"解答","diff":"mid","stem":"线段 AB = 14，C 是 AB 的中点，点 D 在 CB 上，E 是 DB 的中点。若 EB = 2，则 CD = ______","answer":3},{"id":"sm-03","fam":"f-segmid","seg":"解答","diff":"mid","stem":"线段 AB = 12，点 C 在 AB 上，AC = 4，M 是 BC 的中点，则 AM = ______","answer":8},{"id":"sm-04","fam":"f-segmid","seg":"解答","diff":"hard","stem":"线段 AB = 8，C 是 AB 的中点，点 D 在直线 AB 上，BD = 3，则 CD = ______（只填一个正数解中的较大者）","answer":7},{"id":"sm-05","fam":"f-segmid","seg":"解答","diff":"mid","stem":"点 C 在线段 AB 上，AC = 6，BC = 4，M 是 AC 的中点，N 是 BC 的中点，则 MN = ______","answer":5},{"id":"as-01","fam":"f-anglesum","seg":"解答","diff":"mid","stem":"如图，∠BOC = 12°，∠COD = 62°，∠AOB = 3∠BOC，且 OA、OB、OC、OD 依次排列，则 ∠AOD = ______°","unit":"°","answer":110},{"id":"as-02","fam":"f-anglesum","seg":"解答","diff":"easy","stem":"∠AOB = 70°，OC 在 ∠AOB 内部，∠AOC = 30°，则 ∠BOC = ______°","unit":"°","answer":40},{"id":"as-03","fam":"f-anglesum","seg":"解答","diff":"mid","stem":"∠AOB = 90°，OC 平分 ∠AOB，∠BOD = 20°，OD 在 ∠AOB 外部，则 ∠COD = ______°","unit":"°","answer":65},{"id":"as-04","fam":"f-anglesum","seg":"解答","diff":"mid","stem":"∠1 = 35°18′，∠2 = 42°45′，则 ∠1 + ∠2 = ______°","unit":"°","answer":78.05},{"id":"as-05","fam":"f-anglesum","seg":"解答","diff":"hard","stem":"∠AOB = 120°，OC 平分 ∠AOB，OD 平分 ∠AOC，则 ∠BOD = ______°","unit":"°","answer":90},{"id":"ab-01","fam":"f-abs-line","seg":"选择","diff":"easy","stem":"−6 的相反数是（　）","options":[{"t":"−6","errTag":"概念混淆：把「相反数」当成「本身」"},{"t":"6","errTag":null},{"t":"{1/6}","errTag":"概念混淆：与「倒数」混淆"},{"t":"{−1/6}","errTag":"概念混淆：与「负倒数」混淆"}],"key":1},{"id":"ab-02","fam":"f-abs-line","seg":"选择","diff":"easy","stem":"|{−3/4}| 的值是（　）","options":[{"t":"{−3/4}","errTag":"符号错误：绝对值出来必为非负数"},{"t":"{3/4}","errTag":null},{"t":"{4/3}","errTag":"概念混淆：与「倒数」混淆"},{"t":"{−4/3}","errTag":"概念混淆：与「负倒数」混淆"}],"key":1},{"id":"ab-03","fam":"f-abs-line","seg":"选择","diff":"easy","stem":"下列各数中，最小的是（　）","options":[{"t":"−3","errTag":null},{"t":"−1","errTag":"大小比较：负数比大小看绝对值，绝对值大的反而小"},{"t":"0","errTag":"大小比较：0 比负数大"},{"t":"2","errTag":"大小比较：正数一定大于负数"}],"key":0},{"id":"ab-04","fam":"f-abs-line","seg":"选择","diff":"mid","stem":"数轴上点 A 表示 −2，点 B 表示 3，则 A、B 两点间的距离是（　）","options":[{"t":"1","errTag":"计算错误：用 3−2 而非 3−(−2)"},{"t":"5","errTag":null},{"t":"−5","errTag":"符号错误：距离不能为负"},{"t":"6","errTag":"计算错误：加减方向弄反"}],"key":1},{"id":"ab-05","fam":"f-abs-line","seg":"选择","diff":"mid","stem":"若 |a| = −a，则 a 一定是（　）","options":[{"t":"正数","errTag":"概念不清：正数的绝对值等于它本身"},{"t":"负数","errTag":"不完整：漏了 0 也满足"},{"t":"非正数","errTag":null},{"t":"非负数","errTag":"概念不清：与 |a|=a 的条件混淆"}],"key":2},{"id":"ab-06","fam":"f-abs-line","seg":"选择","diff":"mid","stem":"−|−5| 的值是（　）","options":[{"t":"5","errTag":"符号错误：漏掉最外层的负号"},{"t":"−5","errTag":null},{"t":"−10","errTag":"计算错误：把绝对值当成了加倍数"},{"t":"{1/5}","errTag":"概念混淆：与倒数混淆"}],"key":1},{"id":"ab-07","fam":"f-abs-line","seg":"选择","diff":"mid","stem":"若 a < 0，b > 0，且 |a| > |b|，则 a + b 的值（　）","options":[{"t":"大于 0","errTag":"符号判断：只看绝对值大小，没看谁占优"},{"t":"小于 0","errTag":null},{"t":"等于 0","errTag":"符号判断：误以为绝对值大就一定抵消"},{"t":"无法确定","errTag":"条件误读：条件已足够判断符号"}],"key":1},{"id":"ab-08","fam":"f-abs-line","seg":"选择","diff":"hard","stem":"数轴上表示 −1 和 3 的两点之间的距离是（　）","options":[{"t":"2","errTag":"计算错误：用 3−1 而非 3−(−1)"},{"t":"3","errTag":"计算错误：漏算一个端点"},{"t":"4","errTag":null},{"t":"−4","errTag":"符号错误：距离不能为负"}],"key":2},{"id":"sn-01","fam":"f-scinote","seg":"选择","diff":"easy","stem":"将 3 080 000 用科学记数法表示应为（　）","options":[{"t":"3.08 × 10⁴","errTag":"指数错误：10 的指数应为整数位数减 1"},{"t":"3.08 × 10⁶","errTag":null},{"t":"308 × 10⁴","errTag":"形式错误：a 必须在 [1,10) 之间"},{"t":"0.308 × 10⁷","errTag":"形式错误：a 必须在 [1,10) 之间"}],"key":1},{"id":"sn-02","fam":"f-scinote","seg":"选择","diff":"mid","stem":"将 0.000 32 用科学记数法表示应为（　）","options":[{"t":"3.2 × 10⁻⁴","errTag":null},{"t":"3.2 × 10⁻⁵","errTag":"指数错误：数小数点后到第一个非零数字的位数"},{"t":"32 × 10⁻⁵","errTag":"形式错误：a 必须在 [1,10) 之间"},{"t":"0.32 × 10⁻³","errTag":"形式错误：a 必须在 [1,10) 之间"}],"key":0},{"id":"sn-03","fam":"f-scinote","seg":"选择","diff":"easy","stem":"用四舍五入法把 3.786 精确到 0.01，所得到的近似数为（　）","options":[{"t":"3.78","errTag":"取舍方向：千分位是 6，应进位"},{"t":"3.79","errTag":null},{"t":"3.8","errTag":"精确位错误：0.01 应保留两位小数"},{"t":"3.786","errTag":"未作取舍"}],"key":1},{"id":"sn-04","fam":"f-scinote","seg":"选择","diff":"easy","stem":"用四舍五入法把 4.0692 精确到 0.01，所得到的近似数为（　）","options":[{"t":"4.06","errTag":"取舍方向：千分位是 9，应进位"},{"t":"4.07","errTag":null},{"t":"4.1","errTag":"精确位错误：0.01 应保留两位小数"},{"t":"4.069","errTag":"精确位错误：保留到了三位小数"}],"key":1},{"id":"sn-05","fam":"f-scinote","seg":"选择","diff":"mid","stem":"用四舍五入法把 6.5378 精确到 0.001，所得到的近似数为（　）","options":[{"t":"6.537","errTag":"取舍方向：万分位是 8，应进位"},{"t":"6.538","errTag":null},{"t":"6.54","errTag":"精确位错误：0.001 应保留三位小数"},{"t":"6.5","errTag":"精确位错误：保留位太少"}],"key":1},{"id":"sn-06","fam":"f-scinote","seg":"选择","diff":"easy","stem":"将 350 000 用科学记数法表示应为（　）","options":[{"t":"0.35 × 10⁶","errTag":"形式错误：a 必须在 [1,10) 之间"},{"t":"3.5 × 10⁵","errTag":null},{"t":"3.5 × 10⁴","errTag":"指数错误：10 的指数应为整数位数减 1"},{"t":"35 × 10⁴","errTag":"形式错误：a 必须在 [1,10) 之间"}],"key":1},{"id":"pl-01","fam":"f-poly","seg":"选择","diff":"easy","stem":"下列计算正确的是（　）","options":[{"t":"3a − a = 2","errTag":"合并同类项：系数相减后字母要保留"},{"t":"2a² + a² = 3a⁴","errTag":"合并同类项：指数不变，不能相加"},{"t":"3ab − ba = 2ab","errTag":null},{"t":"a²b − ab² = 0","errTag":"不是同类项：字母指数不同不能合并"}],"key":2},{"id":"pl-02","fam":"f-poly","seg":"选择","diff":"easy","stem":"下列计算中正确的是（　）","options":[{"t":"2x + 3y = 5xy","errTag":"不是同类项：字母不同不能合并"},{"t":"6x² − (−x²) = 5x²","errTag":"符号错误：减去负数等于加，应为 7x²"},{"t":"4mn − 3mn = 1","errTag":"合并同类项：系数为 1 时不能省略字母"},{"t":"−7ab² + 4ab² = −3ab²","errTag":null}],"key":3},{"id":"pl-03","fam":"f-poly","seg":"选择","diff":"mid","stem":"若单项式 2x^m y³ 与 −3x² y^n 是同类项，则 m + n 的值是（　）","options":[{"t":"3","errTag":"只算了一个指数"},{"t":"5","errTag":null},{"t":"6","errTag":"把指数相乘了"},{"t":"1","errTag":"把指数相减了"}],"key":1},{"id":"pl-04","fam":"f-poly","seg":"选择","diff":"mid","stem":"单项式 −2πr² 的系数是（　）","options":[{"t":"−2","errTag":"概念不清：π 是常数，应计入系数"},{"t":"−2π","errTag":null},{"t":"2π","errTag":"符号错误：漏掉负号"},{"t":"−2πr²","errTag":"概念不清：系数不含字母部分"}],"key":1},{"id":"pl-05","fam":"f-poly","seg":"选择","diff":"mid","stem":"下列各式中，次数为 5 的单项式是（　）","options":[{"t":"−3x²y³","errTag":null},{"t":"2x⁴y²","errTag":"次数计算：所有字母指数之和应为 5"},{"t":"5xy","errTag":"次数计算：2 次不是 5 次"},{"t":"x⁵ − y⁵","errTag":"概念不清：这是多项式不是单项式"}],"key":0},{"id":"pl-06","fam":"f-poly","seg":"选择","diff":"mid","stem":"化简 3(2a − b) − 2(a − 3b) 的结果是（　）","options":[{"t":"4a − 9b","errTag":"去括号符号：−2 × (−3b) 应为 +6b，不是 −6b"},{"t":"8a − 9b","errTag":"分配律漏乘：3 × 2a = 6a，与 −2 × a 合并得 4a"},{"t":"4a + 3b","errTag":null},{"t":"8a + 3b","errTag":"合并错误：6a − 2a = 4a，不是 8a"}],"key":2},{"id":"ec-01","fam":"f-eqconcept","seg":"选择","diff":"easy","stem":"若 x = 2 是关于 x 的方程 3x − 2k = 2 的解，则 k 的值是（　）","options":[{"t":"2","errTag":null},{"t":"−2","errTag":"符号错误：移项时符号没变"},{"t":"4","errTag":"计算错误：忘记除以 2"},{"t":"1","errTag":"计算错误：代入后未正确解出"}],"key":0},{"id":"ec-02","fam":"f-eqconcept","seg":"选择","diff":"easy","stem":"若 x = 6 是关于 x 的方程 3x + 2m = 8 的解，则 m 的值是（　）","options":[{"t":"−5","errTag":null},{"t":"5","errTag":"符号错误：移项时符号没变"},{"t":"−10","errTag":"计算错误：忘记除以 2"},{"t":"10","errTag":"计算错误：符号与除法都错"}],"key":0},{"id":"ec-03","fam":"f-eqconcept","seg":"选择","diff":"mid","stem":"下列方程的变形中，正确的是（　）","options":[{"t":"由 3x = 2x + 1 得 3x − 2x = 1","errTag":null},{"t":"由 5x = 4 得 x = 5/4","errTag":"系数化 1：应两边同除以 5，得 4/5"},{"t":"由 −2x = 6 得 x = 3","errTag":"符号错误：两边同除以 −2 应得 −3"},{"t":"由 x + 3 = 5 得 x = 8","errTag":"移项符号：移项要变号，应得 2"}],"key":0},{"id":"ec-04","fam":"f-eqconcept","seg":"选择","diff":"mid","stem":"若关于 x 的方程 (m − 2)x + 3 = 0 是一元一次方程，则 m 满足（　）","options":[{"t":"m ≠ 0","errTag":"概念不清：限制的是一次项系数"},{"t":"m ≠ 2","errTag":null},{"t":"m = 2","errTag":"概念反向：m=2 时一次项消失，就不是一次方程了"},{"t":"m > 2","errTag":"概念不清：只需系数不为 0"}],"key":1},{"id":"cp-01","fam":"f-compangle","seg":"选择","diff":"mid","stem":"已知一个角比它的补角小 30°，则这个角的度数为（　）","options":[{"t":"30°","errTag":"关系搞反：把「比补角小 30°」列成了补角等于它"},{"t":"60°","errTag":"概念混淆：与「余角」的 90° 混用"},{"t":"75°","errTag":null},{"t":"105°","errTag":"求成了补角而非所求的角"}],"key":2},{"id":"cp-02","fam":"f-compangle","seg":"选择","diff":"mid","stem":"一个角的补角比它大 30°，则这个角的度数为（　）","options":[{"t":"75°","errTag":null},{"t":"105°","errTag":"求成了补角"},{"t":"60°","errTag":"概念混淆：与余角混用"},{"t":"30°","errTag":"关系搞反：把差值当成了所求角"}],"key":0},{"id":"cp-03","fam":"f-compangle","seg":"选择","diff":"mid","stem":"一个角等于它的余角的 2 倍，则这个角的度数是（　）","options":[{"t":"30°","errTag":"关系搞反：把余角当成了所求角"},{"t":"60°","errTag":null},{"t":"45°","errTag":"方程列错：设成了 2x = 90"},{"t":"120°","errTag":"概念混淆：与补角混用"}],"key":1},{"id":"cp-04","fam":"f-compangle","seg":"选择","diff":"easy","stem":"一个角的余角比它的补角小（　）","options":[{"t":"45°","errTag":"概念混淆：把两者差算成了 45°"},{"t":"90°","errTag":null},{"t":"180°","errTag":"概念混淆：把补角定义当成了差"},{"t":"无法确定","errTag":"条件误读：差是定值"}],"key":1},{"id":"pt-01","fam":"f-pattern","seg":"选择","diff":"mid","stem":"按规律摆图形：第 1 个用 7 枚卡片，第 2 个用 12 枚，第 3 个用 17 枚……则第 n 个图形用（　）枚","options":[{"t":"5n + 2","errTag":null},{"t":"5n − 2","errTag":"常数项：n=1 时应为 7，不是 3"},{"t":"7n","errTag":"规律误判：误以为是等差比"},{"t":"6n + 1","errTag":"公差：实际公差是 5 不是 6"}],"key":0},{"id":"pt-02","fam":"f-pattern","seg":"选择","diff":"mid","stem":"用棋子摆图形：第 1 个用 3 枚，第 2 个用 5 枚，第 3 个用 7 枚……则第 n 个图形用（　）枚","options":[{"t":"2n + 1","errTag":null},{"t":"2n − 1","errTag":"常数项：n=1 时应为 3"},{"t":"3n","errTag":"规律误判：不是倍数关系"},{"t":"n + 2","errTag":"公差：实际公差是 2"}],"key":0},{"id":"pt-03","fam":"f-pattern","seg":"选择","diff":"hard","stem":"第 1 个图形有 4 个圆点，第 2 个有 7 个，第 3 个有 10 个……则第 n 个图形有（　）个","options":[{"t":"3n + 1","errTag":null},{"t":"3n − 1","errTag":"常数项：n=1 时应为 4"},{"t":"4n","errTag":"规律误判：公差是 3 不是 4"},{"t":"n + 3","errTag":"公差：实际公差是 3"}],"key":0},{"id":"sp3-01","fam":"f-space","seg":"选择","diff":"easy","stem":"一个几何体的展开图由两个三角形和三个长方形组成，这个几何体是（　）","options":[{"t":"三棱柱","errTag":null},{"t":"三棱锥","errTag":"空间想象：棱锥侧面是三角形不是长方形"},{"t":"圆柱","errTag":"空间想象：圆柱展开图有圆"},{"t":"四棱柱","errTag":"数错：四个侧面才是四棱柱"}],"key":0},{"id":"sp3-02","fam":"f-space","seg":"选择","diff":"easy","stem":"圆锥的侧面展开图是（　）","options":[{"t":"圆","errTag":"概念混淆：圆是底面展开图"},{"t":"扇形","errTag":null},{"t":"长方形","errTag":"概念混淆：圆柱侧面才是长方形"},{"t":"三角形","errTag":"概念混淆：棱锥侧面是三角形"}],"key":1},{"id":"sp3-03","fam":"f-space","seg":"选择","diff":"mid","stem":"将长方形绕它的一条边所在直线旋转一周，得到的几何体是（　）","options":[{"t":"圆柱","errTag":null},{"t":"圆锥","errTag":"空间想象：圆锥需绕直角边旋转直角三角形"},{"t":"球","errTag":"空间想象：球需绕直径旋转半圆"},{"t":"棱柱","errTag":"空间想象：旋转得到的是曲面体"}],"key":0},{"id":"sp3-04","fam":"f-space","seg":"选择","diff":"mid","stem":"下列图形中，能折成正方体的是（　）","options":[{"t":"六个正方形排成一行","errTag":"空间想象：一字形会首尾重叠，围不成"},{"t":"四个正方形围成「田」字再加两个","errTag":"空间想象：田字格必重叠"},{"t":"上中下三层，分别为 1、4、1 个","errTag":null},{"t":"排成「凹」字形","errTag":"空间想象：凹字形必重叠"}],"key":2}];
+const FAM_META = {"f-arith":{"name":"有理数四则混合运算","avgPerYear":18.4,"note":"第 17 题，17–20 分，全卷单题最高分值，纯计算","ch":"ch-op"},"f-solveeq":{"name":"解一元一次方程","avgPerYear":11.6,"note":"第 20 题位，11–12 分，去分母/去括号/移项全流程","ch":"ch-eq"},"f-simplify":{"name":"整式化简求值","avgPerYear":6,"note":"第 18 题固定位置，6 分，去括号+合并同类项+代值","ch":"ch-poly"},"f-exprval":{"name":"代数式求值（整体代入）","avgPerYear":1.2,"note":"填空位，考整体代入而非逐项展开","ch":"ch-expr"},"f-angleconv":{"name":"角度换算（度分秒）","avgPerYear":0.8,"note":"填空前段，60 进制换算是固定失分点","ch":"ch-geo"},"f-segmid":{"name":"线段中点","avgPerYear":0.8,"note":"填空位，考中点定义与线段和差","ch":"ch-geo"},"f-anglesum":{"name":"角的和差","avgPerYear":0.8,"note":"填空位，纯角度加减","ch":"ch-geo"},"f-abs-line":{"name":"绝对值与数轴","avgPerYear":8.8,"note":"选择/填空前段，每年 3–4 题，考绝对值、相反数、数轴判符号","ch":"ch-rational"},"f-scinote":{"name":"科学记数法与近似数","avgPerYear":2,"note":"每年选择第 2 题固定位置，2 分","ch":"ch-rational"},"f-poly":{"name":"整式加减辨析","avgPerYear":4.4,"note":"选择 1 题 + 填空 1 题，考概念辨析与构造","ch":"ch-poly"},"f-eqconcept":{"name":"方程概念辨析","avgPerYear":2.8,"note":"选择 1 题 + 填空 1 题，考等式性质与解的定义","ch":"ch-eq"},"f-compangle":{"name":"余角 / 补角列方程","avgPerYear":1.6,"note":"选择位，余补角定义转方程","ch":"ch-geo"},"f-pattern":{"name":"图形规律（用含 n 式子表示）","avgPerYear":1.2,"note":"选择或填空，考从具体到一般的归纳","ch":"ch-expr"},"f-space":{"name":"展开图 / 三视图 / 面动成体","avgPerYear":2.4,"note":"选择前段固定 1 题，考空间想象","ch":"ch-geo"}};
+
+/* ============ 诊断逻辑（与 work/practice/diagnose.mjs 同源，内联以便单文件运行） ============ */
+const TIER_RULE = { minSample: 3, weak: 0.6, solid: 0.85 };
+
+const CALC_HINTS = {
+  'f-arith': '① 乘方的底数是谁（−2² 与 (−2)² 不同）　② 除法变乘法时倒数有没有取　③ 分配律是否漏乘',
+  'f-solveeq': '① 去分母时常数项有没有也乘　② 去括号的符号　③ 移项是否变号　④ 系数化 1 时符号',
+  'f-simplify': '① 去括号符号（尤其括号前是负号）　② 合并时字母和指数是否真的相同　③ 代值时负数有没有加括号',
+  'f-exprval': '① 是不是把式子整体看成了一个字母　② 系数有没有提对　③ 符号',
+  'f-angleconv': '① 60 进制（不是 100 进制）　② 大单位换小单位是乘还是除',
+  'f-segmid': '① 中点是不是把线段平分　② 线段和差的加减方向　③ 有没有漏掉另一种位置情况',
+  'f-anglesum': '① 角的和差是加还是减　② 平分线把角分成相等的两份　③ 度分秒的进位',
+};
+
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/* 把 {a/b} 渲染成竖式分数（先转义，再替换标记） */
+function mathText(raw) {
+  return esc(raw).replace(/\{(-?\d+)\/(\d+)\}/g,
+    (_, n, d) => '<span class="frac"><span class="fn">' + n + '</span><span class="fd">' + d + '</span></span>');
+}
+
+const ERR_FIX = {
+  '符号错误': '把这一步单独抄出来重做，先标符号再算数值',
+  '概念混淆': '回到定义本身：相反数 / 倒数 / 绝对值分别是什么',
+  '概念不清': '回到定义本身，用自己的话复述一遍再做题',
+  '概念反向': '注意条件的方向，把「成立」和「不成立」各举一个例子',
+  '计算错误': '放慢速度，把中间步骤写出来，不要跳步',
+  '合并同类项': '先圈出同类项，再动笔合并',
+  '不是同类项': '合并前先问：字母相同吗？指数相同吗？',
+  '去括号符号': '括号前是负号时，逐项变号，写全不省略',
+  '分配律漏乘': '括号外的数要乘遍括号内每一项',
+  '移项符号': '移项必须变号，跨过等号就换符号',
+  '系数化 1': '两边同除以系数，注意除数不能是 0',
+  '大小比较': '负数比大小看绝对值，绝对值大的反而小',
+  '指数错误': '科学记数法：10 的指数 = 整数位数 − 1',
+  '形式错误': '科学记数法要求 a 在 [1,10) 之间',
+  '精确位错误': '先数清「精确到哪一位」，再决定保留几位小数',
+  '取舍方向': '看精确位的下一位，满 5 进 1',
+  '关系搞反': '把「谁比谁多/少」写成等式前，先代一个小数字验一遍',
+  '空间想象': '动手画一画展开图，或用纸折一次',
+  '规律误判': '先算相邻两项的差，确认是不是等差再写通项',
+  '常数项': '用 n=1 代入检验，结果应等于第 1 项',
+  '公差': '公差 = 后项 − 前项，先算准再写式子',
+  '条件误读': '把题目条件逐条列出来，划掉用不上的',
+  '符号判断': '异号两数相加，符号跟绝对值大的那个走',
+  '不完整': '注意边界情况（如 0）是否也满足条件',
+  '方程列错': '设未知数后，先用文字写清等量关系再翻译成式子',
+  '求成了补角': '算完回看题目问的是「这个角」还是「它的补角」',
+  '未作取舍': '近似数必须按要求的位数取舍',
+};
+
+function parseErrTag(tag) {
+  if (!tag) return null;
+  const i = tag.indexOf('：');
+  const cat = i > 0 ? tag.slice(0, i) : tag;
+  return { cat, fix: ERR_FIX[cat] || null };
+}
+
+function diagnose(records) {
+  const byId = new Map(BANK.map(q => [q.id, q]));
+  const agg = new Map();
+
+  for (const r of records) {
+    const q = byId.get(r.id);
+    if (!q) continue;
+    if (!agg.has(q.fam)) agg.set(q.fam, { fam: q.fam, total: 0, ok: 0, wrong: [] });
+    const a = agg.get(q.fam);
+    a.total++;
+    if (r.ok) a.ok++;
+    else {
+      let errCat = null;
+      if (q.options && typeof r.picked === 'number' && q.options[r.picked]) {
+        const p = parseErrTag(q.options[r.picked].errTag);
+        if (p) errCat = p.cat;
+      }
+      a.wrong.push({ id: q.id, stem: q.stem, errCat });
+    }
+  }
+
+  const fams = [...agg.values()].map(a => {
+    const rate = a.total ? a.ok / a.total : 0;
+    const enough = a.total >= TIER_RULE.minSample;
+    let tier = !enough ? 'insufficient'
+      : rate < TIER_RULE.weak ? 'weak'
+      : rate < TIER_RULE.solid ? 'shaky' : 'solid';
+    const errMix = {};
+    for (const w of a.wrong) if (w.errCat) errMix[w.errCat] = (errMix[w.errCat] || 0) + 1;
+    const top = Object.entries(errMix).sort((x, y) => y[1] - x[1])[0];
+    const meta = FAM_META[a.fam] || {};
+    return {
+      fam: a.fam, name: meta.name || a.fam, avg: meta.avgPerYear || 1,
+      total: a.total, ok: a.ok, rate, tier, enough,
+      topErr: top ? { cat: top[0], fix: ERR_FIX[top[0]] } : null,
+      priority: (meta.avgPerYear || 1) * (1 - rate) * (enough ? 1 : 0.3),
+    };
+  });
+
+  const order = { weak: 0, shaky: 1, insufficient: 2, solid: 3 };
+  fams.sort((a, b) => order[a.tier] - order[b.tier] || b.priority - a.priority);
+
+  const actions = [];
+  for (const f of fams) {
+    if (f.tier === 'solid') continue;
+    if (f.tier === 'insufficient') {
+      actions.push({ kind: 'need-more', fam: f.fam, text: `「${f.name}」只做了 ${f.total} 题，样本不够判断。再做几题看看。` });
+      continue;
+    }
+    const pct = Math.round(f.rate * 100);
+    let text;
+    if (f.topErr) {
+      text = `「${f.name}」正确率 ${pct}%，主要错在「${f.topErr.cat}」——${f.topErr.fix || '回看这几题的解析。'}`;
+    } else if (CALC_HINTS[f.fam]) {
+      text = `「${f.name}」正确率 ${pct}%，逐一排查这几处：${CALC_HINTS[f.fam]}`;
+    } else {
+      text = `「${f.name}」正确率 ${pct}%，回看这几题的解析，找出错在哪一步。`;
+    }
+    actions.push({ kind: f.tier, fam: f.fam, text });
+  }
+
+  const totalQ = fams.reduce((a, f) => a + f.total, 0);
+  const totalOk = fams.reduce((a, f) => a + f.ok, 0);
+  return {
+    totalQ, totalOk, rate: totalQ ? totalOk / totalQ : 0,
+    fams, actions: actions.slice(0, 6),
+    weak: fams.filter(f => f.tier === 'weak').length,
+    shaky: fams.filter(f => f.tier === 'shaky').length,
+    solid: fams.filter(f => f.tier === 'solid').length,
+  };
+}
+
+/* ============ 判分 ============ */
+function parseNumber(s) {
+  if (s == null) return null;
+  let t = String(s).trim().replace(/[−–—]/g, '-').replace(/[，,]/g, '').replace(/\s+/g, '');
+  if (!t) return null;
+  const frac = /^(-?\d+)\/(\d+)$/.exec(t);
+  if (frac) { const d = +frac[2]; return d === 0 ? null : +frac[1] / d; }
+  if (!/^-?\d+(\.\d+)?$/.test(t)) return null;
+  return parseFloat(t);
+}
+
+function judge(q, input) {
+  if (q.options) {
+    const picked = typeof input === 'number' ? input : parseInt(input, 10);
+    if (!(picked >= 0 && picked < q.options.length)) return { invalid: true };
+    return { ok: picked === q.key, picked };
+  }
+  const v = parseNumber(input);
+  if (v === null || q.answer === undefined) return { invalid: true };
+  const isInt = Number.isInteger(q.answer);
+  const isShort = Math.abs(q.answer * 1000 - Math.round(q.answer * 1000)) < 1e-9;
+  const tol = (isInt || isShort) ? 1e-9 : 1e-5;
+  return { ok: Math.abs(v - q.answer) <= tol * Math.max(1, Math.abs(q.answer)), picked: null };
+}
+
+/* ============ 状态 ============ */
+const state = {
+  fam: 'all', seg: 'all', n: 10,
+  queue: [], idx: 0, records: [],
+  answered: false, picked: null,
+};
+
+const $ = (s) => document.querySelector(s);
+const DIFF_NAME = { easy: '基础', mid: '中档', hard: '较难' };
+
+/* 选项打散：避免答案总在同一个位置 */
+function shuffleOptions(q) {
+  if (!q.options) return q;
+  const idx = q.options.map((_, i) => i);
+  for (let i = idx.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [idx[i], idx[j]] = [idx[j], idx[i]];
+  }
+  return {
+    ...q,
+    options: idx.map(i => q.options[i]),
+    key: idx.indexOf(q.key),
+  };
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* 出题策略：诊断要下结论，每族至少需要 3 题。
+ * 所以「全部」不是跨族撒一遍，而是按族轮转、每族凑够样本再换下一族。 */
+function pickQueue() {
+  const match = (q) =>
+    (state.fam === 'all' || q.fam === state.fam) &&
+    (state.seg === 'all' || q.seg === state.seg);
+
+  const pool = BANK.filter(match);
+  if (!pool.length) return [];
+
+  const n = Math.min(state.n, pool.length);
+
+  // 指定了族：直接从该族取
+  if (state.fam !== 'all') {
+    return shuffle(pool).slice(0, n).map(shuffleOptions);
+  }
+
+  // 「全部」：按族分组，每族取 min(3, 该族题数)，凑够 n 为止
+  const byFam = new Map();
+  for (const q of pool) {
+    if (!byFam.has(q.fam)) byFam.set(q.fam, []);
+    byFam.get(q.fam).push(q);
+  }
+  // 族按真题年均分值降序（分值高的优先练）
+  const famOrder = [...byFam.keys()].sort(
+    (a, b) => ((FAM_META[b] || {}).avgPerYear || 0) - ((FAM_META[a] || {}).avgPerYear || 0)
+  );
+
+  const picked = [];
+  const MIN_PER_FAM = 3;
+  // 第一轮：每个族取 MIN_PER_FAM 题
+  for (const f of famOrder) {
+    const qs = shuffle(byFam.get(f));
+    picked.push(...qs.slice(0, MIN_PER_FAM));
+    if (picked.length >= n) break;
+  }
+  // 第二轮：还不够就继续补（每族再加）
+  if (picked.length < n) {
+    const used = new Set(picked.map((q) => q.id));
+    for (const f of famOrder) {
+      for (const q of shuffle(byFam.get(f))) {
+        if (used.has(q.id)) continue;
+        picked.push(q);
+        used.add(q.id);
+        if (picked.length >= n) break;
+      }
+      if (picked.length >= n) break;
+    }
+  }
+  return picked.slice(0, n).map(shuffleOptions);
+}
+
+/* ============ 渲染题目 ============ */
+function renderQuestion() {
+  const q = state.queue[state.idx];
+  const famName = (FAM_META[q.fam] || {}).name || q.fam;
+  state.answered = false;
+  state.picked = null;
+
+  const total = state.queue.length;
+  $('#pText').textContent = '第 ' + (state.idx + 1) + ' / ' + total + ' 题';
+  $('#pBar').style.width = Math.round((state.idx / total) * 100) + '%';
+  $('#pScore').textContent = '已对 ' + state.records.filter(r => r.ok).length;
+
+  const optsHtml = q.options ? `
+    <div class="opts" id="opts">
+      ${q.options.map((o, i) => `<div class="opt" data-i="${i}">
+        <span class="opt-k">${'ABCD'[i]}</span><span>${mathText(o.t)}</span>
+      </div>`).join('')}
+    </div>` : `
+    <div class="fill">
+      <input id="fillInput" type="text" inputmode="text" autocomplete="off"
+        placeholder="填写数值，如 10、-3/4、0.5">
+      ${q.unit ? `<span class="unit">${esc(q.unit)}</span>` : ''}
+      <button class="btn primary" id="submitFill">提交</button>
+    </div>`;
+
+  $('#qHost').innerHTML = `
+    <div class="q-card">
+      <div class="q-meta">
+        <span class="tag fam">${esc(famName)}</span>
+        <span class="tag seg">${esc(q.seg)}题</span>
+        <span class="tag ${q.diff}">${DIFF_NAME[q.diff] || q.diff}</span>
+        <span class="q-no">${q.id}</span>
+      </div>
+      <div class="q-stem">${mathText(q.stem)}</div>
+      ${optsHtml}
+      <div id="fb"></div>
+      <div class="actions" id="qActions" style="display:none">
+        <button class="btn primary" id="nextBtn">下一题 →</button>
+      </div>
+    </div>`;
+
+  if (q.options) {
+    $('#opts').addEventListener('click', (e) => {
+      const el = e.target.closest('.opt');
+      if (!el || state.answered) return;
+      const i = +el.dataset.i;
+      document.querySelectorAll('.opt').forEach(x => x.classList.remove('picked'));
+      el.classList.add('picked');
+      state.picked = i;
+      submit(i);
+    });
+  } else {
+    const inp = $('#fillInput');
+    inp.focus();
+    inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(inp.value); });
+    $('#submitFill').addEventListener('click', () => submit(inp.value));
+  }
+}
+
+function submit(input) {
+  if (state.answered) return;
+  const q = state.queue[state.idx];
+  const res = judge(q, input);
+  if (res.invalid) {
+    const fb = $('#fb');
+    fb.className = 'fb no';
+    fb.innerHTML = '请填写一个数值（可以写分数，如 <span class="ans">-3/4</span>）。';
+    return;
+  }
+  state.answered = true;
+  state.records.push({ id: q.id, ok: res.ok, picked: res.picked });
+
+  const fb = $('#fb');
+  if (res.ok) {
+    fb.className = 'fb ok';
+    fb.innerHTML = '<b>✓ 答对了</b>';
+  } else {
+    let extra = '';
+    if (q.options && typeof res.picked === 'number' && q.options[res.picked].errTag) {
+      const p = parseErrTag(q.options[res.picked].errTag);
+      if (p) extra = `<div class="why"><b>你选的这项：</b>${esc(q.options[res.picked].errTag)}${p.fix ? `<br><b>怎么改：</b>${esc(p.fix)}` : ''}</div>`;
+    } else if (q.answer !== undefined) {
+      const shown = Number.isInteger(q.answer) ? q.answer : +q.answer.toFixed(6);
+      extra = `<div class="why"><b>正确答案：</b><span class="ans">${shown}</span>${q.unit ? esc(q.unit) : ''}</div>`;
+    }
+    fb.className = 'fb no';
+    fb.innerHTML = `<b>✗ 答错了</b>${extra}`;
+  }
+
+  // 标记选项
+  if (q.options) {
+    document.querySelectorAll('.opt').forEach((el, i) => {
+      el.classList.remove('picked');
+      if (i === q.key) el.classList.add('right');
+      else if (i === res.picked) el.classList.add('wrong');
+    });
+  } else {
+    const inp = $('#fillInput');
+    if (inp) inp.disabled = true;
+    const btn = $('#submitFill');
+    if (btn) btn.style.display = 'none';
+  }
+
+  const act = $('#qActions');
+  act.style.display = 'flex';
+  $('#nextBtn').textContent = (state.idx + 1 >= state.queue.length) ? '看诊断结果 →' : '下一题 →';
+  $('#nextBtn').onclick = next;
+  $('#nextBtn').focus();
+  $('#pScore').textContent = '已对 ' + state.records.filter(r => r.ok).length;
+}
+
+function next() {
+  state.idx++;
+  if (state.idx >= state.queue.length) return showDiag();
+  renderQuestion();
+}
+
+/* ============ 诊断面板 ============ */
+function showDiag() {
+  const d = diagnose(state.records);
+  $('#quiz').style.display = 'none';
+  $('#setup').style.display = 'none';
+  const host = $('#diag');
+  host.style.display = 'block';
+
+  const tierName = { weak: '薄弱', shaky: '不稳', solid: '掌握', insufficient: '样本不足' };
+  const rateCls = (t) => 'rate-' + t;
+
+  host.innerHTML = `
+    <div class="diag-head">
+      <span class="kicker">Diagnosis</span>
+      <h2>这一轮的诊断</h2>
+    </div>
+
+    <div class="summary">
+      <div class="sm total"><div class="n">${Math.round(d.rate * 100)}%</div><div class="l">总正确率</div></div>
+      <div class="sm weak"><div class="n">${d.weak}</div><div class="l">薄弱考点</div></div>
+      <div class="sm shaky"><div class="n">${d.shaky}</div><div class="l">不够稳</div></div>
+      <div class="sm solid"><div class="n">${d.solid}</div><div class="l">已掌握</div></div>
+    </div>
+
+    <div class="fam-rows">
+      ${d.fams.map(f => `
+        <div class="fam-row">
+          <div>
+            <div class="fam-name">${esc(f.name)}</div>
+            <div class="fam-sub">${f.ok}/${f.total} 题正确${f.topErr ? ' · 主错因：' + esc(f.topErr.cat) : ''}</div>
+          </div>
+          <div class="fam-rate ${rateCls(f.tier)}">${Math.round(f.rate * 100)}%</div>
+          <div class="fam-tier tier-${f.tier}">${tierName[f.tier]}</div>
+        </div>`).join('')}
+    </div>
+
+    ${d.actions.length ? `
+    <div style="margin-top:26px">
+      <div class="diag-head"><span class="kicker">Next</span><h2 style="font-size:19px">接下来做什么</h2></div>
+      <div class="act-list">
+        ${d.actions.map(a => `<div class="act ${a.kind}">${a.text}</div>`).join('')}
+      </div>
+    </div>` : `
+    <div class="act" style="margin-top:20px">
+      这一轮全对。可以换一个范围再练，或者去「趋势与考点」看看哪些考点分值更高。
+    </div>`}
+
+    <div class="actions" style="margin-top:26px">
+      <button class="btn primary" id="againBtn">再练一轮</button>
+      <button class="btn" id="weakBtn">只练薄弱考点</button>
+      <a class="btn ghost" href="plan.html">看冲刺计划</a>
+    </div>
+  `;
+
+  $('#againBtn').onclick = () => reset(false);
+  $('#weakBtn').onclick = () => {
+    const weakFams = d.fams.filter(f => f.tier === 'weak' || f.tier === 'shaky').map(f => f.fam);
+    if (!weakFams.length) { alert('这一轮没有明显薄弱的考点。'); return; }
+    state.fam = weakFams[0];
+    state.n = 999;
+    reset(true);
+  };
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function reset(keepScope) {
+  $('#diag').style.display = 'none';
+  $('#empty').style.display = 'none';
+  if (!keepScope) {
+    state.fam = 'all'; state.seg = 'all'; state.n = 10;
+    document.querySelectorAll('#famChips .chip').forEach(c => c.classList.toggle('on', c.dataset.fam === 'all'));
+    document.querySelectorAll('#segChips .chip').forEach(c => c.classList.toggle('on', c.dataset.seg === 'all'));
+    document.querySelectorAll('#numChips .chip').forEach(c => c.classList.toggle('on', c.dataset.n === '10'));
+  }
+  $('#setup').style.display = 'block';
+  $('#quiz').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============ 交互绑定 ============ */
+function bindChips(sel, key, cast = (v) => v) {
+  $(sel).addEventListener('click', (e) => {
+    const c = e.target.closest('.chip');
+    if (!c) return;
+    document.querySelectorAll(sel + ' .chip').forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+    state[key] = cast(c.dataset[key === 'fam' ? 'fam' : key === 'seg' ? 'seg' : 'n']);
+  });
+}
+bindChips('#famChips', 'fam');
+bindChips('#segChips', 'seg');
+bindChips('#numChips', 'n', (v) => +v);
+
+$('#startBtn').onclick = () => {
+  state.queue = pickQueue();
+  if (!state.queue.length) { alert('这个范围下没有题目。'); return; }
+  state.idx = 0;
+  state.records = [];
+  $('#setup').style.display = 'none';
+  $('#empty').style.display = 'none';
+  $('#diag').style.display = 'none';
+  $('#quiz').style.display = 'block';
+  renderQuestion();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+$('#quitBtn').onclick = () => {
+  if (!state.records.length) { reset(false); return; }
+  if (confirm('结束本轮并看诊断结果？')) showDiag();
+};
+
+$('#empty').style.display = 'block';
+</script>
+</body>
+</html>

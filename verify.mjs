@@ -96,5 +96,23 @@ if (fs.existsSync('slides.html')) {
   ok(false, 'slides.html 已生成');
 }
 
+console.log('\n【七】练习页（practice.html）');
+if (fs.existsSync('practice.html')) {
+  const pr = fs.readFileSync('practice.html', 'utf8');
+  const { BANK } = await import('./practice-data.mjs');
+  ok(pr.includes(`${BANK.length} 道题，按西城真题`), `题数 ${BANK.length} 派生正确`);
+  ok(pr.includes('const BANK = ['), '题库已内联（file:// 可直开）');
+  ok(!/import \{ BANK/.test(pr), '无外部 import（避免 CORS）');
+  ok(pr.includes('function diagnose('), '诊断引擎已内联');
+  ok(pr.includes('class="frac"') || pr.includes('mathText'), '分数渲染已接入');
+  // 每题必须有答案或选项
+  const noAns = BANK.filter((q) => !q.options && q.answer === undefined);
+  ok(noAns.length === 0, '计算题均有答案', noAns.map((q) => q.id).join(','));
+  const badKey = BANK.filter((q) => q.options && !(q.key >= 0 && q.key < 4));
+  ok(badKey.length === 0, '选择题 key 均合法', badKey.map((q) => q.id).join(','));
+} else {
+  ok(false, 'practice.html 已生成');
+}
+
 console.log('\n' + (fail === 0 ? '=== 全部通过 ===' : `=== ${fail} 项未通过 ===`));
 process.exit(fail === 0 ? 0 : 1);

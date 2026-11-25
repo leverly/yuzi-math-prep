@@ -377,6 +377,7 @@ const NAV = [
   ['papers.html', '逐年真题'],
   ['trend.html', '趋势与考点'],
   ['plan.html', '冲刺计划'],
+  ['practice.html', '练习与诊断'],
   ['slides.html', '演示', 'nav-slides'],
 ];
 
