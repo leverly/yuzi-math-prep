@@ -129,6 +129,33 @@ if (fs.existsSync('practice.html')) {
     if (c && c.expr != null && Math.abs(+c.expr - q.answer) > 1e-6) mism++;
   }
   ok(mism === 0, '正确选项与答案一致', mism + ' 题不符');
+
+  // 选项形式必须统一：不能「分数 / 小数 / 整数」混排（学生无法直接比较）
+  let mixed = 0;
+  for (const q of BANK) {
+    if (!q.options || q.options.some((o) => o.figSvg)) continue;
+    if (q.unit) continue;                       // 角度/长度题用小数，跳过
+    const ts = q.options.map((o) => o.t).filter((t) => t && !t.includes('×'));
+    if (ts.length < 4) continue;
+    const hasFrac = ts.some((t) => t.includes('/'));
+    const hasDec = ts.some((t) => t.includes('.') && !t.includes('/'));
+    const hasInt = ts.some((t) => !t.includes('/') && !t.includes('.'));
+    const kinds = [hasFrac, hasDec, hasInt].filter(Boolean).length;
+    // 分数与整数可共存（如 5 与 1/2），但小数不能与其他形式混排
+    if (hasFrac && hasDec) mixed++;
+    else if (!hasFrac && hasDec && hasInt) mixed++;
+  }
+  ok(mixed === 0, '选项形式统一（分数/小数不混排）', mixed + ' 题混排');
+
+  // 整数答案的题，干扰项必须也是整数（项数、人数等不可能为小数）
+  let fracForInt = 0;
+  for (const q of BANK) {
+    if (!q.options || q.answer === undefined || q.unit) continue;
+    if (!Number.isInteger(q.answer)) continue;
+    const ts = q.options.map((o) => o.t).filter(Boolean);
+    if (ts.some((t) => t.includes('.'))) fracForInt++;
+  }
+  ok(fracForInt === 0, '整数题的选项无小数', fracForInt + ' 题异常');
 } else {
   ok(false, 'practice.html 已生成');
 }

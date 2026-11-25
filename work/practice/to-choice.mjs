@@ -137,22 +137,73 @@ function asFraction(v) {
 }
 function gcd(a, b) { return b ? gcd(b, a % b) : a; }
 
+/* 找出能把答案整除的最小简单分母；没有则返回 null */
+function simpleDenom(v) {
+  const ds = [2, 3, 4, 5, 6, 8, 9, 10, 12];
+  for (const d of ds) {
+    if (Math.abs(v * d - Math.round(v * d)) < 1e-9) return d;
+  }
+  return null;
+}
+
 /* 主转换 */
 export function toChoice(q) {
   if (q.options) return q;          // 本来就是选择题
   const ans = q.answer;
   if (ans === undefined) return q;  // 无答案不动
 
-  const cands = makeDistractors(ans, q);
-  const picks = pick3(cands, ans);
+  // 若正确答案能写成简单分数，干扰项也用同分母（学生不必通分比较）
+  const isIntAns = Number.isInteger(ans);
+  // 有单位的（角度、长度）用小数；整数题用整数；只有纯数值的小数才考虑分数
+  const denom = (isIntAns || q.unit) ? null : simpleDenom(ans);
+  let picks;
+  let useSameDenom = false;
+  if (denom && denom > 1) {
+    const base = Math.round(ans * denom);            // 分子
+    // 取 3 个分子偏移，保证都不是答案本身、也不为 0
+    const deltas = [2, -2, 4, -4, 3, -3, 5, -5, 6, -6];
+    picks = [];
+    for (const d of deltas) {
+      const num = base + d;
+      if (num === 0) continue;
+      // 分子必须与分母互质，否则会约分成整数（如 9/3 = 3），失去「同分母」的意义
+      if (gcd(Math.abs(num), denom) !== 1) continue;
+      const v = +(num / denom).toFixed(10);
+      if (Math.abs(v - ans) < 1e-9) continue;
+      if (picks.some((x) => Math.abs(x - v) < 1e-9)) continue;
+      picks.push(v);
+      if (picks.length === 3) break;
+    }
+    useSameDenom = picks.length === 3;
+  }
+  if (!useSameDenom) {
+    let cands = makeDistractors(ans, q);
+    // 整数答案：干扰项必须也是整数（角度/长度题除外）
+    if (isIntAns && !q.unit) {
+      const ints = cands.filter((v) => Number.isInteger(v));
+      cands = ints.length >= 3 ? ints : [ans + 1, ans - 1, ans + 2, ans - 2, ans + 3];
+    }
+    picks = pick3(cands, ans);
+  }
 
   // 有单位的（角度、长度）用小数；纯数值优先分数写法
   const useFrac = !q.unit;
   const fmtOne = (v) => (useFrac ? (asFraction(v) || fmt(v)) : fmt(v));
+  // 若答案本身不是简单分数（如 -9.5 的分母 2），仍用分数；分母不同的情况已在
+  // useSameDenom 分支保证同分母
 
+  // 同分母时直接写「整数/分母」，避免 asFraction 因精度返回 null
+  const sameDen = useSameDenom ? denom : null;
+  const toText = (v) => {
+    if (sameDen) {
+      const num = Math.round(v * sameDen);
+      return num + '/' + sameDen;
+    }
+    return fmtOne(v);
+  };
   const opts = [
-    { t: fmtOne(ans), expr: String(ans), correct: true },
-    ...picks.map((v) => ({ t: fmtOne(v), expr: String(v) })),
+    { t: toText(ans), expr: String(ans), correct: true },
+    ...picks.map((v) => ({ t: toText(v), expr: String(v) })),
   ];
 
   // 确定性打散：用题目 id 的字符和做种子，保证每次构建结果一致

@@ -19,10 +19,21 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
 
 /* 把 {a/b} 渲染成竖式分数（先转义，再替换标记） */
 function mathText(raw) {
-  // 分数标记 {a/b}：分子可带负号，也兼容 Unicode 减号 −
-  return esc(raw).replace(/\{([−-]?\d+)\/(\d+)\}/g,
-    (_, n, d) => '<span class="frac"><span class="fn">' + n.replace('−', '-') +
-      '</span><span class="fd">' + d + '</span></span>');
+  let t = esc(raw);
+  const fracHtml = (n, d) => {
+    const num = n.replace('−', '-');
+    const neg = num.startsWith('-');
+    // 负号不放进分子，由 .frac-neg::before 画在分数线左侧，避免与分数线混淆
+    return '<span class="frac' + (neg ? ' frac-neg' : '') + '">' +
+      '<span class="fn">' + (neg ? num.slice(1) : num) + '</span>' +
+      '<span class="fd">' + d + '</span></span>';
+  };
+  // 1) 花括号标记 {a/b}
+  t = t.replace(/\{([−-]?\d+)\/(\d+)\}/g, (_, n, d) => fracHtml(n, d));
+  // 2) 整段就是一个分数（选项里常见 -15/2）：直接渲染竖式，
+  //    避免学生把它读成带分数或「−15 除以 2」
+  t = t.replace(/^([−-]?\d+)\/(\d+)$/, (_, n, d) => fracHtml(n, d));
+  return t;
 }
 
 const ERR_FIX = {

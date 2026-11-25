@@ -33,6 +33,11 @@ const out = BANK.map((rawQ) => {
   const withAns = { ...rawQ };
   if (rawQ.expr !== undefined) {
     withAns.answer = +evalExpr(rawQ.expr).toFixed(10);
+  } else if (rawQ.options && rawQ.options[rawQ.key] && rawQ.options[rawQ.key].expr != null) {
+    // 原生选择题：正确选项带 expr 的，反推 answer 供校验
+    try {
+      withAns.answer = +evalExpr(rawQ.options[rawQ.key].expr).toFixed(10);
+    } catch (e) { /* 非数值选项，跳过 */ }
   }
   // 第二步：没有选项的题转成单选题
   const q = toChoice(withAns);
@@ -43,10 +48,11 @@ const out = BANK.map((rawQ) => {
   // 题干图：渲染成内联 SVG
   if (q.fig && FIGS[q.fig]) o.figSvg = FIGS[q.fig]();
 
-  // 选项图：sp3-04 这类「四个展开图选一个」
+  // 选项：保留 expr（校验器用它核对正确项），并按需渲染图
   if (q.options) {
     o.options = o.options.map((opt) => {
       const x = { t: opt.t, errTag: opt.errTag || null };
+      if (opt.expr != null) x.expr = opt.expr;
       if (opt.fig && FIGS[opt.fig]) x.figSvg = FIGS[opt.fig]();
       return x;
     });

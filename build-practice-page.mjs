@@ -82,8 +82,13 @@ body{padding-bottom:80px}
 /* 竖式分数 */
 .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;
   font-family:var(--mono);font-size:.86em;line-height:1.15;margin:0 2px;position:relative;top:-1px}
-.frac .fn{border-bottom:1px solid currentColor;padding:0 3px}
+.frac .fn{border-bottom:1px solid currentColor;padding:0 3px;white-space:nowrap}
 .frac .fd{padding:0 3px}
+/* 负分数：负号写在分子左侧，与分数线拉开距离，避免看成两条横线 */
+.frac.frac-neg .fn{padding-left:0}
+.frac.frac-neg{position:relative;padding-left:6px}
+.frac.frac-neg::before{content:"−";position:absolute;left:0;top:50%;transform:translateY(-50%);
+  font-weight:700;line-height:1}
 
 /* 选项 */
 .opts{display:flex;flex-direction:column;gap:9px}
