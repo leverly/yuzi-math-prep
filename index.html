@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>柚子初一(上)数学期末复习 · 巩固练习与知识复习</title>
-<meta name="description" content="北师大实验中学 初一(上)期末复习：130 道题分步判定、23 张方法卡、50 张概念卡、46 条公式法则。">
+<title>柚子初一(上)数学期末复习 · 10 天冲刺</title>
+<meta name="description" content="北师大实验中学 初一(上)期末：5 套真题切成 10 天任务，做错当场给解析，诊断按错因给下一步。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/style.css?v=2fb6d3ae">
+<link rel="stylesheet" href="assets/style.css?v=ec7a7a58">
 <script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
 </head>
 <body data-base=""><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
@@ -16,7 +16,7 @@
   <div class="hdr-in">
     <a class="logo" href="index.html"><span class="logo-mark">柚</span><span>初一(上)数学期末复习</span></a>
     <nav class="hdr-nav" id="nav">
-      <a href="today.html">今日清单</a><a href="learn.html">知识复习</a><a href="drill.html">巩固练习</a><a href="wrong.html">错题本</a><a href="papers.html">考情解读</a><a href="exam-verify.html">真题核验</a>
+      <a href="sprint.html">冲刺计划</a><a href="wrong.html">错题本</a><a href="diag.html">学情诊断</a><a href="learn.html">知识复习</a>
       
     </nav>
     <div class="hdr-tools">
@@ -32,28 +32,27 @@
   <div class="hero-split">
     <div>
       <div class="hero-badge"><span class="dot-live"></span>北师大实验中学 · 初一(上)期末</div>
-      <h1>丢分不是因为不会，<br>是<span class="accent-word">会做但没做对</span></h1>
+      <h1>期末前 10 天，<br><span class="accent-word">5 套真题练一遍</span></h1>
       <p class="lede">
-        这两种错的补法完全相反：<b>不会</b>要去学方法，<b>会做但错</b>要去练收尾。
-        混在一起练，时间就浪费在已经会的地方。
-        所以这个站第一件事不是给你更多题，而是<b>把这两类错分开</b>——
-        判到第几步出错，就能知道你到底是哪一类。
+        不按知识点铺开，按<b>第几天</b>排：一天一个任务，做完打勾，第 10 天整卷限时。
+        练的全是真题——5 套西城卷 130 道题，每道都能查到出处。
+        做错的题当场给解析和「易错」，学情诊断按错因给你下一步。
       </p>
       <div class="hero-cta">
-        <a class="btn primary" href="drill.html">开始练习 <span aria-hidden="true">→</span></a>
-        <a class="btn" href="learn.html">先看知识复习</a>
+        <a class="btn primary" href="sprint.html">看 10 天计划 <span aria-hidden="true">→</span></a>
+        <a class="btn" href="drill.html">直接开始做题</a>
       </div>
     </div>
     <div class="cockpit-card" id="cockpit">
       <div class="today-line" id="todayLine" style="display:none"></div>
       <div class="cockpit-top">
-        <span class="kicker">我的进度</span>
+        <span class="kicker">冲刺进度</span>
         <span class="cockpit-sub" id="cockpitSub">还没有记录</span>
       </div>
       <div class="yz-metrics" id="cockpitMetrics"></div>
       <div class="yz-cockpit-actions">
-        <a class="btn primary sm" href="drill.html">继续练习</a>
-        <a class="btn ghost sm" href="wrong.html">看错题本</a>
+        <a class="btn primary sm" href="sprint.html">冲刺计划</a>
+        <a class="btn ghost sm" href="wrong.html">看错题</a>
       </div>
     </div>
   </div>
@@ -62,76 +61,73 @@
 <section class="section">
   <div class="section-head">
     <div class="section-head-left">
-      <span class="kicker">三处不同</span>
-      <h2>不是题更多，是判得更细</h2>
-      <span class="sub">下面每个数字都是现算的，改一道题就会跟着变</span>
+      <span class="kicker">10 天怎么排</span>
+      <h2>先送分区，再中档区，最后压轴</h2>
+      <span class="sub">顺序不是随意的——熟练层没稳住之前练压轴，等于在漏水的桶里加水</span>
     </div>
   </div>
-  <div class="grid c3">
-    <div class="card proof-card">
-      <div class="proof-num">0<small>%</small></div>
-      <h3>判到步，不是判到题</h3>
-      <p class="desc">130 道题拆成 <b>0 个步骤</b>，其中 0 道是多步题。
-        只有多步题才分得出「卡在第 1 步（不会）」和「只错最后一步（会但错）」——
-        这一条是上面那个判断能成立的前提。</p>
-      <div class="meta">单步题只算对错，不参与这个判断</div>
+  <div class="grid c2">
+    
+    <div class="card sprint-mini">
+      <div class="sm-day">第 1–3 天</div>
+      <h3>选择 + 填空（32 分）</h3>
+      <p class="desc" style="font-size:.88rem">全是熟练层。冲满分的前提是这 32 分零失误——错一道 2 分，比压轴丢分更亏。</p>
     </div>
-    <div class="card proof-card">
-      <div class="proof-num">5<small> 份</small></div>
-      <h3>对标的是真题，不是感觉</h3>
-      <p class="desc">5 份西城区统考卷逐题拆开，共 <b>130 条标注</b>，
-        归成 27 个考点族。其中 <b>13 个族年年考</b>，
-        年均合计 <b>79 分</b>——这些是躲不开的分。</p>
-      <div class="meta">练什么由真题权重决定，不由主观估计决定</div>
+    <div class="card sprint-mini">
+      <div class="sm-day">第 4–6 天</div>
+      <h3>解答题 17–22</h3>
+      <p class="desc" style="font-size:.88rem">第 17 题单题 17–20 分（4 小问），全卷最大单题。题型固定，练 5 套就能摸清。</p>
     </div>
-    <div class="card proof-card">
-      <div class="proof-num">0<small> / 27 族</small></div>
-      <h3>变式三级，验的是真会</h3>
-      <p class="desc">每个考点族配三道变式：<b>改数字</b>（解法稳不稳）、<b>改条件</b>（懂不懂适用条件）、
-        <b>逆向问</b>（会不会反推）。三级全对才算过——只过两级，考场换个数就翻车。</p>
-      <div class="meta">剩 27 族是纯概念判断题，本身没有解题步骤，只能判对错</div>
+    <div class="card sprint-mini">
+      <div class="sm-day">第 7–8 天</div>
+      <h3>压轴 23–26</h3>
+      <p class="desc" style="font-size:.88rem">目标是拿到前两问，不是满分。压轴整题给分，没有「答一半给一半」。</p>
+    </div>
+    <div class="card sprint-mini">
+      <div class="sm-day">第 9–10 天</div>
+      <h3>错题重做 + 整卷限时</h3>
+      <p class="desc" style="font-size:.88rem">错过的不再做对，练了也白练。最后一天限时 100 分钟，考的是时间分配。</p>
     </div>
   </div>
+  <div style="margin-top:16px"><a class="btn primary" href="sprint.html">进入 10 天冲刺 →</a></div>
 </section>
 
 <section class="section">
   <div class="section-head">
     <div class="section-head-left">
       <span class="kicker">四个入口</span>
-      <h2>知识复习 · 巩固练习 · 错题本 · 考情解读</h2>
-      <span class="sub">复习是查，练习是练，错题是沉淀，考情是排序依据</span>
+      <h2>冲刺计划 · 巩固练习 · 错题本 · 学情诊断</h2>
+      <span class="sub">计划决定今天做什么，练习做题，错题沉淀，诊断给下一步</span>
     </div>
   </div>
   <div class="grid c2">
-    <a class="card entry-card" href="learn.html">
+    <a class="card entry-card" href="sprint.html">
       <div class="entry-no">01</div>
-      <h3>知识复习</h3>
-      <p class="desc">三块材料一处看：<b>概念</b>（要记什么条件）、<b>公式</b>（什么时候能用）、<b>知识点</b>（真题考过什么）。每条都能直接进练习。</p>
-      <div class="meta">50 张概念卡 · 46 条公式</div>
+      <h3>冲刺计划</h3>
+      <p class="desc">期末前 10 天，一天一个任务。每天显示「还剩几题」和完成度，做完自动打勾。</p>
+      <div class="meta">130 道真题切成 10 组</div>
     </a>
     <div class="card entry-card">
       <div class="entry-no">02</div>
       <h3>巩固练习</h3>
-      <p class="desc">一个入口三类都练：<b>概念判断</b>（说法对不对）、<b>方法辨析</b>（算法对不对）、<b>普通题</b>（完整解题）。答错记下卡在第几步。</p>
-      <div class="meta">130 题 + 概念/方法判断</div>
+      <p class="desc">按天出题，或自选范围。选择题与填空题<b>自动判分，答错立刻展开解析</b>；解答题给完整解答，对照自评。</p>
+      <div class="meta">单选 / 填空自动判 · 解答题给标准过程</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-        <a class="btn primary sm" href="drill.html?qtype=all&autostart=1">三类混出 →</a>
-        <a class="btn ghost sm" href="drill.html?qtype=concept">概念</a>
-        <a class="btn ghost sm" href="drill.html?qtype=method">方法</a>
-        <a class="btn ghost sm" href="drill.html?qtype=question">题目</a>
+        <a class="btn primary sm" href="drill.html?day=1&autostart=1">从第 1 天开始 →</a>
+        <a class="btn ghost sm" href="drill.html?qtype=all&autostart=1">随便练一组</a>
       </div>
     </div>
     <a class="card entry-card" href="wrong.html">
       <div class="entry-no">03</div>
       <h3>错题本</h3>
-      <p class="desc">答错的题自动进来，按<b>六类错因</b>分类——因为补救方式不同：符号错要专项，算错要限时，概念错要回条件判断。</p>
-      <div class="meta">符号 / 计算 / 概念 / 方法 / 建模 / 规范</div>
+      <p class="desc">答错的题自动进来，<b>每道都带解析</b>：题干 + 正确答案 + 为什么 + 这类题的坑。按错因分组，因为补救方式不同。</p>
+      <div class="meta">概念 / 符号 / 计算 / 方法</div>
     </a>
-    <a class="card entry-card" href="papers.html">
+    <a class="card entry-card" href="diag.html">
       <div class="entry-no">04</div>
-      <h3>考情解读</h3>
-      <p class="desc">5 份西城真题逐题拆开：章节分值、考点频次、难度分布。练习顺序就是从这里来的。</p>
-      <div class="meta">排序依据</div>
+      <h3>学情诊断</h3>
+      <p class="desc">基于<b>当前还没做对的错题</b>给结论：哪类错因最多、每道错题为什么错、下一步该做什么。</p>
+      <div class="meta">不是统计报告，是待办清单</div>
     </a>
   </div>
 </section>
@@ -190,14 +186,13 @@
   <div class="foot-in yz-foot">
     <div>
       <div class="yz-foot-title">柚子初一(上)数学期末复习</div>
-      <div class="yz-foot-sub">面向 北师大实验中学 初一(上)期末 · 知识复习 / 巩固练习 / 错题 / 考情</div>
+      <div class="yz-foot-sub">面向 北师大实验中学 初一(上)期末 · 10 天冲刺 / 真题练习 / 错题解析 / 学情诊断</div>
     </div>
     <div class="foot-links">
-      <a href="today.html">今日清单</a>
-      <a href="learn.html">知识复习</a>
-      <a href="drill.html">巩固练习</a>
+      <a href="sprint.html">冲刺计划</a>
       <a href="wrong.html">错题本</a>
-      <a href="papers.html">考情解读</a>
+      <a href="diag.html">学情诊断</a>
+      <a href="learn.html">知识复习</a>
     </div>
   </div>
 </footer>
@@ -331,31 +326,37 @@ window.YZ.completeChains = function(pool){
     var fams = (window.YZ.META && window.YZ.META.families) || [];
     if (!fams.length || !Z.planToday) { el.style.display = 'none'; return; }
 
-    var plan = Z.planToday(fams);
-    var p0 = (plan.byBand && plan.byBand.P0) || [];
-    var p0Left = p0.filter(function(x){ return x.state !== 'passed'; });
+    /* 今日一行 = 冲刺计划的「下一天」。
+       不再是「最弱的族」——冲刺期学生要的是「第几天、还剩几题」，
+       而不是一张需要自己翻译成行动的族清单。 */
+    var DAYS = (window.YZ.META && window.YZ.META.sprint) || [];
+    if (!DAYS.length) { el.style.display = 'none'; return; }
+    var qlog = (Z.qLog && Z.qLog()) || {};
+    var seen = {};
+    (qlog.recent || []).forEach(function(r){ seen[r.id] = true; });
+    var wm = (Z.wrongMap && Z.wrongMap()) || {};
 
-    if (!plan.items.length) {
+    var next = null;
+    for (var i = 0; i < DAYS.length; i++) {
+      var d = DAYS[i];
+      var ids = d.kind === 'redo' ? Object.keys(wm) : (d.ids || []);
+      if (!ids.length) continue;                     /* 第 9 天没错题就跳过 */
+      var left = 0;
+      ids.forEach(function(id){ if (!seen[id]) left++; });
+      if (left > 0) { next = { d: d, left: left, total: ids.length }; break; }
+    }
+
+    if (!next) {
       el.innerHTML = '<span class="tl-label">今日</span>' +
-        '<span class="tl-text">全部达标，且没有到期复习。可以做一次整卷模考保持手感。</span>' +
-        '<a class="btn ghost sm" href="exam.html">模考</a>';
+        '<span class="tl-text">10 天任务都做完了。接下来把错题清零。</span>' +
+        '<a class="btn ghost sm" href="wrong.html">错题本</a>';
       el.style.display = '';
       return;
     }
-
-    if (p0Left.length) {
-      var names = p0Left.slice(0, 2).map(function(x){ return x.name; });
-      var more = p0Left.length > 2 ? ' 等 ' + p0Left.length + ' 族' : '';
-      el.innerHTML = '<span class="tl-label">今日</span>' +
-        '<span class="tl-text">熟练层还有 <b>' + p0Left.length + ' 族</b>未达标（' +
-        escHtml(names.join('、')) + more + '）</span>' +
-        '<a class="btn primary sm" href="drill.html?family=' + encodeURIComponent(p0Left[0].id) + '&autostart=1">练第一个</a>';
-    } else {
-      var first = plan.items[0];
-      el.innerHTML = '<span class="tl-label">今日</span>' +
-        '<span class="tl-text">熟练层已清零，接下来练 <b>' + escHtml(first.name) + '</b></span>' +
-        '<a class="btn primary sm" href="drill.html?family=' + encodeURIComponent(first.id) + '&autostart=1">开始</a>';
-    }
+    el.innerHTML = '<span class="tl-label">今日</span>' +
+      '<span class="tl-text">第 <b>' + next.d.day + ' 天 · ' + escHtml(next.d.title) + '</b>' +
+      '（剩 ' + next.left + ' / ' + next.total + ' 题）</span>' +
+      '<a class="btn primary sm" href="drill.html?day=' + next.d.day + '&autostart=1">开始</a>';
     el.style.display = '';
   }
   function escHtml(x){

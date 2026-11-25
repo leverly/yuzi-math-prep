@@ -804,13 +804,14 @@ if (existsSync(SHARD_DIR)) {
 /* 全站页面清单：与 build-site.mjs 的 tasks 一一对应。
    历史上 tasks 被截断过两次，导致一半页面不生成而无人发现。
    这条检查是兜底：任何一页缺失都报错。 */
+/* 当前主路径 8 页（2026-11-25 全站改为「10 天冲刺」后）。
+   其余页面（today/calc/concept/method/map/slots/ladder/exam/plan/graph/content/know）
+   已从构建移除，源文件与生成函数保留，加回 build-site.mjs 的 tasks 即恢复。
+   这份清单必须与 build-site.mjs 的 tasks 一一对应——两边脱节就会出现
+   「产物缺失」或「检查不到」两类假问题。 */
 const PAGES = [
-  /* know.html 已停用（2026-11-24 用户要求）：从使用视角看没有意义。
-     函数 buildKnow() 与数据 src/data-know.js 保留，加回 build-site 的 tasks 即恢复。 */
-  'index.html', 'today.html', 'calc.html', 'concept.html',
-  'drill.html', 'method.html', 'map.html', 'wrong.html', 'slots.html',
-  'ladder.html', 'exam.html', 'papers.html', 'plan.html',
-  'graph.html', 'content.html',
+  'index.html', 'sprint.html', 'drill.html', 'wrong.html',
+  'diag.html', 'learn.html', 'papers.html', 'exam-verify.html',
 ];
 if (existsSync(join(ROOT, 'index.html'))) {
   PAGES.forEach((p) => {

@@ -229,16 +229,17 @@ function newRenderers() {
    已移除：今日清单、计算、整卷模考、槽位专项、变式阶梯、知识图谱、内容说明。
    这些模块的生成函数与数据源仍保留，需要时把条目加回本数组即可恢复。
 
-   注：「今日清单」页（today.html）已按用户要求删除，但排序与回流机制
-   （app.js 的 planToday / famRecord / 族状态机）保留：
-   drill 的族筛选、diag 的行动建议仍依赖族级状态，删掉会让诊断失去数据来源。 */
+   注：「巩固练习」页（drill.html）已按用户要求从导航移除（2026-11-25）：
+   冲刺计划已提供做题入口，两个入口并列会让「今天做什么」变模糊。
+   这是「隐藏入口」不是「删除页面」——页面仍构建、仍可访问：
+     · 冲刺计划的所有「开始第 N 天」都跳 drill.html?day=N
+     · learn 的「练这一族」、wrong 的「重做」也依赖它
+   直接删页面会同时打断这三条路径。 */
 const NAV_PRIMARY = [
-  ['today.html', '今日清单'],
-  ['learn.html', '知识复习'],
-  ['drill.html', '巩固练习'],
+  ['sprint.html', '冲刺计划'],
   ['wrong.html', '错题本'],
-  ['papers.html', '考情解读'],
-  ['exam-verify.html', '真题核验'],
+  ['diag.html', '学情诊断'],
+  ['learn.html', '知识复习'],
 ];
 
 /* 次级：讲解类。它们不是入口，是「不会的时候去哪儿看」。
@@ -305,14 +306,13 @@ function footer(base) {
   <div class="foot-in yz-foot">
     <div>
       <div class="yz-foot-title">${esc(SITE.full)}</div>
-      <div class="yz-foot-sub">面向 ${esc(SITE.school)} ${esc(SITE.exam)} · 知识复习 / 巩固练习 / 错题 / 考情</div>
+      <div class="yz-foot-sub">面向 ${esc(SITE.school)} ${esc(SITE.exam)} · 10 天冲刺 / 真题练习 / 错题解析 / 学情诊断</div>
     </div>
     <div class="foot-links">
-      <a href="${base}today.html">今日清单</a>
-      <a href="${base}learn.html">知识复习</a>
-      <a href="${base}drill.html">巩固练习</a>
+      <a href="${base}sprint.html">冲刺计划</a>
       <a href="${base}wrong.html">错题本</a>
-      <a href="${base}papers.html">考情解读</a>
+      <a href="${base}diag.html">学情诊断</a>
+      <a href="${base}learn.html">知识复习</a>
     </div>
   </div>
 </footer>`;
@@ -404,6 +404,16 @@ function renderQuestion(q, R) {
       if (p.t === 'break') return '<br>';
       if (p.t === 'img' && p.src) {
         const name = p.src.split('/').pop();
+        /* p2023 的公式是 MathType WMF，浏览器不支持；字符又是字体编码，
+           无法可靠转图（试过会出「336」这类错码）。降级为占位符，
+           点开可看原卷该题。 */
+        if (/\.wmf$/i.test(name)) {
+          const ref = q.examRef || {};
+          const href = ref.paperId ? ('exam-verify.html#' + ref.paperId + '-q' + ref.no) : '';
+          return '<span class="q-f-miss" title="该公式为 MathType 图形，请对照原卷">' +
+            (href ? '<a href="' + href + '" target="_blank" rel="noopener">⟨公式·看原卷⟩</a>' : '⟨公式⟩') +
+            '</span>';
+        }
         return '<img class="q-f" src="' + base + name + '" alt="公式" loading="lazy">';
       }
       return '';
@@ -430,6 +440,32 @@ function renderQuestion(q, R) {
   o.qtype = q.qtype || ((q.steps && q.steps.length) ? 'steps'
     : ((q.accept || q.answer != null) ? 'calc' : 'big'));
   o.answerHtml = q.answer != null ? C(R.math.render(String(q.answer))) : '';
+  /* 单选题的「正确答案」：不能只给字母，也不能给占位符。
+     最有用的是「字母 + 那一项的内容」——学生要能一眼对上自己选的那项。
+     选项是公式图时，把该选项的片段渲染出来。 */
+  if (o.qtype === 'single' && q.key != null && q.options) {
+    const letter = 'ABCD'[q.key];
+    /* 字段名是 __optParts（data-exam-bank 的 optionParts 在 index.js 里
+       改名带过来），写 optionParts 会静默取到 undefined 并回退成占位符。 */
+    const parts = q.__optParts && q.__optParts[q.key];
+    const body = (parts && parts.length)
+      ? parts.map((p) => {
+          if (p.t === 'text') return C(R.math.render(p.v));
+          if (p.t === 'img' && p.src) {
+            const name = p.src.split('/').pop();
+            return '<img class="q-f" src="' + (q.__imgBase || '') + name + '" alt="公式" loading="lazy">';
+          }
+          return '';
+        }).join('')
+      : (String(q.options[q.key] || '') === '⟨公式⟩'
+          /* 片段缺失且选项文本只是占位符：只给字母，不把占位符当答案。
+             宁可少给，也不给出一个看起来像答案的假内容。 */
+          ? ''
+          : C(R.math.render(String(q.options[q.key] || ''))));
+    /* 字母与公式图放在同一个行内盒里：图是 inline-block 且
+       vertical-align:middle，不加盒子时字母会被挤到图片下方。 */
+    o.answerHtml = '<span class="ans-inline">' + letter + '．' + body + '</span>';
+  }
   if (o.qtype === 'single' && q.options) {
     /* 真题选项：options 是纯文本（含 ⟨公式⟩ 占位），真正的内容在
        q.__optParts（由 data-exam-bank 带过来）。有 parts 就逐片段渲染，
@@ -441,7 +477,15 @@ function renderQuestion(q, R) {
         return parts.map((p) => {
           if (p.t === 'text') return C(R.math.render(p.v));
           if (p.t === 'img' && p.src) {
-            return '<img class="q-f" src="' + base + p.src.split('/').pop() + '" alt="公式" loading="lazy">';
+            const nm = p.src.split('/').pop();
+            if (/\.wmf$/i.test(nm)) {
+              const ref = q.examRef || {};
+              const href = ref.paperId ? ('exam-verify.html#' + ref.paperId + '-q' + ref.no) : '';
+              return '<span class="q-f-miss">' +
+                (href ? '<a href="' + href + '" target="_blank" rel="noopener">⟨公式·看原卷⟩</a>' : '⟨公式⟩') +
+                '</span>';
+            }
+            return '<img class="q-f" src="' + base + nm + '" alt="公式" loading="lazy">';
           }
           return '';
         }).join('');
@@ -510,14 +554,21 @@ function emitShards() {
        运行时不用加载全库就能知道「第 N 天练哪几题」。
        这是全站的入口结构：不是按知识点组织，是按「第几天」组织。 */
     sprint: SPRINT_DAYS.map((d) => {
-      const qs = pickDayQuestions(d, ALL_QUESTIONS, new Set());
+      const qs = pickDayQuestions(d, QUESTIONS, new Set());
       return {
         day: d.day, title: d.title, goal: d.goal, kind: d.kind,
         minutes: d.minutes, why: d.why,
         ids: qs.map((q) => q.id),
-        /* 分值合计：让学生看到「今天这组值多少分」，不是「多少题」 */
-        score: qs.reduce((a, q) => a + (q.score || 0), 0),
+        /* 不发射「分值合计」：跨 5 套卷累加出来的是 48 分、122 分这种数，
+           看着像单卷分值，实际是三套卷加起来——会误导。
+           学生要判断的是「今天做几题、多久」，不是「值多少分」。 */
         paperCount: new Set(qs.map((q) => q.examRef && q.examRef.paperId).filter(Boolean)).size,
+        /* 单卷时才给卷面分（第 10 天整卷），其余为 null */
+        singlePaperScore: (() => {
+          const ps = new Set(qs.map((q) => q.examRef && q.examRef.paperId).filter(Boolean));
+          if (ps.size !== 1) return null;
+          return qs.reduce((a, q) => a + (q.score || 0), 0);
+        })(),
       };
     }),
     /* 考点族：排序（planToday）与回流（famRecord）共用。
@@ -604,28 +655,27 @@ function buildHome() {
   <div class="hero-split">
     <div>
       <div class="hero-badge"><span class="dot-live"></span>${esc(SITE.school)} · ${esc(SITE.exam)}</div>
-      <h1>丢分不是因为不会，<br>是<span class="accent-word">会做但没做对</span></h1>
+      <h1>期末前 10 天，<br><span class="accent-word">5 套真题练一遍</span></h1>
       <p class="lede">
-        这两种错的补法完全相反：<b>不会</b>要去学方法，<b>会做但错</b>要去练收尾。
-        混在一起练，时间就浪费在已经会的地方。
-        所以这个站第一件事不是给你更多题，而是<b>把这两类错分开</b>——
-        判到第几步出错，就能知道你到底是哪一类。
+        不按知识点铺开，按<b>第几天</b>排：一天一个任务，做完打勾，第 10 天整卷限时。
+        练的全是真题——${PAPERS.length} 套西城卷 ${PAPER_Q_TOTAL} 道题，每道都能查到出处。
+        做错的题当场给解析和「易错」，学情诊断按错因给你下一步。
       </p>
       <div class="hero-cta">
-        <a class="btn primary" href="drill.html">开始练习 <span aria-hidden="true">→</span></a>
-        <a class="btn" href="learn.html">先看知识复习</a>
+        <a class="btn primary" href="sprint.html">看 10 天计划 <span aria-hidden="true">→</span></a>
+        <a class="btn" href="drill.html">直接开始做题</a>
       </div>
     </div>
     <div class="cockpit-card" id="cockpit">
       <div class="today-line" id="todayLine" style="display:none"></div>
       <div class="cockpit-top">
-        <span class="kicker">我的进度</span>
+        <span class="kicker">冲刺进度</span>
         <span class="cockpit-sub" id="cockpitSub">还没有记录</span>
       </div>
       <div class="yz-metrics" id="cockpitMetrics"></div>
       <div class="yz-cockpit-actions">
-        <a class="btn primary sm" href="drill.html">继续练习</a>
-        <a class="btn ghost sm" href="wrong.html">看错题本</a>
+        <a class="btn primary sm" href="sprint.html">冲刺计划</a>
+        <a class="btn ghost sm" href="wrong.html">看错题</a>
       </div>
     </div>
   </div>
@@ -634,76 +684,61 @@ function buildHome() {
 <section class="section">
   <div class="section-head">
     <div class="section-head-left">
-      <span class="kicker">三处不同</span>
-      <h2>不是题更多，是判得更细</h2>
-      <span class="sub">下面每个数字都是现算的，改一道题就会跟着变</span>
+      <span class="kicker">10 天怎么排</span>
+      <h2>先送分区，再中档区，最后压轴</h2>
+      <span class="sub">顺序不是随意的——熟练层没稳住之前练压轴，等于在漏水的桶里加水</span>
     </div>
   </div>
-  <div class="grid c3">
-    <div class="card proof-card">
-      <div class="proof-num">${MULTI_STEP_PCT}<small>%</small></div>
-      <h3>判到步，不是判到题</h3>
-      <p class="desc">${QUESTIONS.length} 道题拆成 <b>${STEP_TOTAL} 个步骤</b>，其中 ${MULTI_STEP_Q} 道是多步题。
-        只有多步题才分得出「卡在第 1 步（不会）」和「只错最后一步（会但错）」——
-        这一条是上面那个判断能成立的前提。</p>
-      <div class="meta">单步题只算对错，不参与这个判断</div>
-    </div>
-    <div class="card proof-card">
-      <div class="proof-num">${PAPERS.length}<small> 份</small></div>
-      <h3>对标的是真题，不是感觉</h3>
-      <p class="desc">${PAPERS.length} 份西城区统考卷逐题拆开，共 <b>${PAPER_Q_TOTAL} 条标注</b>，
-        归成 ${FAMILY_MAP.length} 个考点族。其中 <b>${ALWAYS_FAMILIES.length} 个族年年考</b>，
-        年均合计 <b>${ALWAYS_AVG_SCORE} 分</b>——这些是躲不开的分。</p>
-      <div class="meta">练什么由真题权重决定，不由主观估计决定</div>
-    </div>
-    <div class="card proof-card">
-      <div class="proof-num">${ABILITY_FULL}<small> / ${FAMILY_MAP.length} 族</small></div>
-      <h3>变式三级，验的是真会</h3>
-      <p class="desc">每个考点族配三道变式：<b>改数字</b>（解法稳不稳）、<b>改条件</b>（懂不懂适用条件）、
-        <b>逆向问</b>（会不会反推）。三级全对才算过——只过两级，考场换个数就翻车。</p>
-      <div class="meta">剩 ${FAMILY_MAP.length - ABILITY_FULL} 族是纯概念判断题，本身没有解题步骤，只能判对错</div>
-    </div>
+  <div class="grid c2">
+    ${[['第 1–3 天', '选择 + 填空（32 分）', '全是熟练层。冲满分的前提是这 32 分零失误——错一道 2 分，比压轴丢分更亏。'],
+       ['第 4–6 天', '解答题 17–22', '第 17 题单题 17–20 分（4 小问），全卷最大单题。题型固定，练 5 套就能摸清。'],
+       ['第 7–8 天', '压轴 23–26', '目标是拿到前两问，不是满分。压轴整题给分，没有「答一半给一半」。'],
+       ['第 9–10 天', '错题重做 + 整卷限时', '错过的不再做对，练了也白练。最后一天限时 100 分钟，考的是时间分配。']].map(([d, t, w]) => `
+    <div class="card sprint-mini">
+      <div class="sm-day">${d}</div>
+      <h3>${t}</h3>
+      <p class="desc" style="font-size:.88rem">${w}</p>
+    </div>`).join('')}
   </div>
+  <div style="margin-top:16px"><a class="btn primary" href="sprint.html">进入 10 天冲刺 →</a></div>
 </section>
 
 <section class="section">
   <div class="section-head">
     <div class="section-head-left">
       <span class="kicker">四个入口</span>
-      <h2>知识复习 · 巩固练习 · 错题本 · 考情解读</h2>
-      <span class="sub">复习是查，练习是练，错题是沉淀，考情是排序依据</span>
+      <h2>冲刺计划 · 巩固练习 · 错题本 · 学情诊断</h2>
+      <span class="sub">计划决定今天做什么，练习做题，错题沉淀，诊断给下一步</span>
     </div>
   </div>
   <div class="grid c2">
-    <a class="card entry-card" href="learn.html">
+    <a class="card entry-card" href="sprint.html">
       <div class="entry-no">01</div>
-      <h3>知识复习</h3>
-      <p class="desc">三块材料一处看：<b>概念</b>（要记什么条件）、<b>公式</b>（什么时候能用）、<b>知识点</b>（真题考过什么）。每条都能直接进练习。</p>
-      <div class="meta">${STATS.concepts} 张概念卡 · ${STATS.formulas} 条公式</div>
+      <h3>冲刺计划</h3>
+      <p class="desc">期末前 10 天，一天一个任务。每天显示「还剩几题」和完成度，做完自动打勾。</p>
+      <div class="meta">${PAPER_Q_TOTAL} 道真题切成 10 组</div>
     </a>
     <div class="card entry-card">
       <div class="entry-no">02</div>
       <h3>巩固练习</h3>
-      <p class="desc">一个入口三类都练：<b>概念判断</b>（说法对不对）、<b>方法辨析</b>（算法对不对）、<b>普通题</b>（完整解题）。答错记下卡在第几步。</p>
-      <div class="meta">${STATS.allQuestions} 题 + 概念/方法判断</div>
+      <p class="desc">按天出题，或自选范围。选择题与填空题<b>自动判分，答错立刻展开解析</b>；解答题给完整解答，对照自评。</p>
+      <div class="meta">单选 / 填空自动判 · 解答题给标准过程</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-        <a class="btn primary sm" href="drill.html?qtype=all&autostart=1">三类混出 →</a>
-        <a class="btn ghost sm" href="drill.html?qtype=concept">概念</a>
-        <a class="btn ghost sm" href="drill.html?qtype=method">方法</a>
-        <a class="btn ghost sm" href="drill.html?qtype=question">题目</a>
+        <a class="btn primary sm" href="drill.html?day=1&autostart=1">从第 1 天开始 →</a>
+        <a class="btn ghost sm" href="drill.html?qtype=all&autostart=1">随便练一组</a>
       </div>
     </div>
     <a class="card entry-card" href="wrong.html">
       <div class="entry-no">03</div>
       <h3>错题本</h3>
-      <p class="desc">答错的题自动进来，按<b>六类错因</b>分类——因为补救方式不同：符号错要专项，算错要限时，概念错要回条件判断。</p>
-      <div class="meta">符号 / 计算 / 概念 / 方法 / 建模 / 规范</div>
+      <p class="desc">答错的题自动进来，<b>每道都带解析</b>：题干 + 正确答案 + 为什么 + 这类题的坑。按错因分组，因为补救方式不同。</p>
+      <div class="meta">概念 / 符号 / 计算 / 方法</div>
     </a>
-    <a class="card entry-card" href="papers.html">
+    <a class="card entry-card" href="diag.html">
       <div class="entry-no">04</div>
-      <h3>考情解读</h3>
-      <p class="desc">${PAPERS.length} 份西城真题逐题拆开：章节分值、考点频次、难度分布。练习顺序就是从这里来的。</p>
-      <div class="meta">排序依据</div>
+      <h3>学情诊断</h3>
+      <p class="desc">基于<b>当前还没做对的错题</b>给结论：哪类错因最多、每道错题为什么错、下一步该做什么。</p>
+      <div class="meta">不是统计报告，是待办清单</div>
     </a>
   </div>
 </section>
@@ -782,31 +817,37 @@ function buildHome() {
     var fams = (window.YZ.META && window.YZ.META.families) || [];
     if (!fams.length || !Z.planToday) { el.style.display = 'none'; return; }
 
-    var plan = Z.planToday(fams);
-    var p0 = (plan.byBand && plan.byBand.P0) || [];
-    var p0Left = p0.filter(function(x){ return x.state !== 'passed'; });
+    /* 今日一行 = 冲刺计划的「下一天」。
+       不再是「最弱的族」——冲刺期学生要的是「第几天、还剩几题」，
+       而不是一张需要自己翻译成行动的族清单。 */
+    var DAYS = (window.YZ.META && window.YZ.META.sprint) || [];
+    if (!DAYS.length) { el.style.display = 'none'; return; }
+    var qlog = (Z.qLog && Z.qLog()) || {};
+    var seen = {};
+    (qlog.recent || []).forEach(function(r){ seen[r.id] = true; });
+    var wm = (Z.wrongMap && Z.wrongMap()) || {};
 
-    if (!plan.items.length) {
+    var next = null;
+    for (var i = 0; i < DAYS.length; i++) {
+      var d = DAYS[i];
+      var ids = d.kind === 'redo' ? Object.keys(wm) : (d.ids || []);
+      if (!ids.length) continue;                     /* 第 9 天没错题就跳过 */
+      var left = 0;
+      ids.forEach(function(id){ if (!seen[id]) left++; });
+      if (left > 0) { next = { d: d, left: left, total: ids.length }; break; }
+    }
+
+    if (!next) {
       el.innerHTML = '<span class="tl-label">今日</span>' +
-        '<span class="tl-text">全部达标，且没有到期复习。可以做一次整卷模考保持手感。</span>' +
-        '<a class="btn ghost sm" href="exam.html">模考</a>';
+        '<span class="tl-text">10 天任务都做完了。接下来把错题清零。</span>' +
+        '<a class="btn ghost sm" href="wrong.html">错题本</a>';
       el.style.display = '';
       return;
     }
-
-    if (p0Left.length) {
-      var names = p0Left.slice(0, 2).map(function(x){ return x.name; });
-      var more = p0Left.length > 2 ? ' 等 ' + p0Left.length + ' 族' : '';
-      el.innerHTML = '<span class="tl-label">今日</span>' +
-        '<span class="tl-text">熟练层还有 <b>' + p0Left.length + ' 族</b>未达标（' +
-        escHtml(names.join('、')) + more + '）</span>' +
-        '<a class="btn primary sm" href="drill.html?family=' + encodeURIComponent(p0Left[0].id) + '&autostart=1">练第一个</a>';
-    } else {
-      var first = plan.items[0];
-      el.innerHTML = '<span class="tl-label">今日</span>' +
-        '<span class="tl-text">熟练层已清零，接下来练 <b>' + escHtml(first.name) + '</b></span>' +
-        '<a class="btn primary sm" href="drill.html?family=' + encodeURIComponent(first.id) + '&autostart=1">开始</a>';
-    }
+    el.innerHTML = '<span class="tl-label">今日</span>' +
+      '<span class="tl-text">第 <b>' + next.d.day + ' 天 · ' + escHtml(next.d.title) + '</b>' +
+      '（剩 ' + next.left + ' / ' + next.total + ' 题）</span>' +
+      '<a class="btn primary sm" href="drill.html?day=' + next.d.day + '&autostart=1">开始</a>';
     el.style.display = '';
   }
   function escHtml(x){
@@ -828,8 +869,8 @@ function buildHome() {
 
   const html = page({
     active: 'index.html',
-    title: `${SITE.full} · 巩固练习与知识复习`,
-    desc: `${SITE.school} ${SITE.exam}复习：${STATS.allQuestions} 道题分步判定、${STATS.methods} 张方法卡、${STATS.concepts} 张概念卡、${STATS.formulas} 条公式法则。`,
+    title: `${SITE.full} · 10 天冲刺`,
+    desc: `${SITE.school} ${SITE.exam}：${PAPERS.length} 套真题切成 10 天任务，做错当场给解析，诊断按错因给下一步。`,
     body, script, data: ['meta'],
   });
   return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
@@ -1535,7 +1576,10 @@ function buildDrill() {
     qtype: ['question','concept','method'].indexOf(params.get('qtype')) >= 0 ? params.get('qtype') : 'all',
     /* 指定题号白名单：槽位专项页跳转用。
        逗号分隔的 id 列表，命中即入池，优先于章节/方法/分层筛选。 */
-    ids: (params.get('ids') || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean)
+    ids: (params.get('ids') || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean),
+    /* 冲刺计划的天数。带 day 参数时，题池完全由当天计划决定，
+       不再走章节/方法/分层筛选——那样会漏题也会串题。 */
+    day: parseInt(params.get('day'), 10) || 0
   };
 
   function bindChips(id, key, cast){
@@ -1597,11 +1641,30 @@ function buildDrill() {
   }
 
   function paintWhy(){
-    var f = pickFamily();
     var what = document.getElementById('whyWhat');
     var why = document.getElementById('whyWhy');
     var stEl = document.getElementById('whyState');
     if (!what) return;
+
+    /* 冲刺计划的一天：三行说明换成当天任务，而不是「最弱的族」。
+       这两套逻辑不能混——按族选题和按天选题是不同的题池。 */
+    if (sel.day) {
+      var sp = ((window.YZ.META && window.YZ.META.sprint) || [])[sel.day - 1];
+      if (!sp) { what.textContent = '第 ' + sel.day + ' 天不存在'; return; }
+      var cnt = (sp.kind === 'redo') ? Object.keys((Z.wrongMap && Z.wrongMap()) || {}).length
+                                     : (sp.ids || []).length;
+      what.innerHTML = '<b>第 ' + sp.day + ' 天 · ' + escH(sp.title) + '</b>' +
+        '<span class="why-tag">' + cnt + ' 题</span>' +
+        '<span class="why-tag ghost">' + sp.minutes + ' 分钟</span>';
+      why.textContent = sp.why;
+      stEl.textContent = sp.kind === 'redo'
+        ? (cnt ? '当前有 ' + cnt + ' 道错题待重做' : '现在没有错题，这一天可以跳过')
+        : (sp.paperCount > 1 ? '跨 ' + sp.paperCount + ' 套卷同题位对比' : '整卷限时');
+      document.getElementById('startBtn').textContent = '开始第 ' + sp.day + ' 天 →';
+      return;
+    }
+
+    var f = pickFamily();
 
     if (!f) {
       what.textContent = '全部达标';
@@ -1791,6 +1854,29 @@ function buildDrill() {
      不额外占题库文件，所以「一个入口」不会让数据变重。 */
   function collect(){
     var pool = [], wm = (Z.wrongMap && Z.wrongMap()) || {};
+
+    /* 冲刺计划的一天：题池由 META.sprint[day-1].ids 决定。
+       第 9 天（错题重做）的 ids 在构建期是空的，运行时用当前错题补上。
+       这条路径要最先返回——否则会被下面的章节/族筛选过滤掉大半。 */
+    if (sel.day) {
+      var sp = ((window.YZ.META && window.YZ.META.sprint) || [])[sel.day - 1];
+      if (!sp) { Z.toast('第 ' + sel.day + ' 天不存在'); return []; }
+      var wantIds = (sp.kind === 'redo') ? Object.keys(wm) : (sp.ids || []);
+      if (!wantIds.length) return [];
+      var want = {};
+      wantIds.forEach(function(id){ want[id] = true; });
+      Object.keys(CH).forEach(function(cid){
+        (CH[cid].questions||[]).forEach(function(q){
+          if (want[q.id]) pool.push(q);
+        });
+      });
+      /* 按计划里的原顺序排（题号升序），不洗牌——
+         同一题位跨卷对比才有意义，打乱就看不出来了。 */
+      var order = {};
+      wantIds.forEach(function(id, i){ order[id] = i; });
+      pool.sort(function(a, b){ return (order[a.id]||0) - (order[b.id]||0); });
+      return pool;
+    }
     var weakMethods = {};
     if (sel.scope === 'weak' && Z.methodWeakness) {
       (Z.methodWeakness() || []).slice(0, 3).forEach(function(w){ weakMethods[w.id] = true; });
@@ -1861,7 +1947,13 @@ function buildDrill() {
 
   document.getElementById('startBtn').addEventListener('click', function(){
     var raw = collect();
-    if (!raw.length) { Z.toast('这个范围暂时没有题目'); return; }
+    if (!raw.length) {
+      Z.toast(sel.day === 9 ? '现在没有错题，第 9 天可以跳过' : '这个范围暂时没有题目');
+      return;
+    }
+    /* 冲刺计划的一天：题量就是当天的全部，不截断。
+       否则「第 3 天 40 题」会被默认 10 题截掉，完成度永远到不了 100%。 */
+    if (sel.day) sel.len = raw.length;
     var arranged = arrangeByLadder(raw);
     var pool = arranged.pool;
     var chains = arranged.chains;
@@ -1876,8 +1968,10 @@ function buildDrill() {
     }
     sel.len = n;
     /* 指定题号时保持给定顺序（槽位题按难度递进排好），不洗牌；
-       三级链模式下也保持链顺序（否则递进失效） */
-    var keepOrder = sel.ids.length > 0 || chains.length > 0;
+       三级链模式下也保持链顺序（否则递进失效）。
+       冲刺计划的一天也要保序：同题位跨卷对比才看得出「是这套卷不会
+       还是这类题不会」，打乱就把这个信息丢了。 */
+    var keepOrder = sel.ids.length > 0 || chains.length > 0 || sel.day > 0;
     if (chains.length) {
       Z.toast('本组含 ' + chains.length + ' 条三级链：改数字 → 改条件 → 逆向');
     }
@@ -1909,8 +2003,8 @@ function buildDrill() {
       /* 直接出题：点「巩固练习」就该开始做，不该先配置。
          带 family / ids / method 等参数时不自动开始（那是明确的定向练习）；
          从首页或导航直接进来时自动开始。 */
-      var directed = sel.family && params.get('family')
-        || sel.ids.length || sel.method || sel.chapter;
+      var directed = (sel.family && params.get('family'))
+        || sel.ids.length || sel.method || sel.chapter || sel.day;
       if (params.get('autostart') === '1' || !directed) {
         document.getElementById('startBtn').click();
       }
@@ -2466,10 +2560,28 @@ function buildWrong() {
         (w.nearMiss ? ' · <b style="color:var(--gold)">会做但错</b>' : '') + '</span></div>' +
         '<div class="wb-stem">' + (x.stemHtml || x.stem || '') + '</div>' +
         (x.figHtml ? '<div class="wb-fig">' + x.figHtml + '</div>' : '') +
-        '<ol class="wb-steps">' + (x.steps||[]).map(function(s, i){
-          return '<li><b>' + (s.labelHtml||s.label||('第 '+(i+1)+' 步')) + '</b>：' + (s.answerHtml || s.answer || s.askHtml || s.ask || '') + '</li>';
-        }).join('') + '</ol>' +
-        (x.solutionHtml ? '<details class="wb-sol"><summary>完整解答</summary><div>' + x.solutionHtml + '</div></details>' : '') +
+        /* 单选题必须列出选项：不列的话学生复盘时只看到题干，
+           根本不知道当时在四个什么之间选——选项本身就是题的一部分。 */
+        (x.qtype === 'single' && x.optionsHtml
+          ? '<ol class="wb-opts">' + x.optionsHtml.map(function(o, i){
+              var on = (i === x.key) ? ' class="on"' : '';
+              return '<li' + on + '><span class="wb-opt-k">' + 'ABCD'[i] + '</span>' + o + '</li>';
+            }).join('') + '</ol>'
+          : '') +
+        /* steps 为空时不渲染 <ol>：真题没有拆步，空列表会留下一条
+           什么都没有的白条，看着像加载失败。 */
+        ((x.steps||[]).length
+          ? '<ol class="wb-steps">' + x.steps.map(function(s, i){
+              return '<li><b>' + (s.labelHtml||s.label||('第 '+(i+1)+' 步')) + '</b>：' + (s.answerHtml || s.answer || s.askHtml || s.ask || '') + '</li>';
+            }).join('') + '</ol>'
+          : '') +
+        /* 解析默认展开。用户要求「错题要有解析」——错题本里的解析
+           藏在折叠里等于没有：错题本就是用来复盘的，点开才看是反人性设计。 */
+        (x.answerHtml ? '<div class="wb-ans"><span class="wb-ans-k">正确答案</span>' + x.answerHtml + '</div>' : '') +
+        (x.solutionHtml
+          ? '<div class="wb-sol-open"><b>为什么</b>' + x.solutionHtml + '</div>'
+          : '<div class="wb-nosol">本题暂无解析（原卷未提供答案）</div>') +
+        (x.pitfallHtml ? '<div class="wb-pit"><b>易错</b>' + x.pitfallHtml + '</div>' : '') +
         '</div>';
     }).join('');
 
@@ -2766,15 +2878,24 @@ function buildDiag() {
 <section class="section">
   <div class="part-head">
     <span class="part-no">三</span>
-    <div><h2>错因归类</h2><span class="sub">错在哪一类——这决定怎么补：符号错要专项，算错要限时重复</span></div>
+    <div><h2>错题归因</h2><span class="sub">这一节的每一行都来自错题本里的具体题目，不是累计统计</span></div>
   </div>
   <div class="card" id="errCard"></div>
+</section>
+
+<section class="section">
+  <div class="part-head">
+    <span class="part-no">四</span>
+    <div><h2>错题清单与下一步</h2><span class="sub">每道错题带解析；按错因分组，每组给一个动作</span></div>
+  </div>
+  <div id="wrongDiag"></div>
 </section>
 `;
 
   const script = `
 (function(){
   var Z = window.YZ;
+  var CH = {}; /* 分片异步加载后填充：错题清单要读题干与解析 */
   var TIER_NAME = ${JSON.stringify(TIER_NAME)};
   var TIER_TARGET = ${JSON.stringify(TIER_TARGET)};
   var ERR_NAME = { concept:'概念边界', sign:'符号错误', calc:'计算失误', method:'方法未掌握' };
@@ -2876,32 +2997,152 @@ function buildDiag() {
       }
     }
 
+    /* 错题归因：只用「当前还没做对的错题」，不用历史累计。
+       累计统计会把已经补回来的错也算进去，学生看到的是一张
+       越来越大的「历史错误账单」，但真正要处理的是现在手里这几道。
+       历史累计挪到下方一行小字，保留信息但不占主位。 */
+    var curErr = {};   /* 当前错题的错因分布 */
+    var curByErr = {}; /* 错因 → 题目 id 列表 */
+    Object.keys(wrong).forEach(function(id){
+      var w = wrong[id] || {};
+      var e = w.errorType || 'method';
+      curErr[e] = (curErr[e] || 0) + 1;
+      (curByErr[e] = curByErr[e] || []).push(id);
+    });
+
     var ec = document.getElementById('errCard');
     if (ec) {
-      var errs = Object.keys(errStats).filter(function(k){ return (errStats[k].n||0)>0; });
+      var errs = Object.keys(curErr);
       if (!errs.length) {
-        ec.innerHTML = '<p style="margin:0;color:var(--text-2);font-size:.9rem">还没有错因记录。答错时系统会按你选的错项反推错因。</p>';
+        ec.innerHTML = '<p style="margin:0;color:var(--text-2);font-size:.9rem">' +
+          '当前没有待处理的错题。答错时系统会按你选的那个错项反推错因，并在这里分组。</p>';
       } else {
-        var sum = errs.reduce(function(a,k){ return a+errStats[k].n; }, 0);
-        ec.innerHTML = '<div class="err-rows">'+errs.sort(function(a,b){ return errStats[b].n-errStats[a].n; }).map(function(k){
-          var e = errStats[k];
-          var p2 = Math.round(e.n/sum*100);
-          var fix = e.n ? Math.round((e.ok||0)/e.n*100) : 0;
+        var sum = errs.reduce(function(a,k){ return a+curErr[k]; }, 0);
+        errs.sort(function(a,b){ return curErr[b]-curErr[a]; });
+        var rows = errs.map(function(k){
+          var n = curErr[k];
+          var p2 = Math.round(n/sum*100);
           return '<div class="err-row"><span class="err-name">'+(ERR_NAME[k]||k)+'</span>'+
             '<span class="err-bar-wrap"><span class="err-bar" style="width:'+p2+'%"></span></span>'+
-            '<span class="err-n">'+e.n+' 次</span><span class="err-fix">补救 '+fix+'%</span></div>'+
+            '<span class="err-n">'+n+' 题</span></div>'+
             '<p class="desc" style="margin:-4px 0 10px;font-size:.82rem;color:var(--text-3)">→ '+(ERR_FIX[k]||'')+'</p>';
-        }).join('')+'</div>';
+        }).join('');
+        /* 一句话结论：哪一类最多、意味着什么 */
+        var top = errs[0], topN = curErr[top];
+        var verdict = '';
+        if (top === 'calc') verdict = '最多的是<b>计算失误</b>——不是不会，是熟练度。这类只能靠限时重复压下去，看讲解没用。';
+        else if (top === 'sign') verdict = '最多的是<b>符号错误</b>——去括号、移项、乘方底数三处。这是可以专项练掉的。';
+        else if (top === 'concept') verdict = '最多的是<b>概念边界</b>——定义的条件没分清。回概念卡，看「差在哪个条件」。';
+        else verdict = '最多的是<b>方法未掌握</b>——没认出该用哪个工具。看方法卡的「识别信号」。';
+        ec.innerHTML = '<div class="err-verdict">'+verdict+'</div>' +
+          '<div class="err-rows">'+rows+'</div>' +
+          '<p class="desc" style="margin:12px 0 0;font-size:.8rem;color:var(--text-3)">' +
+          '历史累计（含已补回的）：' + Object.keys(errStats).filter(function(k){return errStats[k].n>0;})
+            .map(function(k){ return (ERR_NAME[k]||k)+' '+errStats[k].n+' 次'; }).join(' · ') +
+          '</p>';
+      }
+    }
+
+    /* 四、错题清单：每题带解析，按错因分组，每组一个动作 */
+    var wd = document.getElementById('wrongDiag');
+    if (wd) {
+      var ids = Object.keys(wrong);
+      if (!ids.length) {
+        wd.innerHTML = '<div class="card"><p style="margin:0;color:var(--text-2);font-size:.9rem">' +
+          '还没有错题。做错的题会自动进来，并且带解析。</p></div>';
+      } else {
+        /* 从分片里找题（题干、答案、解析都在分片里） */
+        var byId = {};
+        Object.keys(CH).forEach(function(cid){
+          (CH[cid].questions||[]).forEach(function(q){ byId[q.id] = q; });
+        });
+        var groups = {};
+        ids.forEach(function(id){
+          var w = wrong[id] || {};
+          var e = w.errorType || 'method';
+          (groups[e] = groups[e] || []).push({ id: id, w: w, q: byId[id] });
+        });
+        var ACTION = {
+          concept: { t:'回概念卡看「差在哪个条件」', href:'learn.html' },
+          sign:    { t:'练符号专项（去括号/移项）', href:'drill.html?day=4&autostart=1' },
+          calc:    { t:'限时重复同类计算', href:'drill.html?day=3&autostart=1' },
+          method:  { t:'看方法卡的识别信号', href:'learn.html' },
+        };
+        var order = Object.keys(groups).sort(function(a,b){ return groups[b].length-groups[a].length; });
+        wd.innerHTML = order.map(function(e){
+          var list = groups[e];
+          var act = ACTION[e] || ACTION.method;
+          var items = list.slice(0, 8).map(function(x){
+            var q = x.q;
+            if (!q) return '';
+            return '<div class="wd-item">' +
+              '<div class="wd-head">' +
+                '<span class="wd-tag">' + (q.tierName || '') + '</span>' +
+                '<span class="wd-n">错 ' + (x.w.n||1) + ' 次</span>' +
+                (x.w.nearMiss ? '<span class="wd-nm">会做但错</span>' : '') +
+              '</div>' +
+              '<div class="wd-stem">' + (q.stemHtml || q.stem || '') + '</div>' +
+              (q.qtype === 'single' && q.optionsHtml
+                ? '<ol class="wb-opts">' + q.optionsHtml.map(function(o, i){
+                    var on = (i === q.key) ? ' class="on"' : '';
+                    return '<li' + on + '><span class="wb-opt-k">' + 'ABCD'[i] + '</span>' + o + '</li>';
+                  }).join('') + '</ol>'
+                : '') +
+              (q.answerHtml ? '<div class="wd-ans"><b>答案</b>' + q.answerHtml + '</div>' : '') +
+              (q.solutionHtml ? '<div class="wd-sol"><b>为什么</b>' + q.solutionHtml + '</div>'
+                              : '<div class="wd-nosol">本题暂无解析（原卷未提供答案）</div>') +
+              (q.pitfallHtml ? '<div class="wd-pit"><b>易错</b>' + q.pitfallHtml + '</div>' : '') +
+            '</div>';
+          }).join('');
+          var more = list.length > 8
+            ? '<p class="desc" style="margin:8px 0 0;font-size:.82rem;color:var(--text-3)">' +
+              '还有 ' + (list.length-8) + ' 道在错题本里</p>' : '';
+          return '<div class="card wd-group">' +
+            '<div class="wd-group-head">' +
+              '<h3>' + (ERR_NAME[e]||e) + ' · ' + list.length + ' 题</h3>' +
+              '<a class="btn ghost sm" href="' + act.href + '">' + act.t + ' →</a>' +
+            '</div>' +
+            items + more +
+            '<div class="wd-foot"><a class="btn primary sm" href="wrong.html?tab=' + e + '">去错题本处理这 ' + list.length + ' 题 →</a></div>' +
+          '</div>';
+        }).join('');
       }
     }
 
     var wl = document.getElementById('weakList');
     if (wl) {
+      /* 字段名必须从 app.js 的返回结构取：
+         methodWeakness 返回 { key, rate, answered, ... }——没有 name / n。
+         chapterWeakness 返回 { id, name, rate, n }。
+         之前两处都读 name，方法那半边永远显示 undefined。
+         另外真题的 method 是 null（真题不挂方法卡），所以方法维度
+         在真题库里永远是空的——这一节实际上只该列章节。 */
       var mw = (Z.methodWeakness ? Z.methodWeakness() : []) || [];
       var cw = (Z.chapterWeakness ? Z.chapterWeakness() : []) || [];
+      var mName = {};
+      ((window.YZ.META && window.YZ.META.methods) || []).forEach(function(m){ mName[m.id] = m.name; });
       var items = [];
-      mw.slice(0,4).forEach(function(x){ items.push({ name:x.name, rate:x.rate, n:x.n, go:'drill.html?method='+x.id+'&autostart=1', kind:'方法' }); });
-      cw.slice(0,3).forEach(function(x){ items.push({ name:x.name, rate:x.rate, n:x.n, go:'drill.html?chapter='+x.id+'&autostart=1', kind:'章节' }); });
+      mw.slice(0,4).forEach(function(x){
+        if (!x || !x.key) return;
+        var nm = mName[x.key];
+        if (!nm) return;                       /* 无名字的方法 id 不展示 */
+        items.push({
+          name: nm, rate: x.rate, n: x.answered || 0,
+          go: 'drill.html?method=' + encodeURIComponent(x.key) + '&autostart=1',
+          kind: '方法',
+        });
+      });
+      /* chapterWeakness 同样返回 key / answered，不是 id / n。 */
+      var cName = {};
+      ((window.YZ.META && window.YZ.META.chapters) || []).forEach(function(c){ cName[c.id] = c.name; });
+      cw.slice(0,3).forEach(function(x){
+        if (!x || !x.key) return;
+        items.push({
+          name: cName[x.key] || x.key, rate: x.rate, n: x.answered || 0,
+          go: 'drill.html?chapter=' + encodeURIComponent(x.key) + '&autostart=1',
+          kind: '章节',
+        });
+      });
       if (!items.length) {
         wl.innerHTML = '<div class="card"><p style="margin:0;color:var(--text-2);font-size:.9rem">还没有足够数据判断薄弱点。做 2–3 组题后这里会排序。</p></div>';
       } else {
@@ -2909,7 +3150,7 @@ function buildDiag() {
           var r = Math.round((x.rate||0)*100);
           return '<a class="card weak-card" data-go="'+x.go+'">'+
             '<div class="wc-head"><b>'+x.name+'</b><span class="wc-kind">'+x.kind+'</span></div>'+
-            '<div class="wc-rate">'+r+'%<span> · '+x.n+' 次</span></div>'+
+            '<div class="wc-rate">'+r+'%<span> · '+x.n+' 题</span></div>'+
             '<div class="wc-go">去练 →</div></a>';
         }).join('')+'</div>';
         [].forEach.call(wl.querySelectorAll('.weak-card[data-go]'), function(a){
@@ -2919,14 +3160,25 @@ function buildDiag() {
     }
   }
 
-  Z.ready(function(){ paint(); document.addEventListener('yz:qlog', paint); });
+  /* 错题清单要读题干与解析，必须先加载分片。
+     之前 diag 不加载分片，所以只能显示聚合数字——这就是
+     「诊断是报告不是清单」的根因。 */
+  Z.ready(function(){
+    if (Z.loadAll) {
+      Z.loadAll(Z.chapterIds()).then(function(all){
+        CH = all || {};
+        paint();
+      });
+    } else { paint(); }
+    document.addEventListener('yz:qlog', paint);
+  });
 })();
 `;
 
   const html = page({
     active: 'diag.html',
     title: '学情诊断',
-    desc: '按数据 → 薄弱知识点 → 错因三步读的学情诊断。',
+    desc: '按数据 → 薄弱知识点 → 错题归因 → 下一步四步读的学情诊断，每道错题带解析。',
     body, script, data: ['meta'],
   });
   return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
@@ -4927,6 +5179,226 @@ function buildGraph() {
    大题讲步骤骨架、小题讲识别与反例、压轴只讲入场动作。
    ========================================================== */
 
+/* ==========================================================
+   页面：10 天冲刺 sprint.html
+
+   这是全站的主入口（2026-11-25 改）。
+   之前站点按「知识点」组织——学生打开后要自己想「今天练什么」。
+   改成按「第几天」组织：每天一个明确任务，做完打勾，第 10 天整卷验收。
+
+   为什么是 10 天而不是「按知识点排列」：
+     冲刺期最稀缺的不是题，是「今天该做什么」这个决定。
+     把决定替学生做完，他才把时间花在练上。
+
+   每天的任务是真题切片，不是原创模拟题：
+     5 套西城卷 × 26 题 = 130 题，全部有出处。
+     学生练的每一题都能在「真题核验」页查到原卷。
+   ========================================================== */
+function buildSprint() {
+  const R = newRenderers();
+
+  const body = `
+<div class="page-head">
+  <div class="crumb"><a href="index.html">首页</a> / 冲刺计划</div>
+  <h1>10 天冲刺</h1>
+  <p class="lede">
+    期末前 10 天，把 ${PAPERS.length} 套西城真题拆成 10 个任务，一天一组，做完打勾。
+    顺序不是随意的：<b>先送分区（选择填空 32 分），再中档区，最后压轴</b>——
+    熟练层没稳住之前练压轴，等于在漏水的桶里加水。
+    第 9 天专做错题，第 10 天整卷限时。
+  </p>
+</div>
+
+<section class="section" style="margin-top:18px">
+  <div class="card sprint-status" id="sprintStatus"></div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">按顺序做，不要跳</span>
+    <h2>第 1–10 天</h2>
+    <span class="sub">每天一个任务 · 点「开始」直接出题 · 做完自动记完成度</span>
+  </div></div>
+  <div id="sprintList"></div>
+</section>
+
+<section class="section">
+  <div class="card" style="padding:18px 22px">
+    <h3 style="margin:0 0 10px">为什么这么排</h3>
+    <div class="grid c2" style="gap:16px">
+      <div>
+        <b>第 1–3 天：选择 + 填空（32 分）</b>
+        <p class="desc" style="font-size:.87rem">这两块全是熟练层。冲满分的前提是这 32 分零失误——
+        错一道 2 分，比压轴丢分更亏，因为它本来是最该拿到的。</p>
+      </div>
+      <div>
+        <b>第 4–6 天：解答题 17–22</b>
+        <p class="desc" style="font-size:.87rem">第 17 题单题 17–20 分（4 小问），是全卷最大单题。
+        这里稳不住，满分无望；但题型固定，练 5 套就能摸清套路。</p>
+      </div>
+      <div>
+        <b>第 7–8 天：压轴 23–26</b>
+        <p class="desc" style="font-size:.87rem">目标是<b>拿到前两问</b>，不是满分。
+        压轴题是整题给分，没有「答一半给一半」——所以只求入场分。</p>
+      </div>
+      <div>
+        <b>第 9–10 天：错题 + 整卷</b>
+        <p class="desc" style="font-size:.87rem">错过的不再做对，练了也白练。
+        最后一天限时 100 分钟，检验的是时间分配——这才是考场上真正丢分的地方。</p>
+      </div>
+    </div>
+    <div class="sprint-trace">
+      <span>这个顺序不是估的：</span>
+      <a href="papers.html">考情解读（逐年分值分布与考点频次）</a>
+      <span>·</span>
+      <a href="exam-verify.html">真题核验（每道题的原卷出处）</a>
+    </div>
+  </div>
+</section>
+`;
+
+  const script = `
+(function(){
+  var Z = window.YZ;
+  var META = (window.YZ && window.YZ.META) || {};
+  var DAYS = META.sprint || [];
+  var KIND = { choice:'选择', fill:'填空', solve:'解答', redo:'错题重做', full:'整卷' };
+
+  /* 完成度口径：某天「完成」= 该天所有题都作答过（不论对错）。
+     不要求全对——全对是达标，不是完成。这两件事混在一起
+     会让学生不敢往前推，卡在第 1 天反复做。 */
+  function dayStats(day){
+    var qlog = (Z.qLog && Z.qLog()) || {};
+    var seen = {};
+    (qlog.recent || []).forEach(function(r){ seen[r.id] = true; });
+    var ids = day.ids || [];
+    /* 第 9 天（错题重做）的题在运行时才知道，不能预计算 */
+    if (day.kind === 'redo') {
+      var wm0 = (Z.wrongMap && Z.wrongMap()) || {};
+      ids = Object.keys(wm0);
+    }
+    var done = 0, right = 0;
+    var wm = (Z.wrongMap && Z.wrongMap()) || {};
+    ids.forEach(function(id){
+      if (seen[id]) done++;
+      if (seen[id] && !wm[id]) right++;
+    });
+    return { total: ids.length, done: done, right: right, ids: ids };
+  }
+
+  function escH(x){
+    return String(x == null ? '' : x).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function paint(){
+    var box = document.getElementById('sprintStatus');
+    var list = document.getElementById('sprintList');
+    if (!DAYS.length) {
+      box.innerHTML = '<p style="margin:0;color:var(--text-2)">计划数据未加载，请重新构建。</p>';
+      return;
+    }
+
+    /* 顶部状态：下一个该做的任务。
+       分母用「唯一题数」不是「各天题数之和」——
+       第 10 天整卷的 26 题前面都练过，按天相加会算成 156，
+       而题库只有 130 题。分母虚高会让进度永远到不了 100%。 */
+    var nextDay = null, doneDays = 0, doneQ = 0;
+    var uniq = {};
+    DAYS.forEach(function(d){
+      var st = dayStats(d);
+      st.ids.forEach(function(id){ uniq[id] = true; });
+      doneQ += st.done;
+      var finished = st.total > 0 && st.done >= st.total;
+      if (finished) doneDays++;
+      else if (nextDay === null) nextDay = { d: d, st: st };
+    });
+    var totalQ = Object.keys(uniq).length;
+
+    var pct = totalQ ? Math.round(doneQ / totalQ * 100) : 0;
+    var head = '';
+    if (nextDay) {
+      var nd = nextDay.d, nst = nextDay.st;
+      var left = nst.total - nst.done;
+      head = '<div class="sprint-next">' +
+        '<div class="sprint-next-k">下一个任务</div>' +
+        '<div class="sprint-next-t">第 ' + nd.day + ' 天 · ' + escH(nd.title) + '</div>' +
+        '<div class="sprint-next-g">' + escH(nd.goal) + '</div>' +
+        '<div class="sprint-next-m">' + (left > 0
+          ? '还剩 ' + left + ' 题 · 约 ' + nd.minutes + ' 分钟'
+          : '还没开始 · 约 ' + nd.minutes + ' 分钟') + '</div>' +
+        '<a class="btn primary" href="drill.html?day=' + nd.day + '&autostart=1">开始第 ' + nd.day + ' 天 →</a>' +
+        '</div>';
+    } else {
+      head = '<div class="sprint-next sprint-done">' +
+        '<div class="sprint-next-k">全部完成</div>' +
+        '<div class="sprint-next-t">10 天任务做完了</div>' +
+        '<div class="sprint-next-g">最后一步：把错题本清零，然后限时再做一次整卷确认节奏。</div>' +
+        '<a class="btn primary" href="wrong.html">去清错题 →</a>' +
+        '</div>';
+    }
+    head += '<div class="sprint-bar-wrap">' +
+      '<div class="sprint-bar"><div class="sprint-bar-in" style="width:' + pct + '%"></div></div>' +
+      '<div class="sprint-bar-meta"><b>' + Math.min(doneQ, totalQ) + ' / ' + totalQ + '</b> 题已作答 · ' +
+      doneDays + ' / ' + DAYS.length + ' 天完成</div>' +
+      '</div>';
+    box.innerHTML = head;
+
+    /* 10 天列表 */
+    list.innerHTML = DAYS.map(function(d){
+      var st = dayStats(d);
+      var finished = st.total > 0 && st.done >= st.total;
+      var started = st.done > 0;
+      var cls = finished ? 'done' : (started ? 'doing' : '');
+      var stateTxt = finished
+        ? '✓ 完成 · 对 ' + st.right + '/' + st.total
+        : (started ? '进行中 ' + st.done + '/' + st.total : (st.total ? st.total + ' 题' : '待定'));
+
+      var meta = [];
+      if (d.paperCount > 1) meta.push(d.paperCount + ' 套卷');
+      if (d.paperCount === 1) meta.push('整卷');
+      meta.push(d.minutes + ' 分钟');
+      if (d.kind === 'redo') meta.push('按当前错题数动态出题');
+
+      return '<div class="card sprint-day ' + cls + '" data-day="' + d.day + '">' +
+        '<div class="sd-left">' +
+          '<div class="sd-num">' + d.day + '</div>' +
+          '<div class="sd-kind">' + (KIND[d.kind] || d.kind) + '</div>' +
+        '</div>' +
+        '<div class="sd-main">' +
+          '<div class="sd-head">' +
+            '<h3>' + escH(d.title) + '</h3>' +
+            '<span class="sd-state">' + stateTxt + '</span>' +
+          '</div>' +
+          '<p class="sd-goal">' + escH(d.goal) + '</p>' +
+          '<p class="sd-why">' + escH(d.why) + '</p>' +
+          '<div class="sd-foot">' +
+            '<span class="sd-meta">' + meta.join(' · ') + '</span>' +
+            '<a class="btn ' + (finished ? 'ghost' : 'primary') + ' sm" href="drill.html?day=' + d.day +
+              (finished ? '' : '&autostart=1') + '">' +
+              (finished ? '重做' : (started ? '继续 →' : '开始 →')) + '</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  Z.ready(function(){
+    paint();
+    document.addEventListener('yz:qlog', paint);
+  });
+})();
+`;
+
+  const html = page({
+    base: '', active: 'sprint.html', title: '10 天冲刺',
+    desc: '期末前 10 天，把 5 套西城真题拆成 10 个任务，一天一组。先送分区，再中档区，最后压轴。',
+    body, script, data: ['meta'],
+  });
+  return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
+}
+
 function buildPlan() {
   const R = newRenderers();
 
@@ -5206,34 +5678,33 @@ function main() {
      validate.mjs 有一条「产物存在性」检查会兜住这类回归。 */
   const tasks = [
     ['home', () => emit('index.html', buildHome())],
-    ['today', () => emit('today.html', buildToday())],
-    ['calc', () => emit('calc.html', buildCalc())],
-    ['concept', () => emit('concept.html', buildConcept())],
-    ['learn', () => emit('learn.html', buildLearn())],
-    /* ['know', () => emit('know.html', buildKnow())],  已按用户要求删除（2026-11-24）：
-       从用户视角看没有意义。生成函数 buildKnow() 与数据 src/data-know.js 全部保留，
-       加回本行即可恢复。 */
+    ['sprint', () => emit('sprint.html', buildSprint())],
     ['drill', () => emit('drill.html', buildDrill())],
-    ['method', () => {
-      emit('method.html', buildMethodIndex());
-      METHODS.forEach((m) => emit(`method/${m.id}.html`, buildMethodCard(m)));
-    }],
-    ['map', () => {
-      emit('map.html', buildMap());
-      CHAPTERS.forEach((c) => emit(`map/${c.id}.html`, buildChapter(c)));
-    }],
-    ['diag', () => emit('diag.html', buildDiag())],
     ['wrong', () => emit('wrong.html', buildWrong())],
-    ['slots', () => emit('slots.html', buildSlots())],
-    /* ['ladder', () => emit('ladder.html', buildLadder())],  2026-11-25 下线：
-       变式阶梯依赖原创变式题（改数字/改条件/逆向），真题没有这类变式，
-       练习池换成真题后阶梯全部断链。生成函数与数据保留，加回即可恢复。 */
-    ['exam', () => emit('exam.html', buildExam())],
+    ['diag', () => emit('diag.html', buildDiag())],
+    ['learn', () => emit('learn.html', buildLearn())],
     ['papers', () => emit('papers.html', buildPapers())],
     ['examverify', () => emit('exam-verify.html', buildExamVerify())],
-    ['plan', () => emit('plan.html', buildPlan())],
-    ['graph', () => emit('graph.html', buildGraph())],
-    ['content', () => emit('content.html', buildContent())],
+
+    /* ===== 以下页面已按用户要求从构建移除（2026-11-25）=====
+       口径：全站逻辑改为「10 天冲刺」后，这些页面不再属于主路径。
+       源文件、数据与生成函数全部保留，加回一行即可恢复：
+
+       ['today',   () => emit('today.html', buildToday())],    今日清单 → 由 sprint 取代
+       ['calc',    () => emit('calc.html', buildCalc())],      计算专项 → drill 已覆盖
+       ['concept', () => emit('concept.html', buildConcept())], 概念自测 → drill 的 qtype 已覆盖
+       ['method',  () => { emit('method.html', buildMethodIndex());
+                           METHODS.forEach((m) => emit(`method/${m.id}.html`, buildMethodCard(m))); }],
+       ['map',     () => { emit('map.html', buildMap());
+                           CHAPTERS.forEach((c) => emit(`map/${c.id}.html`, buildChapter(c))); }],
+       ['slots',   () => emit('slots.html', buildSlots())],    槽位专项 → 冲刺计划已按题位分组
+       ['exam',    () => emit('exam.html', buildExam())],      随机整卷 → 第 10 天用真题整卷
+       ['plan',    () => emit('plan.html', buildPlan())],      三阶段计划 → 冲刺计划取代
+       ['graph',   () => emit('graph.html', buildGraph())],    公式库 → 无入口，纯查阅
+       ['content', () => emit('content.html', buildContent())], 口径说明 → 低频
+       ['ladder',  () => emit('ladder.html', buildLadder())],  变式阶梯 → 真题无变式题，早已断链
+       ['know',    () => emit('know.html', buildKnow())],      知识点讲解 → 用户判定无意义
+    */
   ];
 
   tasks.forEach(([k, fn]) => { if (want(k)) fn(); });

@@ -70,59 +70,29 @@ export const EXAM_BANK = [
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
      "v": "5"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": "﹣"
-    },
-    {
-     "t": "text",
-     "v": "5"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "v": "﹣5"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId7",
-     "src": "media/image3.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image3.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId9",
-     "src": "media/image4.png"
+     "src": "media/image4.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -184,58 +154,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId11",
-     "src": "media/image5.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image5.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId13",
-     "src": "media/image6.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image6.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId15",
-     "src": "media/image7.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image7.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId17",
-     "src": "media/image8.png"
+     "src": "media/image8.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -257,7 +203,7 @@ export const EXAM_BANK = [
   "name": "数轴比较大小",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，数轴上的点A表示的数可能是(   )",
+  "stemText": "如图，数轴上的点A表示的数可能是(   ) ⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -286,10 +232,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": " "
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId19",
+    "src": "media/image9.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
    "3. 如图，数轴上的点A表示的数可能是(   ) ",
+   "⟨公式⟩",
    "A. ⟨公式⟩B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
   ],
   "options": [
@@ -301,58 +257,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId20",
-     "src": "media/image10.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image10.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId22",
-     "src": "media/image11.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image11.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId24",
-     "src": "media/image12.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image12.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId26",
-     "src": "media/image13.png"
+     "src": "media/image13.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -399,54 +331,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId28",
-     "src": "media/image14.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image14.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId30",
-     "src": "media/image15.png"
+     "src": "media/image15.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId32",
-     "src": "media/image16.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image16.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId34",
-     "src": "media/image17.png"
+     "src": "media/image17.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -481,7 +393,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId36",
-    "src": "media/image18.png"
+    "src": "media/image18.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -490,7 +403,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId38",
-    "src": "media/image19.png"
+    "src": "media/image19.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -499,7 +413,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId40",
-    "src": "media/image20.png"
+    "src": "media/image20.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -508,7 +423,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId40",
-    "src": "media/image20.png"
+    "src": "media/image20.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -537,54 +453,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId43",
-     "src": "media/image21.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image21.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId45",
-     "src": "media/image22.png"
+     "src": "media/image22.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId47",
-     "src": "media/image23.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image23.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId49",
-     "src": "media/image24.png"
+     "src": "media/image24.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -606,7 +502,7 @@ export const EXAM_BANK = [
   "name": "整式加减（图形边长）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "我国曾发行过一款如右图所示的国家重点保护野生动物（Ⅰ级）邮票小全张，设计者巧妙地将“野牦牛”和“黑颈鹤”这两枚不同规格的过桥票（无邮政铭记和面值的附票，在图中标记为①，②），与其他10枚尺寸相同的普通邮票组合在一起构成一个长方形，整个画面和谐统一，以下关于图中所示的三种规格邮票边长的数量关系的结论中，正确的是（    ）",
+  "stemText": "我国曾发行过一款如右图所示的国家重点保护野生动物（Ⅰ级）邮票小全张，设计者巧妙地将“野牦牛”和“黑颈鹤”这两枚不同规格的过桥票（无邮政铭记和面值的附票，在图中标记为①，②），与其他10枚尺寸相同的普通邮票组合在一起构成一个长方形，整个画面和谐统一，以下关于图中所示的三种规格邮票边长的数量关系的结论中，正确的是（    ）⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -623,10 +519,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "枚尺寸相同的普通邮票组合在一起构成一个长方形，整个画面和谐统一，以下关于图中所示的三种规格邮票边长的数量关系的结论中，正确的是（    ）"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId51",
+    "src": "media/image25.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
    "6. 我国曾发行过一款如右图所示的国家重点保护野生动物（Ⅰ级）邮票小全张，设计者巧妙地将“野牦牛”和“黑颈鹤”这两枚不同规格的过桥票（无邮政铭记和面值的附票，在图中标记为①，②），与其他10枚尺寸相同的普通邮票组合在一起构成一个长方形，整个画面和谐统一，以下关于图中所示的三种规格邮票边长的数量关系的结论中，正确的是（    ）",
+   "⟨公式⟩",
    "A. ⟨公式⟩B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
   ],
   "options": [
@@ -638,58 +544,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId52",
-     "src": "media/image26.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image26.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId54",
-     "src": "media/image27.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image27.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId56",
-     "src": "media/image28.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image28.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId58",
-     "src": "media/image29.png"
+     "src": "media/image29.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -747,16 +629,13 @@ export const EXAM_BANK = [
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
      "v": "方程"
     },
     {
      "t": "img",
      "rid": "rId60",
-     "src": "media/image30.png"
+     "src": "media/image30.png",
+     "kind": "formula"
     },
     {
      "t": "text",
@@ -765,14 +644,11 @@ export const EXAM_BANK = [
     {
      "t": "img",
      "rid": "rId62",
-     "src": "media/image31.png"
+     "src": "media/image31.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "方程"
@@ -780,31 +656,21 @@ export const EXAM_BANK = [
     {
      "t": "img",
      "rid": "rId64",
-     "src": "media/image32.png"
+     "src": "media/image32.png",
+     "kind": "formula"
     },
     {
      "t": "text",
-     "v": "，系数化为"
-    },
-    {
-     "t": "text",
-     "v": "1"
-    },
-    {
-     "t": "text",
-     "v": "得"
+     "v": "，系数化为1得"
     },
     {
      "t": "img",
      "rid": "rId66",
-     "src": "media/image33.png"
+     "src": "media/image33.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "方程"
@@ -812,7 +678,8 @@ export const EXAM_BANK = [
     {
      "t": "img",
      "rid": "rId68",
-     "src": "media/image34.png"
+     "src": "media/image34.png",
+     "kind": "formula"
     },
     {
      "t": "text",
@@ -821,14 +688,11 @@ export const EXAM_BANK = [
     {
      "t": "img",
      "rid": "rId70",
-     "src": "media/image35.png"
+     "src": "media/image35.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "方程"
@@ -836,7 +700,8 @@ export const EXAM_BANK = [
     {
      "t": "img",
      "rid": "rId72",
-     "src": "media/image36.png"
+     "src": "media/image36.png",
+     "kind": "formula"
     },
     {
      "t": "text",
@@ -845,7 +710,8 @@ export const EXAM_BANK = [
     {
      "t": "img",
      "rid": "rId74",
-     "src": "media/image37.png"
+     "src": "media/image37.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -867,7 +733,7 @@ export const EXAM_BANK = [
   "name": "三视图与立体拼搭",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "用6个棱长为1的小正方体可以粘合形成不同形状的积木，将如图所示的两块积木摆放在桌面上，再从下列四块积木中选择一块，能搭成一个长、宽、高分别为3、2、3的长方体的是（    ）",
+  "stemText": "用6个棱长为1的小正方体可以粘合形成不同形状的积木，将如图所示的两块积木摆放在桌面上，再从下列四块积木中选择一块，能搭成一个长、宽、高分别为3、2、3的长方体的是（    ）⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -916,58 +782,64 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "的长方体的是（    ）"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId76",
+    "src": "media/image38.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
    "8. 用6个棱长为1的小正方体可以粘合形成不同形状的积木，将如图所示的两块积木摆放在桌面上，再从下列四块积木中选择一块，能搭成一个长、宽、高分别为3、2、3的长方体的是（    ）",
-   "A. B. C. D."
+   "⟨公式⟩",
+   "A. ⟨公式⟩B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
   ],
   "options": [
-   "",
-   "",
-   "",
-   ""
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩"
   ],
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId77",
+     "src": "media/image39.png",
+     "kind": "figure"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId78",
+     "src": "media/image40.png",
+     "kind": "figure"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId79",
+     "src": "media/image41.png",
+     "kind": "figure"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
+     "t": "img",
+     "rid": "rId80",
+     "src": "media/image42.png",
+     "kind": "figure"
     }
    ]
   ],
   "key": 3,
-  "answer": "",
+  "answer": "⟨公式⟩",
   "officialKey": "D"
  },
  {
@@ -993,7 +865,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId81",
-    "src": "media/image43.png"
+    "src": "media/image43.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1106,7 +979,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId83",
-    "src": "media/image44.png"
+    "src": "media/image44.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1115,7 +989,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId85",
-    "src": "media/image45.png"
+    "src": "media/image45.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1190,7 +1065,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId87",
-    "src": "media/image46.png"
+    "src": "media/image46.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1199,7 +1075,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId89",
-    "src": "media/image47.png"
+    "src": "media/image47.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1250,7 +1127,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId91",
-    "src": "media/image48.png"
+    "src": "media/image48.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1267,7 +1145,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId93",
-    "src": "media/image49.png"
+    "src": "media/image49.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1313,7 +1192,7 @@ export const EXAM_BANK = [
   "name": "数轴判断符号",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "有理数a，b在数轴上的对应点的位置如图所示，有以下结论：①⟨公式⟩；②⟨公式⟩：③⟨公式⟩；④⟨公式⟩其中所有正确的结论是___（只填写序号）．",
+  "stemText": "有理数a，b在数轴上的对应点的位置如图所示，有以下结论：①⟨公式⟩；②⟨公式⟩：③⟨公式⟩；④⟨公式⟩其中所有正确的结论是___（只填写序号）．⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -1342,7 +1221,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId95",
-    "src": "media/image50.png"
+    "src": "media/image50.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1351,7 +1231,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId97",
-    "src": "media/image51.png"
+    "src": "media/image51.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1360,7 +1241,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId99",
-    "src": "media/image52.png"
+    "src": "media/image52.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1369,7 +1251,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId101",
-    "src": "media/image53.png"
+    "src": "media/image53.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1382,10 +1265,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "（只填写序号）．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId103",
+    "src": "media/image54.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
-   "14. 有理数a，b在数轴上的对应点的位置如图所示，有以下结论：①⟨公式⟩；②⟨公式⟩：③⟨公式⟩；④⟨公式⟩其中所有正确的结论是___（只填写序号）．"
+   "14. 有理数a，b在数轴上的对应点的位置如图所示，有以下结论：①⟨公式⟩；②⟨公式⟩：③⟨公式⟩；④⟨公式⟩其中所有正确的结论是___（只填写序号）．",
+   "⟨公式⟩"
   ],
   "options": null,
   "optionParts": null,
@@ -1420,7 +1313,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId104",
-    "src": "media/image55.png"
+    "src": "media/image55.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1461,7 +1355,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId106",
-    "src": "media/image56.png"
+    "src": "media/image56.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1507,7 +1402,7 @@ export const EXAM_BANK = [
   "name": "幻圆（数字和相等）",
   "bonus": false,
   "hasAnswer": false,
-  "stemText": "在如图所示的星形图案中，十个“圆圈”中的数字分别是1，2，3，4，5，6，8，9，10，12，并且每条“直线”上的四个数字之和都相等．请将图中的数字补全______．⟨公式⟩三、解答题（共68分，第17题18分，第⟨公式⟩题，每题6分，第20题11分，第21题7分，第22题8分，第⟨公式⟩题，每题6分）",
+  "stemText": "在如图所示的星形图案中，十个“圆圈”中的数字分别是1，2，3，4，5，6，8，9，10，12，并且每条“直线”上的四个数字之和都相等．请将图中的数字补全______．⟨公式⟩⟨公式⟩⟨公式⟩三、解答题（共68分，第17题18分，第⟨公式⟩题，每题6分，第20题11分，第21题7分，第22题8分，第⟨公式⟩题，每题6分）",
   "stemParts": [
    {
     "t": "text",
@@ -1609,6 +1504,15 @@ export const EXAM_BANK = [
     "t": "break"
    },
    {
+    "t": "img",
+    "rid": "rId108",
+    "src": "media/image57.png",
+    "kind": "figure"
+   },
+   {
+    "t": "break"
+   },
+   {
     "t": "text",
     "v": "三、解答题（共"
    },
@@ -1639,7 +1543,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId109",
-    "src": "media/image58.png"
+    "src": "media/image58.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1704,7 +1609,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId111",
-    "src": "media/image59.png"
+    "src": "media/image59.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1721,6 +1627,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "16. 在如图所示的星形图案中，十个“圆圈”中的数字分别是1，2，3，4，5，6，8，9，10，12，并且每条“直线”上的四个数字之和都相等．请将图中的数字补全______．",
+   "⟨公式⟩",
    "三、解答题（共68分，第17题18分，第⟨公式⟩题，每题6分，第20题11分，第21题7分，第22题8分，第⟨公式⟩题，每题6分）"
   ],
   "options": null,
@@ -1771,7 +1678,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId113",
-    "src": "media/image60.png"
+    "src": "media/image60.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1795,7 +1703,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId115",
-    "src": "media/image61.png"
+    "src": "media/image61.png",
+    "kind": "formula"
    },
    {
     "t": "break"
@@ -1815,7 +1724,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId117",
-    "src": "media/image62.png"
+    "src": "media/image62.png",
+    "kind": "formula"
    },
    {
     "t": "break"
@@ -1827,7 +1737,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId119",
-    "src": "media/image63.png"
+    "src": "media/image63.png",
+    "kind": "formula"
    }
   ],
   "rawParas": [
@@ -1874,7 +1785,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId121",
-    "src": "media/image64.png"
+    "src": "media/image64.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1883,7 +1795,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId123",
-    "src": "media/image65.png"
+    "src": "media/image65.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1892,7 +1805,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId125",
-    "src": "media/image66.png"
+    "src": "media/image66.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1975,7 +1889,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId127",
-    "src": "media/image67.png"
+    "src": "media/image67.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -1984,7 +1899,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId129",
-    "src": "media/image68.png"
+    "src": "media/image68.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2017,7 +1933,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId131",
-    "src": "media/image69.png"
+    "src": "media/image69.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2088,7 +2005,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId133",
-    "src": "media/image70.png"
+    "src": "media/image70.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2204,7 +2122,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId135",
-    "src": "media/image71.png"
+    "src": "media/image71.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2232,7 +2151,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId137",
-    "src": "media/image72.png"
+    "src": "media/image72.png",
+    "kind": "formula"
    }
   ],
   "rawParas": [
@@ -2260,7 +2180,7 @@ export const EXAM_BANK = [
   "name": "角度推理填空（同角余角）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，⟨公式⟩．⟨公式⟩，OA平分∠COE，⟨公式⟩⟨公式⟩．⟨公式⟩（1）求∠DOE的度数（用含n的代数式表示）：请将以下解答过程补充完整．⟨公式⟩解：∵⟨公式⟩，⟨公式⟩∴⟨公式⟩．⟨公式⟩∵⟨公式⟩．⟨公式⟩⟨公式⟩．⟨公式⟩∴⟨公式⟩        ．（理由：        ）⟨公式⟩∵⟨公式⟩，⟨公式⟩∴⟨公式⟩．⟨公式⟩∵OA平分∠COE，⟨公式⟩∴∠       ＝⟨公式⟩．（理由：        ）⟨公式⟩∴⟨公式⟩___＝        °．⟨公式⟩（2）用等式表示∠AOD与∠BOC的数量关系．",
+  "stemText": "如图，⟨公式⟩．⟨公式⟩，OA平分∠COE，⟨公式⟩⟨公式⟩．⟨公式⟩（1）求∠DOE的度数（用含n的代数式表示）：请将以下解答过程补充完整．⟨公式⟩⟨公式⟩⟨公式⟩解：∵⟨公式⟩，⟨公式⟩∴⟨公式⟩．⟨公式⟩∵⟨公式⟩．⟨公式⟩⟨公式⟩．⟨公式⟩∴⟨公式⟩        ．（理由：        ）⟨公式⟩∵⟨公式⟩，⟨公式⟩∴⟨公式⟩．⟨公式⟩∵OA平分∠COE，⟨公式⟩∴∠       ＝⟨公式⟩．（理由：        ）⟨公式⟩∴⟨公式⟩___＝        °．⟨公式⟩（2）用等式表示∠AOD与∠BOC的数量关系．",
   "stemParts": [
    {
     "t": "text",
@@ -2273,7 +2193,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId139",
-    "src": "media/image73.png"
+    "src": "media/image73.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2282,7 +2203,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId141",
-    "src": "media/image74.png"
+    "src": "media/image74.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2307,12 +2229,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId143",
-    "src": "media/image75.png"
+    "src": "media/image75.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId145",
-    "src": "media/image76.png"
+    "src": "media/image76.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2353,13 +2277,23 @@ export const EXAM_BANK = [
     "t": "break"
    },
    {
+    "t": "img",
+    "rid": "rId147",
+    "src": "media/image77.png",
+    "kind": "figure"
+   },
+   {
+    "t": "break"
+   },
+   {
     "t": "text",
     "v": "解：∵"
    },
    {
     "t": "img",
     "rid": "rId148",
-    "src": "media/image78.png"
+    "src": "media/image78.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2375,7 +2309,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId150",
-    "src": "media/image79.png"
+    "src": "media/image79.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2391,7 +2326,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId152",
-    "src": "media/image80.png"
+    "src": "media/image80.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2403,7 +2339,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId154",
-    "src": "media/image81.png"
+    "src": "media/image81.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2419,7 +2356,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId156",
-    "src": "media/image82.png"
+    "src": "media/image82.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2447,7 +2385,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId143",
-    "src": "media/image75.png"
+    "src": "media/image75.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2463,7 +2402,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId159",
-    "src": "media/image83.png"
+    "src": "media/image83.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2510,7 +2450,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId161",
-    "src": "media/image84.png"
+    "src": "media/image84.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2534,7 +2475,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId163",
-    "src": "media/image85.png"
+    "src": "media/image85.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -2583,6 +2525,7 @@ export const EXAM_BANK = [
   "rawParas": [
    "21. 如图，⟨公式⟩．⟨公式⟩，OA平分∠COE，⟨公式⟩⟨公式⟩．",
    "（1）求∠DOE的度数（用含n的代数式表示）：请将以下解答过程补充完整．",
+   "⟨公式⟩",
    "解：∵⟨公式⟩，",
    "∴⟨公式⟩．",
    "∵⟨公式⟩．",
@@ -2777,7 +2720,7 @@ export const EXAM_BANK = [
   "name": "数轴点距离 + 分类",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "在数轴上有A，B，C，M四点，点A表示的数是－1，点B表示的数是6，点M位于点B的左侧并与点B的距离是5，M为线段AC的中点．⟨公式⟩（1）画出点M，点C，并直接写出点M，点C表示的数；⟨公式⟩（2）画出在数轴上与点B的距离小于或等于5的点组成的图形，并描述该图形的特征；⟨公式⟩（3）若数轴上的点Q满足⟨公式⟩，求点Q表示的数．",
+  "stemText": "在数轴上有A，B，C，M四点，点A表示的数是－1，点B表示的数是6，点M位于点B的左侧并与点B的距离是5，M为线段AC的中点．⟨公式⟩⟨公式⟩⟨公式⟩（1）画出点M，点C，并直接写出点M，点C表示的数；⟨公式⟩（2）画出在数轴上与点B的距离小于或等于5的点组成的图形，并描述该图形的特征；⟨公式⟩（3）若数轴上的点Q满足⟨公式⟩，求点Q表示的数．",
   "stemParts": [
    {
     "t": "text",
@@ -2903,6 +2846,15 @@ export const EXAM_BANK = [
     "t": "break"
    },
    {
+    "t": "img",
+    "rid": "rId165",
+    "src": "media/image86.png",
+    "kind": "figure"
+   },
+   {
+    "t": "break"
+   },
+   {
     "t": "text",
     "v": "（"
    },
@@ -3003,7 +2955,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId166",
-    "src": "media/image87.png"
+    "src": "media/image87.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3020,6 +2973,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "23. 在数轴上有A，B，C，M四点，点A表示的数是－1，点B表示的数是6，点M位于点B的左侧并与点B的距离是5，M为线段AC的中点．",
+   "⟨公式⟩",
    "（1）画出点M，点C，并直接写出点M，点C表示的数；",
    "（2）画出在数轴上与点B的距离小于或等于5的点组成的图形，并描述该图形的特征；",
    "（3）若数轴上的点Q满足⟨公式⟩，求点Q表示的数．"
@@ -3044,7 +2998,7 @@ export const EXAM_BANK = [
   "name": "阅读理解（19 的倍数）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "【阅读与理解】小天同学看到如下的阅读材料：⟨公式⟩对于一个数A，以下给出了判断数A是否为19的倍数的一种方法：⟨公式⟩每次划掉该数的最后一位数字，将划掉这个数字的两倍与剩下的数相加得到一个和，称为一次操作，依此类推，直到数变为20以内的数为止．若最后得到的数为19.则最初的数A就是19的倍数，否则，数A就不是19的倍数． ⟨公式⟩以⟨公式⟩为例，经过第一次操作得到55，经过第二次操作得到15，⟨公式⟩，⟨公式⟩．所以436不是19的倍数．⟨公式⟩当数A的位数更多时，这种方法依然适用．⟨公式⟩【操作与说理】⟨公式⟩（1）当⟨公式⟩时，请你帮小天写出判断过程；⟨公式⟩（2）小天尝试说明方法的道理，他发现解决问题的关键是每次判断过程的第一次操作，后续的操作道理都与第一次相同，于是他列出了如下表格进行分析．请你补全小天列出的表格：⟨公式⟩说明：⟨公式⟩表示⟨公式⟩，其中⟨公式⟩，a，b，c均为整数．⟨公式⟩A⟨公式⟩A的表达式⟨公式⟩第一次操作得到的和，记为M（A）⟨公式⟩436⟨公式⟩436＝10×43＋6⟨公式⟩M（436）＝43＋2×6⟨公式⟩532⟨公式⟩532＝    ⟨公式⟩M（532）＝    ⟨公式⟩863⟨公式⟩863＝10×86＋3⟨公式⟩M（863）＝86＋2×3⟨公式⟩……⟨公式⟩……⟨公式⟩……⟨公式⟩⟨公式⟩⟨公式⟩⟨公式⟩＝    ⟨公式⟩M（⟨公式⟩）＝    ⟨公式⟩（3）利用以上信息说明：当M（⟨公式⟩）是19的倍数时，⟨公式⟩也是19的倍数．",
+  "stemText": "【阅读与理解】小天同学看到如下的阅读材料：⟨公式⟩对于一个数A，以下给出了判断数A是否为19的倍数的一种方法：⟨公式⟩每次划掉该数的最后一位数字，将划掉这个数字的两倍与剩下的数相加得到一个和，称为一次操作，依此类推，直到数变为20以内的数为止．若最后得到的数为19.则最初的数A就是19的倍数，否则，数A就不是19的倍数． ⟨公式⟩以⟨公式⟩为例，经过第一次操作得到55，经过第二次操作得到15，⟨公式⟩，⟨公式⟩．所以436不是19的倍数．⟨公式⟩当数A的位数更多时，这种方法依然适用．⟨公式⟩⟨公式⟩⟨公式⟩【操作与说理】⟨公式⟩（1）当⟨公式⟩时，请你帮小天写出判断过程；⟨公式⟩（2）小天尝试说明方法的道理，他发现解决问题的关键是每次判断过程的第一次操作，后续的操作道理都与第一次相同，于是他列出了如下表格进行分析．请你补全小天列出的表格：⟨公式⟩说明：⟨公式⟩表示⟨公式⟩，其中⟨公式⟩，a，b，c均为整数．⟨公式⟩A⟨公式⟩A的表达式⟨公式⟩第一次操作得到的和，记为M（A）⟨公式⟩436⟨公式⟩436＝10×43＋6⟨公式⟩M（436）＝43＋2×6⟨公式⟩532⟨公式⟩532＝    ⟨公式⟩M（532）＝    ⟨公式⟩863⟨公式⟩863＝10×86＋3⟨公式⟩M（863）＝86＋2×3⟨公式⟩……⟨公式⟩……⟨公式⟩……⟨公式⟩⟨公式⟩⟨公式⟩⟨公式⟩＝    ⟨公式⟩M（⟨公式⟩）＝    ⟨公式⟩（3）利用以上信息说明：当M（⟨公式⟩）是19的倍数时，⟨公式⟩也是19的倍数．",
   "stemParts": [
    {
     "t": "text",
@@ -3154,7 +3108,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId168",
-    "src": "media/image88.png"
+    "src": "media/image88.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3179,7 +3134,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId170",
-    "src": "media/image89.png"
+    "src": "media/image89.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3188,7 +3144,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId172",
-    "src": "media/image90.png"
+    "src": "media/image90.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3229,6 +3186,15 @@ export const EXAM_BANK = [
     "t": "break"
    },
    {
+    "t": "img",
+    "rid": "rId174",
+    "src": "media/image91.png",
+    "kind": "figure"
+   },
+   {
+    "t": "break"
+   },
+   {
     "t": "text",
     "v": "【操作与说理】"
    },
@@ -3250,7 +3216,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId175",
-    "src": "media/image92.png"
+    "src": "media/image92.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3281,7 +3248,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId177",
-    "src": "media/image93.png"
+    "src": "media/image93.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3290,7 +3258,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId179",
-    "src": "media/image94.png"
+    "src": "media/image94.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3299,7 +3268,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId181",
-    "src": "media/image95.png"
+    "src": "media/image95.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3564,7 +3534,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId183",
-    "src": "media/image96.png"
+    "src": "media/image96.png",
+    "kind": "formula"
    },
    {
     "t": "break"
@@ -3572,7 +3543,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId183",
-    "src": "media/image96.png"
+    "src": "media/image96.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3596,7 +3568,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId183",
-    "src": "media/image96.png"
+    "src": "media/image96.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3632,7 +3605,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId183",
-    "src": "media/image96.png"
+    "src": "media/image96.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3649,7 +3623,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId183",
-    "src": "media/image96.png"
+    "src": "media/image96.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3670,6 +3645,7 @@ export const EXAM_BANK = [
    "每次划掉该数的最后一位数字，将划掉这个数字的两倍与剩下的数相加得到一个和，称为一次操作，依此类推，直到数变为20以内的数为止．若最后得到的数为19.则最初的数A就是19的倍数，否则，数A就不是19的倍数．",
    "以⟨公式⟩为例，经过第一次操作得到55，经过第二次操作得到15，⟨公式⟩，⟨公式⟩．所以436不是19的倍数．",
    "当数A的位数更多时，这种方法依然适用．",
+   "⟨公式⟩",
    "【操作与说理】",
    "（1）当⟨公式⟩时，请你帮小天写出判断过程；",
    "（2）小天尝试说明方法的道理，他发现解决问题的关键是每次判断过程的第一次操作，后续的操作道理都与第一次相同，于是他列出了如下表格进行分析．请你补全小天列出的表格：",
@@ -3714,7 +3690,7 @@ export const EXAM_BANK = [
   "name": "三角尺画角",
   "bonus": true,
   "hasAnswer": true,
-  "stemText": "小冬阅读了教材中“借助三角尺画角”的探究活动（如图1、图2的实物图所示），他在老师指导下画出了图1所对应的几何图形，并标注了所使用三角尺的相应角度（如图3），他发现用一副三角尺还能画出其他特殊角．⟨公式⟩请你借助三角尺完成以下画图，并标注所使用三角尺的相应角度．⟨公式⟩（1）画出图2对应的几何图形；⟨公式⟩（2）设计用一副三角尺画出⟨公式⟩角的画图方案，并画出相应的几何图形；⟨公式⟩（3）如图4，已知⟨公式⟩，画∠MON的角平分线OP．",
+  "stemText": "小冬阅读了教材中“借助三角尺画角”的探究活动（如图1、图2的实物图所示），他在老师指导下画出了图1所对应的几何图形，并标注了所使用三角尺的相应角度（如图3），他发现用一副三角尺还能画出其他特殊角．⟨公式⟩⟨公式⟩⟨公式⟩⟨公式⟩请你借助三角尺完成以下画图，并标注所使用三角尺的相应角度．⟨公式⟩（1）画出图2对应的几何图形；⟨公式⟩（2）设计用一副三角尺画出⟨公式⟩角的画图方案，并画出相应的几何图形；⟨公式⟩（3）如图4，已知⟨公式⟩，画∠MON的角平分线OP．",
   "stemParts": [
    {
     "t": "text",
@@ -3755,6 +3731,21 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "），他发现用一副三角尺还能画出其他特殊角．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId189",
+    "src": "media/image97.png",
+    "kind": "figure"
+   },
+   {
+    "t": "img",
+    "rid": "rId190",
+    "src": "media/image98.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -3804,7 +3795,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId191",
-    "src": "media/image99.png"
+    "src": "media/image99.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3836,7 +3828,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId193",
-    "src": "media/image100.png"
+    "src": "media/image100.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3861,6 +3854,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "25. 小冬阅读了教材中“借助三角尺画角”的探究活动（如图1、图2的实物图所示），他在老师指导下画出了图1所对应的几何图形，并标注了所使用三角尺的相应角度（如图3），他发现用一副三角尺还能画出其他特殊角．",
+   "⟨公式⟩⟨公式⟩",
    "请你借助三角尺完成以下画图，并标注所使用三角尺的相应角度．",
    "（1）画出图2对应的几何图形；",
    "（2）设计用一副三角尺画出⟨公式⟩角的画图方案，并画出相应的几何图形；",
@@ -3886,7 +3880,7 @@ export const EXAM_BANK = [
   "name": "新定义「k 星点」",
   "bonus": true,
   "hasAnswer": true,
-  "stemText": "我们将数轴上点P表示的数记为⟨公式⟩．对于数轴上不同的三个点M，N，T，若有⟨公式⟩，其中k为有理数，则称点N是点M关于点T的“k星点”．已知在数轴上，原点为O，点A，点B表示的数分别为⟨公式⟩．⟨公式⟩．⟨公式⟩（1）若点B是点A关于原点O的“k星点”，则k＝___；若点C是点A关于点B的“2星点”，则⟨公式⟩＝___：⟨公式⟩（2）若线段AB在数轴上沿正方向运动，每秒运动1个单位长度，取线段AB的中点D．是否存在某一时刻，使得点D是点A关于点O的“－2星点”？若存在，求出线段AB的运动时间；若不存在，请说明理由；⟨公式⟩（3）点Q在数轴上运动（点Q不与A，B两点重合），作点A关于点Q的“3星点”，记为⟨公式⟩，作点B关于点Q的“3星点”，记为⟨公式⟩．当点Q运动时，⟨公式⟩是否存在最小值？若存在，求出最小值及相应点Q的位置；若不存在，请说明理由．",
+  "stemText": "我们将数轴上点P表示的数记为⟨公式⟩．对于数轴上不同的三个点M，N，T，若有⟨公式⟩，其中k为有理数，则称点N是点M关于点T的“k星点”．已知在数轴上，原点为O，点A，点B表示的数分别为⟨公式⟩．⟨公式⟩．⟨公式⟩⟨公式⟩⟨公式⟩（1）若点B是点A关于原点O的“k星点”，则k＝___；若点C是点A关于点B的“2星点”，则⟨公式⟩＝___：⟨公式⟩（2）若线段AB在数轴上沿正方向运动，每秒运动1个单位长度，取线段AB的中点D．是否存在某一时刻，使得点D是点A关于点O的“－2星点”？若存在，求出线段AB的运动时间；若不存在，请说明理由；⟨公式⟩（3）点Q在数轴上运动（点Q不与A，B两点重合），作点A关于点Q的“3星点”，记为⟨公式⟩，作点B关于点Q的“3星点”，记为⟨公式⟩．当点Q运动时，⟨公式⟩是否存在最小值？若存在，求出最小值及相应点Q的位置；若不存在，请说明理由．",
   "stemParts": [
    {
     "t": "text",
@@ -3907,7 +3901,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId195",
-    "src": "media/image101.png"
+    "src": "media/image101.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -3940,7 +3935,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId197",
-    "src": "media/image102.png"
+    "src": "media/image102.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -4013,7 +4009,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId199",
-    "src": "media/image103.png"
+    "src": "media/image103.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -4022,11 +4019,21 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId201",
-    "src": "media/image104.png"
+    "src": "media/image104.png",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId203",
+    "src": "media/image105.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -4126,7 +4133,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId204",
-    "src": "media/image106.png"
+    "src": "media/image106.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -4309,7 +4317,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId206",
-    "src": "media/image107.png"
+    "src": "media/image107.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -4342,7 +4351,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId208",
-    "src": "media/image108.png"
+    "src": "media/image108.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -4359,7 +4369,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId210",
-    "src": "media/image109.png"
+    "src": "media/image109.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -4376,6 +4387,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "26. 我们将数轴上点P表示的数记为⟨公式⟩．对于数轴上不同的三个点M，N，T，若有⟨公式⟩，其中k为有理数，则称点N是点M关于点T的“k星点”．已知在数轴上，原点为O，点A，点B表示的数分别为⟨公式⟩．⟨公式⟩．",
+   "⟨公式⟩",
    "（1）若点B是点A关于原点O的“k星点”，则k＝___；若点C是点A关于点B的“2星点”，则⟨公式⟩＝___：",
    "（2）若线段AB在数轴上沿正方向运动，每秒运动1个单位长度，取线段AB的中点D．是否存在某一时刻，使得点D是点A关于点O的“－2星点”？若存在，求出线段AB的运动时间；若不存在，请说明理由；",
    "（3）点Q在数轴上运动（点Q不与A，B两点重合），作点A关于点Q的“3星点”，记为⟨公式⟩，作点B关于点Q的“3星点”，记为⟨公式⟩．当点Q运动时，⟨公式⟩是否存在最小值？若存在，求出最小值及相应点Q的位置；若不存在，请说明理由．"
@@ -4409,7 +4421,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId8",
-    "src": "media/image4.png"
+    "src": "media/image4.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -4433,58 +4446,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId10",
-     "src": "media/image5.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image5.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId12",
-     "src": "media/image6.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image6.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId8",
-     "src": "media/image4.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image4.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId15",
-     "src": "media/image7.png"
+     "src": "media/image7.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -4554,58 +4543,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId17",
-     "src": "media/image8.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image8.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId19",
-     "src": "media/image9.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image9.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId21",
-     "src": "media/image10.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image10.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId23",
-     "src": "media/image11.png"
+     "src": "media/image11.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -4627,7 +4592,7 @@ export const EXAM_BANK = [
   "name": "展开图识别（棱柱）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图是某个几何体的展开图，则该几何体是（    ）",
+  "stemText": "如图是某个几何体的展开图，则该几何体是（    ）⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -4644,10 +4609,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "）"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId25",
+    "src": "media/image12.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
    "3. 如图是某个几何体的展开图，则该几何体是（    ）",
+   "⟨公式⟩",
    "A. 五棱柱B. 长方体C. 五棱锥D. 六棱柱"
   ],
   "options": [
@@ -4660,50 +4635,22 @@ export const EXAM_BANK = [
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
      "v": "五棱柱"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "长方体"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "五棱锥"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "六棱柱"
@@ -4728,7 +4675,7 @@ export const EXAM_BANK = [
   "name": "数轴判断符号",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "有理数⟨公式⟩在数轴上的对应点的位置如图所示，则下列结论正确的是（    ）",
+  "stemText": "有理数⟨公式⟩在数轴上的对应点的位置如图所示，则下列结论正确的是（    ）⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -4741,7 +4688,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId26",
-    "src": "media/image13.png"
+    "src": "media/image13.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -4754,10 +4702,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "）"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId28",
+    "src": "media/image14.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
    "4. 有理数⟨公式⟩在数轴上的对应点的位置如图所示，则下列结论正确的是（    ）",
+   "⟨公式⟩",
    "A. ⟨公式⟩B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
   ],
   "options": [
@@ -4769,58 +4727,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId29",
-     "src": "media/image15.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image15.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId31",
-     "src": "media/image16.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image16.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId33",
-     "src": "media/image17.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image17.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId35",
-     "src": "media/image18.png"
+     "src": "media/image18.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -4875,54 +4809,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId37",
-     "src": "media/image19.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image19.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId39",
-     "src": "media/image20.png"
+     "src": "media/image20.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId41",
-     "src": "media/image21.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image21.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId43",
-     "src": "media/image22.png"
+     "src": "media/image22.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -4957,7 +4871,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId45",
-    "src": "media/image23.png"
+    "src": "media/image23.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -4985,58 +4900,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId45",
-     "src": "media/image23.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image23.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId48",
-     "src": "media/image24.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image24.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId50",
-     "src": "media/image25.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image25.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId52",
-     "src": "media/image26.png"
+     "src": "media/image26.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -5071,7 +4962,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId54",
-    "src": "media/image27.png"
+    "src": "media/image27.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5080,7 +4972,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId56",
-    "src": "media/image28.png"
+    "src": "media/image28.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5109,55 +5002,29 @@ export const EXAM_BANK = [
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
      "v": "14"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "2"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId58",
-     "src": "media/image29.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image29.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId60",
-     "src": "media/image30.png"
+     "src": "media/image30.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -5179,7 +5046,7 @@ export const EXAM_BANK = [
   "name": "图形规律（卡片拼图）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "用边长相等的正方形和等边三角形卡片按如图所示的方式和规律拼出图形．拼第1个图形所用两种卡片的总数为7枚，拼第2个图形所用两种卡片的总数为12枚⟨公式⟩若按照这样的规律拼出的第⟨公式⟩个图形中，所用正方形卡片比等边三角形卡片多10枚，则拼第⟨公式⟩个图形所用两种卡片的总数为（    ）",
+  "stemText": "用边长相等的正方形和等边三角形卡片按如图所示的方式和规律拼出图形．拼第1个图形所用两种卡片的总数为7枚，拼第2个图形所用两种卡片的总数为12枚⟨公式⟩若按照这样的规律拼出的第⟨公式⟩个图形中，所用正方形卡片比等边三角形卡片多10枚，则拼第⟨公式⟩个图形所用两种卡片的总数为（    ）⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -5224,7 +5091,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId62",
-    "src": "media/image31.png"
+    "src": "media/image31.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5233,7 +5101,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId64",
-    "src": "media/image32.png"
+    "src": "media/image32.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5250,7 +5119,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId64",
-    "src": "media/image32.png"
+    "src": "media/image32.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5263,10 +5133,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "）"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId67",
+    "src": "media/image33.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
    "8. 用边长相等的正方形和等边三角形卡片按如图所示的方式和规律拼出图形．拼第1个图形所用两种卡片的总数为7枚，拼第2个图形所用两种卡片的总数为12枚⟨公式⟩若按照这样的规律拼出的第⟨公式⟩个图形中，所用正方形卡片比等边三角形卡片多10枚，则拼第⟨公式⟩个图形所用两种卡片的总数为（    ）",
+   "⟨公式⟩",
    "A. 57枚B. 52枚C. 50枚D. 47枚"
   ],
   "options": [
@@ -5279,69 +5159,25 @@ export const EXAM_BANK = [
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": "57"
-    },
-    {
-     "t": "text",
-     "v": "枚"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "v": "57枚"
     }
    ],
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": "52"
-    },
-    {
-     "t": "text",
-     "v": "枚"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "v": "52枚"
     }
    ],
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": "50"
-    },
-    {
-     "t": "text",
-     "v": "枚"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "v": "50枚"
     }
    ],
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": "47"
-    },
-    {
-     "t": "text",
-     "v": "枚"
+     "v": "47枚"
     }
    ]
   ],
@@ -5437,7 +5273,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId68",
-    "src": "media/image34.png"
+    "src": "media/image34.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5491,7 +5328,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId70",
-    "src": "media/image35.png"
+    "src": "media/image35.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5500,7 +5338,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId72",
-    "src": "media/image36.png"
+    "src": "media/image36.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5610,7 +5449,7 @@ export const EXAM_BANK = [
   "name": "线段中点",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，⟨公式⟩是线段⟨公式⟩的中点，点⟨公式⟩在线段⟨公式⟩上，⟨公式⟩是线段⟨公式⟩的中点．若⟨公式⟩，⟨公式⟩，则⟨公式⟩的长为______．",
+  "stemText": "如图，⟨公式⟩是线段⟨公式⟩的中点，点⟨公式⟩在线段⟨公式⟩上，⟨公式⟩是线段⟨公式⟩的中点．若⟨公式⟩，⟨公式⟩，则⟨公式⟩的长为______．⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -5623,7 +5462,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId74",
-    "src": "media/image37.png"
+    "src": "media/image37.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5632,7 +5472,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId76",
-    "src": "media/image38.png"
+    "src": "media/image38.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5641,7 +5482,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId78",
-    "src": "media/image39.png"
+    "src": "media/image39.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5650,7 +5492,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId80",
-    "src": "media/image40.png"
+    "src": "media/image40.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5659,7 +5502,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId82",
-    "src": "media/image41.png"
+    "src": "media/image41.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5668,7 +5512,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId84",
-    "src": "media/image42.png"
+    "src": "media/image42.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5677,7 +5522,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId86",
-    "src": "media/image43.png"
+    "src": "media/image43.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5686,7 +5532,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId88",
-    "src": "media/image44.png"
+    "src": "media/image44.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5695,7 +5542,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId90",
-    "src": "media/image45.png"
+    "src": "media/image45.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5708,10 +5556,24 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId92",
+    "src": "media/image46.png",
+    "kind": "figure"
+   },
+   {
+    "t": "text",
+    "v": "  "
    }
   ],
   "rawParas": [
-   "13. 如图，⟨公式⟩是线段⟨公式⟩的中点，点⟨公式⟩在线段⟨公式⟩上，⟨公式⟩是线段⟨公式⟩的中点．若⟨公式⟩，⟨公式⟩，则⟨公式⟩的长为______．"
+   "13. 如图，⟨公式⟩是线段⟨公式⟩的中点，点⟨公式⟩在线段⟨公式⟩上，⟨公式⟩是线段⟨公式⟩的中点．若⟨公式⟩，⟨公式⟩，则⟨公式⟩的长为______．",
+   "⟨公式⟩"
   ],
   "options": null,
   "optionParts": null,
@@ -5749,7 +5611,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId93",
-    "src": "media/image47.png"
+    "src": "media/image47.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5758,7 +5621,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId95",
-    "src": "media/image48.png"
+    "src": "media/image48.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5767,7 +5631,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId97",
-    "src": "media/image49.png"
+    "src": "media/image49.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5776,7 +5641,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId99",
-    "src": "media/image50.png"
+    "src": "media/image50.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5830,7 +5696,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId101",
-    "src": "media/image51.png"
+    "src": "media/image51.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5855,7 +5722,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId101",
-    "src": "media/image51.png"
+    "src": "media/image51.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -5888,7 +5756,7 @@ export const EXAM_BANK = [
   "name": "数字填图（单元和为 23）",
   "bonus": false,
   "hasAnswer": false,
-  "stemText": "在图所示的图案中，每个小三角形的边长都为1，把由四个小三角形组成的边长为2的大三角形称为一个“单元”．现将1，2，3，4，5，6，7，8，9，10这十个数分别填入图中的十个小三角形中，使得对于图中的四个“单元”，每个“单元”中的四个数之和都是23．若2，4，5，a已填入图中，位置如图所示，则⟨公式⟩表示的数是______；请按上述要求，将剩余的数填入图中（填出一种即可）．",
+  "stemText": "在图所示的图案中，每个小三角形的边长都为1，把由四个小三角形组成的边长为2的大三角形称为一个“单元”．现将1，2，3，4，5，6，7，8，9，10这十个数分别填入图中的十个小三角形中，使得对于图中的四个“单元”，每个“单元”中的四个数之和都是23．若2，4，5，a已填入图中，位置如图所示，则⟨公式⟩表示的数是______；请按上述要求，将剩余的数填入图中（填出一种即可）．⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -6045,7 +5913,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId101",
-    "src": "media/image51.png"
+    "src": "media/image51.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6058,10 +5927,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "；请按上述要求，将剩余的数填入图中（填出一种即可）．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId105",
+    "src": "media/image52.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
-   "16. 在图所示的图案中，每个小三角形的边长都为1，把由四个小三角形组成的边长为2的大三角形称为一个“单元”．现将1，2，3，4，5，6，7，8，9，10这十个数分别填入图中的十个小三角形中，使得对于图中的四个“单元”，每个“单元”中的四个数之和都是23．若2，4，5，a已填入图中，位置如图所示，则⟨公式⟩表示的数是______；请按上述要求，将剩余的数填入图中（填出一种即可）．"
+   "16. 在图所示的图案中，每个小三角形的边长都为1，把由四个小三角形组成的边长为2的大三角形称为一个“单元”．现将1，2，3，4，5，6，7，8，9，10这十个数分别填入图中的十个小三角形中，使得对于图中的四个“单元”，每个“单元”中的四个数之和都是23．若2，4，5，a已填入图中，位置如图所示，则⟨公式⟩表示的数是______；请按上述要求，将剩余的数填入图中（填出一种即可）．",
+   "⟨公式⟩"
   ],
   "options": null,
   "optionParts": null,
@@ -6103,7 +5982,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId106",
-    "src": "media/image53.png"
+    "src": "media/image53.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6119,7 +5999,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId108",
-    "src": "media/image54.png"
+    "src": "media/image54.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6135,7 +6016,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId110",
-    "src": "media/image55.png"
+    "src": "media/image55.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6151,7 +6033,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId112",
-    "src": "media/image56.png"
+    "src": "media/image56.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6185,7 +6068,7 @@ export const EXAM_BANK = [
   "name": "直线作图 + 三边关系说理",
   "bonus": false,
   "hasAnswer": false,
-  "stemText": "如图，已知三点⟨公式⟩，作直线⟨公式⟩．⟨公式⟩（1）用语句表述图中点⟨公式⟩与直线⟨公式⟩的关系：______；⟨公式⟩（2）用直尺和圆规完成以下作图（保留作图痕迹）：连接⟨公式⟩，在线段⟨公式⟩的延长线上作线段⟨公式⟩，使⟨公式⟩．⟨公式⟩（3）连接⟨公式⟩，比较线段⟨公式⟩与线段⟨公式⟩的长短，并将下面的推理补充完整：⟨公式⟩⟨公式⟩⟨公式⟩，⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩______⟨公式⟩，（______）（填推理的依据）⟨公式⟩⟨公式⟩⟨公式⟩______⟨公式⟩．",
+  "stemText": "如图，已知三点⟨公式⟩，作直线⟨公式⟩．⟨公式⟩⟨公式⟩⟨公式⟩（1）用语句表述图中点⟨公式⟩与直线⟨公式⟩的关系：______；⟨公式⟩（2）用直尺和圆规完成以下作图（保留作图痕迹）：连接⟨公式⟩，在线段⟨公式⟩的延长线上作线段⟨公式⟩，使⟨公式⟩．⟨公式⟩（3）连接⟨公式⟩，比较线段⟨公式⟩与线段⟨公式⟩的长短，并将下面的推理补充完整：⟨公式⟩⟨公式⟩⟨公式⟩，⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩______⟨公式⟩，（______）（填推理的依据）⟨公式⟩⟨公式⟩⟨公式⟩______⟨公式⟩．",
   "stemParts": [
    {
     "t": "text",
@@ -6198,7 +6081,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId114",
-    "src": "media/image57.png"
+    "src": "media/image57.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6207,11 +6091,21 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId76",
-    "src": "media/image38.png"
+    "src": "media/image38.png",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId117",
+    "src": "media/image58.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -6227,7 +6121,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId74",
-    "src": "media/image37.png"
+    "src": "media/image37.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6236,7 +6131,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId76",
-    "src": "media/image38.png"
+    "src": "media/image38.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6264,7 +6160,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId120",
-    "src": "media/image59.png"
+    "src": "media/image59.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6273,7 +6170,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId120",
-    "src": "media/image59.png"
+    "src": "media/image59.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6282,7 +6180,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId123",
-    "src": "media/image60.png"
+    "src": "media/image60.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6291,7 +6190,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId125",
-    "src": "media/image61.png"
+    "src": "media/image61.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6311,7 +6211,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId127",
-    "src": "media/image62.png"
+    "src": "media/image62.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6320,7 +6221,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId129",
-    "src": "media/image63.png"
+    "src": "media/image63.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6329,7 +6231,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId127",
-    "src": "media/image62.png"
+    "src": "media/image62.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6341,12 +6244,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId132",
-    "src": "media/image64.png"
+    "src": "media/image64.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId134",
-    "src": "media/image65.png"
+    "src": "media/image65.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6355,7 +6260,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId125",
-    "src": "media/image61.png"
+    "src": "media/image61.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6367,12 +6273,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId137",
-    "src": "media/image66.png"
+    "src": "media/image66.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId139",
-    "src": "media/image67.png"
+    "src": "media/image67.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6384,12 +6292,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId132",
-    "src": "media/image64.png"
+    "src": "media/image64.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId142",
-    "src": "media/image68.png"
+    "src": "media/image68.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6398,7 +6308,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId127",
-    "src": "media/image62.png"
+    "src": "media/image62.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6418,12 +6329,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId137",
-    "src": "media/image66.png"
+    "src": "media/image66.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId129",
-    "src": "media/image63.png"
+    "src": "media/image63.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6432,7 +6345,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId127",
-    "src": "media/image62.png"
+    "src": "media/image62.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6441,6 +6355,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "18. 如图，已知三点⟨公式⟩，作直线⟨公式⟩．",
+   "⟨公式⟩",
    "（1）用语句表述图中点⟨公式⟩与直线⟨公式⟩的关系：______；",
    "（2）用直尺和圆规完成以下作图（保留作图痕迹）：连接⟨公式⟩，在线段⟨公式⟩的延长线上作线段⟨公式⟩，使⟨公式⟩．",
    "（3）连接⟨公式⟩，比较线段⟨公式⟩与线段⟨公式⟩的长短，并将下面的推理补充完整：",
@@ -6482,7 +6397,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId148",
-    "src": "media/image69.png"
+    "src": "media/image69.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6491,7 +6407,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId150",
-    "src": "media/image70.png"
+    "src": "media/image70.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6500,7 +6417,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId152",
-    "src": "media/image71.png"
+    "src": "media/image71.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6550,7 +6468,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId154",
-    "src": "media/image72.png"
+    "src": "media/image72.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6566,7 +6485,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId156",
-    "src": "media/image73.png"
+    "src": "media/image73.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6598,7 +6518,7 @@ export const EXAM_BANK = [
   "name": "角度推理填空（角平分线）",
   "bonus": false,
   "hasAnswer": false,
-  "stemText": "如图，⟨公式⟩，⟨公式⟩．过点⟨公式⟩在⟨公式⟩的内部画射线⟨公式⟩．⟨公式⟩探究发现：⟨公式⟩（1）当⟨公式⟩时，⟨公式⟩平分⟨公式⟩．⟨公式⟩⟨公式⟩依题意补全图形；⟨公式⟩⟨公式⟩将下面的推理补充完整．⟨公式⟩证明：⟨公式⟩⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩______⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩______⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩______⟨公式⟩（    ）．（______）（填推理的依据）⟨公式⟩⟨公式⟩⟨公式⟩平分⟨公式⟩⟨公式⟩（2）当⟨公式⟩时，射线______平分⟨公式⟩______．",
+  "stemText": "如图，⟨公式⟩，⟨公式⟩．过点⟨公式⟩在⟨公式⟩的内部画射线⟨公式⟩．⟨公式⟩⟨公式⟩⟨公式⟩探究发现：⟨公式⟩（1）当⟨公式⟩时，⟨公式⟩平分⟨公式⟩．⟨公式⟩⟨公式⟩依题意补全图形；⟨公式⟩⟨公式⟩将下面的推理补充完整．⟨公式⟩证明：⟨公式⟩⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩______⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩______⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩，⟨公式⟩⟨公式⟩⟨公式⟩______⟨公式⟩（    ）．（______）（填推理的依据）⟨公式⟩⟨公式⟩⟨公式⟩平分⟨公式⟩⟨公式⟩（2）当⟨公式⟩时，射线______平分⟨公式⟩______．",
   "stemParts": [
    {
     "t": "text",
@@ -6611,7 +6531,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId158",
-    "src": "media/image74.png"
+    "src": "media/image74.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6620,7 +6541,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId160",
-    "src": "media/image75.png"
+    "src": "media/image75.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6629,7 +6551,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId162",
-    "src": "media/image76.png"
+    "src": "media/image76.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6638,7 +6561,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId164",
-    "src": "media/image77.png"
+    "src": "media/image77.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6647,11 +6571,21 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId166",
-    "src": "media/image78.png"
+    "src": "media/image78.png",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId168",
+    "src": "media/image79.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -6674,7 +6608,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId169",
-    "src": "media/image80.png"
+    "src": "media/image80.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6683,7 +6618,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId171",
-    "src": "media/image81.png"
+    "src": "media/image81.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6692,7 +6628,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId173",
-    "src": "media/image82.png"
+    "src": "media/image82.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6704,7 +6641,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId175",
-    "src": "media/image83.png"
+    "src": "media/image83.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6716,7 +6654,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId177",
-    "src": "media/image84.png"
+    "src": "media/image84.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6732,12 +6671,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId132",
-    "src": "media/image64.png"
+    "src": "media/image64.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId169",
-    "src": "media/image80.png"
+    "src": "media/image80.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6749,12 +6690,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId137",
-    "src": "media/image66.png"
+    "src": "media/image66.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId182",
-    "src": "media/image85.png"
+    "src": "media/image85.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6763,7 +6706,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId184",
-    "src": "media/image86.png"
+    "src": "media/image86.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6775,12 +6719,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId132",
-    "src": "media/image64.png"
+    "src": "media/image64.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId158",
-    "src": "media/image74.png"
+    "src": "media/image74.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6792,12 +6738,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId137",
-    "src": "media/image66.png"
+    "src": "media/image66.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId182",
-    "src": "media/image85.png"
+    "src": "media/image85.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6806,7 +6754,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId184",
-    "src": "media/image86.png"
+    "src": "media/image86.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6818,12 +6767,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId132",
-    "src": "media/image64.png"
+    "src": "media/image64.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId160",
-    "src": "media/image75.png"
+    "src": "media/image75.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6835,12 +6786,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId137",
-    "src": "media/image66.png"
+    "src": "media/image66.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId194",
-    "src": "media/image87.png"
+    "src": "media/image87.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6852,12 +6805,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId137",
-    "src": "media/image66.png"
+    "src": "media/image66.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId197",
-    "src": "media/image88.png"
+    "src": "media/image88.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6866,7 +6821,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId199",
-    "src": "media/image89.png"
+    "src": "media/image89.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6894,12 +6850,14 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId137",
-    "src": "media/image66.png"
+    "src": "media/image66.png",
+    "kind": "formula"
    },
    {
     "t": "img",
     "rid": "rId171",
-    "src": "media/image81.png"
+    "src": "media/image81.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6908,7 +6866,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId173",
-    "src": "media/image82.png"
+    "src": "media/image82.png",
+    "kind": "formula"
    },
    {
     "t": "break"
@@ -6924,7 +6883,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId204",
-    "src": "media/image90.png"
+    "src": "media/image90.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6941,7 +6901,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId197",
-    "src": "media/image88.png"
+    "src": "media/image88.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -6954,6 +6915,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "21. 如图，⟨公式⟩，⟨公式⟩．过点⟨公式⟩在⟨公式⟩的内部画射线⟨公式⟩．",
+   "⟨公式⟩",
    "探究发现：",
    "（1）当⟨公式⟩时，⟨公式⟩平分⟨公式⟩．",
    "⟨公式⟩依题意补全图形；",
@@ -7001,7 +6963,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId207",
-    "src": "media/image91.png"
+    "src": "media/image91.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7010,7 +6973,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId209",
-    "src": "media/image92.png"
+    "src": "media/image92.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7019,7 +6983,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId211",
-    "src": "media/image93.png"
+    "src": "media/image93.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7044,7 +7009,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId211",
-    "src": "media/image93.png"
+    "src": "media/image93.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7069,7 +7035,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId209",
-    "src": "media/image92.png"
+    "src": "media/image92.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7086,7 +7053,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId211",
-    "src": "media/image93.png"
+    "src": "media/image93.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7124,7 +7092,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId211",
-    "src": "media/image93.png"
+    "src": "media/image93.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7133,7 +7102,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId95",
-    "src": "media/image48.png"
+    "src": "media/image48.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7142,7 +7112,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId209",
-    "src": "media/image92.png"
+    "src": "media/image92.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7151,7 +7122,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId219",
-    "src": "media/image94.png"
+    "src": "media/image94.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7168,7 +7140,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId211",
-    "src": "media/image93.png"
+    "src": "media/image93.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7193,7 +7166,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId209",
-    "src": "media/image92.png"
+    "src": "media/image92.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7217,7 +7191,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId211",
-    "src": "media/image93.png"
+    "src": "media/image93.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7226,7 +7201,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId95",
-    "src": "media/image48.png"
+    "src": "media/image48.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7256,7 +7232,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId95",
-    "src": "media/image48.png"
+    "src": "media/image48.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7273,7 +7250,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId211",
-    "src": "media/image93.png"
+    "src": "media/image93.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7298,7 +7276,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId209",
-    "src": "media/image92.png"
+    "src": "media/image92.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7322,7 +7301,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId95",
-    "src": "media/image48.png"
+    "src": "media/image48.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7368,7 +7348,7 @@ export const EXAM_BANK = [
   "name": "动射线角度（含参 n）",
   "bonus": false,
   "hasAnswer": false,
-  "stemText": "已知⟨公式⟩，射线⟨公式⟩在⟨公式⟩的内部，且⟨公式⟩．射线⟨公式⟩是平面上绕点O旋转的一条动射线，⟨公式⟩平分⟨公式⟩．⟨公式⟩（1）如图1，射线⟨公式⟩在⟨公式⟩的内部．⟨公式⟩  ①⟨公式⟩的度数为       °；⟨公式⟩  ②若⟨公式⟩与⟨公式⟩互余，求⟨公式⟩的度数；⟨公式⟩（2）若⟨公式⟩，求⟨公式⟩的度数（用含n的式子表示）．",
+  "stemText": "已知⟨公式⟩，射线⟨公式⟩在⟨公式⟩的内部，且⟨公式⟩．射线⟨公式⟩是平面上绕点O旋转的一条动射线，⟨公式⟩平分⟨公式⟩．⟨公式⟩⟨公式⟩⟨公式⟩（1）如图1，射线⟨公式⟩在⟨公式⟩的内部．⟨公式⟩  ①⟨公式⟩的度数为       °；⟨公式⟩  ②若⟨公式⟩与⟨公式⟩互余，求⟨公式⟩的度数；⟨公式⟩（2）若⟨公式⟩，求⟨公式⟩的度数（用含n的式子表示）．",
   "stemParts": [
    {
     "t": "text",
@@ -7381,7 +7361,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId229",
-    "src": "media/image95.png"
+    "src": "media/image95.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7390,7 +7371,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId231",
-    "src": "media/image96.png"
+    "src": "media/image96.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7399,7 +7381,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId233",
-    "src": "media/image97.png"
+    "src": "media/image97.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7408,7 +7391,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId235",
-    "src": "media/image98.png"
+    "src": "media/image98.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7417,7 +7401,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId237",
-    "src": "media/image99.png"
+    "src": "media/image99.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7434,7 +7419,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId166",
-    "src": "media/image78.png"
+    "src": "media/image78.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7443,11 +7429,21 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId240",
-    "src": "media/image100.png"
+    "src": "media/image100.png",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId242",
+    "src": "media/image101.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -7471,7 +7467,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId237",
-    "src": "media/image99.png"
+    "src": "media/image99.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7480,7 +7477,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId164",
-    "src": "media/image77.png"
+    "src": "media/image77.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7500,7 +7498,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId245",
-    "src": "media/image102.png"
+    "src": "media/image102.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7532,7 +7531,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId247",
-    "src": "media/image103.png"
+    "src": "media/image103.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7541,7 +7541,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId249",
-    "src": "media/image104.png"
+    "src": "media/image104.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7550,7 +7551,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId247",
-    "src": "media/image103.png"
+    "src": "media/image103.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7570,7 +7572,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId252",
-    "src": "media/image105.png"
+    "src": "media/image105.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7579,7 +7582,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId254",
-    "src": "media/image106.png"
+    "src": "media/image106.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7596,6 +7600,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "23. 已知⟨公式⟩，射线⟨公式⟩在⟨公式⟩的内部，且⟨公式⟩．射线⟨公式⟩是平面上绕点O旋转的一条动射线，⟨公式⟩平分⟨公式⟩．",
+   "⟨公式⟩",
    "（1）如图1，射线⟨公式⟩在⟨公式⟩的内部．",
    "①⟨公式⟩的度数为       °；",
    "②若⟨公式⟩与⟨公式⟩互余，求⟨公式⟩的度数；",
@@ -7621,7 +7626,7 @@ export const EXAM_BANK = [
   "name": "新定义「k 倍分点」",
   "bonus": false,
   "hasAnswer": false,
-  "stemText": "对于数轴上不同的三个点M，N，P，若满足⟨公式⟩，则称点P是点M关于点N的“k倍分点”．例如，如图，在数轴上，点M，N表示的数分别是⟨公式⟩，1，可知原点O是点M关于点N的“2倍分点”，原点O也是点N关于点M的“⟨公式⟩倍分点”．⟨公式⟩在数轴上，已知点A表示的数是⟨公式⟩，点B表示的数是2．⟨公式⟩（1）若点C在线段⟨公式⟩上，且点C是点A关于点B的“5倍分点”，则点C表示的数是______；⟨公式⟩（2）若点D在数轴上，⟨公式⟩，且点D是点B关于点A的“k倍分点”，求k的值；⟨公式⟩（3）点E从点B出发，以每秒3个单位长度的速度沿数轴正方向运动．当点E运动t秒时，在A，B，E三个点中，恰有一个点是另一个点关于第三个点的“⟨公式⟩倍分点”，直接写出t的值．",
+  "stemText": "对于数轴上不同的三个点M，N，P，若满足⟨公式⟩，则称点P是点M关于点N的“k倍分点”．例如，如图，在数轴上，点M，N表示的数分别是⟨公式⟩，1，可知原点O是点M关于点N的“2倍分点”，原点O也是点N关于点M的“⟨公式⟩倍分点”．⟨公式⟩⟨公式⟩⟨公式⟩在数轴上，已知点A表示的数是⟨公式⟩，点B表示的数是2．⟨公式⟩（1）若点C在线段⟨公式⟩上，且点C是点A关于点B的“5倍分点”，则点C表示的数是______；⟨公式⟩（2）若点D在数轴上，⟨公式⟩，且点D是点B关于点A的“k倍分点”，求k的值；⟨公式⟩（3）点E从点B出发，以每秒3个单位长度的速度沿数轴正方向运动．当点E运动t秒时，在A，B，E三个点中，恰有一个点是另一个点关于第三个点的“⟨公式⟩倍分点”，直接写出t的值．",
   "stemParts": [
    {
     "t": "text",
@@ -7658,7 +7663,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId256",
-    "src": "media/image107.png"
+    "src": "media/image107.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7715,7 +7721,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId60",
-    "src": "media/image30.png"
+    "src": "media/image30.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7788,11 +7795,21 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId259",
-    "src": "media/image108.png"
+    "src": "media/image108.png",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "倍分点”．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId261",
+    "src": "media/image109.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -7812,7 +7829,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId262",
-    "src": "media/image110.png"
+    "src": "media/image110.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7856,7 +7874,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId76",
-    "src": "media/image38.png"
+    "src": "media/image38.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -7932,7 +7951,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId265",
-    "src": "media/image111.png"
+    "src": "media/image111.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8056,7 +8076,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId267",
-    "src": "media/image112.png"
+    "src": "media/image112.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8073,6 +8094,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "24. 对于数轴上不同的三个点M，N，P，若满足⟨公式⟩，则称点P是点M关于点N的“k倍分点”．例如，如图，在数轴上，点M，N表示的数分别是⟨公式⟩，1，可知原点O是点M关于点N的“2倍分点”，原点O也是点N关于点M的“⟨公式⟩倍分点”．",
+   "⟨公式⟩",
    "在数轴上，已知点A表示的数是⟨公式⟩，点B表示的数是2．",
    "（1）若点C在线段⟨公式⟩上，且点C是点A关于点B的“5倍分点”，则点C表示的数是______；",
    "（2）若点D在数轴上，⟨公式⟩，且点D是点B关于点A的“k倍分点”，求k的值；",
@@ -8111,7 +8133,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId26",
-    "src": "media/image13.png"
+    "src": "media/image13.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8136,7 +8159,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId270",
-    "src": "media/image113.png"
+    "src": "media/image113.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8145,7 +8169,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId272",
-    "src": "media/image114.png"
+    "src": "media/image114.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8154,7 +8179,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId274",
-    "src": "media/image115.png"
+    "src": "media/image115.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8163,7 +8189,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId276",
-    "src": "media/image116.png"
+    "src": "media/image116.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8172,7 +8199,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId278",
-    "src": "media/image117.png"
+    "src": "media/image117.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8181,7 +8209,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId280",
-    "src": "media/image118.png"
+    "src": "media/image118.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8190,7 +8219,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId282",
-    "src": "media/image119.png"
+    "src": "media/image119.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8199,7 +8229,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId284",
-    "src": "media/image120.png"
+    "src": "media/image120.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8208,7 +8239,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId286",
-    "src": "media/image121.png"
+    "src": "media/image121.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8217,7 +8249,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId288",
-    "src": "media/image122.png"
+    "src": "media/image122.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8226,7 +8259,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId290",
-    "src": "media/image123.png"
+    "src": "media/image123.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8322,7 +8356,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId175",
-    "src": "media/image83.png"
+    "src": "media/image83.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8331,7 +8366,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId293",
-    "src": "media/image124.png"
+    "src": "media/image124.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8347,7 +8383,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId177",
-    "src": "media/image84.png"
+    "src": "media/image84.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8356,7 +8393,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId296",
-    "src": "media/image125.png"
+    "src": "media/image125.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8365,7 +8403,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId298",
-    "src": "media/image126.png"
+    "src": "media/image126.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8392,7 +8431,7 @@ export const EXAM_BANK = [
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 26,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-rational",
   "cat": "推理",
   "score": 6,
@@ -8414,7 +8453,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId300",
-    "src": "media/image127.png"
+    "src": "media/image127.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8423,7 +8463,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId302",
-    "src": "media/image128.png"
+    "src": "media/image128.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8432,7 +8473,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId304",
-    "src": "media/image129.png"
+    "src": "media/image129.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8441,7 +8483,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId306",
-    "src": "media/image130.png"
+    "src": "media/image130.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8450,7 +8493,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId308",
-    "src": "media/image131.png"
+    "src": "media/image131.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8459,7 +8503,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId310",
-    "src": "media/image132.png"
+    "src": "media/image132.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8468,7 +8513,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId312",
-    "src": "media/image133.png"
+    "src": "media/image133.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8488,7 +8534,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId314",
-    "src": "media/image134.png"
+    "src": "media/image134.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8497,7 +8544,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId101",
-    "src": "media/image51.png"
+    "src": "media/image51.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8509,7 +8557,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId175",
-    "src": "media/image83.png"
+    "src": "media/image83.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8518,7 +8567,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId101",
-    "src": "media/image51.png"
+    "src": "media/image51.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8527,7 +8577,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId319",
-    "src": "media/image135.png"
+    "src": "media/image135.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8539,7 +8590,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId177",
-    "src": "media/image84.png"
+    "src": "media/image84.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8548,7 +8600,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId322",
-    "src": "media/image136.png"
+    "src": "media/image136.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8576,7 +8629,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId324",
-    "src": "media/image137.png"
+    "src": "media/image137.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8585,7 +8639,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId302",
-    "src": "media/image128.png"
+    "src": "media/image128.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8594,7 +8649,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId322",
-    "src": "media/image136.png"
+    "src": "media/image136.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8606,7 +8662,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId175",
-    "src": "media/image83.png"
+    "src": "media/image83.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8633,7 +8690,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId177",
-    "src": "media/image84.png"
+    "src": "media/image84.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8642,7 +8700,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId99",
-    "src": "media/image50.png"
+    "src": "media/image50.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8651,7 +8710,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId101",
-    "src": "media/image51.png"
+    "src": "media/image51.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8670,8 +8730,118 @@ export const EXAM_BANK = [
    "其中所有正确的结论是______．（填选项字母即可）",
    "⟨公式⟩用含⟨公式⟩的式子表示⟨公式⟩，并直接写出结果．"
   ],
-  "options": null,
-  "optionParts": null,
+  "options": [
+   "原点⟨公式⟩可能与点⟨公式⟩重合；",
+   "原点⟨公式⟩不可能在点⟨公式⟩的右侧；",
+   "原点⟨公式⟩可能是线段⟨公式⟩的中点；",
+   "原点⟨公式⟩可能是线段⟨公式⟩的中点；"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": "原点"
+    },
+    {
+     "t": "img",
+     "rid": "rId162",
+     "src": "media/image76.png",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "可能与点"
+    },
+    {
+     "t": "img",
+     "rid": "rId209",
+     "src": "media/image92.png",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "重合；         "
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "原点"
+    },
+    {
+     "t": "img",
+     "rid": "rId162",
+     "src": "media/image76.png",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "不可能在点"
+    },
+    {
+     "t": "img",
+     "rid": "rId78",
+     "src": "media/image39.png",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "的右侧；"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "原点"
+    },
+    {
+     "t": "img",
+     "rid": "rId162",
+     "src": "media/image76.png",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "可能是线段"
+    },
+    {
+     "t": "img",
+     "rid": "rId123",
+     "src": "media/image60.png",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "的中点；    "
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "原点"
+    },
+    {
+     "t": "img",
+     "rid": "rId162",
+     "src": "media/image76.png",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "可能是线段"
+    },
+    {
+     "t": "img",
+     "rid": "rId127",
+     "src": "media/image62.png",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "的中点；"
+    }
+   ]
+  ],
   "key": null,
   "answer": null,
   "officialKey": null
@@ -8690,11 +8860,17 @@ export const EXAM_BANK = [
   "name": "绝对值",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "的绝对值是（    ）",
+  "stemText": "⟨公式⟩的绝对值是（    ）",
   "stemParts": [
    {
     "t": "text",
     "v": ""
+   },
+   {
+    "t": "img",
+    "rid": "rId8",
+    "src": "media/image2.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8710,54 +8886,44 @@ export const EXAM_BANK = [
    }
   ],
   "rawParas": [
-   "1. 的绝对值是（    ）",
-   "A. 3B. C. D."
+   "1. ⟨公式⟩的绝对值是（    ）",
+   "A. 3B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
   ],
   "options": [
    "3",
-   "",
-   "",
-   ""
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩"
   ],
   "optionParts": [
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
      "v": "3"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId10",
+     "src": "media/image3.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId8",
+     "src": "media/image2.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
+     "t": "img",
+     "rid": "rId13",
+     "src": "media/image4.wmf",
+     "kind": "formula"
     }
    ]
   ],
@@ -8779,7 +8945,7 @@ export const EXAM_BANK = [
   "name": "科学记数法",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "特色产业激发乡村发展新活力．据报道，截至2023年10月9日，全国已建设180个优势特色乡村产业集群，全产业链产值超过元，辐射带动1000多万户农民．数字用科学记数法表示为（    ）",
+  "stemText": "特色产业激发乡村发展新活力．据报道，截至2023年10月9日，全国已建设180个优势特色乡村产业集群，全产业链产值超过⟨公式⟩元，辐射带动1000多万户农民．数字⟨公式⟩用科学记数法表示为（    ）",
   "stemParts": [
    {
     "t": "text",
@@ -8822,6 +8988,12 @@ export const EXAM_BANK = [
     "v": "个优势特色乡村产业集群，全产业链产值超过"
    },
    {
+    "t": "img",
+    "rid": "rId15",
+    "src": "media/image5.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "元，辐射带动"
    },
@@ -8832,6 +9004,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "多万户农民．数字"
+   },
+   {
+    "t": "img",
+    "rid": "rId15",
+    "src": "media/image5.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -8847,55 +9025,51 @@ export const EXAM_BANK = [
    }
   ],
   "rawParas": [
-   "2. 特色产业激发乡村发展新活力．据报道，截至2023年10月9日，全国已建设180个优势特色乡村产业集群，全产业链产值超过元，辐射带动1000多万户农民．数字用科学记数法表示为（    ）",
-   "A. B. C. D."
+   "2. 特色产业激发乡村发展新活力．据报道，截至2023年10月9日，全国已建设180个优势特色乡村产业集群，全产业链产值超过⟨公式⟩元，辐射带动1000多万户农民．数字⟨公式⟩用科学记数法表示为（    ）",
+   "A. ⟨公式⟩B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
   ],
   "options": [
-   "",
-   "",
-   "",
-   ""
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩"
   ],
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId18",
+     "src": "media/image6.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId20",
+     "src": "media/image7.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId22",
+     "src": "media/image8.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
+     "t": "img",
+     "rid": "rId24",
+     "src": "media/image9.wmf",
+     "kind": "formula"
     }
    ]
   ],
   "key": 1,
-  "answer": "",
+  "answer": "⟨公式⟩",
   "officialKey": "B"
  },
  {
@@ -8903,7 +9077,7 @@ export const EXAM_BANK = [
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 3,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-geo",
   "cat": "空间",
   "score": 2,
@@ -8912,7 +9086,7 @@ export const EXAM_BANK = [
   "name": "展开图识别（三棱柱）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "下图是某个几何体的展开图，则这个几何体是（    ）",
+  "stemText": "下图是某个几何体的展开图，则这个几何体是（    ）⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -8937,16 +9111,56 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "）"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId26",
+    "src": "media/image10.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
    "3. 下图是某个几何体的展开图，则这个几何体是（    ）",
+   "⟨公式⟩",
    "A. 三棱柱B. 圆柱C. 四棱柱D. 圆锥"
   ],
-  "options": null,
-  "optionParts": null,
-  "key": null,
-  "answer": null,
+  "options": [
+   "三棱柱",
+   "圆柱",
+   "四棱柱",
+   "圆锥"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": "三棱柱"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "圆柱"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "四棱柱"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "圆锥"
+    }
+   ]
+  ],
+  "key": 0,
+  "answer": "三棱柱",
   "officialKey": "A"
  },
  {
@@ -8984,59 +9198,51 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "4. 下列各式计算中正确的是（    ）",
-   "A. B.",
-   "C.  D."
+   "A. ⟨公式⟩B. ⟨公式⟩",
+   "C. ⟨公式⟩ D. ⟨公式⟩"
   ],
   "options": [
-   "",
-   "",
-   "",
-   ""
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩"
   ],
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId27",
+     "src": "media/image11.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": " "
+     "t": "img",
+     "rid": "rId29",
+     "src": "media/image12.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId31",
+     "src": "media/image13.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
+     "t": "img",
+     "rid": "rId33",
+     "src": "media/image14.wmf",
+     "kind": "formula"
     }
    ]
   ],
   "key": 2,
-  "answer": "",
+  "answer": "⟨公式⟩",
   "officialKey": "C"
  },
  {
@@ -9082,54 +9288,50 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "5. 如果一个角等于它的余角的2倍，那么这个角的度数是（    ）",
-   "A. B. C. D."
+   "A. ⟨公式⟩B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
   ],
   "options": [
-   "",
-   "",
-   "",
-   ""
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩"
   ],
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId35",
+     "src": "media/image15.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId37",
+     "src": "media/image16.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId39",
+     "src": "media/image17.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
+     "t": "img",
+     "rid": "rId41",
+     "src": "media/image18.wmf",
+     "kind": "formula"
     }
    ]
   ],
   "key": 1,
-  "answer": "",
+  "answer": "⟨公式⟩",
   "officialKey": "B"
  },
  {
@@ -9146,7 +9348,7 @@ export const EXAM_BANK = [
   "name": "数轴判断符号",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "有理数，在数轴上的对应点的位置如图所示，下列结论正确的是（    ）",
+  "stemText": "有理数⟨公式⟩，⟨公式⟩在数轴上的对应点的位置如图所示，下列结论正确的是（    ）⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -9157,8 +9359,20 @@ export const EXAM_BANK = [
     "v": "有理数"
    },
    {
+    "t": "img",
+    "rid": "rId43",
+    "src": "media/image19.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，"
+   },
+   {
+    "t": "img",
+    "rid": "rId45",
+    "src": "media/image20.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -9171,58 +9385,64 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "）"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId47",
+    "src": "media/image21.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
-   "6. 有理数，在数轴上的对应点的位置如图所示，下列结论正确的是（    ）",
-   "A. B. C. D."
+   "6. 有理数⟨公式⟩，⟨公式⟩在数轴上的对应点的位置如图所示，下列结论正确的是（    ）",
+   "⟨公式⟩",
+   "A. ⟨公式⟩B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
   ],
   "options": [
-   "",
-   "",
-   "",
-   ""
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩"
   ],
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId48",
+     "src": "media/image22.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId50",
+     "src": "media/image23.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId52",
+     "src": "media/image24.wmf",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
+     "t": "img",
+     "rid": "rId54",
+     "src": "media/image25.wmf",
+     "kind": "formula"
     }
    ]
   ],
   "key": 3,
-  "answer": "",
+  "answer": "⟨公式⟩",
   "officialKey": "D"
  },
  {
@@ -9230,7 +9450,7 @@ export const EXAM_BANK = [
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 7,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-eq",
   "cat": "概念",
   "score": 2,
@@ -9260,15 +9480,109 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "7. 下列解方程的变形过程正确的是（    ）",
-   "A. 方程，移项得",
-   "B. 方程，系数化为1得",
-   "C. 方程，去括号得",
-   "D. 方程，去分母得"
+   "A. 方程⟨公式⟩，移项得⟨公式⟩",
+   "B. 方程⟨公式⟩，系数化为1得⟨公式⟩",
+   "C. 方程⟨公式⟩，去括号得⟨公式⟩",
+   "D. 方程⟨公式⟩，去分母得⟨公式⟩"
   ],
-  "options": null,
-  "optionParts": null,
-  "key": null,
-  "answer": null,
+  "options": [
+   "方程⟨公式⟩，移项得⟨公式⟩",
+   "方程⟨公式⟩，系数化为1得⟨公式⟩",
+   "方程⟨公式⟩，去括号得⟨公式⟩",
+   "方程⟨公式⟩，去分母得⟨公式⟩"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": "方程"
+    },
+    {
+     "t": "img",
+     "rid": "rId56",
+     "src": "media/image26.wmf",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "，移项得"
+    },
+    {
+     "t": "img",
+     "rid": "rId58",
+     "src": "media/image27.wmf",
+     "kind": "formula"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "方程"
+    },
+    {
+     "t": "img",
+     "rid": "rId60",
+     "src": "media/image28.wmf",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "，系数化为1得"
+    },
+    {
+     "t": "img",
+     "rid": "rId62",
+     "src": "media/image29.wmf",
+     "kind": "formula"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "方程"
+    },
+    {
+     "t": "img",
+     "rid": "rId64",
+     "src": "media/image30.wmf",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "，去括号得"
+    },
+    {
+     "t": "img",
+     "rid": "rId66",
+     "src": "media/image31.wmf",
+     "kind": "formula"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "方程"
+    },
+    {
+     "t": "img",
+     "rid": "rId68",
+     "src": "media/image32.wmf",
+     "kind": "formula"
+    },
+    {
+     "t": "text",
+     "v": "，去分母得"
+    },
+    {
+     "t": "img",
+     "rid": "rId70",
+     "src": "media/image33.wmf",
+     "kind": "formula"
+    }
+   ]
+  ],
+  "key": 2,
+  "answer": "方程⟨公式⟩，去括号得⟨公式⟩",
   "officialKey": "C"
  },
  {
@@ -9285,7 +9599,7 @@ export const EXAM_BANK = [
   "name": "线段距离和最小（分类讨论）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，某乡镇的五户居民依次居住在同一条笔直的小道边的A处，B处，C处，D处，E处，且这五户居民的人数依次有1人，2人，3人，3人，2人．乡村扶贫改造期间，该乡镇打算在这条小道上新建一个便民服务点M，使得所有居民到便民服务点的距离之和（每户所有居民均需要计算）最小，则便民服务点M应建在（    ）",
+  "stemText": "如图，某乡镇的五户居民依次居住在同一条笔直的小道边的A处，B处，C处，D处，E处，且这五户居民的人数依次有1人，2人，3人，3人，2人．乡村扶贫改造期间，该乡镇打算在这条小道上新建一个便民服务点M，使得所有居民到便民服务点的距离之和（每户所有居民均需要计算）最小，则便民服务点M应建在（    ）⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -9398,10 +9712,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "）"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId72",
+    "src": "media/image34.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
    "8. 如图，某乡镇的五户居民依次居住在同一条笔直的小道边的A处，B处，C处，D处，E处，且这五户居民的人数依次有1人，2人，3人，3人，2人．乡村扶贫改造期间，该乡镇打算在这条小道上新建一个便民服务点M，使得所有居民到便民服务点的距离之和（每户所有居民均需要计算）最小，则便民服务点M应建在（    ）",
+   "⟨公式⟩",
    "A. A处B. B处C. C处D. D处"
   ],
   "options": [
@@ -9414,69 +9738,25 @@ export const EXAM_BANK = [
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": "A"
-    },
-    {
-     "t": "text",
-     "v": "处"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "v": "A处"
     }
    ],
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": "B"
-    },
-    {
-     "t": "text",
-     "v": "处"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "v": "B处"
     }
    ],
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": "C"
-    },
-    {
-     "t": "text",
-     "v": "处"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "v": "C处"
     }
    ],
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": "D"
-    },
-    {
-     "t": "text",
-     "v": "处"
+     "v": "D处"
     }
    ]
   ],
@@ -9498,7 +9778,7 @@ export const EXAM_BANK = [
   "name": "正负数意义",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如果向东走5米记作米，那么向西走10米可记作________米．",
+  "stemText": "如果向东走5米记作⟨公式⟩米，那么向西走10米可记作________米．",
   "stemParts": [
    {
     "t": "text",
@@ -9515,6 +9795,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "米记作"
+   },
+   {
+    "t": "img",
+    "rid": "rId73",
+    "src": "media/image35.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -9538,7 +9824,7 @@ export const EXAM_BANK = [
    }
   ],
   "rawParas": [
-   "9. 如果向东走5米记作米，那么向西走10米可记作________米．"
+   "9. 如果向东走5米记作⟨公式⟩米，那么向西走10米可记作________米．"
   ],
   "options": null,
   "optionParts": null,
@@ -9563,7 +9849,7 @@ export const EXAM_BANK = [
   "name": "有理数比较大小",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "比较大小：__________",
+  "stemText": "比较大小：⟨公式⟩__________⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -9574,12 +9860,24 @@ export const EXAM_BANK = [
     "v": "比较大小："
    },
    {
+    "t": "img",
+    "rid": "rId75",
+    "src": "media/image36.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "__________"
+   },
+   {
+    "t": "img",
+    "rid": "rId77",
+    "src": "media/image37.wmf",
+    "kind": "formula"
    }
   ],
   "rawParas": [
-   "10. 比较大小：__________"
+   "10. 比较大小：⟨公式⟩__________⟨公式⟩"
   ],
   "options": null,
   "optionParts": null,
@@ -9601,7 +9899,7 @@ export const EXAM_BANK = [
   "name": "网格中角的大小比较",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图所示的网格是正方形网格，则________（填“＞”“＜”“＝”）．",
+  "stemText": "如图所示的网格是正方形网格，则⟨公式⟩________⟨公式⟩（填“＞”“＜”“＝”）．⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -9612,16 +9910,38 @@ export const EXAM_BANK = [
     "v": "如图所示的网格是正方形网格，则"
    },
    {
+    "t": "img",
+    "rid": "rId79",
+    "src": "media/image38.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "________"
    },
    {
+    "t": "img",
+    "rid": "rId81",
+    "src": "media/image39.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "（填“＞”“＜”“＝”）．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId83",
+    "src": "media/image40.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
-   "11. 如图所示的网格是正方形网格，则________（填“＞”“＜”“＝”）．"
+   "11. 如图所示的网格是正方形网格，则⟨公式⟩________⟨公式⟩（填“＞”“＜”“＝”）．",
+   "⟨公式⟩"
   ],
   "options": null,
   "optionParts": null,
@@ -9643,7 +9963,7 @@ export const EXAM_BANK = [
   "name": "同类项求参数",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如果单项式与单项式的和仍是单项式，那么m的值是________，n的值是________．",
+  "stemText": "如果单项式⟨公式⟩与单项式⟨公式⟩的和仍是单项式，那么m的值是________，n的值是________．",
   "stemParts": [
    {
     "t": "text",
@@ -9654,8 +9974,20 @@ export const EXAM_BANK = [
     "v": "如果单项式"
    },
    {
+    "t": "img",
+    "rid": "rId84",
+    "src": "media/image41.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "与单项式"
+   },
+   {
+    "t": "img",
+    "rid": "rId86",
+    "src": "media/image42.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -9699,7 +10031,7 @@ export const EXAM_BANK = [
    }
   ],
   "rawParas": [
-   "12. 如果单项式与单项式的和仍是单项式，那么m的值是________，n的值是________．"
+   "12. 如果单项式⟨公式⟩与单项式⟨公式⟩的和仍是单项式，那么m的值是________，n的值是________．"
   ],
   "options": null,
   "optionParts": null,
@@ -9721,7 +10053,7 @@ export const EXAM_BANK = [
   "name": "方程解求参数",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "若是关于x的方程的解，则a的值为________．",
+  "stemText": "若⟨公式⟩是关于x的方程⟨公式⟩的解，则a的值为________．",
   "stemParts": [
    {
     "t": "text",
@@ -9730,6 +10062,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "若"
+   },
+   {
+    "t": "img",
+    "rid": "rId88",
+    "src": "media/image43.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -9742,6 +10080,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "的方程"
+   },
+   {
+    "t": "img",
+    "rid": "rId90",
+    "src": "media/image44.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -9765,7 +10109,7 @@ export const EXAM_BANK = [
    }
   ],
   "rawParas": [
-   "13. 若是关于x的方程的解，则a的值为________．"
+   "13. 若⟨公式⟩是关于x的方程⟨公式⟩的解，则a的值为________．"
   ],
   "options": null,
   "optionParts": null,
@@ -9790,7 +10134,7 @@ export const EXAM_BANK = [
   "name": "代数式求值（整体）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "若代数式的值为2，则代数式的值为________．",
+  "stemText": "若代数式⟨公式⟩的值为2，则代数式⟨公式⟩的值为________．",
   "stemParts": [
    {
     "t": "text",
@@ -9799,6 +10143,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "若代数式"
+   },
+   {
+    "t": "img",
+    "rid": "rId92",
+    "src": "media/image45.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -9811,6 +10161,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "，则代数式"
+   },
+   {
+    "t": "img",
+    "rid": "rId94",
+    "src": "media/image46.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -9826,7 +10182,7 @@ export const EXAM_BANK = [
    }
   ],
   "rawParas": [
-   "14. 若代数式的值为2，则代数式的值为________．"
+   "14. 若代数式⟨公式⟩的值为2，则代数式⟨公式⟩的值为________．"
   ],
   "options": null,
   "optionParts": null,
@@ -9941,7 +10297,7 @@ export const EXAM_BANK = [
   "name": "幻方（三角形与正方形等和）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "“幻方”最早记载于春秋时期的《大戴礼》中，现将1，2，3，4，5，7，8，9这八个数字填入如图1所示的“幻方”中，使得每个三角形的三个顶点上的数字之和都与中间正方形四个顶点上的数字之和相等．若按同样的要求重新填数如图2所示，则的值是________，的值是________．",
+  "stemText": "“幻方”最早记载于春秋时期的《大戴礼》中，现将1，2，3，4，5，7，8，9这八个数字填入如图1所示的“幻方”中，使得每个三角形的三个顶点上的数字之和都与中间正方形四个顶点上的数字之和相等．若按同样的要求重新填数如图2所示，则⟨公式⟩的值是________，⟨公式⟩的值是________．⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -10032,6 +10388,12 @@ export const EXAM_BANK = [
     "v": "所示，则"
    },
    {
+    "t": "img",
+    "rid": "rId96",
+    "src": "media/image47.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "的值是"
    },
@@ -10044,6 +10406,12 @@ export const EXAM_BANK = [
     "v": "，"
    },
    {
+    "t": "img",
+    "rid": "rId98",
+    "src": "media/image48.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "的值是"
    },
@@ -10054,10 +10422,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId100",
+    "src": "media/image49.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
-   "16. “幻方”最早记载于春秋时期的《大戴礼》中，现将1，2，3，4，5，7，8，9这八个数字填入如图1所示的“幻方”中，使得每个三角形的三个顶点上的数字之和都与中间正方形四个顶点上的数字之和相等．若按同样的要求重新填数如图2所示，则的值是________，的值是________．"
+   "16. “幻方”最早记载于春秋时期的《大戴礼》中，现将1，2，3，4，5，7，8，9这八个数字填入如图1所示的“幻方”中，使得每个三角形的三个顶点上的数字之和都与中间正方形四个顶点上的数字之和相等．若按同样的要求重新填数如图2所示，则⟨公式⟩的值是________，⟨公式⟩的值是________．",
+   "⟨公式⟩"
   ],
   "options": null,
   "optionParts": null,
@@ -10079,7 +10457,7 @@ export const EXAM_BANK = [
   "name": "有理数混合运算（4 小问）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "计算：⟨公式⟩（1）⟨公式⟩（2）⟨公式⟩（3）⟨公式⟩（4）．",
+  "stemText": "计算：⟨公式⟩（1）⟨公式⟩⟨公式⟩（2）⟨公式⟩⟨公式⟩（3）⟨公式⟩⟨公式⟩（4）⟨公式⟩．",
   "stemParts": [
    {
     "t": "text",
@@ -10105,6 +10483,12 @@ export const EXAM_BANK = [
     "v": "）"
    },
    {
+    "t": "img",
+    "rid": "rId101",
+    "src": "media/image50.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "break"
    },
    {
@@ -10118,6 +10502,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "）"
+   },
+   {
+    "t": "img",
+    "rid": "rId103",
+    "src": "media/image51.wmf",
+    "kind": "formula"
    },
    {
     "t": "break"
@@ -10135,6 +10525,12 @@ export const EXAM_BANK = [
     "v": "）"
    },
    {
+    "t": "img",
+    "rid": "rId105",
+    "src": "media/image52.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "break"
    },
    {
@@ -10150,16 +10546,22 @@ export const EXAM_BANK = [
     "v": "）"
    },
    {
+    "t": "img",
+    "rid": "rId107",
+    "src": "media/image53.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "．"
    }
   ],
   "rawParas": [
    "17. 计算：",
-   "（1）",
-   "（2）",
-   "（3）",
-   "（4）．"
+   "（1）⟨公式⟩",
+   "（2）⟨公式⟩",
+   "（3）⟨公式⟩",
+   "（4）⟨公式⟩．"
   ],
   "options": null,
   "optionParts": null,
@@ -10181,7 +10583,7 @@ export const EXAM_BANK = [
   "name": "整式化简求值",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "18. 先化简，再求值：，其中，．",
+  "stemText": "18. 先化简，再求值：⟨公式⟩，其中⟨公式⟩，⟨公式⟩．",
   "stemParts": [
    {
     "t": "text",
@@ -10196,12 +10598,30 @@ export const EXAM_BANK = [
     "v": "先化简，再求值："
    },
    {
+    "t": "img",
+    "rid": "rId109",
+    "src": "media/image54.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，其中"
    },
    {
+    "t": "img",
+    "rid": "rId111",
+    "src": "media/image55.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，"
+   },
+   {
+    "t": "img",
+    "rid": "rId113",
+    "src": "media/image56.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -10209,7 +10629,7 @@ export const EXAM_BANK = [
    }
   ],
   "rawParas": [
-   "18. 先化简，再求值：，其中，．"
+   "18. 先化简，再求值：⟨公式⟩，其中⟨公式⟩，⟨公式⟩．"
   ],
   "options": null,
   "optionParts": null,
@@ -10231,7 +10651,7 @@ export const EXAM_BANK = [
   "name": "尺规作图 + 三边关系说理",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，已知直线l和点A，B，P．⟨公式⟩（1）用适当的语句表述点A与直线l的位置关系：        ；⟨公式⟩（2）请用直尺和圆规按下列要求作图（保留作图痕迹）：⟨公式⟩①画射线；⟨公式⟩②连接，在线段的延长线上作线段，使；⟨公式⟩（3）连接，则        （填“＞”“＜”“＝”）成立的理由是        ．",
+  "stemText": "如图，已知直线l和点A，B，P．⟨公式⟩⟨公式⟩⟨公式⟩（1）用适当的语句表述点A与直线l的位置关系：        ；⟨公式⟩（2）请用直尺和圆规按下列要求作图（保留作图痕迹）：⟨公式⟩①画射线⟨公式⟩；⟨公式⟩②连接⟨公式⟩，在线段⟨公式⟩的延长线上作线段⟨公式⟩，使⟨公式⟩；⟨公式⟩（3）连接⟨公式⟩，则⟨公式⟩        ⟨公式⟩（填“＞”“＜”“＝”）成立的理由是        ．",
   "stemParts": [
    {
     "t": "text",
@@ -10272,6 +10692,15 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId115",
+    "src": "media/image57.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -10343,6 +10772,12 @@ export const EXAM_BANK = [
     "v": "①画射线"
    },
    {
+    "t": "img",
+    "rid": "rId116",
+    "src": "media/image58.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "；"
    },
@@ -10354,16 +10789,40 @@ export const EXAM_BANK = [
     "v": "②连接"
    },
    {
+    "t": "img",
+    "rid": "rId118",
+    "src": "media/image59.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，在线段"
+   },
+   {
+    "t": "img",
+    "rid": "rId118",
+    "src": "media/image59.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "的延长线上作线段"
    },
    {
+    "t": "img",
+    "rid": "rId121",
+    "src": "media/image60.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，使"
+   },
+   {
+    "t": "img",
+    "rid": "rId123",
+    "src": "media/image61.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -10389,12 +10848,30 @@ export const EXAM_BANK = [
     "v": "连接"
    },
    {
+    "t": "img",
+    "rid": "rId125",
+    "src": "media/image62.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，则"
    },
    {
+    "t": "img",
+    "rid": "rId127",
+    "src": "media/image63.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "        "
+   },
+   {
+    "t": "img",
+    "rid": "rId129",
+    "src": "media/image64.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -10411,11 +10888,12 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "19. 如图，已知直线l和点A，B，P．",
+   "⟨公式⟩",
    "（1）用适当的语句表述点A与直线l的位置关系：        ；",
    "（2）请用直尺和圆规按下列要求作图（保留作图痕迹）：",
-   "①画射线；",
-   "②连接，在线段的延长线上作线段，使；",
-   "（3）连接，则        （填“＞”“＜”“＝”）成立的理由是        ．"
+   "①画射线⟨公式⟩；",
+   "②连接⟨公式⟩，在线段⟨公式⟩的延长线上作线段⟨公式⟩，使⟨公式⟩；",
+   "（3）连接⟨公式⟩，则⟨公式⟩        ⟨公式⟩（填“＞”“＜”“＝”）成立的理由是        ．"
   ],
   "options": null,
   "optionParts": null,
@@ -10437,7 +10915,7 @@ export const EXAM_BANK = [
   "name": "解方程（2 小问，含去分母）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "解下列方程：⟨公式⟩（1）；⟨公式⟩（2）．",
+  "stemText": "解下列方程：⟨公式⟩（1）⟨公式⟩；⟨公式⟩（2）⟨公式⟩．",
   "stemParts": [
    {
     "t": "text",
@@ -10463,6 +10941,12 @@ export const EXAM_BANK = [
     "v": "）"
    },
    {
+    "t": "img",
+    "rid": "rId131",
+    "src": "media/image65.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "；"
    },
@@ -10482,14 +10966,20 @@ export const EXAM_BANK = [
     "v": "）"
    },
    {
+    "t": "img",
+    "rid": "rId133",
+    "src": "media/image66.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "．"
    }
   ],
   "rawParas": [
    "20. 解下列方程：",
-   "（1）；",
-   "（2）．"
+   "（1）⟨公式⟩；",
+   "（2）⟨公式⟩．"
   ],
   "options": null,
   "optionParts": null,
@@ -10511,7 +11001,7 @@ export const EXAM_BANK = [
   "name": "角度推理填空（双角平分线）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "已知，平分，平分．⟨公式⟩（1）如图，在外部，求的度数．⟨公式⟩①依题意补全图形；⟨公式⟩②完成下面的解答过程．⟨公式⟩解：∵平分，平分，⟨公式⟩∴ ， （理由：                ）．⟨公式⟩∵，⟨公式⟩∴        °，        °，⟨公式⟩∴        ⟨公式⟩（2）若在内部，则的度数是        ．",
+  "stemText": "已知⟨公式⟩，⟨公式⟩平分⟨公式⟩，⟨公式⟩平分⟨公式⟩．⟨公式⟩⟨公式⟩⟨公式⟩（1）如图，⟨公式⟩在⟨公式⟩外部，求⟨公式⟩的度数．⟨公式⟩①依题意补全图形；⟨公式⟩②完成下面的解答过程．⟨公式⟩解：∵⟨公式⟩平分⟨公式⟩，⟨公式⟩平分⟨公式⟩，⟨公式⟩∴ ⟨公式⟩， ⟨公式⟩（理由：                ）．⟨公式⟩∵⟨公式⟩，⟨公式⟩∴⟨公式⟩        °，⟨公式⟩        °，⟨公式⟩∴⟨公式⟩        ⟨公式⟩⟨公式⟩（2）若⟨公式⟩在⟨公式⟩内部，则⟨公式⟩的度数是        ．",
   "stemParts": [
    {
     "t": "text",
@@ -10522,24 +11012,63 @@ export const EXAM_BANK = [
     "v": "已知"
    },
    {
+    "t": "img",
+    "rid": "rId135",
+    "src": "media/image67.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，"
+   },
+   {
+    "t": "img",
+    "rid": "rId137",
+    "src": "media/image68.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "平分"
    },
    {
+    "t": "img",
+    "rid": "rId139",
+    "src": "media/image69.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，"
    },
    {
+    "t": "img",
+    "rid": "rId141",
+    "src": "media/image70.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "平分"
+   },
+   {
+    "t": "img",
+    "rid": "rId143",
+    "src": "media/image71.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId145",
+    "src": "media/image72.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -10561,12 +11090,30 @@ export const EXAM_BANK = [
     "v": "如图，"
    },
    {
+    "t": "img",
+    "rid": "rId146",
+    "src": "media/image73.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "在"
    },
    {
+    "t": "img",
+    "rid": "rId139",
+    "src": "media/image69.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "外部，求"
+   },
+   {
+    "t": "img",
+    "rid": "rId149",
+    "src": "media/image74.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -10594,16 +11141,40 @@ export const EXAM_BANK = [
     "v": "解：∵"
    },
    {
+    "t": "img",
+    "rid": "rId137",
+    "src": "media/image68.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "平分"
+   },
+   {
+    "t": "img",
+    "rid": "rId139",
+    "src": "media/image69.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "，"
    },
    {
+    "t": "img",
+    "rid": "rId141",
+    "src": "media/image70.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "平分"
+   },
+   {
+    "t": "img",
+    "rid": "rId143",
+    "src": "media/image71.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -10621,12 +11192,24 @@ export const EXAM_BANK = [
     "v": " "
    },
    {
+    "t": "img",
+    "rid": "rId155",
+    "src": "media/image75.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，"
    },
    {
     "t": "text",
     "v": " "
+   },
+   {
+    "t": "img",
+    "rid": "rId157",
+    "src": "media/image76.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -10648,6 +11231,12 @@ export const EXAM_BANK = [
     "v": "∵"
    },
    {
+    "t": "img",
+    "rid": "rId135",
+    "src": "media/image67.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，"
    },
@@ -10657,6 +11246,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "∴"
+   },
+   {
+    "t": "img",
+    "rid": "rId160",
+    "src": "media/image77.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -10671,6 +11266,12 @@ export const EXAM_BANK = [
     "v": "，"
    },
    {
+    "t": "img",
+    "rid": "rId162",
+    "src": "media/image78.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "        "
    },
@@ -10690,8 +11291,20 @@ export const EXAM_BANK = [
     "v": "∴"
    },
    {
+    "t": "img",
+    "rid": "rId164",
+    "src": "media/image79.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "        "
+   },
+   {
+    "t": "img",
+    "rid": "rId166",
+    "src": "media/image80.wmf",
+    "kind": "formula"
    },
    {
     "t": "break"
@@ -10713,12 +11326,30 @@ export const EXAM_BANK = [
     "v": "若"
    },
    {
+    "t": "img",
+    "rid": "rId146",
+    "src": "media/image73.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "在"
    },
    {
+    "t": "img",
+    "rid": "rId139",
+    "src": "media/image69.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "内部，则"
+   },
+   {
+    "t": "img",
+    "rid": "rId149",
+    "src": "media/image74.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -10734,16 +11365,17 @@ export const EXAM_BANK = [
    }
   ],
   "rawParas": [
-   "21. 已知，平分，平分．",
-   "（1）如图，在外部，求的度数．",
+   "21. 已知⟨公式⟩，⟨公式⟩平分⟨公式⟩，⟨公式⟩平分⟨公式⟩．",
+   "⟨公式⟩",
+   "（1）如图，⟨公式⟩在⟨公式⟩外部，求⟨公式⟩的度数．",
    "①依题意补全图形；",
    "②完成下面的解答过程．",
-   "解：∵平分，平分，",
-   "∴ ， （理由：                ）．",
-   "∵，",
-   "∴        °，        °，",
-   "∴",
-   "（2）若在内部，则的度数是        ．"
+   "解：∵⟨公式⟩平分⟨公式⟩，⟨公式⟩平分⟨公式⟩，",
+   "∴ ⟨公式⟩， ⟨公式⟩（理由：                ）．",
+   "∵⟨公式⟩，",
+   "∴⟨公式⟩        °，⟨公式⟩        °，",
+   "∴⟨公式⟩        ⟨公式⟩",
+   "（2）若⟨公式⟩在⟨公式⟩内部，则⟨公式⟩的度数是        ．"
   ],
   "options": null,
   "optionParts": null,
@@ -10887,7 +11519,7 @@ export const EXAM_BANK = [
   "name": "线段中点 + 延长线（含参）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "已知点C，N在射线AB上，点M是线段AC的中点．⟨公式⟩（1）如图，当点C在线段AB上时，若点N是线段CB的中点，AC＝10，BC＝14，求线段MN的长；⟨公式⟩（2）当点C在线段AB的延长线上时，若CN∶BN＝1∶2，AC＝a，BC＝b，直接写出线段MN的长（用含a，b的式子表示）．",
+  "stemText": "已知点C，N在射线AB上，点M是线段AC的中点．⟨公式⟩⟨公式⟩⟨公式⟩（1）如图，当点C在线段AB上时，若点N是线段CB的中点，AC＝10，BC＝14，求线段MN的长；⟨公式⟩（2）当点C在线段AB的延长线上时，若CN∶BN＝1∶2，AC＝a，BC＝b，直接写出线段MN的长（用含a，b的式子表示）．",
   "stemParts": [
    {
     "t": "text",
@@ -10936,6 +11568,15 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "的中点．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId171",
+    "src": "media/image81.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -11154,6 +11795,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "23. 已知点C，N在射线AB上，点M是线段AC的中点．",
+   "⟨公式⟩",
    "（1）如图，当点C在线段AB上时，若点N是线段CB的中点，AC＝10，BC＝14，求线段MN的长；",
    "（2）当点C在线段AB的延长线上时，若CN∶BN＝1∶2，AC＝a，BC＝b，直接写出线段MN的长（用含a，b的式子表示）．"
   ],
@@ -11177,7 +11819,7 @@ export const EXAM_BANK = [
   "name": "新定义「变速点」（数轴动点）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "对于数轴上的定点P和动点M，如果满足：①点M以速度v沿数轴正方向运动，经过点P后以速度继续沿数轴正方向运动；②点M以速度v沿数轴负方向运动，经过点P后以速度继续沿数轴负方向运动，那么称定点P为变速点．点A，B都在数轴上，点A表示的数为0，点B表示的数为12⟨公式⟩（1）已知线段的中点是变速点，①若点D从点A出发，以每秒1个单位长度的速度沿数轴正方向运动，则在第        秒时与点B重合；②若点E从点B出发，以每秒1个单位长度的速度沿数轴负方向运动，则在第        秒时与点A重合．⟨公式⟩（2）已知在线段上存在一变速点K（不与点A，B重合），点K表示的数为k．点F从点A出发以每秒1个单位长度的速度沿数轴正方向运动，同时点G从点B出发以每秒1个单位长度的速度沿数轴负方向运动，若它们在点H处相遇，且点H表示的数为7，求k的值．",
+  "stemText": "对于数轴上的定点P和动点M，如果满足：①点M以速度v沿数轴正方向运动，经过点P后以速度⟨公式⟩继续沿数轴正方向运动；②点M以速度v沿数轴负方向运动，经过点P后以速度⟨公式⟩继续沿数轴负方向运动，那么称定点P为变速点．点A，B都在数轴上，点A表示的数为0，点B表示的数为12⟨公式⟩（1）已知线段⟨公式⟩的中点是变速点，①若点D从点A出发，以每秒1个单位长度的速度沿数轴正方向运动，则在第        秒时与点B重合；②若点E从点B出发，以每秒1个单位长度的速度沿数轴负方向运动，则在第        秒时与点A重合．⟨公式⟩（2）已知在线段⟨公式⟩上存在一变速点K（不与点A，B重合），点K表示的数为k．点F从点A出发以每秒1个单位长度的速度沿数轴正方向运动，同时点G从点B出发以每秒1个单位长度的速度沿数轴负方向运动，若它们在点H处相遇，且点H表示的数为7，求k的值．",
   "stemParts": [
    {
     "t": "text",
@@ -11228,6 +11870,12 @@ export const EXAM_BANK = [
     "v": "后以速度"
    },
    {
+    "t": "img",
+    "rid": "rId172",
+    "src": "media/image82.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "继续沿数轴正方向运动；②点"
    },
@@ -11254,6 +11902,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "后以速度"
+   },
+   {
+    "t": "img",
+    "rid": "rId174",
+    "src": "media/image83.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -11329,6 +11983,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "已知线段"
+   },
+   {
+    "t": "img",
+    "rid": "rId176",
+    "src": "media/image84.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -11432,6 +12092,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "已知在线段"
+   },
+   {
+    "t": "img",
+    "rid": "rId176",
+    "src": "media/image84.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -11563,9 +12229,9 @@ export const EXAM_BANK = [
    }
   ],
   "rawParas": [
-   "24. 对于数轴上的定点P和动点M，如果满足：①点M以速度v沿数轴正方向运动，经过点P后以速度继续沿数轴正方向运动；②点M以速度v沿数轴负方向运动，经过点P后以速度继续沿数轴负方向运动，那么称定点P为变速点．点A，B都在数轴上，点A表示的数为0，点B表示的数为12",
-   "（1）已知线段的中点是变速点，①若点D从点A出发，以每秒1个单位长度的速度沿数轴正方向运动，则在第        秒时与点B重合；②若点E从点B出发，以每秒1个单位长度的速度沿数轴负方向运动，则在第        秒时与点A重合．",
-   "（2）已知在线段上存在一变速点K（不与点A，B重合），点K表示的数为k．点F从点A出发以每秒1个单位长度的速度沿数轴正方向运动，同时点G从点B出发以每秒1个单位长度的速度沿数轴负方向运动，若它们在点H处相遇，且点H表示的数为7，求k的值．"
+   "24. 对于数轴上的定点P和动点M，如果满足：①点M以速度v沿数轴正方向运动，经过点P后以速度⟨公式⟩继续沿数轴正方向运动；②点M以速度v沿数轴负方向运动，经过点P后以速度⟨公式⟩继续沿数轴负方向运动，那么称定点P为变速点．点A，B都在数轴上，点A表示的数为0，点B表示的数为12",
+   "（1）已知线段⟨公式⟩的中点是变速点，①若点D从点A出发，以每秒1个单位长度的速度沿数轴正方向运动，则在第        秒时与点B重合；②若点E从点B出发，以每秒1个单位长度的速度沿数轴负方向运动，则在第        秒时与点A重合．",
+   "（2）已知在线段⟨公式⟩上存在一变速点K（不与点A，B重合），点K表示的数为k．点F从点A出发以每秒1个单位长度的速度沿数轴正方向运动，同时点G从点B出发以每秒1个单位长度的速度沿数轴负方向运动，若它们在点H处相遇，且点H表示的数为7，求k的值．"
   ],
   "options": null,
   "optionParts": null,
@@ -11587,7 +12253,7 @@ export const EXAM_BANK = [
   "name": "新定义运算（迭代：相反数→加1→倒数）",
   "bonus": true,
   "hasAnswer": true,
-  "stemText": "将有理数m（m不等于0和1）按以下步骤进行运算：⟨公式⟩第一步，求相反数；⟨公式⟩第二步，求所得的相反数与1的和；⟨公式⟩第三步，求这个和的倒数．⟨公式⟩如，有理数3按上述步骤运算，得到的结果是．⟨公式⟩现将有理数2和分别按上述步骤运算，得到的结果记为和，再将和分别按上述步骤运算，得到的结果记为和，如此重复上述过程，…⟨公式⟩（1）的值是        ，的值是        ；⟨公式⟩（2）的值是        ．",
+  "stemText": "将有理数m（m不等于0和1）按以下步骤进行运算：⟨公式⟩第一步，求相反数；⟨公式⟩第二步，求所得的相反数与1的和；⟨公式⟩第三步，求这个和的倒数．⟨公式⟩如，有理数3按上述步骤运算，得到的结果是⟨公式⟩．⟨公式⟩现将有理数2和⟨公式⟩分别按上述步骤运算，得到的结果记为⟨公式⟩和⟨公式⟩，再将⟨公式⟩和⟨公式⟩分别按上述步骤运算，得到的结果记为⟨公式⟩和⟨公式⟩，如此重复上述过程，…⟨公式⟩（1）⟨公式⟩的值是        ，⟨公式⟩的值是        ；⟨公式⟩（2）⟨公式⟩的值是        ．",
   "stemParts": [
    {
     "t": "text",
@@ -11682,6 +12348,12 @@ export const EXAM_BANK = [
     "v": "按上述步骤运算，得到的结果是"
    },
    {
+    "t": "img",
+    "rid": "rId179",
+    "src": "media/image85.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "．"
    },
@@ -11701,28 +12373,70 @@ export const EXAM_BANK = [
     "v": "和"
    },
    {
+    "t": "img",
+    "rid": "rId181",
+    "src": "media/image86.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "分别按上述步骤运算，得到的结果记为"
    },
    {
+    "t": "img",
+    "rid": "rId183",
+    "src": "media/image87.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "和"
+   },
+   {
+    "t": "img",
+    "rid": "rId185",
+    "src": "media/image88.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "，再将"
    },
    {
+    "t": "img",
+    "rid": "rId183",
+    "src": "media/image87.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "和"
+   },
+   {
+    "t": "img",
+    "rid": "rId185",
+    "src": "media/image88.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "分别按上述步骤运算，得到的结果记为"
    },
    {
+    "t": "img",
+    "rid": "rId189",
+    "src": "media/image89.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "和"
+   },
+   {
+    "t": "img",
+    "rid": "rId191",
+    "src": "media/image90.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -11748,6 +12462,12 @@ export const EXAM_BANK = [
     "v": "）"
    },
    {
+    "t": "img",
+    "rid": "rId183",
+    "src": "media/image87.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "的值是"
    },
@@ -11758,6 +12478,12 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "，"
+   },
+   {
+    "t": "img",
+    "rid": "rId185",
+    "src": "media/image88.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -11787,6 +12513,12 @@ export const EXAM_BANK = [
     "v": "）"
    },
    {
+    "t": "img",
+    "rid": "rId195",
+    "src": "media/image91.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "的值是"
    },
@@ -11804,10 +12536,10 @@ export const EXAM_BANK = [
    "第一步，求相反数；",
    "第二步，求所得的相反数与1的和；",
    "第三步，求这个和的倒数．",
-   "如，有理数3按上述步骤运算，得到的结果是．",
-   "现将有理数2和分别按上述步骤运算，得到的结果记为和，再将和分别按上述步骤运算，得到的结果记为和，如此重复上述过程，…",
-   "（1）的值是        ，的值是        ；",
-   "（2）的值是        ．"
+   "如，有理数3按上述步骤运算，得到的结果是⟨公式⟩．",
+   "现将有理数2和⟨公式⟩分别按上述步骤运算，得到的结果记为⟨公式⟩和⟨公式⟩，再将⟨公式⟩和⟨公式⟩分别按上述步骤运算，得到的结果记为⟨公式⟩和⟨公式⟩，如此重复上述过程，…",
+   "（1）⟨公式⟩的值是        ，⟨公式⟩的值是        ；",
+   "（2）⟨公式⟩的值是        ．"
   ],
   "options": null,
   "optionParts": null,
@@ -11829,7 +12561,7 @@ export const EXAM_BANK = [
   "name": "新定义「特征值」（射线角）",
   "bonus": true,
   "hasAnswer": true,
-  "stemText": "已知，对于射线， 将的值定义为射线关于的特征值，记为，即 ，其中，．特别地，当射线与射线或重合时，．⟨公式⟩（1）已知，则的值是        ；⟨公式⟩（2）若，求的大小；⟨公式⟩（3）已知，的平分线为，射线位于内部或边上，将射线关于的所有可能的特征值的最小值记为，当在平面内运动时，直接写出的最大值及此时的大小．⟨公式⟩参考答案⟨公式⟩第1－8题均有四个选项，符合题意的选项只有一个．",
+  "stemText": "已知⟨公式⟩，对于射线⟨公式⟩， 将⟨公式⟩的值定义为射线⟨公式⟩关于⟨公式⟩的特征值，记为⟨公式⟩，即⟨公式⟩ ，其中⟨公式⟩，⟨公式⟩．特别地，当射线⟨公式⟩与射线⟨公式⟩或⟨公式⟩重合时，⟨公式⟩．⟨公式⟩（1）已知⟨公式⟩，则⟨公式⟩的值是        ；⟨公式⟩（2）若⟨公式⟩，求⟨公式⟩的大小；⟨公式⟩（3）已知⟨公式⟩，⟨公式⟩的平分线为⟨公式⟩，射线⟨公式⟩位于⟨公式⟩内部或边上，将射线⟨公式⟩关于⟨公式⟩的所有可能的特征值⟨公式⟩的最小值记为⟨公式⟩，当⟨公式⟩在平面内运动时，直接写出⟨公式⟩的最大值及此时⟨公式⟩的大小．⟨公式⟩参考答案⟨公式⟩第1－8题均有四个选项，符合题意的选项只有一个．",
   "stemParts": [
    {
     "t": "text",
@@ -11840,52 +12572,130 @@ export const EXAM_BANK = [
     "v": "已知"
    },
    {
+    "t": "img",
+    "rid": "rId197",
+    "src": "media/image92.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，对于射线"
+   },
+   {
+    "t": "img",
+    "rid": "rId199",
+    "src": "media/image93.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "， 将"
    },
    {
+    "t": "img",
+    "rid": "rId201",
+    "src": "media/image94.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "的值定义为射线"
+   },
+   {
+    "t": "img",
+    "rid": "rId199",
+    "src": "media/image93.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "关于"
    },
    {
+    "t": "img",
+    "rid": "rId204",
+    "src": "media/image95.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "的特征值，记为"
+   },
+   {
+    "t": "img",
+    "rid": "rId206",
+    "src": "media/image96.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "，即"
    },
    {
+    "t": "img",
+    "rid": "rId208",
+    "src": "media/image97.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": " ，其中"
+   },
+   {
+    "t": "img",
+    "rid": "rId210",
+    "src": "media/image98.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "，"
    },
    {
+    "t": "img",
+    "rid": "rId212",
+    "src": "media/image99.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "．特别地，当射线"
+   },
+   {
+    "t": "img",
+    "rid": "rId199",
+    "src": "media/image93.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "与射线"
    },
    {
+    "t": "img",
+    "rid": "rId215",
+    "src": "media/image100.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "或"
    },
    {
+    "t": "img",
+    "rid": "rId217",
+    "src": "media/image101.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "重合时，"
+   },
+   {
+    "t": "img",
+    "rid": "rId219",
+    "src": "media/image102.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -11911,8 +12721,20 @@ export const EXAM_BANK = [
     "v": "已知"
    },
    {
+    "t": "img",
+    "rid": "rId221",
+    "src": "media/image103.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，则"
+   },
+   {
+    "t": "img",
+    "rid": "rId223",
+    "src": "media/image104.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -11946,8 +12768,20 @@ export const EXAM_BANK = [
     "v": "若"
    },
    {
+    "t": "img",
+    "rid": "rId225",
+    "src": "media/image105.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，求"
+   },
+   {
+    "t": "img",
+    "rid": "rId227",
+    "src": "media/image106.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -11973,48 +12807,120 @@ export const EXAM_BANK = [
     "v": "已知"
    },
    {
+    "t": "img",
+    "rid": "rId229",
+    "src": "media/image107.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，"
+   },
+   {
+    "t": "img",
+    "rid": "rId231",
+    "src": "media/image108.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "的平分线为"
    },
    {
+    "t": "img",
+    "rid": "rId233",
+    "src": "media/image109.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，射线"
+   },
+   {
+    "t": "img",
+    "rid": "rId235",
+    "src": "media/image110.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "位于"
    },
    {
+    "t": "img",
+    "rid": "rId231",
+    "src": "media/image108.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "内部或边上，将射线"
+   },
+   {
+    "t": "img",
+    "rid": "rId235",
+    "src": "media/image110.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "关于"
    },
    {
+    "t": "img",
+    "rid": "rId204",
+    "src": "media/image95.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "的所有可能的特征值"
+   },
+   {
+    "t": "img",
+    "rid": "rId240",
+    "src": "media/image111.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "的最小值记为"
    },
    {
+    "t": "img",
+    "rid": "rId242",
+    "src": "media/image112.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "，当"
+   },
+   {
+    "t": "img",
+    "rid": "rId231",
+    "src": "media/image108.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "在平面内运动时，直接写出"
    },
    {
+    "t": "img",
+    "rid": "rId242",
+    "src": "media/image112.wmf",
+    "kind": "formula"
+   },
+   {
     "t": "text",
     "v": "的最大值及此时"
+   },
+   {
+    "t": "img",
+    "rid": "rId246",
+    "src": "media/image113.wmf",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12052,10 +12958,10 @@ export const EXAM_BANK = [
    }
   ],
   "rawParas": [
-   "26. 已知，对于射线， 将的值定义为射线关于的特征值，记为，即 ，其中，．特别地，当射线与射线或重合时，．",
-   "（1）已知，则的值是        ；",
-   "（2）若，求的大小；",
-   "（3）已知，的平分线为，射线位于内部或边上，将射线关于的所有可能的特征值的最小值记为，当在平面内运动时，直接写出的最大值及此时的大小．",
+   "26. 已知⟨公式⟩，对于射线⟨公式⟩， 将⟨公式⟩的值定义为射线⟨公式⟩关于⟨公式⟩的特征值，记为⟨公式⟩，即⟨公式⟩ ，其中⟨公式⟩，⟨公式⟩．特别地，当射线⟨公式⟩与射线⟨公式⟩或⟨公式⟩重合时，⟨公式⟩．",
+   "（1）已知⟨公式⟩，则⟨公式⟩的值是        ；",
+   "（2）若⟨公式⟩，求⟨公式⟩的大小；",
+   "（3）已知⟨公式⟩，⟨公式⟩的平分线为⟨公式⟩，射线⟨公式⟩位于⟨公式⟩内部或边上，将射线⟨公式⟩关于⟨公式⟩的所有可能的特征值⟨公式⟩的最小值记为⟨公式⟩，当⟨公式⟩在平面内运动时，直接写出⟨公式⟩的最大值及此时⟨公式⟩的大小．",
    "参考答案",
    "第1－8题均有四个选项，符合题意的选项只有一个．"
   ],
@@ -12088,7 +12994,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId8",
-    "src": "media/image4.png"
+    "src": "media/image4.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12109,56 +13016,31 @@ export const EXAM_BANK = [
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
      "v": "7"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId10",
-     "src": "media/image5.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image5.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId12",
-     "src": "media/image6.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image6.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId8",
-     "src": "media/image4.png"
+     "src": "media/image4.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -12236,58 +13118,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId15",
-     "src": "media/image7.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image7.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId17",
-     "src": "media/image8.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image8.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId19",
-     "src": "media/image9.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image9.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId21",
-     "src": "media/image10.png"
+     "src": "media/image10.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -12309,7 +13167,7 @@ export const EXAM_BANK = [
   "name": "数轴 + 相反数（列方程组）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，点⟨公式⟩，⟨公式⟩在数轴上表示的数分别是⟨公式⟩，⟨公式⟩．若⟨公式⟩，⟨公式⟩互为相反数，且⟨公式⟩，则⟨公式⟩的值为（   ）",
+  "stemText": "如图，点⟨公式⟩，⟨公式⟩在数轴上表示的数分别是⟨公式⟩，⟨公式⟩．若⟨公式⟩，⟨公式⟩互为相反数，且⟨公式⟩，则⟨公式⟩的值为（   ）⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -12322,7 +13180,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId23",
-    "src": "media/image11.png"
+    "src": "media/image11.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12331,7 +13190,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId25",
-    "src": "media/image12.png"
+    "src": "media/image12.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12340,7 +13200,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId27",
-    "src": "media/image13.png"
+    "src": "media/image13.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12349,7 +13210,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId29",
-    "src": "media/image14.png"
+    "src": "media/image14.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12358,7 +13220,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId27",
-    "src": "media/image13.png"
+    "src": "media/image13.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12367,7 +13230,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId29",
-    "src": "media/image14.png"
+    "src": "media/image14.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12376,7 +13240,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId33",
-    "src": "media/image15.png"
+    "src": "media/image15.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12385,7 +13250,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId27",
-    "src": "media/image13.png"
+    "src": "media/image13.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12398,10 +13264,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "）"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId36",
+    "src": "media/image16.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
    "3. 如图，点⟨公式⟩，⟨公式⟩在数轴上表示的数分别是⟨公式⟩，⟨公式⟩．若⟨公式⟩，⟨公式⟩互为相反数，且⟨公式⟩，则⟨公式⟩的值为（   ）",
+   "⟨公式⟩",
    "A. ⟨公式⟩B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
   ],
   "options": [
@@ -12413,58 +13289,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId37",
-     "src": "media/image17.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image17.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId39",
-     "src": "media/image18.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image18.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId41",
-     "src": "media/image19.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image19.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId43",
-     "src": "media/image20.png"
+     "src": "media/image20.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -12507,51 +13359,51 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "4. 下列图形中可以作为一个长方体的展开图的是（   ）",
-   "A. B.",
-   "C. D."
+   "A. ⟨公式⟩B. ⟨公式⟩",
+   "C. ⟨公式⟩D. ⟨公式⟩"
   ],
   "options": [
-   "",
-   "",
-   "",
-   ""
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩",
+   "⟨公式⟩"
   ],
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId45",
+     "src": "media/image21.png",
+     "kind": "figure"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
+     "t": "img",
+     "rid": "rId46",
+     "src": "media/image22.png",
+     "kind": "figure"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "rid": "rId47",
+     "src": "media/image23.png",
+     "kind": "figure"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
+     "t": "img",
+     "rid": "rId48",
+     "src": "media/image24.png",
+     "kind": "figure"
     }
    ]
   ],
   "key": 2,
-  "answer": "",
+  "answer": "⟨公式⟩",
   "officialKey": "C"
  },
  {
@@ -12601,54 +13453,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId49",
-     "src": "media/image25.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image25.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId51",
-     "src": "media/image26.png"
+     "src": "media/image26.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId53",
-     "src": "media/image27.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image27.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId55",
-     "src": "media/image28.png"
+     "src": "media/image28.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -12683,7 +13515,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId57",
-    "src": "media/image29.png"
+    "src": "media/image29.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12711,58 +13544,34 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId59",
-     "src": "media/image30.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image30.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId61",
-     "src": "media/image31.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image31.png",
+     "kind": "formula"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "img",
      "rid": "rId63",
-     "src": "media/image32.png"
-    },
-    {
-     "t": "text",
-     "v": ""
+     "src": "media/image32.png",
+     "kind": "formula"
     }
    ],
    [
     {
-     "t": "text",
-     "v": " "
-    },
-    {
      "t": "img",
      "rid": "rId65",
-     "src": "media/image33.png"
+     "src": "media/image33.png",
+     "kind": "formula"
     }
    ]
   ],
@@ -12818,50 +13627,22 @@ export const EXAM_BANK = [
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
      "v": "每天阅读半小时，阅读的总时长与天数"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
-     "v": "50"
-    },
-    {
-     "t": "text",
-     "v": "米短跑测试，跑步的平均速度与时间"
+     "v": "50米短跑测试，跑步的平均速度与时间"
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "圆柱的底面积一定，圆柱的体积与高"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "长方形的周长一定，长方形相邻两边的长"
@@ -12899,7 +13680,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId67",
-    "src": "media/image34.png"
+    "src": "media/image34.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12908,7 +13690,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId69",
-    "src": "media/image35.png"
+    "src": "media/image35.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12924,7 +13707,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId71",
-    "src": "media/image36.png"
+    "src": "media/image36.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12937,7 +13721,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId73",
-    "src": "media/image37.png"
+    "src": "media/image37.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12950,7 +13735,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId75",
-    "src": "media/image38.png"
+    "src": "media/image38.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12967,7 +13753,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId77",
-    "src": "media/image39.png"
+    "src": "media/image39.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -12976,7 +13763,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId79",
-    "src": "media/image40.png"
+    "src": "media/image40.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13014,50 +13802,22 @@ export const EXAM_BANK = [
    [
     {
      "t": "text",
-     "v": " "
-    },
-    {
-     "t": "text",
      "v": "①②"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "③"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "①③"
-    },
-    {
-     "t": "text",
-     "v": ""
     }
    ],
    [
-    {
-     "t": "text",
-     "v": " "
-    },
     {
      "t": "text",
      "v": "③④"
@@ -13160,7 +13920,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId81",
-    "src": "media/image41.png"
+    "src": "media/image41.png",
+    "kind": "formula"
    },
    {
     "t": "break"
@@ -13168,7 +13929,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId83",
-    "src": "media/image42.png"
+    "src": "media/image42.png",
+    "kind": "formula"
    },
    {
     "t": "break"
@@ -13176,7 +13938,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId85",
-    "src": "media/image43.png"
+    "src": "media/image43.png",
+    "kind": "formula"
    },
    {
     "t": "break"
@@ -13184,7 +13947,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId87",
-    "src": "media/image44.png"
+    "src": "media/image44.png",
+    "kind": "formula"
    }
   ],
   "rawParas": [
@@ -13220,7 +13984,7 @@ export const EXAM_BANK = [
   "name": "点与直线位置关系表述",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，已知点P与直线l，用适当的语句表述图中点P与直线l的关系：________．",
+  "stemText": "如图，已知点P与直线l，用适当的语句表述图中点P与直线l的关系：________．⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -13269,10 +14033,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId89",
+    "src": "media/image45.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
-   "10. 如图，已知点P与直线l，用适当的语句表述图中点P与直线l的关系：________．"
+   "10. 如图，已知点P与直线l，用适当的语句表述图中点P与直线l的关系：________．",
+   "⟨公式⟩"
   ],
   "options": null,
   "optionParts": null,
@@ -13357,7 +14131,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId90",
-    "src": "media/image46.png"
+    "src": "media/image46.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13374,7 +14149,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId92",
-    "src": "media/image47.png"
+    "src": "media/image47.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13420,7 +14196,7 @@ export const EXAM_BANK = [
   "name": "角的和差",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，⟨公式⟩，⟨公式⟩，⟨公式⟩，则⟨公式⟩的度数为________°",
+  "stemText": "如图，⟨公式⟩，⟨公式⟩，⟨公式⟩，则⟨公式⟩的度数为________°⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -13433,7 +14209,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId94",
-    "src": "media/image48.png"
+    "src": "media/image48.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13442,7 +14219,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId96",
-    "src": "media/image49.png"
+    "src": "media/image49.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13451,7 +14229,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId98",
-    "src": "media/image50.png"
+    "src": "media/image50.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13460,7 +14239,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId100",
-    "src": "media/image51.png"
+    "src": "media/image51.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13473,10 +14253,20 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "°"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId102",
+    "src": "media/image52.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
-   "13. 如图，⟨公式⟩，⟨公式⟩，⟨公式⟩，则⟨公式⟩的度数为________°"
+   "13. 如图，⟨公式⟩，⟨公式⟩，⟨公式⟩，则⟨公式⟩的度数为________°",
+   "⟨公式⟩"
   ],
   "options": null,
   "optionParts": null,
@@ -13498,7 +14288,7 @@ export const EXAM_BANK = [
   "name": "图形规律（阴影正方形）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，边长相等的小正方形组成一组有规律的图案，其中部分小正方形涂有阴影．按照这样的规律，第n个图案中涂有阴影的小正方形的个数为________（用含n的式子表示）．",
+  "stemText": "如图，边长相等的小正方形组成一组有规律的图案，其中部分小正方形涂有阴影．按照这样的规律，第n个图案中涂有阴影的小正方形的个数为________（用含n的式子表示）．⟨公式⟩⟨公式⟩",
   "stemParts": [
    {
     "t": "text",
@@ -13531,10 +14321,24 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "的式子表示）．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId103",
+    "src": "media/image53.png",
+    "kind": "figure"
+   },
+   {
+    "t": "text",
+    "v": "  "
    }
   ],
   "rawParas": [
-   "14. 如图，边长相等的小正方形组成一组有规律的图案，其中部分小正方形涂有阴影．按照这样的规律，第n个图案中涂有阴影的小正方形的个数为________（用含n的式子表示）．"
+   "14. 如图，边长相等的小正方形组成一组有规律的图案，其中部分小正方形涂有阴影．按照这样的规律，第n个图案中涂有阴影的小正方形的个数为________（用含n的式子表示）．",
+   "⟨公式⟩"
   ],
   "options": null,
   "optionParts": null,
@@ -13572,7 +14376,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId104",
-    "src": "media/image54.png"
+    "src": "media/image54.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13581,7 +14386,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId106",
-    "src": "media/image55.png"
+    "src": "media/image55.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13590,7 +14396,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId108",
-    "src": "media/image56.png"
+    "src": "media/image56.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13599,7 +14406,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId110",
-    "src": "media/image57.png"
+    "src": "media/image57.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13608,7 +14416,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId112",
-    "src": "media/image58.png"
+    "src": "media/image58.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13649,7 +14458,7 @@ export const EXAM_BANK = [
   "name": "幻圆（四数和相等）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图1，“幻圆”的八个“圆圈”中的数分别是1，2，3，4，5，6，7，8，大圆上、小圆上以及大圆的两条直径上的四个数的和都等于18．将⟨公式⟩，⟨公式⟩，⟨公式⟩，0，1，2，3，4这八个数分别填入图2的“幻圆”的八个“圆圈”中，使大圆上、小圆上以及大圆的两条直径上的四个数的和都相等，其中⟨公式⟩，1，4已填入如图所示的位置．⟨公式⟩（1）图2中x，y表示的这两个数的和为________；⟨公式⟩（2）将x，y表示的数以及剩余的三个数填入图2中（填出一种即可），从上往下依次为_____，____，____．⟨公式⟩解答应写出文字说明、演算步骤或证明过程．",
+  "stemText": "如图1，“幻圆”的八个“圆圈”中的数分别是1，2，3，4，5，6，7，8，大圆上、小圆上以及大圆的两条直径上的四个数的和都等于18．将⟨公式⟩，⟨公式⟩，⟨公式⟩，0，1，2，3，4这八个数分别填入图2的“幻圆”的八个“圆圈”中，使大圆上、小圆上以及大圆的两条直径上的四个数的和都相等，其中⟨公式⟩，1，4已填入如图所示的位置．⟨公式⟩（1）图2中x，y表示的这两个数的和为________；⟨公式⟩（2）将x，y表示的数以及剩余的三个数填入图2中（填出一种即可），从上往下依次为_____，____，____．⟨公式⟩⟨公式⟩⟨公式⟩解答应写出文字说明、演算步骤或证明过程．",
   "stemParts": [
    {
     "t": "text",
@@ -13742,7 +14551,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId37",
-    "src": "media/image17.png"
+    "src": "media/image17.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13751,7 +14561,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId115",
-    "src": "media/image59.png"
+    "src": "media/image59.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13760,7 +14571,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId117",
-    "src": "media/image60.png"
+    "src": "media/image60.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13817,7 +14629,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId117",
-    "src": "media/image60.png"
+    "src": "media/image60.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -13953,6 +14766,15 @@ export const EXAM_BANK = [
     "t": "break"
    },
    {
+    "t": "img",
+    "rid": "rId120",
+    "src": "media/image61.png",
+    "kind": "figure"
+   },
+   {
+    "t": "break"
+   },
+   {
     "t": "text",
     "v": "解答应写出文字说明、演算步骤或证明过程．"
    }
@@ -13961,6 +14783,7 @@ export const EXAM_BANK = [
    "16. 如图1，“幻圆”的八个“圆圈”中的数分别是1，2，3，4，5，6，7，8，大圆上、小圆上以及大圆的两条直径上的四个数的和都等于18．将⟨公式⟩，⟨公式⟩，⟨公式⟩，0，1，2，3，4这八个数分别填入图2的“幻圆”的八个“圆圈”中，使大圆上、小圆上以及大圆的两条直径上的四个数的和都相等，其中⟨公式⟩，1，4已填入如图所示的位置．",
    "（1）图2中x，y表示的这两个数的和为________；",
    "（2）将x，y表示的数以及剩余的三个数填入图2中（填出一种即可），从上往下依次为_____，____，____．",
+   "⟨公式⟩",
    "解答应写出文字说明、演算步骤或证明过程．"
   ],
   "options": null,
@@ -14003,7 +14826,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId121",
-    "src": "media/image62.png"
+    "src": "media/image62.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14019,7 +14843,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId123",
-    "src": "media/image63.png"
+    "src": "media/image63.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14035,7 +14860,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId125",
-    "src": "media/image64.png"
+    "src": "media/image64.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14051,7 +14877,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId127",
-    "src": "media/image65.png"
+    "src": "media/image65.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14098,7 +14925,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId129",
-    "src": "media/image66.png"
+    "src": "media/image66.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14107,7 +14935,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId131",
-    "src": "media/image67.png"
+    "src": "media/image67.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14116,7 +14945,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId133",
-    "src": "media/image68.png"
+    "src": "media/image68.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14146,7 +14976,7 @@ export const EXAM_BANK = [
   "name": "尺规作图（线段）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，已知线段a，b（⟨公式⟩），点A，M．⟨公式⟩（1）使用直尺和圆规，完成以下作图（保留作图痕迹）；⟨公式⟩①作直线⟨公式⟩；⟨公式⟩②在射线⟨公式⟩上作线段⟨公式⟩，使⟨公式⟩；⟨公式⟩③作线段⟨公式⟩，使点A是线段⟨公式⟩的中点．⟨公式⟩（2）若⟨公式⟩，⟨公式⟩，则（1）中线段⟨公式⟩的长为________⟨公式⟩．",
+  "stemText": "如图，已知线段a，b（⟨公式⟩），点A，M．⟨公式⟩⟨公式⟩⟨公式⟩（1）使用直尺和圆规，完成以下作图（保留作图痕迹）；⟨公式⟩①作直线⟨公式⟩；⟨公式⟩②在射线⟨公式⟩上作线段⟨公式⟩，使⟨公式⟩；⟨公式⟩③作线段⟨公式⟩，使点A是线段⟨公式⟩的中点．⟨公式⟩（2）若⟨公式⟩，⟨公式⟩，则（1）中线段⟨公式⟩的长为________⟨公式⟩．",
   "stemParts": [
    {
     "t": "text",
@@ -14175,7 +15005,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId135",
-    "src": "media/image69.png"
+    "src": "media/image69.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14196,6 +15027,15 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId137",
+    "src": "media/image70.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -14222,7 +15062,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId138",
-    "src": "media/image71.png"
+    "src": "media/image71.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14242,7 +15083,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId138",
-    "src": "media/image71.png"
+    "src": "media/image71.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14251,7 +15093,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId141",
-    "src": "media/image72.png"
+    "src": "media/image72.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14260,7 +15103,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId143",
-    "src": "media/image73.png"
+    "src": "media/image73.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14280,7 +15124,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId145",
-    "src": "media/image74.png"
+    "src": "media/image74.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14297,7 +15142,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId145",
-    "src": "media/image74.png"
+    "src": "media/image74.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14317,7 +15163,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId148",
-    "src": "media/image75.png"
+    "src": "media/image75.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14326,7 +15173,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId150",
-    "src": "media/image76.png"
+    "src": "media/image76.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14343,7 +15191,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId145",
-    "src": "media/image74.png"
+    "src": "media/image74.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14356,7 +15205,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId153",
-    "src": "media/image77.png"
+    "src": "media/image77.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14365,6 +15215,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "19. 如图，已知线段a，b（⟨公式⟩），点A，M．",
+   "⟨公式⟩",
    "（1）使用直尺和圆规，完成以下作图（保留作图痕迹）；",
    "①作直线⟨公式⟩；",
    "②在射线⟨公式⟩上作线段⟨公式⟩，使⟨公式⟩；",
@@ -14411,7 +15262,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId155",
-    "src": "media/image78.png"
+    "src": "media/image78.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14427,7 +15279,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId157",
-    "src": "media/image79.png"
+    "src": "media/image79.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14749,7 +15602,7 @@ export const EXAM_BANK = [
   "name": "U 形赛道（几何 + 代数）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "学校机器人社团计划开展自制机器人比赛，场地是长为⟨公式⟩，宽为⟨公式⟩的长方形，现需要设计赛道和比赛方案．如图1，小明在场地长为⟨公式⟩的一条边上截取线段⟨公式⟩，以⟨公式⟩为一边在场地内部画了一个小长方形，设计了一个宽都为⟨公式⟩的“U”形赛道（阴影部分），并制定了比赛方案．他将小长方形在场地内部的三条线段的和叫作赛道的内圈长．例如，图1中赛道的内圈长为线段⟨公式⟩，⟨公式⟩，⟨公式⟩的和．⟨公式⟩（1）用含x的式子表示：图1中，⟨公式⟩的长为_______⟨公式⟩，赛道的内圈长为______⟨公式⟩；⟨公式⟩（2）小明想到可以调整“U”形赛道的开口方向，如图2，他在场地长为⟨公式⟩的边⟨公式⟩上截取线段⟨公式⟩，且⟨公式⟩．他以⟨公式⟩为一边在场地内部画了一个小长方形，设计了一个宽都为⟨公式⟩的“U”形赛道．⟨公式⟩①请在图2中补全小明设计的赛道图形；⟨公式⟩②对于图2的这种设计，在图2和图1两种赛道的内圈长相同的前提下，如果这两种赛道宽度的差在⟨公式⟩范围内，那么可以直接使用之前制定的比赛方案，否则需要对比赛方案作出调整．判断使用图2的设计时，是否需要调整小明之前制定的比赛方案，并说明理由．",
+  "stemText": "学校机器人社团计划开展自制机器人比赛，场地是长为⟨公式⟩，宽为⟨公式⟩的长方形，现需要设计赛道和比赛方案．如图1，小明在场地长为⟨公式⟩的一条边上截取线段⟨公式⟩，以⟨公式⟩为一边在场地内部画了一个小长方形，设计了一个宽都为⟨公式⟩的“U”形赛道（阴影部分），并制定了比赛方案．他将小长方形在场地内部的三条线段的和叫作赛道的内圈长．例如，图1中赛道的内圈长为线段⟨公式⟩，⟨公式⟩，⟨公式⟩的和．⟨公式⟩⟨公式⟩⟨公式⟩（1）用含x的式子表示：图1中，⟨公式⟩的长为_______⟨公式⟩，赛道的内圈长为______⟨公式⟩；⟨公式⟩（2）小明想到可以调整“U”形赛道的开口方向，如图2，他在场地长为⟨公式⟩的边⟨公式⟩上截取线段⟨公式⟩，且⟨公式⟩．他以⟨公式⟩为一边在场地内部画了一个小长方形，设计了一个宽都为⟨公式⟩的“U”形赛道．⟨公式⟩①请在图2中补全小明设计的赛道图形；⟨公式⟩②对于图2的这种设计，在图2和图1两种赛道的内圈长相同的前提下，如果这两种赛道宽度的差在⟨公式⟩范围内，那么可以直接使用之前制定的比赛方案，否则需要对比赛方案作出调整．判断使用图2的设计时，是否需要调整小明之前制定的比赛方案，并说明理由．",
   "stemParts": [
    {
     "t": "text",
@@ -14762,7 +15615,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId159",
-    "src": "media/image80.png"
+    "src": "media/image80.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14771,7 +15625,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId161",
-    "src": "media/image81.png"
+    "src": "media/image81.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14788,7 +15643,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId159",
-    "src": "media/image80.png"
+    "src": "media/image80.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14797,7 +15653,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId141",
-    "src": "media/image72.png"
+    "src": "media/image72.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14806,7 +15663,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId141",
-    "src": "media/image72.png"
+    "src": "media/image72.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14815,7 +15673,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId166",
-    "src": "media/image82.png"
+    "src": "media/image82.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14840,7 +15699,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId168",
-    "src": "media/image83.png"
+    "src": "media/image83.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14849,7 +15709,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId170",
-    "src": "media/image84.png"
+    "src": "media/image84.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14858,11 +15719,21 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId172",
-    "src": "media/image85.png"
+    "src": "media/image85.png",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "的和．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId174",
+    "src": "media/image86.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -14894,7 +15765,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId170",
-    "src": "media/image84.png"
+    "src": "media/image84.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14907,7 +15779,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId153",
-    "src": "media/image77.png"
+    "src": "media/image77.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14920,7 +15793,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId153",
-    "src": "media/image77.png"
+    "src": "media/image77.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14956,7 +15830,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId161",
-    "src": "media/image81.png"
+    "src": "media/image81.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14965,7 +15840,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId179",
-    "src": "media/image87.png"
+    "src": "media/image87.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14974,7 +15850,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId181",
-    "src": "media/image88.png"
+    "src": "media/image88.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14983,7 +15860,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId183",
-    "src": "media/image89.png"
+    "src": "media/image89.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -14992,7 +15870,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId181",
-    "src": "media/image88.png"
+    "src": "media/image88.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15001,7 +15880,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId186",
-    "src": "media/image90.png"
+    "src": "media/image90.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15072,7 +15952,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId188",
-    "src": "media/image91.png"
+    "src": "media/image91.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15089,6 +15970,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "22. 学校机器人社团计划开展自制机器人比赛，场地是长为⟨公式⟩，宽为⟨公式⟩的长方形，现需要设计赛道和比赛方案．如图1，小明在场地长为⟨公式⟩的一条边上截取线段⟨公式⟩，以⟨公式⟩为一边在场地内部画了一个小长方形，设计了一个宽都为⟨公式⟩的“U”形赛道（阴影部分），并制定了比赛方案．他将小长方形在场地内部的三条线段的和叫作赛道的内圈长．例如，图1中赛道的内圈长为线段⟨公式⟩，⟨公式⟩，⟨公式⟩的和．",
+   "⟨公式⟩",
    "（1）用含x的式子表示：图1中，⟨公式⟩的长为_______⟨公式⟩，赛道的内圈长为______⟨公式⟩；",
    "（2）小明想到可以调整“U”形赛道的开口方向，如图2，他在场地长为⟨公式⟩的边⟨公式⟩上截取线段⟨公式⟩，且⟨公式⟩．他以⟨公式⟩为一边在场地内部画了一个小长方形，设计了一个宽都为⟨公式⟩的“U”形赛道．",
    "①请在图2中补全小明设计的赛道图形；",
@@ -15114,7 +15996,7 @@ export const EXAM_BANK = [
   "name": "数轴双动点（分段变速）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，数轴上点A，O，B分别表示数⟨公式⟩，0，5．动点P从点A出发，以每秒1个单位长度的速度沿数轴正方向运动；同时动点Q从点B出发，以每秒1个单位长度的速度沿数轴负方向运动，并在经过点O后以每秒2个单位长度的速度继续沿数轴负方向运动；当点P到达点O时，P，Q两点都停止运动．设点P运动的时间为t秒．⟨公式⟩（1）当⟨公式⟩时，⟨公式⟩_______；当点P与点Q重合时，⟨公式⟩_______；⟨公式⟩（2）当点Q在点P左侧，且⟨公式⟩时，⟨公式⟩______，点Q表示的数是_______；⟨公式⟩（3）当⟨公式⟩时，求t的值．",
+  "stemText": "如图，数轴上点A，O，B分别表示数⟨公式⟩，0，5．动点P从点A出发，以每秒1个单位长度的速度沿数轴正方向运动；同时动点Q从点B出发，以每秒1个单位长度的速度沿数轴负方向运动，并在经过点O后以每秒2个单位长度的速度继续沿数轴负方向运动；当点P到达点O时，P，Q两点都停止运动．设点P运动的时间为t秒．⟨公式⟩⟨公式⟩⟨公式⟩（1）当⟨公式⟩时，⟨公式⟩_______；当点P与点Q重合时，⟨公式⟩_______；⟨公式⟩（2）当点Q在点P左侧，且⟨公式⟩时，⟨公式⟩______，点Q表示的数是_______；⟨公式⟩（3）当⟨公式⟩时，求t的值．",
   "stemParts": [
    {
     "t": "text",
@@ -15151,7 +16033,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId190",
-    "src": "media/image92.png"
+    "src": "media/image92.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15289,6 +16172,15 @@ export const EXAM_BANK = [
     "t": "break"
    },
    {
+    "t": "img",
+    "rid": "rId192",
+    "src": "media/image93.png",
+    "kind": "figure"
+   },
+   {
+    "t": "break"
+   },
+   {
     "t": "text",
     "v": "（1）"
    },
@@ -15299,7 +16191,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId193",
-    "src": "media/image94.png"
+    "src": "media/image94.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15308,7 +16201,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId195",
-    "src": "media/image95.png"
+    "src": "media/image95.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15337,7 +16231,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId197",
-    "src": "media/image96.png"
+    "src": "media/image96.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15377,7 +16272,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId199",
-    "src": "media/image97.png"
+    "src": "media/image97.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15386,7 +16282,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId197",
-    "src": "media/image96.png"
+    "src": "media/image96.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15426,7 +16323,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId202",
-    "src": "media/image98.png"
+    "src": "media/image98.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15443,6 +16341,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "23. 如图，数轴上点A，O，B分别表示数⟨公式⟩，0，5．动点P从点A出发，以每秒1个单位长度的速度沿数轴正方向运动；同时动点Q从点B出发，以每秒1个单位长度的速度沿数轴负方向运动，并在经过点O后以每秒2个单位长度的速度继续沿数轴负方向运动；当点P到达点O时，P，Q两点都停止运动．设点P运动的时间为t秒．",
+   "⟨公式⟩",
    "（1）当⟨公式⟩时，⟨公式⟩_______；当点P与点Q重合时，⟨公式⟩_______；",
    "（2）当点Q在点P左侧，且⟨公式⟩时，⟨公式⟩______，点Q表示的数是_______；",
    "（3）当⟨公式⟩时，求t的值．"
@@ -15467,7 +16366,7 @@ export const EXAM_BANK = [
   "name": "三角尺旋转 + 角平分线",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "已知直线⟨公式⟩，从一副三角尺中任取一个，将其某一个锐角的顶点放置在直线⟨公式⟩上，并记为点A，该锐角的两边分别记为射线⟨公式⟩，射线⟨公式⟩，且字母A，B，C按顺时针方向排列（射线⟨公式⟩，⟨公式⟩不与直线⟨公式⟩重合）．作射线⟨公式⟩平分⟨公式⟩，射线⟨公式⟩平分⟨公式⟩．⟨公式⟩（1）如图1，若⟨公式⟩，⟨公式⟩，则⟨公式⟩_______°；⟨公式⟩（2）如图2，若⟨公式⟩，且⟨公式⟩与⟨公式⟩互余，求⟨公式⟩的度数；⟨公式⟩（3）将三角尺绕点A旋转，使得射线⟨公式⟩，⟨公式⟩都在直线⟨公式⟩的下方，直接写出⟨公式⟩的度数的所有可能值．",
+  "stemText": "已知直线⟨公式⟩，从一副三角尺中任取一个，将其某一个锐角的顶点放置在直线⟨公式⟩上，并记为点A，该锐角的两边分别记为射线⟨公式⟩，射线⟨公式⟩，且字母A，B，C按顺时针方向排列（射线⟨公式⟩，⟨公式⟩不与直线⟨公式⟩重合）．作射线⟨公式⟩平分⟨公式⟩，射线⟨公式⟩平分⟨公式⟩．⟨公式⟩⟨公式⟩⟨公式⟩（1）如图1，若⟨公式⟩，⟨公式⟩，则⟨公式⟩_______°；⟨公式⟩（2）如图2，若⟨公式⟩，且⟨公式⟩与⟨公式⟩互余，求⟨公式⟩的度数；⟨公式⟩（3）将三角尺绕点A旋转，使得射线⟨公式⟩，⟨公式⟩都在直线⟨公式⟩的下方，直接写出⟨公式⟩的度数的所有可能值．",
   "stemParts": [
    {
     "t": "text",
@@ -15480,7 +16379,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId179",
-    "src": "media/image87.png"
+    "src": "media/image87.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15489,7 +16389,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId179",
-    "src": "media/image87.png"
+    "src": "media/image87.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15506,7 +16407,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId141",
-    "src": "media/image72.png"
+    "src": "media/image72.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15515,7 +16417,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId207",
-    "src": "media/image99.png"
+    "src": "media/image99.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15548,7 +16451,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId141",
-    "src": "media/image72.png"
+    "src": "media/image72.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15557,7 +16461,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId207",
-    "src": "media/image99.png"
+    "src": "media/image99.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15566,7 +16471,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId179",
-    "src": "media/image87.png"
+    "src": "media/image87.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15575,7 +16481,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId168",
-    "src": "media/image83.png"
+    "src": "media/image83.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15584,7 +16491,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId213",
-    "src": "media/image100.png"
+    "src": "media/image100.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15593,7 +16501,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId215",
-    "src": "media/image101.png"
+    "src": "media/image101.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15602,11 +16511,21 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId217",
-    "src": "media/image102.png"
+    "src": "media/image102.png",
+    "kind": "formula"
    },
    {
     "t": "text",
     "v": "．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "rid": "rId219",
+    "src": "media/image103.png",
+    "kind": "figure"
    },
    {
     "t": "break"
@@ -15630,7 +16549,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId220",
-    "src": "media/image104.png"
+    "src": "media/image104.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15639,7 +16559,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId222",
-    "src": "media/image105.png"
+    "src": "media/image105.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15648,7 +16569,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId224",
-    "src": "media/image106.png"
+    "src": "media/image106.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15680,7 +16602,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId226",
-    "src": "media/image107.png"
+    "src": "media/image107.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15689,7 +16612,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId228",
-    "src": "media/image108.png"
+    "src": "media/image108.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15698,7 +16622,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId230",
-    "src": "media/image109.png"
+    "src": "media/image109.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15707,7 +16632,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId232",
-    "src": "media/image110.png"
+    "src": "media/image110.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15735,7 +16661,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId168",
-    "src": "media/image83.png"
+    "src": "media/image83.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15744,7 +16671,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId215",
-    "src": "media/image101.png"
+    "src": "media/image101.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15753,7 +16681,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId179",
-    "src": "media/image87.png"
+    "src": "media/image87.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15762,7 +16691,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId237",
-    "src": "media/image111.png"
+    "src": "media/image111.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15771,6 +16701,7 @@ export const EXAM_BANK = [
   ],
   "rawParas": [
    "24. 已知直线⟨公式⟩，从一副三角尺中任取一个，将其某一个锐角的顶点放置在直线⟨公式⟩上，并记为点A，该锐角的两边分别记为射线⟨公式⟩，射线⟨公式⟩，且字母A，B，C按顺时针方向排列（射线⟨公式⟩，⟨公式⟩不与直线⟨公式⟩重合）．作射线⟨公式⟩平分⟨公式⟩，射线⟨公式⟩平分⟨公式⟩．",
+   "⟨公式⟩",
    "（1）如图1，若⟨公式⟩，⟨公式⟩，则⟨公式⟩_______°；",
    "（2）如图2，若⟨公式⟩，且⟨公式⟩与⟨公式⟩互余，求⟨公式⟩的度数；",
    "（3）将三角尺绕点A旋转，使得射线⟨公式⟩，⟨公式⟩都在直线⟨公式⟩的下方，直接写出⟨公式⟩的度数的所有可能值．"
@@ -15808,7 +16739,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId239",
-    "src": "media/image112.png"
+    "src": "media/image112.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15817,7 +16749,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId241",
-    "src": "media/image113.png"
+    "src": "media/image113.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15826,7 +16759,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId110",
-    "src": "media/image57.png"
+    "src": "media/image57.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15835,7 +16769,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId244",
-    "src": "media/image114.png"
+    "src": "media/image114.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15844,7 +16779,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId246",
-    "src": "media/image115.png"
+    "src": "media/image115.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15853,7 +16789,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId248",
-    "src": "media/image116.png"
+    "src": "media/image116.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15862,7 +16799,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId246",
-    "src": "media/image115.png"
+    "src": "media/image115.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15871,7 +16809,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId251",
-    "src": "media/image117.png"
+    "src": "media/image117.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15891,7 +16830,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId253",
-    "src": "media/image118.png"
+    "src": "media/image118.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15922,7 +16862,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId255",
-    "src": "media/image119.png"
+    "src": "media/image119.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15931,7 +16872,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId110",
-    "src": "media/image57.png"
+    "src": "media/image57.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15940,7 +16882,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId110",
-    "src": "media/image57.png"
+    "src": "media/image57.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15952,7 +16895,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId259",
-    "src": "media/image120.png"
+    "src": "media/image120.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15961,7 +16905,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId110",
-    "src": "media/image57.png"
+    "src": "media/image57.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15970,7 +16915,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId110",
-    "src": "media/image57.png"
+    "src": "media/image57.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -15986,7 +16932,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId263",
-    "src": "media/image121.png"
+    "src": "media/image121.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16106,7 +17053,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId265",
-    "src": "media/image122.png"
+    "src": "media/image122.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16139,7 +17087,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId267",
-    "src": "media/image123.png"
+    "src": "media/image123.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16148,7 +17097,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId269",
-    "src": "media/image124.png"
+    "src": "media/image124.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16157,7 +17107,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId271",
-    "src": "media/image125.png"
+    "src": "media/image125.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16205,7 +17156,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId37",
-    "src": "media/image17.png"
+    "src": "media/image17.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16281,7 +17233,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId274",
-    "src": "media/image126.png"
+    "src": "media/image126.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16392,7 +17345,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId276",
-    "src": "media/image127.png"
+    "src": "media/image127.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16401,7 +17355,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId276",
-    "src": "media/image127.png"
+    "src": "media/image127.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16418,7 +17373,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId279",
-    "src": "media/image128.png"
+    "src": "media/image128.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16427,7 +17383,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId279",
-    "src": "media/image128.png"
+    "src": "media/image128.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16444,7 +17401,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId282",
-    "src": "media/image129.png"
+    "src": "media/image129.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16453,7 +17411,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId282",
-    "src": "media/image129.png"
+    "src": "media/image129.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16470,7 +17429,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId285",
-    "src": "media/image130.png"
+    "src": "media/image130.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16479,7 +17439,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId287",
-    "src": "media/image131.png"
+    "src": "media/image131.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16488,7 +17449,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId289",
-    "src": "media/image132.png"
+    "src": "media/image132.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16505,7 +17467,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId291",
-    "src": "media/image133.png"
+    "src": "media/image133.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16553,7 +17516,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId293",
-    "src": "media/image134.png"
+    "src": "media/image134.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16562,7 +17526,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId295",
-    "src": "media/image135.png"
+    "src": "media/image135.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16571,7 +17536,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId295",
-    "src": "media/image135.png"
+    "src": "media/image135.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16588,7 +17554,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId298",
-    "src": "media/image136.png"
+    "src": "media/image136.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16597,7 +17564,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId298",
-    "src": "media/image136.png"
+    "src": "media/image136.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16614,7 +17582,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId301",
-    "src": "media/image137.png"
+    "src": "media/image137.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16623,7 +17592,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId301",
-    "src": "media/image137.png"
+    "src": "media/image137.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16640,7 +17610,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId304",
-    "src": "media/image138.png"
+    "src": "media/image138.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16649,7 +17620,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId306",
-    "src": "media/image139.png"
+    "src": "media/image139.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16658,7 +17630,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId308",
-    "src": "media/image140.png"
+    "src": "media/image140.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16675,7 +17648,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId310",
-    "src": "media/image141.png"
+    "src": "media/image141.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16691,7 +17665,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId312",
-    "src": "media/image142.png"
+    "src": "media/image142.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16723,7 +17698,8 @@ export const EXAM_BANK = [
    {
     "t": "img",
     "rid": "rId314",
-    "src": "media/image143.png"
+    "src": "media/image143.png",
+    "kind": "formula"
    },
    {
     "t": "text",
@@ -16906,6 +17882,14 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "将下列平面图形绕轴旋转一周，可以得到图中所示的立体图形的是（ ）"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "src": "media/q3-img-002.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
@@ -16922,26 +17906,30 @@ export const EXAM_BANK = [
   "optionParts": [
    [
     {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "src": "media/q3-img-003.png",
+     "kind": "figure"
     }
    ],
    [
     {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "src": "media/q3-img-004.png",
+     "kind": "figure"
     }
    ],
    [
     {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "src": "media/q3-img-005.png",
+     "kind": "figure"
     }
    ],
    [
     {
-     "t": "text",
-     "v": ""
+     "t": "img",
+     "src": "media/q3-img-006.png",
+     "kind": "figure"
     }
    ]
   ],
@@ -16968,6 +17956,14 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "若有理数 a，b 在数轴上的对应点的位置如图所示．下列结论中正确的是（ ）"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "src": "media/q4-img-007.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
@@ -17417,6 +18413,14 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "如图，∠BOC＝12°，∠COD＝62°，∠AOB＝3∠BOC，则∠AOD 的度数 为 °．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "src": "media/q13-img-034.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
@@ -17451,6 +18455,14 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "如图，用棋子摆出一组图形，按照这种方法摆下去，摆第 4 个图形，需要 个棋子，摆第 n 个图形需要 个棋子（用含 n 的式子表示）．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "src": "media/q14-img-035.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
@@ -17485,6 +18497,14 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "算筹是我国古代广泛应用的一种运算工具，摆放方式分“纵式”摆放和“横式”摆 放，图案与数字的对应关系如下表．算筹记数的表示方法为：个位用纵式，十位用横式，百位再用纵式， 千位再用横式，万位再用纵式…，这样从右到左，纵横相间，以此类推．算筹也可以表示负数，表示方 法为：在个位上再斜向摆放一根算筹． 纵式 横式 数字 1 2 3 4 5 6 7 8 9 如：数字 823 所对应的图案为“ ”，则“ ”所表示的数是 ．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "src": "media/q15-img-036.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
@@ -17525,6 +18545,14 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "如图，该图案由十一个六边形和六个黑点组成．现将﹣4，﹣3，﹣2，﹣1，0，1， 2，3，4，5，6 这十一个数分别填入图中的十一个六边形中，使得每个黑点周围的三个数之和都相 等．若﹣4，2，6，x 已填入图中，位置如图所示，则 x 表示的数是 ；每个黑点周围的三个数 之和为 ．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "src": "media/q16-img-038.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
@@ -17657,6 +18685,14 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "如图，已知线段 AB 和线段 a，b（AB＞b＞a）． （1）使用直尺和圆规，按下列要求作图（不要求写作法，保留作图痕迹）： ①在线段 AB 上截取 AC＝a； ②在线段 AB 的延长线上作线段 BD＝b． （2）在（1）的条件下，若 AB＝6，a＝3，b＝5，且点 E 是线段 CD 的中点，则线段 CD 的长为 ， 线段 AE 的长为 ．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "src": "media/q20-img-043.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
@@ -17695,6 +18731,14 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "如图，初一年级组设计了一款三棱柱形状的文创产品包装盒，现在要用正方形印花 纸为这些三棱柱盒子做贴面装饰．每个盒子由 3 个长方形侧面和 2 个等边三角形底面组成，正方形印花 纸有如图所示的两种裁剪方法（裁剪后的边角料不再利用）． 现有 25 张正方形印花纸，全部用以上两种方法之一进行裁剪． （1）若其中，张用方法一裁剪，则能得到 个侧面和 个底面；剩余的印花纸用方 法二裁剪能得到 个侧面； （2）若裁剪出的侧面和底面恰好全部用完，能装饰多少个盒子？"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "src": "media/q21-img-044.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
@@ -17782,6 +18826,14 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "在数轴上，点 A，B，C 分别表示数﹣5，10，20，数轴上有一动点 M 从点 A 出发， 以每秒 2 个单位长度的速度沿数轴正方向运动，设运动时间为 t 秒（t＞0）． （1）点 M 表示的数是 （用含 t 的式子表示）； （2）当 M，B 两点之间相距 5 个单位长度时，求 t 的值； （3）若点 D，E，F 分别从点 A，B，C 的位置出发与点 M 在数轴上同时开始运动，点 D 以每秒 1 个单 位长度的速度沿数轴负方向运动，点 E 和点 F 分别以每秒 3 个单位长度和每秒 4 个单位长度的速度沿 数轴正方向运动，在这个运动过程中，已知存在常数 n，使得 ME﹣3MF+nMD 为一个定值，则 n 的值 为 ．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "src": "media/q23-img-046.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
@@ -17822,6 +18874,14 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "已知∠AOB＝α（0°＜α＜180°）． （1）若 0°＜α＜90°，∠BOC 与∠AOB 互余，射线 OD 平分∠BOC． ①如图 1，α＝60°时，若射线 OD 在∠AOB 内部，则∠AOD＝ ； ②α＜30°时，画出符合题意的图形，并求∠AOD 的度数（用含 α 的式子表示）； （2）若 90°＜α＜180°，∠BOC 与∠AOB 互补，射线 OD 平分∠BOC，射线 OE 是∠AOD 的一条三 等分线，则∠BOE 的度数为 ．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "src": "media/q24-img-047.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
@@ -17900,6 +18960,14 @@ export const EXAM_BANK = [
    {
     "t": "text",
     "v": "传送门是科幻小说中常见的构想．通过传送门，可以从一个地方瞬间转移到另一个 地方．如图，在数轴的原点 O 和点 A 处分别有一扇传送门，其中点 A 表示的数为 360．当一个点移动 至其中一扇传送门时，它会被瞬间转移到另一扇传送门，之后继续移动．对于线段 OA 上的两点 P，Q （点 P，Q 不与端点 O，A 重合），想让点 P 移动到点 Q 有两种方法：一种是不经过传送门直接移动到 点 Q；另一种是点 P 先移动到离它更近的传送门处，瞬间转移至另一扇传送门后，再移动到点 Q．我们 将这两种移动方法中移动距离的最小值称为 P﹣Q 的“传送距离”． 已知点 B，C，D 在数轴上对应的数分别为 80，200，300， （1）B﹣C 的“传送距离”为 ，B﹣D 的“传送距离”为 ； （2）线段 OA 上任意两点（不与端点 O，A 重合）的“传送距离”的最大值为 ； （3）点 R 是线段 OA 上任意一点（点 R 不与端点 O，A 重合），将 B﹣R，C﹣R 和 D﹣R 的“传送距离” 分别记为 dB，dC，dD，则 dB+dC+dD 的最大值为 ，取得最大值时点 R 所表示的数为 ．"
+   },
+   {
+    "t": "break"
+   },
+   {
+    "t": "img",
+    "src": "media/q26-img-051.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [

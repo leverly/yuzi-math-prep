@@ -165,6 +165,9 @@
     /* ---------- 进入下一题 ---------- */
     function nextQuestion() {
       if (qi >= total) return finish();
+      /* 每题重置「已落盘」标记，否则第二题起会被 recordNow 的开头
+         if (_pendingRec) return 挡掉，错题一条也记不下来。 */
+      _pendingRec = null;
       state = newState(pool[qi], mode);
       // 调试钩子：便于自动化测试与卡点统计取当前题
       host.__curQ = state.q;
@@ -221,7 +224,41 @@
         if (Z.sfx) Z.sfx('bad');
       }
       paintTop();
-      if (opts.onAnswer) opts.onAnswer(state.q, ok, rec, rec.errTag);
+      /* onAnswer 已在 recordNow 里调过（作答瞬间落盘）。
+         这里只补 nearMiss 这类需要「全部结果」才知道的字段，
+         不重复调 onAnswer——否则同一题会被记两次错。 */
+      if (_pendingRec && nearMiss) {
+        _pendingRec.nearMiss = true;
+        if (Z.qRecord) {
+          var w = (Z.wrongMap && Z.wrongMap()) || {};
+          if (w[state.q.id]) { w[state.q.id].nearMiss = true; }
+        }
+      }
+    }
+
+    /* 作答瞬间就把记录写下来，不等「下一题」。
+       为什么：错题本的意义是「答错的那一刻就被记住」。
+       如果等到点「下一题」才写，学生看完解析直接关页面，
+       这道错题就永久丢了——而看完解析就关是最常见的真实行为。
+       同一题重复调用由 qRecord 的幂等性保证（同一 id 只累加错次）。 */
+    var _pendingRec = null;
+    function recordNow() {
+      if (_pendingRec) return;
+      var q = state.q;
+      if (!q) return;
+      var r0 = state.results[0];
+      if (!r0) return;
+      var ok = q.qtype === 'big' ? true : !!r0.ok;
+      _pendingRec = {
+        id: q.id, chapter: q.chapter, method: q.method, tier: q.tier,
+        qtype: q.qtype, mode: mode,
+        result: ok ? 'right' : 'wrong',
+        stuckStep: ok ? -1 : 0,
+        errTag: r0.errTag || null,
+        timeMs: Date.now() - state.startAt,
+        nearMiss: false,
+      };
+      if (opts.onAnswer) opts.onAnswer(q, ok, _pendingRec, _pendingRec.errTag);
     }
 
     /* ==========================================================
@@ -301,6 +338,8 @@
         if (opts.onStep) opts.onStep(q, 0, ok, errTag);
         nextBtn.disabled = false;
         nextBtn.focus();
+        /* 立刻落盘，不等「下一题」 */
+        recordNow();
       }
 
       if (qt === 'single') {

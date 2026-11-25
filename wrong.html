@@ -7,7 +7,7 @@
 <title>错题本 · 初一(上)数学期末复习</title>
 <meta name="description" content="按六类错因分类的错题本：概念边界、符号错误、计算失误、方法未掌握、建模失败、规范缺失。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/style.css?v=2fb6d3ae">
+<link rel="stylesheet" href="assets/style.css?v=ec7a7a58">
 <script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
 </head>
 <body data-base=""><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
@@ -16,7 +16,7 @@
   <div class="hdr-in">
     <a class="logo" href="index.html"><span class="logo-mark">柚</span><span>初一(上)数学期末复习</span></a>
     <nav class="hdr-nav" id="nav">
-      <a href="today.html">今日清单</a><a href="learn.html">知识复习</a><a href="drill.html">巩固练习</a><a href="wrong.html" class="on">错题本</a><a href="papers.html">考情解读</a><a href="exam-verify.html">真题核验</a>
+      <a href="sprint.html">冲刺计划</a><a href="wrong.html" class="on">错题本</a><a href="diag.html">学情诊断</a><a href="learn.html">知识复习</a>
       
     </nav>
     <div class="hdr-tools">
@@ -68,14 +68,13 @@
   <div class="foot-in yz-foot">
     <div>
       <div class="yz-foot-title">柚子初一(上)数学期末复习</div>
-      <div class="yz-foot-sub">面向 北师大实验中学 初一(上)期末 · 知识复习 / 巩固练习 / 错题 / 考情</div>
+      <div class="yz-foot-sub">面向 北师大实验中学 初一(上)期末 · 10 天冲刺 / 真题练习 / 错题解析 / 学情诊断</div>
     </div>
     <div class="foot-links">
-      <a href="today.html">今日清单</a>
-      <a href="learn.html">知识复习</a>
-      <a href="drill.html">巩固练习</a>
+      <a href="sprint.html">冲刺计划</a>
       <a href="wrong.html">错题本</a>
-      <a href="papers.html">考情解读</a>
+      <a href="diag.html">学情诊断</a>
+      <a href="learn.html">知识复习</a>
     </div>
   </div>
 </footer>
@@ -244,10 +243,28 @@ window.YZ.completeChains = function(pool){
         (w.nearMiss ? ' · <b style="color:var(--gold)">会做但错</b>' : '') + '</span></div>' +
         '<div class="wb-stem">' + (x.stemHtml || x.stem || '') + '</div>' +
         (x.figHtml ? '<div class="wb-fig">' + x.figHtml + '</div>' : '') +
-        '<ol class="wb-steps">' + (x.steps||[]).map(function(s, i){
-          return '<li><b>' + (s.labelHtml||s.label||('第 '+(i+1)+' 步')) + '</b>：' + (s.answerHtml || s.answer || s.askHtml || s.ask || '') + '</li>';
-        }).join('') + '</ol>' +
-        (x.solutionHtml ? '<details class="wb-sol"><summary>完整解答</summary><div>' + x.solutionHtml + '</div></details>' : '') +
+        /* 单选题必须列出选项：不列的话学生复盘时只看到题干，
+           根本不知道当时在四个什么之间选——选项本身就是题的一部分。 */
+        (x.qtype === 'single' && x.optionsHtml
+          ? '<ol class="wb-opts">' + x.optionsHtml.map(function(o, i){
+              var on = (i === x.key) ? ' class="on"' : '';
+              return '<li' + on + '><span class="wb-opt-k">' + 'ABCD'[i] + '</span>' + o + '</li>';
+            }).join('') + '</ol>'
+          : '') +
+        /* steps 为空时不渲染 <ol>：真题没有拆步，空列表会留下一条
+           什么都没有的白条，看着像加载失败。 */
+        ((x.steps||[]).length
+          ? '<ol class="wb-steps">' + x.steps.map(function(s, i){
+              return '<li><b>' + (s.labelHtml||s.label||('第 '+(i+1)+' 步')) + '</b>：' + (s.answerHtml || s.answer || s.askHtml || s.ask || '') + '</li>';
+            }).join('') + '</ol>'
+          : '') +
+        /* 解析默认展开。用户要求「错题要有解析」——错题本里的解析
+           藏在折叠里等于没有：错题本就是用来复盘的，点开才看是反人性设计。 */
+        (x.answerHtml ? '<div class="wb-ans"><span class="wb-ans-k">正确答案</span>' + x.answerHtml + '</div>' : '') +
+        (x.solutionHtml
+          ? '<div class="wb-sol-open"><b>为什么</b>' + x.solutionHtml + '</div>'
+          : '<div class="wb-nosol">本题暂无解析（原卷未提供答案）</div>') +
+        (x.pitfallHtml ? '<div class="wb-pit"><b>易错</b>' + x.pitfallHtml + '</div>' : '') +
         '</div>';
     }).join('');
 

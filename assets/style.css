@@ -2521,6 +2521,39 @@ details[open] > summary::before { content: '▾ '; }
 .wb-sol[open] > summary::before { content: '▾ '; }
 .wb-sol > div { padding: 0 13px 13px; font-size: .88rem; line-height: 1.9; color: var(--text-2); }
 
+/* 错题本里摊开的解析（不是折叠的 .wb-sol）。
+   错题本的使用场景就是复盘，解析必须一眼可见。 */
+.wb-ans {
+  margin: 11px 0 0; padding: 10px 13px; background: var(--ok-soft);
+  border-radius: 8px; font-size: .9rem; line-height: 1.7;
+}
+.wb-ans-k {
+  display: inline-block; margin-right: 8px; font-size: .72rem; font-weight: 800;
+  letter-spacing: .05em; color: var(--ok); text-transform: uppercase;
+}
+.wb-sol-open {
+  margin: 11px 0 0; padding: 12px 14px; background: var(--surface-2);
+  border-radius: 8px; border: 1px solid var(--border);
+  font-size: .89rem; line-height: 1.9; color: var(--text); white-space: pre-wrap;
+}
+.wb-sol-open > b {
+  display: block; margin-bottom: 6px; font-size: .72rem; letter-spacing: .05em;
+  color: var(--text-2); text-transform: uppercase;
+}
+.wb-pit {
+  margin: 9px 0 0; padding: 11px 14px; background: #fff8e6;
+  border-left: 3px solid #d9a441; border-radius: 0 8px 8px 0;
+  font-size: .87rem; line-height: 1.85; color: var(--text);
+}
+.wb-pit > b {
+  display: block; margin-bottom: 4px; font-size: .72rem;
+  letter-spacing: .05em; color: #8a6516;
+}
+.wb-nosol {
+  margin: 11px 0 0; padding: 10px 13px; background: var(--surface-2);
+  border-radius: 8px; font-size: .86rem; font-style: italic; color: var(--text-2);
+}
+
 .wb-foot {
   display: flex; align-items: center; justify-content: flex-end;
   gap: 12px; margin-top: 12px; padding-top: 11px;
@@ -4397,3 +4430,215 @@ details[open] > summary::before { content: '▾ '; }
 }
 /* 独立成行的公式（题干里的 break 之后）可以稍高 */
 .se-stem .q-f { max-height: 1.7em; }
+
+/* 反馈区（答错时的「正确答案」/解析）里的公式图。
+   这里没被上面三条选择器覆盖，公式图会按 PNG 原始像素铺开——
+   一张 400×150 的图能把整个卡片撑爆。 */
+.se-fb .q-f,
+.wb-stem .q-f,
+.wb-ans .q-f,
+.wb-sol-open .q-f,
+.wd-ans .q-f,
+.wd-sol .q-f,
+.wd-stem .q-f {
+  display: inline-block;
+  vertical-align: middle;
+  max-height: 1.6em;
+  width: auto;
+  margin: 0 1px;
+}
+
+/* ==========================================================
+   10 天冲刺页（sprint.html）
+   这是全站主入口：一屏看到「做到第几天」+「下一个任务是什么」。
+   ========================================================== */
+.sprint-status { padding: 20px 22px; }
+
+.sprint-next { display: flex; flex-direction: column; gap: 6px; }
+.sprint-next-k {
+  font-size: .72rem; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--accent);
+}
+.sprint-next-t { font-size: 1.22rem; font-weight: 800; line-height: 1.35; }
+.sprint-next-g { font-size: .9rem; color: var(--text-2); line-height: 1.65; }
+.sprint-next-m {
+  font-size: .82rem; color: var(--text-3); font-variant-numeric: tabular-nums;
+}
+.sprint-next .btn { align-self: flex-start; margin-top: 8px; }
+.sprint-done .sprint-next-k { color: var(--ok); }
+
+.sprint-bar-wrap { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+.sprint-bar {
+  height: 7px; border-radius: 999px; background: var(--bg-3); overflow: hidden;
+}
+.sprint-bar-in {
+  height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--violet, #7c3aed));
+  transition: width .35s ease;
+}
+.sprint-bar-meta {
+  margin-top: 8px; font-size: .82rem; color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+.sprint-bar-meta b { color: var(--text); font-weight: 700; }
+
+/* ---- 每天一张卡 ---- */
+.sprint-day {
+  display: flex; gap: 16px; align-items: flex-start;
+  margin-bottom: 12px; padding: 16px 18px;
+}
+.sd-left {
+  flex: none; width: 52px; display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+}
+.sd-num {
+  width: 40px; height: 40px; display: grid; place-items: center;
+  border-radius: 12px; background: var(--bg-3); color: var(--text-2);
+  font-size: 1.1rem; font-weight: 800; font-variant-numeric: tabular-nums;
+}
+.sd-kind { font-size: .68rem; color: var(--text-3); letter-spacing: .04em; }
+.sd-main { flex: 1; min-width: 0; }
+.sd-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.sd-head h3 { margin: 0; font-size: 1rem; font-weight: 750; line-height: 1.4; }
+.sd-state {
+  font-size: .74rem; color: var(--text-3); font-variant-numeric: tabular-nums;
+}
+.sd-goal { margin: 5px 0 0; font-size: .88rem; color: var(--text-2); line-height: 1.65; }
+.sd-why {
+  margin: 6px 0 0; font-size: .84rem; color: var(--text-3); line-height: 1.7;
+  padding-left: 10px; border-left: 2px solid var(--border);
+}
+.sd-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-top: 12px;
+}
+.sd-meta { font-size: .78rem; color: var(--text-3); font-variant-numeric: tabular-nums; }
+
+/* 已完成：压暗但不隐藏——学生要能看到「做过哪些」 */
+.sprint-day.done { opacity: .72; }
+.sprint-day.done .sd-num { background: var(--ok-soft); color: var(--ok); }
+.sprint-day.done .sd-state { color: var(--ok); font-weight: 650; }
+/* 进行中：左边一条强调线 */
+.sprint-day.doing { border-left: 3px solid var(--accent); }
+.sprint-day.doing .sd-num { background: var(--accent-soft, var(--bg-3)); color: var(--accent); }
+
+@media (max-width: 640px) {
+  .sprint-day { padding: 14px; gap: 12px; }
+  .sd-left { width: 44px; }
+  .sd-num { width: 34px; height: 34px; font-size: 1rem; }
+  .sd-foot { flex-direction: column; align-items: stretch; }
+  .sd-foot .btn { width: 100%; text-align: center; }
+}
+
+/* ==========================================================
+   诊断页：错题归因 + 错题清单（2026-11-25）
+   诊断的落点是「这 5 道题 + 一个动作」，不是一张统计图。
+   ========================================================== */
+.err-verdict {
+  padding: 12px 15px; margin-bottom: 16px; border-radius: var(--r-sm);
+  background: var(--accent-soft, var(--bg-3)); border-left: 3px solid var(--accent);
+  font-size: .92rem; line-height: 1.75;
+}
+
+.wd-group { margin-bottom: 16px; padding: 18px 20px; }
+.wd-group-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--border);
+}
+.wd-group-head h3 { margin: 0; font-size: 1rem; font-weight: 750; }
+
+.wd-item {
+  padding: 14px 0; border-bottom: 1px dashed var(--border);
+}
+.wd-item:last-of-type { border-bottom: none; }
+.wd-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.wd-tag { font-size: .74rem; color: var(--text-3); font-variant-numeric: tabular-nums; }
+.wd-n {
+  font-size: .72rem; padding: 2px 7px; border-radius: 999px;
+  background: var(--rose-soft); color: var(--rose); font-weight: 650;
+}
+.wd-nm {
+  font-size: .72rem; padding: 2px 7px; border-radius: 999px;
+  background: #fff3d6; color: #8a6516; font-weight: 650;
+}
+.wd-stem {
+  font-size: .92rem; line-height: 1.8; color: var(--text);
+  margin-bottom: 10px;
+}
+.wd-ans {
+  padding: 9px 13px; margin-bottom: 8px; border-radius: 8px;
+  background: var(--ok-soft); font-size: .89rem; line-height: 1.7;
+}
+.wd-ans > b, .wd-sol > b, .wd-pit > b {
+  display: inline-block; margin-right: 8px; font-size: .72rem;
+  letter-spacing: .05em; text-transform: uppercase;
+}
+.wd-ans > b { color: var(--ok); }
+.wd-sol {
+  padding: 12px 14px; margin-bottom: 8px; border-radius: 8px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  font-size: .88rem; line-height: 1.9; white-space: pre-wrap;
+}
+.wd-sol > b { color: var(--text-2); }
+.wd-pit {
+  padding: 11px 14px; border-radius: 0 8px 8px 0;
+  background: #fff8e6; border-left: 3px solid #d9a441;
+  font-size: .86rem; line-height: 1.85;
+}
+.wd-pit > b { color: #8a6516; }
+.wd-nosol {
+  padding: 10px 13px; border-radius: 8px; background: var(--surface-2);
+  font-size: .85rem; font-style: italic; color: var(--text-2);
+}
+.wd-foot {
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border);
+}
+
+/* 首页冲刺四段（10 天怎么排） */
+.sprint-mini { padding: 18px 20px; }
+.sm-day {
+  font-size: .72rem; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+}
+.sprint-mini h3 { margin: 0 0 8px; font-size: 1rem; font-weight: 750; }
+
+.sprint-trace {
+  margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);
+  font-size: .84rem; color: var(--text-3);
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+}
+.sprint-trace a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.sprint-trace a:hover { text-decoration: underline; }
+
+/* 「正确答案」行内盒：字母 + 公式图在同一基线上 */
+.ans-inline { display: inline-flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+
+/* 错题本里的选项列表：复盘时要能看到「当时在什么之间选」 */
+.wb-opts {
+  list-style: none; margin: 11px 0 0; padding: 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.wb-opts li {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 11px; border-radius: 8px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  font-size: .89rem; line-height: 1.6;
+}
+.wb-opts li.on { background: var(--ok-soft); border-color: var(--ok); }
+.wb-opt-k {
+  flex: none; width: 20px; height: 20px; display: grid; place-items: center;
+  border-radius: 5px; background: var(--bg-3); color: var(--text-2);
+  font-size: .72rem; font-weight: 800;
+}
+.wb-opts li.on .wb-opt-k { background: var(--ok); color: #fff; }
+.wb-opts .q-f { max-height: 1.6em; width: auto; vertical-align: middle; }
+
+/* p2023 的 MathType WMF 公式：浏览器无法渲染，降级为可点占位 */
+.q-f-miss {
+  display: inline-block; padding: 1px 6px; margin: 0 2px;
+  border-radius: 4px; background: var(--bg-3, #eef2f7);
+  font-size: .82em; vertical-align: middle;
+}
+.q-f-miss a { color: var(--accent); text-decoration: none; }
+.q-f-miss a:hover { text-decoration: underline; }

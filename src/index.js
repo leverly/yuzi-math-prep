@@ -94,6 +94,9 @@ export const ALL_QUESTIONS = EXAM_BANK.map((q) => {
     score: q.score,
     tierName: q.year + ' 第' + q.no + '题 · ' + (q.name || q.topic || ''),
     errorTags: ['exam'],
+    /* 公式图：p2023 的图是 MathType WMF（浏览器不支持，且字符是
+       字体 glyph 编码，无法可靠转 SVG —— 试过，会出「336」「xyxy」这种
+       重复/错码）。所以保持 .wmf 原样，由渲染层降级为「公式占位 + 原卷链接」。 */
     stemParts: q.stemParts,
     stem: q.stemText,
     /* 解析与干扰项错因来自 data-solutions.js（逐题手写）。

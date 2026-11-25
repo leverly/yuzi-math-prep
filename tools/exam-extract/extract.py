@@ -28,16 +28,21 @@ def parse_paragraphs(xml, rels):
     out = []
     for p in xml.split('</w:p>'):
         parts = []
-        # w:t 文本 或 w:object 公式对象，按位置交替
-        for m in re.finditer(r'<w:t[^>]*>([^<]*)</w:t>|<w:object>.*?</w:object>', p, re.S):
+        # w:t 文本 / w:object 公式 / a:blip 插图，按出现位置交替
+        pat = r'<w:t[^>]*>([^<]*)</w:t>|<w:object[^>]*>.*?</w:object>|<a:blip[^>]*r:embed="(rId\d+)"'
+        for m in re.finditer(pat, p, re.S):
             if m.group(1) is not None:
                 if m.group(1):
                     parts.append({'t': 'text', 'v': m.group(1)})
+            elif m.group(2):
+                # DrawingML 插图（几何图、展开图等）
+                rid = m.group(2)
+                parts.append({'t': 'img', 'rid': rid, 'src': rels.get(rid), 'kind': 'figure'})
             else:
                 idm = re.search(r'<v:imagedata[^>]*r:id="(rId\d+)"', m.group(0))
                 if idm:
                     rid = idm.group(1)
-                    parts.append({'t': 'img', 'rid': rid, 'src': rels.get(rid)})
+                    parts.append({'t': 'img', 'rid': rid, 'src': rels.get(rid), 'kind': 'formula'})
         if parts:
             out.append(parts)
     return out
@@ -53,17 +58,23 @@ def split_options(parts):
     坑：docx 里选项常被拆成多个 w:t 片段（'A' + '. ' + '三棱柱' + 'B. ' + ...），
     逐片段找 [ABCD][.．] 会匹配不上（'A' 和 '. ' 分属两段）。
     所以先把整段拼成一个字符串，再按标记切，最后按字符区间映射回原片段。
+
+    坑二（2026-11-25 修）：flat 必须「按字符」而不是「按片段」建。
+    公式占位 ⟨公式⟩ 在 text 里是 5 个字符，若 flat 只放 1 个元素，
+    标记下标（按 text 算）与切片下标（按 flat 算）就错位——
+    每出现一个公式就漂移 4 位，结果「B 选项吃掉 C 选项、D 选项变空」。
     """
-    # 拼接：记录每个字符来自哪个片段
-    flat = []
+    # 拼接：记录每个字符来自哪个片段（公式占位按 5 个字符铺开）
+    PH = '⟨公式⟩'
+    flat = []          # (kind, char, part_index)；kind: 'ch' 普通字符 / 'img' 公式首字符 / 'cont' 公式后续字符
     for pi, p in enumerate(parts):
         if p['t'] == 'text':
             for ch in p['v']:
-                flat.append((ch, pi, False))
+                flat.append(('ch', ch, pi))
         else:
-            # 公式占位，作为一个整体字符
-            flat.append(('⟨公式⟩', pi, True))
-    text = ''.join(c for c, _, _ in flat)
+            for k, ch in enumerate(PH):
+                flat.append(('img' if k == 0 else 'cont', ch, pi))
+    text = ''.join(c for _, c, _ in flat)
 
     # 找所有 A./B./C./D. 标记位置
     marks = [(m.start(), m.group(1)) for m in re.finditer(r'([ABCD])[.．]', text)]
@@ -75,12 +86,12 @@ def split_options(parts):
         end = marks[i + 1][0] if i + 1 < len(marks) else len(text)
         seg = text[start:end]
         body = re.sub(r'^[ABCD][.．]\s*', '', seg).strip()
-        # 还原成片段（保留公式图）
+        # 还原成片段（保留公式图）；'cont' 是公式占位的后续字符，跳过
         seg_parts = []
-        for ch, pi, is_img in flat[start:end]:
-            if is_img:
+        for kind, ch, pi in flat[start:end]:
+            if kind == 'img':
                 seg_parts.append(parts[pi])
-            else:
+            elif kind == 'ch':
                 seg_parts.append({'t': 'text', 'v': ch})
         # 合并相邻 text 片段
         merged = []
@@ -92,6 +103,18 @@ def split_options(parts):
         # 去掉开头的 A./B. 标记
         if merged and merged[0]['t'] == 'text':
             merged[0]['v'] = re.sub(r'^[ABCD][.．]\s*', '', merged[0]['v'])
+        # 去掉尾部残留的下一选项标记（如 'B. '）
+        while merged and merged[-1]['t'] == 'text':
+            cleaned = re.sub(r'[ABCD][.．]\s*$', '', merged[-1]['v'])
+            if cleaned == merged[-1]['v']:
+                break
+            merged[-1]['v'] = cleaned
+            if not cleaned.strip():
+                merged.pop()
+            else:
+                break
+        # 丢掉纯空白 text 片段
+        merged = [m for m in merged if not (m['t'] == 'text' and not m['v'].strip())]
         out.append({'key': key, 'text': key + '. ' + body, 'parts': merged})
     return out
 

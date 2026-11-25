@@ -7,7 +7,7 @@
 <title>巩固练习 · 初一(上)数学期末复习</title>
 <meta name="description" content="分步判定刷题：130 题，按方法卡、章节、分层筛选，记录卡在第几步。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/style.css?v=2fb6d3ae">
+<link rel="stylesheet" href="assets/style.css?v=ec7a7a58">
 <script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
 </head>
 <body data-base=""><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
@@ -16,7 +16,7 @@
   <div class="hdr-in">
     <a class="logo" href="index.html"><span class="logo-mark">柚</span><span>初一(上)数学期末复习</span></a>
     <nav class="hdr-nav" id="nav">
-      <a href="today.html">今日清单</a><a href="learn.html">知识复习</a><a href="drill.html" class="on">巩固练习</a><a href="wrong.html">错题本</a><a href="papers.html">考情解读</a><a href="exam-verify.html">真题核验</a>
+      <a href="sprint.html">冲刺计划</a><a href="wrong.html">错题本</a><a href="diag.html">学情诊断</a><a href="learn.html">知识复习</a>
       
     </nav>
     <div class="hdr-tools">
@@ -122,19 +122,18 @@
   <div class="foot-in yz-foot">
     <div>
       <div class="yz-foot-title">柚子初一(上)数学期末复习</div>
-      <div class="yz-foot-sub">面向 北师大实验中学 初一(上)期末 · 知识复习 / 巩固练习 / 错题 / 考情</div>
+      <div class="yz-foot-sub">面向 北师大实验中学 初一(上)期末 · 10 天冲刺 / 真题练习 / 错题解析 / 学情诊断</div>
     </div>
     <div class="foot-links">
-      <a href="today.html">今日清单</a>
-      <a href="learn.html">知识复习</a>
-      <a href="drill.html">巩固练习</a>
+      <a href="sprint.html">冲刺计划</a>
       <a href="wrong.html">错题本</a>
-      <a href="papers.html">考情解读</a>
+      <a href="diag.html">学情诊断</a>
+      <a href="learn.html">知识复习</a>
     </div>
   </div>
 </footer>
 <script src="assets/app.js?v=4d5d80ff"></script>
-<script src="assets/step-engine.js?v=b28f42d9"></script>
+<script src="assets/step-engine.js?v=eb6e1425"></script>
 <script src="dist/data/meta.js?v=4d5d80ff"></script>
 <script>
 window.YZ = window.YZ || {};
@@ -252,7 +251,10 @@ window.YZ.completeChains = function(pool){
     qtype: ['question','concept','method'].indexOf(params.get('qtype')) >= 0 ? params.get('qtype') : 'all',
     /* 指定题号白名单：槽位专项页跳转用。
        逗号分隔的 id 列表，命中即入池，优先于章节/方法/分层筛选。 */
-    ids: (params.get('ids') || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean)
+    ids: (params.get('ids') || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean),
+    /* 冲刺计划的天数。带 day 参数时，题池完全由当天计划决定，
+       不再走章节/方法/分层筛选——那样会漏题也会串题。 */
+    day: parseInt(params.get('day'), 10) || 0
   };
 
   function bindChips(id, key, cast){
@@ -314,11 +316,30 @@ window.YZ.completeChains = function(pool){
   }
 
   function paintWhy(){
-    var f = pickFamily();
     var what = document.getElementById('whyWhat');
     var why = document.getElementById('whyWhy');
     var stEl = document.getElementById('whyState');
     if (!what) return;
+
+    /* 冲刺计划的一天：三行说明换成当天任务，而不是「最弱的族」。
+       这两套逻辑不能混——按族选题和按天选题是不同的题池。 */
+    if (sel.day) {
+      var sp = ((window.YZ.META && window.YZ.META.sprint) || [])[sel.day - 1];
+      if (!sp) { what.textContent = '第 ' + sel.day + ' 天不存在'; return; }
+      var cnt = (sp.kind === 'redo') ? Object.keys((Z.wrongMap && Z.wrongMap()) || {}).length
+                                     : (sp.ids || []).length;
+      what.innerHTML = '<b>第 ' + sp.day + ' 天 · ' + escH(sp.title) + '</b>' +
+        '<span class="why-tag">' + cnt + ' 题</span>' +
+        '<span class="why-tag ghost">' + sp.minutes + ' 分钟</span>';
+      why.textContent = sp.why;
+      stEl.textContent = sp.kind === 'redo'
+        ? (cnt ? '当前有 ' + cnt + ' 道错题待重做' : '现在没有错题，这一天可以跳过')
+        : (sp.paperCount > 1 ? '跨 ' + sp.paperCount + ' 套卷同题位对比' : '整卷限时');
+      document.getElementById('startBtn').textContent = '开始第 ' + sp.day + ' 天 →';
+      return;
+    }
+
+    var f = pickFamily();
 
     if (!f) {
       what.textContent = '全部达标';
@@ -508,6 +529,29 @@ window.YZ.completeChains = function(pool){
      不额外占题库文件，所以「一个入口」不会让数据变重。 */
   function collect(){
     var pool = [], wm = (Z.wrongMap && Z.wrongMap()) || {};
+
+    /* 冲刺计划的一天：题池由 META.sprint[day-1].ids 决定。
+       第 9 天（错题重做）的 ids 在构建期是空的，运行时用当前错题补上。
+       这条路径要最先返回——否则会被下面的章节/族筛选过滤掉大半。 */
+    if (sel.day) {
+      var sp = ((window.YZ.META && window.YZ.META.sprint) || [])[sel.day - 1];
+      if (!sp) { Z.toast('第 ' + sel.day + ' 天不存在'); return []; }
+      var wantIds = (sp.kind === 'redo') ? Object.keys(wm) : (sp.ids || []);
+      if (!wantIds.length) return [];
+      var want = {};
+      wantIds.forEach(function(id){ want[id] = true; });
+      Object.keys(CH).forEach(function(cid){
+        (CH[cid].questions||[]).forEach(function(q){
+          if (want[q.id]) pool.push(q);
+        });
+      });
+      /* 按计划里的原顺序排（题号升序），不洗牌——
+         同一题位跨卷对比才有意义，打乱就看不出来了。 */
+      var order = {};
+      wantIds.forEach(function(id, i){ order[id] = i; });
+      pool.sort(function(a, b){ return (order[a.id]||0) - (order[b.id]||0); });
+      return pool;
+    }
     var weakMethods = {};
     if (sel.scope === 'weak' && Z.methodWeakness) {
       (Z.methodWeakness() || []).slice(0, 3).forEach(function(w){ weakMethods[w.id] = true; });
@@ -578,7 +622,13 @@ window.YZ.completeChains = function(pool){
 
   document.getElementById('startBtn').addEventListener('click', function(){
     var raw = collect();
-    if (!raw.length) { Z.toast('这个范围暂时没有题目'); return; }
+    if (!raw.length) {
+      Z.toast(sel.day === 9 ? '现在没有错题，第 9 天可以跳过' : '这个范围暂时没有题目');
+      return;
+    }
+    /* 冲刺计划的一天：题量就是当天的全部，不截断。
+       否则「第 3 天 40 题」会被默认 10 题截掉，完成度永远到不了 100%。 */
+    if (sel.day) sel.len = raw.length;
     var arranged = arrangeByLadder(raw);
     var pool = arranged.pool;
     var chains = arranged.chains;
@@ -593,8 +643,10 @@ window.YZ.completeChains = function(pool){
     }
     sel.len = n;
     /* 指定题号时保持给定顺序（槽位题按难度递进排好），不洗牌；
-       三级链模式下也保持链顺序（否则递进失效） */
-    var keepOrder = sel.ids.length > 0 || chains.length > 0;
+       三级链模式下也保持链顺序（否则递进失效）。
+       冲刺计划的一天也要保序：同题位跨卷对比才看得出「是这套卷不会
+       还是这类题不会」，打乱就把这个信息丢了。 */
+    var keepOrder = sel.ids.length > 0 || chains.length > 0 || sel.day > 0;
     if (chains.length) {
       Z.toast('本组含 ' + chains.length + ' 条三级链：改数字 → 改条件 → 逆向');
     }
@@ -626,8 +678,8 @@ window.YZ.completeChains = function(pool){
       /* 直接出题：点「巩固练习」就该开始做，不该先配置。
          带 family / ids / method 等参数时不自动开始（那是明确的定向练习）；
          从首页或导航直接进来时自动开始。 */
-      var directed = sel.family && params.get('family')
-        || sel.ids.length || sel.method || sel.chapter;
+      var directed = (sel.family && params.get('family'))
+        || sel.ids.length || sel.method || sel.chapter || sel.day;
       if (params.get('autostart') === '1' || !directed) {
         document.getElementById('startBtn').click();
       }
