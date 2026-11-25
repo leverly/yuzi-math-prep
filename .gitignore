@@ -2,7 +2,6 @@ node_modules
 node_modules/
 .DS_Store
 build-report.json
-tools/fig-preview.html
 
 # 本地工具残留
 .v2c/
@@ -11,6 +10,3 @@ tools/fig-preview.html
 
 # 原始试卷材料：他人版权内容，不随站点发布
 真题试卷/
-
-# 真题抽取产物：公式图与原卷页图均截自真题，同属他人版权内容
-assets/exam-src/
