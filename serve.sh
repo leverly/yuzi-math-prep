@@ -12,10 +12,11 @@ while lsof -i ":$PORT" -sTCP:LISTEN >/dev/null 2>&1; do
 done
 
 # 先重新构建，保证产物是最新的
-# 站点有两个构建器：build.mjs 出 4 个分析页，build-practice-page.mjs 出练习页。
-# 只跑前者会让 practice.html 停留在旧产物上。
+# 站点有三个构建器：build.mjs 出 4 个分析页，build-practice-page.mjs 出练习页，
+# build-history.mjs 出学情诊断页。漏掉任何一个都会让对应页面停在旧产物上。
 node build-practice.mjs
 node build-practice-page.mjs
+node build-history.mjs
 node build.mjs
 
 echo ""

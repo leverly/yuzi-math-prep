@@ -652,7 +652,7 @@ function showDiag() {
 
     <div class="actions" style="margin-top:26px">
       <button class="btn primary" id="againBtn">再练一轮</button>
-      <a class="btn ghost" href="history.html">查看全部记录</a>
+      <a class="btn ghost" href="history.html">看学情诊断</a>
       <button class="btn ghost" id="clearHist">清空历史</button>
       <a class="btn ghost" href="plan.html">看冲刺计划</a>
     </div>

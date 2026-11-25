@@ -23,6 +23,7 @@ export const NAV = [
   ['trend.html', '趋势与考点'],
   ['plan.html', '冲刺计划'],
   ['practice.html', '练习与诊断'],
+  ['history.html', '学情诊断'],
 ];
 
 /* 设计变量：全站唯一来源 */
