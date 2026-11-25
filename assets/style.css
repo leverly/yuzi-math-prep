@@ -1799,6 +1799,11 @@ a.coverage-row:hover { border-color: var(--accent); transform: translateX(3px); 
   border: 1.5px solid var(--border-2); background: var(--surface);
   color: var(--text); font-size: .95rem; font-family: inherit; line-height: 1.7; resize: vertical;
 }
+/* 大题：多行输入框要竖排（.se-fill 默认是横排 flex） */
+.se-fill-big { flex-direction: column; align-items: stretch; }
+.se-fill-big .se-textarea { min-height: 108px; }
+.se-fill-big .btn { align-self: flex-end; }
+.se-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--ring); }
 
 .se-fb:empty { display: none; }
 .se-fb { border-radius: var(--r-sm); padding: 12px 14px; font-size: .88rem; line-height: 1.75; }
@@ -4674,3 +4679,105 @@ details[open] > summary::before { content: '▾ '; }
   background: #fff8e6; border-left: 3px solid #d9a441;
   font-size: .84rem; line-height: 1.75; color: var(--text);
 }
+
+/* ==========================================================
+   图形题配图（kind: figure）—— 与行内公式（.q-f）完全不同
+   公式压到 1.5em 是必要的（否则把整行文字挤散）；
+   但图形是解题依赖，压成缩略图就没法做题了。
+   ========================================================== */
+.q-fig {
+  margin: 12px 0; padding: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.q-fig-img {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  max-height: none;          /* 关键：不压高度，按自然尺寸显示 */
+  /* 原图小于此宽度时按比例放大——部分真题图在 docx 里显示尺寸只有
+     102×62，直接按自然尺寸显示会小到看不清。放大后略糊但能读，
+     比看不清好。超过这个宽度的图不受影响（width:auto 优先）。 */
+  min-width: min(320px, 100%);
+  border-radius: var(--r-sm);
+  background: #fff;
+  cursor: zoom-in;
+  transition: opacity .15s ease;
+}
+/* 小图放大需要插值，别用 pixelated */
+.q-fig-img, .q-zoom-img { image-rendering: auto; }
+.q-fig-img:hover { opacity: .88; }
+.q-fig figcaption {
+  font-size: .74rem; color: var(--text-3); letter-spacing: .03em;
+}
+
+/* 放大视图：原生 <dialog>，file:// 下也能用（window.open 常被拦） */
+.q-zoom {
+  padding: 0; border: none; background: transparent;
+  max-width: 96vw; max-height: 96vh;
+  overflow: visible;
+}
+.q-zoom::backdrop { background: rgba(0, 0, 0, .72); }
+.q-zoom img {
+  display: block;
+  max-width: 94vw; max-height: 88vh;
+  width: auto; height: auto;
+  /* 小图在放大视图里至少铺到 60vw，否则「放大」了还是看不清 */
+  min-width: min(60vw, 100%);
+  background: #fff; border-radius: 8px;
+  cursor: zoom-out;
+}
+.q-zoom-close {
+  position: absolute; top: -14px; right: -14px;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: none; background: #fff; color: #222;
+  font-size: 0; cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,.3);
+}
+.q-zoom-close::before {
+  content: '✕'; font-size: 15px; font-weight: 700; line-height: 34px;
+}
+.q-zoom-close:hover { background: #f0f0f0; }
+
+/* 移动端：图形铺满宽度，标题文字缩小 */
+@media (max-width: 640px) {
+  .q-fig-img { width: 100%; }
+  .q-zoom img { max-width: 96vw; max-height: 80vh; }
+}
+
+/* ==========================================================
+   冲刺计划「当天已做完」空态
+   ----------------------------------------------------------
+   为什么要有这块：做到一半退出再进来时，已做过的题会被跳过。
+   如果当天全部做完，题池就是空的——此时不能只弹一个几秒消失的
+   toast，用户回来看到空白页会以为坏了。空态要说清两件事：
+   为什么没题、接下来去哪。
+   ========================================================== */
+.day-empty {
+  padding: 36px 28px;
+  text-align: center;
+}
+.day-empty-t {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.day-empty .desc {
+  margin: 0 auto;
+  max-width: 30em;
+  font-size: .9rem;
+  line-height: 1.7;
+}
+/* 按钮组居中：容器是 inline-flex，所以用 justify-content 而不是给每个按钮 margin auto
+   （后者会把两个按钮推到左右两端）。 */
+.day-empty .day-empty-acts {
+  display: inline-flex; gap: 10px; flex-wrap: wrap;
+  justify-content: center; margin-top: 14px;
+}
+
+/* 选项内的配图：紧凑模式。
+   不加「点击图片放大」说明（四个选项各一行会把卡片撑高，四选一没法一眼扫完），
+   图也不强制放大到 320px——选项图通常只需要认出形状。 */
+.q-fig-compact { margin: 4px 0; gap: 0; }
+.q-fig-compact .q-fig-img { min-width: 0; max-height: 80px; }

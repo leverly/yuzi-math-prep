@@ -162,7 +162,12 @@ window.YZ.completeChains = function(pool){
 };`;
 }
 
-const report = { pages: [], mathFailures: [], figFailures: [], bytes: {} };
+const report = {
+  pages: [], mathFailures: [], figFailures: [], bytes: {},
+  /* 判分兜底降级的题：数据标了可判分，但选项内容抽不出来。
+     构建时降级为 big，并在终端打印——不能静默。 */
+  judgeDowngraded: [],
+};
 
 /* ---------------- 分层与文案（从 TIERS 派生，不写字面量） ----------------
    三层目标各有三档：base（底线）/ target（目标）/ full（满分要求）。
@@ -363,15 +368,46 @@ function emit(relPath, html) {
 }
 
 /* ---------------- 题目渲染（构建期） ---------------- */
-/* 公式图的统一输出：图片加载失败时降级为可点回原卷的占位。
-   为什么必须加：assets/exam-src/ 因版权不进仓库，线上（GitHub Pages）
-   这些图全部 404。没有 onerror 就是满屏破图，比占位符更糟。 */
-function figImg(base, name, examRef) {
+/* 真题图片的统一输出。分两类，样式完全不同：
+     formula（行内公式）—— 高度压到 1.5em，跟着文字走。
+       这类图是 MathType 导出的单个符号/式子，撑大会把整行文字挤散。
+     figure（图形/表格/示意图）—— **解题依赖它，必须给足尺寸且可放大**。
+       压成 1.5em 就成了看不清的缩略图，学生根本没法做题。
+
+   图片加载失败时降级为可点回原卷的占位：assets/exam-src/ 因版权
+   不进仓库，线上（GitHub Pages）这些图全部 404。没有 onerror 就是满屏破图。 */
+function figImg(base, name, examRef, kind, compact) {
   const ref = examRef || {};
   const href = ref.paperId ? ('exam-verify.html#' + ref.paperId + '-q' + ref.no) : '';
+  const isFigure = kind === 'figure';
   const fallback = href
-    ? '&lt;a class=&quot;q-f-miss&quot; href=&quot;' + href + '&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;⟨公式·看原卷⟩&lt;/a&gt;'
-    : '⟨公式⟩';
+    ? '&lt;a class=&quot;q-f-miss&quot; href=&quot;' + href + '&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;'
+      + (isFigure ? '⟨图形·看原卷⟩' : '⟨公式·看原卷⟩') + '&lt;/a&gt;'
+    : (isFigure ? '⟨图形⟩' : '⟨公式⟩');
+
+  if (isFigure) {
+    /* 图形：可点击放大。用原生 <dialog> 而不是新窗口——
+       file:// 下 window.open 常被拦，dialog 没有这个问题。
+       图本身给 max-width:100% + 自然高度，不设 max-height。
+
+       还有一个坑：部分真题图在 docx 里显示尺寸很小（如 102×62 像素），
+       抽取时按显示尺寸导出，原图就是这么大。直接按自然尺寸显示会小到看不清。
+       所以给一个最小显示宽度，小图按比例放大（会有轻微模糊，但至少能读）。 */
+    const id = 'fig-' + Math.random().toString(36).slice(2, 9);
+    /* 选项里的图用 compact：不加「点击图片放大」那行字——
+       四个选项各带一行说明会把选项卡片撑得很高，四选一就没法一眼扫完。
+       但点击放大仍然保留（图小的时候还是需要看清）。 */
+    const cls = compact ? 'q-fig q-fig-compact' : 'q-fig';
+    return '<figure class="' + cls + '" data-zoom="' + id + '">' +
+      '<img class="q-fig-img" src="' + base + name + '" alt="题目配图" loading="lazy"' +
+      ' onerror="this.parentNode.outerHTML=\'<span class=&quot;q-f-miss&quot;>' + fallback + '</span>\'">' +
+      (compact ? '' : '<figcaption>点击图片放大</figcaption>') +
+      '</figure>' +
+      '<dialog class="q-zoom" id="' + id + '">' +
+      '<img class="q-zoom-img" src="' + base + name + '" alt="题目配图放大">' +
+      '<button class="q-zoom-close" type="button">关闭</button>' +
+      '</dialog>';
+  }
   return '<img class="q-f" src="' + base + name + '" alt="公式" loading="lazy"' +
     ' onerror="this.outerHTML=\'' + fallback.replace(/'/g, "\\'") + '\'">';
 }
@@ -427,7 +463,7 @@ function renderQuestion(q, R) {
             (href ? '<a href="' + href + '" target="_blank" rel="noopener">⟨公式·看原卷⟩</a>' : '⟨公式⟩') +
             '</span>';
         }
-        return figImg(base, name, q.examRef);
+        return figImg(base, name, q.examRef, p.kind);
       }
       return '';
     }).join('');
@@ -456,6 +492,59 @@ function renderQuestion(q, R) {
      学生填了第一步的式子却被拿最终答案判错——静默的判分错误，比报错更伤。 */
   o.qtype = q.qtype || ((q.steps && q.steps.length) ? 'steps'
     : ((q.accept || q.answer != null) ? 'calc' : 'big'));
+
+  /* 构建期兜底 ②：标了 calc 但 accept 是「多小问答案」的题，降级为 big。
+     判据：accept 里含分号（「8；7」「45°；」）或含小问编号（「①. 3 ②. 4」）。
+     这类答案单空输入框收不了——学生答对也永远判错。
+     放在渲染层而不是数据层：data-exam-bank.js 有多个会话在改，
+     每次手改都会被覆盖；放这里，无论数据怎么写都能保证判分不出错。 */
+  if (o.qtype === 'calc') {
+    const acc = o.accept || [];
+    const multiBlank = acc.some((a) => {
+      const t = String(a);
+      return /[；;]/.test(t)
+          || /①\s*[.．:：]\s*\S/.test(t)
+          || /[（(]\s*\d\s*[）)]/.test(t);
+    });
+    if (multiBlank) {
+      o.qtype = 'big';
+      o.accept = null;
+      o.acceptHtml = null;
+      if (!o.unavailableNote) {
+        o.unavailableNote = '本题有多个小问，答案无法用单个填空判定，改为对照解答自评。';
+      }
+      report.judgeDowngraded.push({ id: q.id, why: 'accept 是多小问答案' });
+    }
+  }
+
+  /* 构建期兜底 ①：标了 single 但选项内容抽不出来（原卷是公式图）的题，
+     必须降级为 big。否则会渲染成四个空白按钮，学生点哪个都可能判错。
+     为什么放在渲染层而不是数据层：data-exam-bank.js 有多个会话在改，
+     每次手改都会被覆盖；放在这里，无论数据怎么写都能保证不出错。 */
+  if (o.qtype === 'single') {
+    /* 字段名是 __optParts（data-exam-bank 的 optionParts 在 index.js 里
+       改名带过来）。写 optionParts 会静默取到 undefined，兜底失效。 */
+    const parts = q.__optParts || q.optionParts || [];
+    const vis = (p) => {
+      const a = p || [];
+      return a.some((x) => x.t === 'img' && x.src)
+          || a.some((x) => x.t === 'text' && String(x.v || '').trim());
+    };
+    const emptyIdx = parts.map((p, i) => (vis(p) ? -1 : i)).filter((i) => i >= 0);
+    const keyEmpty = q.key != null && emptyIdx.indexOf(q.key) >= 0;
+    if (keyEmpty || emptyIdx.length >= 3) {
+      o.qtype = 'big';
+      o.key = null;
+      o.options = null;
+      o.optionsHtml = null;
+      if (!o.unavailableNote) {
+        o.unavailableNote = '本题在原卷中是选择题，' +
+          (keyEmpty ? '正确答案所在的选项' : '多数选项') +
+          '为公式图，未能提取。正确答案：' + (q.officialKey || '见原卷') + '。请对照原卷作答。';
+      }
+      report.judgeDowngraded.push({ id: q.id, why: keyEmpty ? '答案选项为空' : '选项大面积为空' });
+    }
+  }
   o.answerHtml = q.answer != null ? C(R.math.render(String(q.answer))) : '';
   /* 单选题的「正确答案」：不能只给字母，也不能给占位符。
      最有用的是「字母 + 那一项的内容」——学生要能一眼对上自己选的那项。
@@ -479,7 +568,7 @@ function renderQuestion(q, R) {
                 (href ? '<a href="' + href + '" target="_blank" rel="noopener">⟨公式·看原卷⟩</a>' : '⟨公式⟩') +
                 '</span>';
             }
-            return figImg(q.__imgBase || '', name, q.examRef);
+            return figImg(q.__imgBase || '', name, q.examRef, p.kind);
           }
           return '';
         }).join('')
@@ -528,7 +617,9 @@ function renderQuestion(q, R) {
                 (href ? '<a href="' + href + '" target="_blank" rel="noopener">⟨公式·看原卷⟩</a>' : '⟨公式⟩') +
                 '</span>';
             }
-            return figImg(base, nm, q.examRef);
+            /* 选项内用 compact：不加「点击图片放大」说明，图也不强制放大。
+               四个选项各带一行说明会把卡片撑高，四选一没法一眼扫完。 */
+            return figImg(base, nm, q.examRef, p.kind, true);
           }
           return '';
         }).join('');
@@ -1912,11 +2003,20 @@ function buildDrill() {
       if (!sp) { Z.toast('第 ' + sel.day + ' 天不存在'); return []; }
       var wantIds = (sp.kind === 'redo') ? Object.keys(wm) : (sp.ids || []);
       if (!wantIds.length) return [];
+      /* 跳过已经做过的题：做到一半退出再进来，不该从头重做。
+         判据用 qlog.recent（作答历史），与冲刺页「完成度」同一口径——
+         两处口径不一致会出现「页面上显示已完成，点进去还要重做」。
+         只跳过「已作答」的，不管对错：答错的题由错题本负责（第 9 天重做），
+         在这里重复出题只会让当天进度卡住。 */
+      var qlog = (Z.qLog && Z.qLog()) || {};
+      var seen = {};
+      (qlog.recent || []).forEach(function(r){ seen[r.id] = true; });
+
       var want = {};
       wantIds.forEach(function(id){ want[id] = true; });
       Object.keys(CH).forEach(function(cid){
         (CH[cid].questions||[]).forEach(function(q){
-          if (want[q.id]) pool.push(q);
+          if (want[q.id] && !seen[q.id]) pool.push(q);
         });
       });
       /* 按计划里的原顺序排（题号升序），不洗牌——
@@ -1997,7 +2097,38 @@ function buildDrill() {
   document.getElementById('startBtn').addEventListener('click', function(){
     var raw = collect();
     if (!raw.length) {
-      Z.toast(sel.day === 9 ? '现在没有错题，第 9 天可以跳过' : '这个范围暂时没有题目');
+      /* 空池要分清两种情况，否则用户以为出错了：
+         ① 冲刺计划的这一天已经全部做完 → 明确告知，并引导去下一天
+         ② 其他筛选条件太窄 → 提示换范围 */
+      if (sel.day) {
+        var spDay = ((window.YZ.META && window.YZ.META.sprint) || [])[sel.day - 1];
+        /* 用可见的空态卡片，不只弹 toast：
+           toast 几秒就消失，用户回来只看到一片空白，会以为页面坏了。
+           空态要说明「为什么没题」和「接下来去哪」。 */
+        var wrap = document.getElementById('stageWrap');
+        var stage = document.getElementById('stage');
+        var isRedo = spDay && spDay.kind === 'redo';
+        if (wrap && stage) {
+          wrap.style.display = '';
+          stage.innerHTML = '<div class="day-empty">' +
+            '<div class="day-empty-t">' +
+              (isRedo ? '现在没有错题' : '第 ' + sel.day + ' 天已经全部做完') +
+            '</div>' +
+            '<p class="desc">' +
+              (isRedo
+                ? '第 9 天专做错题，目前错题本是空的，可以直接跳到下一天。'
+                : '这一天不再重复出题。错过的题可以在错题本里重做，或者去做下一天。') +
+            '</p>' +
+            '<div class="day-empty-acts">' +
+              '<a class="btn primary sm" href="sprint.html">回冲刺计划看下一天 →</a>' +
+              '<a class="btn ghost sm" href="wrong.html">去错题本</a>' +
+            '</div>' +
+          '</div>';
+          wrap.scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+      } else {
+        Z.toast('这个范围暂时没有题目');
+      }
       return;
     }
     /* 冲刺计划的一天：题量就是当天的全部，不截断。
@@ -5785,6 +5916,10 @@ function main() {
   console.log(`  耗时：${ms} ms`);
   console.log(`  分片：${(shard.shardBytes / 1024).toFixed(1)} KB`);
   console.log(`  公式失败：${report.mathFailures.length}`);
+  if (report.judgeDowngraded.length) {
+    console.log(`  判分降级：${report.judgeDowngraded.length} 题（选项内容抽不出来，改标 big）`);
+    report.judgeDowngraded.forEach((x) => console.log(`    · ${x.id} — ${x.why}`));
+  }
   console.log(`  图形失败：${report.figFailures.length}`);
 
   /* 体积预算（只列实际会构建的页面；已停用页面的条目没有意义） */

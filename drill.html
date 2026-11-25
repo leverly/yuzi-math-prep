@@ -7,7 +7,7 @@
 <title>巩固练习 · 初一(上)数学期末复习</title>
 <meta name="description" content="分步判定刷题：130 题，按方法卡、章节、分层筛选，记录卡在第几步。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/style.css?v=065bcb87">
+<link rel="stylesheet" href="assets/style.css?v=8017dc00">
 <script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
 </head>
 <body data-base=""><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
@@ -132,9 +132,9 @@
     </div>
   </div>
 </footer>
-<script src="assets/app.js?v=4d5d80ff"></script>
-<script src="assets/step-engine.js?v=7e4a1f2b"></script>
-<script src="dist/data/meta.js?v=4d5d80ff"></script>
+<script src="assets/app.js?v=c829ace1"></script>
+<script src="assets/step-engine.js?v=df626a80"></script>
+<script src="dist/data/meta.js?v=c829ace1"></script>
 <script>
 window.YZ = window.YZ || {};
 window.YZ.loadAll = function(chapters){
@@ -144,7 +144,7 @@ window.YZ.loadAll = function(chapters){
   return Promise.all(need.map(function(id){
     return new Promise(function(res){
       var s = document.createElement('script');
-      s.src = "" + 'dist/data/ch/' + id + '.js?v=' + "4d5d80ff";
+      s.src = "" + 'dist/data/ch/' + id + '.js?v=' + "c829ace1";
       s.onload = function(){ res(); };
       s.onerror = function(){ res(); };
       document.head.appendChild(s);
@@ -538,11 +538,20 @@ window.YZ.completeChains = function(pool){
       if (!sp) { Z.toast('第 ' + sel.day + ' 天不存在'); return []; }
       var wantIds = (sp.kind === 'redo') ? Object.keys(wm) : (sp.ids || []);
       if (!wantIds.length) return [];
+      /* 跳过已经做过的题：做到一半退出再进来，不该从头重做。
+         判据用 qlog.recent（作答历史），与冲刺页「完成度」同一口径——
+         两处口径不一致会出现「页面上显示已完成，点进去还要重做」。
+         只跳过「已作答」的，不管对错：答错的题由错题本负责（第 9 天重做），
+         在这里重复出题只会让当天进度卡住。 */
+      var qlog = (Z.qLog && Z.qLog()) || {};
+      var seen = {};
+      (qlog.recent || []).forEach(function(r){ seen[r.id] = true; });
+
       var want = {};
       wantIds.forEach(function(id){ want[id] = true; });
       Object.keys(CH).forEach(function(cid){
         (CH[cid].questions||[]).forEach(function(q){
-          if (want[q.id]) pool.push(q);
+          if (want[q.id] && !seen[q.id]) pool.push(q);
         });
       });
       /* 按计划里的原顺序排（题号升序），不洗牌——
@@ -623,7 +632,38 @@ window.YZ.completeChains = function(pool){
   document.getElementById('startBtn').addEventListener('click', function(){
     var raw = collect();
     if (!raw.length) {
-      Z.toast(sel.day === 9 ? '现在没有错题，第 9 天可以跳过' : '这个范围暂时没有题目');
+      /* 空池要分清两种情况，否则用户以为出错了：
+         ① 冲刺计划的这一天已经全部做完 → 明确告知，并引导去下一天
+         ② 其他筛选条件太窄 → 提示换范围 */
+      if (sel.day) {
+        var spDay = ((window.YZ.META && window.YZ.META.sprint) || [])[sel.day - 1];
+        /* 用可见的空态卡片，不只弹 toast：
+           toast 几秒就消失，用户回来只看到一片空白，会以为页面坏了。
+           空态要说明「为什么没题」和「接下来去哪」。 */
+        var wrap = document.getElementById('stageWrap');
+        var stage = document.getElementById('stage');
+        var isRedo = spDay && spDay.kind === 'redo';
+        if (wrap && stage) {
+          wrap.style.display = '';
+          stage.innerHTML = '<div class="day-empty">' +
+            '<div class="day-empty-t">' +
+              (isRedo ? '现在没有错题' : '第 ' + sel.day + ' 天已经全部做完') +
+            '</div>' +
+            '<p class="desc">' +
+              (isRedo
+                ? '第 9 天专做错题，目前错题本是空的，可以直接跳到下一天。'
+                : '这一天不再重复出题。错过的题可以在错题本里重做，或者去做下一天。') +
+            '</p>' +
+            '<div class="day-empty-acts">' +
+              '<a class="btn primary sm" href="sprint.html">回冲刺计划看下一天 →</a>' +
+              '<a class="btn ghost sm" href="wrong.html">去错题本</a>' +
+            '</div>' +
+          '</div>';
+          wrap.scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+      } else {
+        Z.toast('这个范围暂时没有题目');
+      }
       return;
     }
     /* 冲刺计划的一天：题量就是当天的全部，不截断。

@@ -108,6 +108,10 @@ export const ALL_QUESTIONS = EXAM_BANK.map((q) => {
     topic: q.topic || '',
     hasAnswer: q.hasAnswer,
     officialKey: q.officialKey,
+    /* 开放题（「写出一个…」，答案不唯一）：有输入框但不自动判分，
+       提交后展示参考答案让学生自评。不显式带过来，前端就只会渲染
+       一个判分输入框，学生填什么都算错。 */
+    ...(q.openAnswer ? { openAnswer: true } : {}),
     ...(q.options ? { options: q.options } : {}),
     /* 选项的原始片段（含公式图），渲染层据此逐片段输出 */
     ...(q.options && q.optionParts ? { __optParts: q.optionParts } : {}),

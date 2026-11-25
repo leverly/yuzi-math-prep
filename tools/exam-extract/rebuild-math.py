@@ -88,8 +88,34 @@ def base_height(words):
     return hs[len(hs) // 2] if hs else 10.0
 
 
+def split_merged_fractions(words, base_h):
+    """拆开被 PDF 合成一个 word 的分数。
+
+    pdftotext 偶尔把竖排的分子分母合成一个 word：例如 −1/4 里的
+    「1/4」被读成 '14'，包围盒高度是正常字的 2 倍多、宽度只有一个
+    字符宽。直接当文本用会把 −1/4 读成 −14（q19 就栽在这里，
+    代入结果 81 而官方答案是 26）。
+
+    判据：纯数字 + 高度 > 1.6 倍基准 + 宽度 < 1.2 倍字高。
+    这种窄高条就是上下两个数字，按中位线切开。
+    """
+    out = []
+    for w in words:
+        t = w['w'].strip()
+        wd = w['x1'] - w['x0']
+        is_digits = t.isdigit() and len(t) == 2
+        if is_digits and w['h'] > base_h * 1.6 and wd < w['h'] * 1.2:
+            mid = (w['y0'] + w['y1']) / 2
+            out.append(dict(w, w=t[0], y0=w['y0'], y1=mid - 0.6, h=mid - 0.6 - w['y0']))
+            out.append(dict(w, w=t[1], y0=mid + 0.6, y1=w['y1'], h=w['y1'] - mid - 0.6))
+        else:
+            out.append(w)
+    return out
+
+
 def build_fractions(words, base_h):
     """全页配对分数，返回 (剩余 words, 分数原子列表)。"""
+    words = split_merged_fractions(words, base_h)
     # 分子/分母的字号通常只比正文略小（0.85~0.95 倍），A./B. 等标记则与
     # 正文同高且常带句点。用「纯数字且高度不超过正文」来锁定候选，
     # 避免把选项标记当成分子。
@@ -99,7 +125,8 @@ def build_fractions(words, base_h):
             return False
         if not all(c.isdigit() or c in '−-' for c in t):
             return False
-        return w['h'] <= base_h * 1.02
+        # 1.1 倍：split_merged_fractions 切出来的数字比正文略高一点
+        return w['h'] <= base_h * 1.1
 
     small = [w for w in words if is_frac_glyph(w)]
     used = set()

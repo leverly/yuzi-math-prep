@@ -148,10 +148,18 @@ async function main() {
         probes.forEach(function(pr){
           if (answerMatches(pr, acc)) problems.push('垃圾输入 ' + JSON.stringify(pr) + ' 被判对');
         });
-        /* 多小问/多解的残缺答案串不该出现在 accept（会让学生永远判错） */
+        /* 多小问的残缺答案串不该出现在 accept（会让学生永远判错）。
+           判据要区分两种含 ①② 的情况：
+             · 「①. 3  ②. 4」—— 两个空各自一个值，单空输入收不了 → 有问题
+             · 「①④」—— 答案本身就是「选①②③④ 中的哪几个」，
+               一个输入框填「①④」完全成立 → 没问题
+           所以只在「① 后面跟了分隔符/数字」时才算多空。 */
         acc.forEach(function(a){
-          if (/[（(]\\d[）)]|①|②|[；;]/.test(String(a))) {
-            problems.push('accept 含小问编号/分号，不是单空答案：' + JSON.stringify(a).slice(0,40));
+          var t = String(a);
+          var isMultiBlank = /①\s*[.．:：]\s*\S/.test(t) || /[；;]/.test(t)
+                          || /[（(]\s*\d\s*[）)]/.test(t);
+          if (isMultiBlank) {
+            problems.push('accept 是多小问答案，不是单空答案：' + JSON.stringify(a).slice(0,40));
           }
         });
       }

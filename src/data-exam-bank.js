@@ -891,11 +891,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "38.5",
+  "answer": "38.5",
   "accept": [
    "38.5"
-  ]
+  ],
+  "officialKey": "38.5"
  },
  {
   "id": "p2021-q10",
@@ -952,11 +952,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "3.79",
+  "answer": "3.79",
   "accept": [
    "3.79"
-  ]
+  ],
+  "officialKey": "3.79"
  },
  {
   "id": "p2021-q11",
@@ -1041,7 +1041,7 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
+  "answer": "①. 3    ②. 4",
   "officialKey": "①. 3    ②. 4"
  },
  {
@@ -1103,11 +1103,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "0",
+  "answer": "0",
   "accept": [
    "0"
-  ]
+  ],
+  "officialKey": "0"
  },
  {
   "id": "p2021-q13",
@@ -1184,11 +1184,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "-2",
+  "answer": "-2",
   "accept": [
    "-2"
-  ]
+  ],
+  "officialKey": "-2"
  },
  {
   "id": "p2021-q14",
@@ -1303,7 +1303,7 @@ export const EXAM_BANK = [
   "paperId": "p2021",
   "year": "2021—2022",
   "no": 15,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "分类",
   "score": 2,
@@ -1397,7 +1397,10 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
+  "answer": "6或12##12或6",
+  "accept": [
+   "6或12##12或6"
+  ],
   "officialKey": "6或12##12或6"
  },
  {
@@ -2553,7 +2556,7 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
+  "answer": "（1）；同角的余角相等；；角平分线的定义；，；（2）",
   "officialKey": "（1）；同角的余角相等；；角平分线的定义；，；（2）"
  },
  {
@@ -2715,7 +2718,7 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
+  "answer": "（1）这个手工兴趣小组共有7人，计划要做的这批中国结有80个；",
   "officialKey": "（1）这个手工兴趣小组共有7人，计划要做的这批中国结有80个；"
  },
  {
@@ -9384,9 +9387,7 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "−a⁴b（答案不唯一）",
-  "accept": [
-   "−a⁴b（答案不唯一）"
-  ],
+  "openAnswer": true,
   "officialKey": "−a⁴b（答案不唯一）"
  },
  {
@@ -9538,9 +9539,7 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "3（答案不唯一）",
-  "accept": [
-   "3（答案不唯一）"
-  ],
+  "openAnswer": true,
   "officialKey": "3（答案不唯一）"
  },
  {
@@ -9575,8 +9574,7 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "（1）10（2）2/3 （3）−17 （4）−1/29",
-  "officialKey": "（1）10（2）2/3 （3）−17 （4）−1/29",
-  "__officialAnswer": "（1）10（2）2/3 （3）−17 （4）−1/29"
+  "officialKey": "（1）10（2）2/3 （3）−17 （4）−1/29"
  },
  {
   "id": "p2023-q18",
@@ -9621,9 +9619,8 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": "（1）点C在直线AB外； （2）见解析（3）>；两点之间，线段最短；>",
-  "officialKey": "（1）点C在直线AB外； （2）见解析（3）>；两点之间，线段最短；>",
-  "__officialAnswer": "（1）点C在直线AB外； （2）见解析（3）>；两点之间，线段最短；>"
+  "answer": null,
+  "officialKey": "（1）点C在直线AB外； （2）见解析（3）>；两点之间，线段最短；>"
  },
  {
   "id": "p2023-q19",
@@ -9639,15 +9636,15 @@ export const EXAM_BANK = [
   "name": "尺规作图 + 三边关系说理",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−14，y=5．",
+  "stemText": "求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−1/4，y=5．",
   "stemParts": [
    {
     "t": "text",
-    "v": "求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−14，y=5．"
+    "v": "求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−1/4，y=5．"
    }
   ],
   "rawParas": [
-   "19.求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−14，y=5．"
+   "19.求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−1/4，y=5．"
   ],
   "options": null,
   "optionParts": null,
@@ -9690,8 +9687,7 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "（1）x=2 （2）x=−1",
-  "officialKey": "（1）x=2 （2）x=−1",
-  "__officialAnswer": "（1）x=2 （2）x=−1"
+  "officialKey": "（1）x=2 （2）x=−1"
  },
  {
   "id": "p2023-q21",
@@ -9741,16 +9737,15 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": "（1）①见解析：②∠COD，∠AOB，∠AOB，∠AOE，同角的余角相等 （2）OC，∠EOD",
-  "officialKey": "（1）①见解析：②∠COD，∠AOB，∠AOB，∠AOE，同角的余角相等 （2）OC，∠EOD",
-  "__officialAnswer": "（1）①见解析：②∠COD，∠AOB，∠AOB，∠AOE，同角的余角相等 （2）OC，∠EOD"
+  "answer": null,
+  "officialKey": "（1）①见解析：②∠COD，∠AOB，∠AOB，∠AOE，同角的余角相等 （2）OC，∠EOD"
  },
  {
   "id": "p2023-q22",
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 22,
-  "qtype": "calc",
+  "qtype": "big",
   "chapter": "ch-eq",
   "cat": "建模",
   "score": 7,
@@ -9787,9 +9782,6 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "每台A型机器一天生产40件产品，每箱装24件产品．",
-  "accept": [
-   "每台A型机器一天生产40件产品，每箱装24件产品．"
-  ],
   "officialKey": "每台A型机器一天生产40件产品，每箱装24件产品．"
  },
  {
@@ -9833,8 +9825,7 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "（1）①∠BOC=15°；②∠EOC=25° （2）45°−1/2n°或45°+1/2n°",
-  "officialKey": "（1）①∠BOC=15°；②∠EOC=25° （2）45°−1/2n°或45°+1/2n°",
-  "__officialAnswer": "（1）①∠BOC=15°；②∠EOC=25° （2）45°−1/2n°或45°+1/2n°"
+  "officialKey": "（1）①∠BOC=15°；②∠EOC=25° （2）45°−1/2n°或45°+1/2n°"
  },
  {
   "id": "p2023-q24",
@@ -9879,8 +9870,7 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "（1）1（2）k=8/5或2/5 （3）1/2，2/3，6，8",
-  "officialKey": "（1）1（2）k=8/5或2/5 （3）1/2，2/3，6，8",
-  "__officialAnswer": "（1）1（2）k=8/5或2/5 （3）1/2，2/3，6，8"
+  "officialKey": "（1）1（2）k=8/5或2/5 （3）1/2，2/3，6，8"
  },
  {
   "id": "p2023-q25",
@@ -9922,8 +9912,7 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "（1）正，负，把绝对值相减",
-  "officialKey": "（1）正，负，把绝对值相减",
-  "__officialAnswer": "（1）正，负，把绝对值相减"
+  "officialKey": "（1）正，负，把绝对值相减"
  },
  {
   "id": "p2023-q26",
@@ -9962,9 +9951,8 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": "（1）①c=a+9②见解析 −m−5−m−4 （2）①B、D；②a=或 22",
-  "officialKey": "（1）①c=a+9②见解析 −m−5−m−4 （2）①B、D；②a=或 22",
-  "__officialAnswer": "（1）①c=a+9②见解析 −m−5−m−4 （2）①B、D；②a=或 22"
+  "answer": null,
+  "officialKey": "（1）①c=a+9②见解析 −m−5−m−4 （2）①B、D；②a=或 22"
  },
  {
   "id": "p2024-q1",
@@ -10962,11 +10950,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "3",
+  "answer": "3",
   "accept": [
    "3"
-  ]
+  ],
+  "officialKey": "3"
  },
  {
   "id": "p2024-q10",
@@ -11049,20 +11037,18 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "点P在直线l外",
+  "answer": "点P在直线l外",
   "accept": [
-   "点P在直线l外",
-   "点P在直线l外．",
-   "点P在直线l外。"
-  ]
+   "点P在直线l外"
+  ],
+  "officialKey": "点P在直线l外"
  },
  {
   "id": "p2024-q11",
   "paperId": "p2024",
   "year": "2024—2025",
   "no": 11,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-poly",
   "cat": "概念",
   "score": 2,
@@ -11104,7 +11090,8 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
+  "answer": "（答案不唯一）",
+  "openAnswer": true,
   "officialKey": "（答案不唯一）"
  },
  {
@@ -11182,11 +11169,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "6",
+  "answer": "6",
   "accept": [
    "6"
-  ]
+  ],
+  "officialKey": "6"
  },
  {
   "id": "p2024-q13",
@@ -11277,12 +11264,11 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "76",
+  "answer": "76",
   "accept": [
-   "76",
-   "76°"
-  ]
+   "76"
+  ],
+  "officialKey": "76"
  },
  {
   "id": "p2024-q14",
@@ -12595,7 +12581,7 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
+  "answer": "（1）帆布袋、冰箱贴、徽章的单价分别是20元，15元，8元",
   "officialKey": "（1）帆布袋、冰箱贴、徽章的单价分别是20元，15元，8元"
  },
  {
@@ -13359,7 +13345,7 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
+  "answer": "（1）3；6；",
   "officialKey": "（1）3；6；"
  },
  {
@@ -14908,10 +14894,10 @@ export const EXAM_BANK = [
    "C．                               D．"
   ],
   "options": [
-   "",
-   "",
-   "",
-   ""
+   "（图）",
+   "（图）",
+   "（图）",
+   "（图）"
   ],
   "optionParts": [
    [
@@ -14944,7 +14930,7 @@ export const EXAM_BANK = [
    ]
   ],
   "key": 3,
-  "answer": "",
+  "answer": "（图）",
   "officialKey": "D"
  },
  {
@@ -15147,7 +15133,7 @@ export const EXAM_BANK = [
   "paperId": "p2025",
   "year": "2025—2026",
   "no": 7,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-eq",
   "cat": "建模",
   "score": 2,
@@ -15172,11 +15158,45 @@ export const EXAM_BANK = [
    "C．",
    "D．"
   ],
-  "options": null,
-  "optionParts": null,
-  "answer": "",
-  "officialKey": "A",
-  "__optUnavailable": "本题在原卷中是选择题，四个选项均为分式方程（公式图），未能提取。正确答案：A。请对照原卷作答。"
+  "options": [
+   "（图）",
+   "（图）",
+   "（图）",
+   "（图）"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "img",
+     "src": "media/q7-opt-A.png",
+     "kind": "option"
+    }
+   ],
+   [
+    {
+     "t": "img",
+     "src": "media/q7-opt-B.png",
+     "kind": "option"
+    }
+   ],
+   [
+    {
+     "t": "img",
+     "src": "media/q7-opt-C.png",
+     "kind": "option"
+    }
+   ],
+   [
+    {
+     "t": "img",
+     "src": "media/q7-opt-D.png",
+     "kind": "option"
+    }
+   ]
+  ],
+  "key": 0,
+  "answer": "（图）",
+  "officialKey": "A"
  },
  {
   "id": "p2025-q8",
@@ -15651,7 +15671,7 @@ export const EXAM_BANK = [
   "paperId": "p2025",
   "year": "2025—2026",
   "no": 20,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "作图",
   "score": 5,
@@ -15687,8 +15707,10 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "8；7",
-  "officialKey": "8；7",
-  "__officialAnswer": "8；7"
+  "accept": [
+   "8；7"
+  ],
+  "officialKey": "8；7"
  },
  {
   "id": "p2025-q21",
@@ -15732,8 +15754,7 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "6x，7x；（200﹣8x）；",
-  "officialKey": "6x，7x；（200﹣8x）；",
-  "__officialAnswer": "6x，7x；（200﹣8x）；"
+  "officialKey": "6x，7x；（200﹣8x）；"
  },
  {
   "id": "p2025-q22",
@@ -15778,8 +15799,7 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "4C，1A，5F；",
-  "officialKey": "4C，1A，5F；",
-  "__officialAnswer": "4C，1A，5F；"
+  "officialKey": "4C，1A，5F；"
  },
  {
   "id": "p2025-q23",
@@ -15824,8 +15844,7 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "﹣5+2t；",
-  "officialKey": "﹣5+2t；",
-  "__officialAnswer": "﹣5+2t；"
+  "officialKey": "﹣5+2t；"
  },
  {
   "id": "p2025-q24",
@@ -15868,8 +15887,7 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "45°；",
-  "officialKey": "45°；",
-  "__officialAnswer": "45°；"
+  "officialKey": "45°；"
  },
  {
   "id": "p2025-q25",
@@ -15905,9 +15923,8 @@ export const EXAM_BANK = [
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": "﹣ ；",
-  "officialKey": "﹣ ；",
-  "__officialAnswer": "﹣ ；"
+  "answer": null,
+  "officialKey": "﹣ ；"
  },
  {
   "id": "p2025-q26",
@@ -15955,7 +15972,6 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "120；140；",
-  "officialKey": "120；140；",
-  "__officialAnswer": "120；140；"
+  "officialKey": "120；140；"
  }
 ];

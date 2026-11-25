@@ -8895,16 +8895,16 @@ export const EXAM_FULL = {
    },
    {
     "no": 19,
-    "stemText": "求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−14，y=5．",
+    "stemText": "求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−1/4，y=5．",
     "stemParts": [
      {
       "t": "text",
-      "v": "求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−14，y=5．"
+      "v": "求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−1/4，y=5．"
      }
     ],
     "options": [],
     "rawParas": [
-     "19.求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−14，y=5．"
+     "19.求3(x−2y²)−(3y²+7x)+10y²的值，其中x=−1/4，y=5．"
     ]
    },
    {
@@ -13980,8 +13980,9 @@ export const EXAM_FULL = {
       "text": "A．",
       "parts": [
        {
-        "t": "text",
-        "v": ""
+        "t": "img",
+        "src": "media/q7-opt-A.png",
+        "kind": "option"
        }
       ]
      },
@@ -13990,8 +13991,9 @@ export const EXAM_FULL = {
       "text": "B．",
       "parts": [
        {
-        "t": "text",
-        "v": ""
+        "t": "img",
+        "src": "media/q7-opt-B.png",
+        "kind": "option"
        }
       ]
      },
@@ -14000,8 +14002,9 @@ export const EXAM_FULL = {
       "text": "C．",
       "parts": [
        {
-        "t": "text",
-        "v": ""
+        "t": "img",
+        "src": "media/q7-opt-C.png",
+        "kind": "option"
        }
       ]
      },
@@ -14010,8 +14013,9 @@ export const EXAM_FULL = {
       "text": "D．",
       "parts": [
        {
-        "t": "text",
-        "v": ""
+        "t": "img",
+        "src": "media/q7-opt-D.png",
+        "kind": "option"
        }
       ]
      }

@@ -1305,6 +1305,40 @@
       });
     }
 
+    /* 图形题配图点击放大。
+       为什么用事件委托而不是逐个绑定：练习页的题是运行时动态插入的，
+       逐绑会在每次换题后失效。委托到 document 上就一劳永逸。
+       用原生 <dialog> 而不是 window.open：file:// 下 window.open 常被拦。 */
+    document.addEventListener('click', function (e) {
+      var fig = e.target.closest && e.target.closest('.q-fig');
+      if (fig) {
+        var id = fig.getAttribute('data-zoom');
+        var dlg = id && document.getElementById(id);
+        if (dlg && dlg.showModal) { dlg.showModal(); return; }
+        if (dlg) { dlg.setAttribute('open', ''); return; }
+      }
+      /* 点放大图本身 或 关闭按钮 → 关闭 */
+      var zimg = e.target.closest && e.target.closest('.q-zoom img');
+      var zbtn = e.target.closest && e.target.closest('.q-zoom-close');
+      if (zimg || zbtn) {
+        var d = (zimg ? zimg.parentNode : zbtn.parentNode);
+        if (d && d.close) d.close();
+        else if (d) d.removeAttribute('open');
+      }
+    });
+    /* 点 backdrop 关闭（点 dialog 自身而不是内部 img） */
+    document.addEventListener('click', function (e) {
+      if (e.target.classList && e.target.classList.contains('q-zoom')) {
+        if (e.target.close) e.target.close();
+      }
+    });
+    /* Esc 关闭（浏览器对 dialog 原生支持，这里兜底旧内核） */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var open = document.querySelector('.q-zoom[open]');
+      if (open && open.close) open.close();
+    });
+
     // 滚动进度
     var sp = document.querySelector('.scroll-progress');
     if (sp) {

@@ -324,8 +324,14 @@
         h += '<div class="se-fill"><input class="se-input" type="text" autocomplete="off" ' +
           'autocapitalize="off" spellcheck="false" placeholder="填答案后按 Enter">' +
           '<button class="btn primary se-submit">提交</button></div>';
+      } else if (qt === 'big') {
+        /* 大题要写过程，给多行输入框。不自动判分（过程对不对机器判不了），
+           提交后展开解答让学生逐条对照。至少学生有地方「真的做一遍」，
+           而不是只看到题干和一个「看解答」按钮。 */
+        h += '<div class="se-fill se-fill-big"><textarea class="se-input se-textarea" rows="5" ' +
+          'autocomplete="off" spellcheck="false" placeholder="在这里写解答过程（也可以写在纸上，这里写关键步骤）"></textarea>' +
+          '<button class="btn primary se-submit">提交</button></div>';
       }
-      /* big：不给作答区，只留「看解答」 */
 
       /* 内容不可用说明：放在作答区之前，学生一眼能看到「这题为什么长这样」 */
       if (q.unavailableNote) {
@@ -437,13 +443,29 @@
           if (answered) return;
           var v = (inp.value || '').trim();
           if (!v) return;
+          inp.readOnly = true;
+
+          /* 开放题（答案不唯一）：要作答，但没法自动判对错。
+             展示参考答案让学生自己比对，按「已作答」记一笔，不计对错。 */
+          if (q.openAnswer) {
+            if (submit) submit.disabled = true;
+            fb.className = 'se-fb';
+            fb.innerHTML = '<b>已作答</b>' +
+              '<span>这题答案不唯一，自己对照下面的参考答案看是否满足题意。</span>' +
+              (q.officialKey
+                ? '<span class="se-ans">参考答案：<b>' + esc(String(q.officialKey).replace(/（答案不唯一）/, '')) + '</b></span>'
+                : '') +
+              solBox(q);
+            record(true, null, v);
+            return;
+          }
+
           var acc = q.accept || [];
           var norm = function (x) {
             return String(x).replace(/\s+/g, '').replace(/[（）()]/g, '')
               .replace(/×/g, '*').replace(/−/g, '-').replace(/°/g, '').toLowerCase();
           };
           var ok = acc.some(function (a) { return norm(a) === norm(v); });
-          inp.readOnly = true;
           fb.className = 'se-fb ' + (ok ? 'ok' : 'bad');
           fb.innerHTML = ok
             ? '<b>✓ 正确</b>' + (q.pitfallHtml ? '<span class="se-pit">这类题的坑：' + q.pitfallHtml + '</span>' : '')
@@ -454,12 +476,42 @@
         if (submit) submit.addEventListener('click', doSubmit);
         if (inp) inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') doSubmit(); });
       } else if (qt === 'big') {
-        /* 大题不判分。**先不展开解答** —— 学生要先自己动笔，
-           一进来就看到答案等于剥夺了「自己做」的机会。
-           点「看解答」才展开；展开后按钮变「下一题」。 */
+        /* 大题不自动判分（过程对不对机器判不了），但要让学生真的写一遍。
+           **先不展开解答** —— 一进来就看到答案等于剥夺了「自己做」的机会。
+           学生写完点「提交」→ 展开解答对照；也可以不写直接点「看解答」。 */
+        var bInp = el.body.querySelector('.se-textarea');
+        var bSubmit = el.body.querySelector('.se-submit');
+        var revealSolution = function () {
+          if (nextBtn.__revealed) return;
+          nextBtn.__revealed = true;
+          fb.innerHTML = '<div class="se-solbox"><b>完整解答</b>' +
+            (q.solutionHtml || esc(q.solution || '（本题暂无解析）')) + '</div>' +
+            (q.pitfallHtml ? '<div class="se-pit-box"><b>易错</b>' + q.pitfallHtml + '</div>' : '') +
+            '<div class="se-selfnote">对照解答自评：过程写全了吗？每步依据写了吗？</div>';
+          nextBtn.textContent = (qi + 1 >= total) ? '看总览 →' : '下一题 →';
+        };
+        if (bSubmit) {
+          bSubmit.addEventListener('click', function () {
+            if (nextBtn.__revealed) return;
+            var txt = (bInp && bInp.value || '').trim();
+            if (bInp) bInp.readOnly = true;
+            bSubmit.disabled = true;
+            record(true, null, txt);
+            revealSolution();
+          });
+        }
+        /* Ctrl/Cmd+Enter 提交，避免学生写过程时回车换行被当成提交 */
+        if (bInp) {
+          bInp.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+              e.preventDefault();
+              if (bSubmit) bSubmit.click();
+            }
+          });
+        }
         fb.className = 'se-fb';
-        fb.innerHTML = '<div class="se-selfnote">大题不自动判分。先在纸上做一遍，' +
-          '再点「看解答」对照——重点看过程写全了没有、每步依据写了没有。</div>';
+        fb.innerHTML = '<div class="se-selfnote">大题不自动判分。把过程写下来再对照解答——' +
+          '重点看过程写全了没有、每步依据写了没有。</div>';
         record(true, null, '');
         nextBtn.textContent = '看解答 →';
         nextBtn.disabled = false;
@@ -475,6 +527,7 @@
          不该再点一次才能走。结算（写记录）在 recordNow 里已经做完。 */
       nextBtn.addEventListener('click', function () {
         if (qt === 'big' && !nextBtn.__revealed) {
+          /* 直接点「看解答」也行：学生可能已在纸上做完，不想再打字 */
           nextBtn.__revealed = true;
           fb.innerHTML = '<div class="se-solbox"><b>完整解答</b>' +
             (q.solutionHtml || esc(q.solution || '（本题暂无解析）')) + '</div>' +
