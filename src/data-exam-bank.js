@@ -847,7 +847,7 @@ export const EXAM_BANK = [
   "paperId": "p2021",
   "year": "2021—2022",
   "no": 9,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "计算",
   "score": 2,
@@ -892,14 +892,17 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "38.5"
+  "officialKey": "38.5",
+  "accept": [
+   "38.5"
+  ]
  },
  {
   "id": "p2021-q10",
   "paperId": "p2021",
   "year": "2021—2022",
   "no": 10,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-op",
   "cat": "概念",
   "score": 2,
@@ -950,7 +953,10 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "3.79"
+  "officialKey": "3.79",
+  "accept": [
+   "3.79"
+  ]
  },
  {
   "id": "p2021-q11",
@@ -1043,7 +1049,7 @@ export const EXAM_BANK = [
   "paperId": "p2021",
   "year": "2021—2022",
   "no": 12,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-expr",
   "cat": "计算",
   "score": 2,
@@ -1098,14 +1104,17 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "0"
+  "officialKey": "0",
+  "accept": [
+   "0"
+  ]
  },
  {
   "id": "p2021-q13",
   "paperId": "p2021",
   "year": "2021—2022",
   "no": 13,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-eq",
   "cat": "概念",
   "score": 2,
@@ -1176,7 +1185,10 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "-2"
+  "officialKey": "-2",
+  "accept": [
+   "-2"
+  ]
  },
  {
   "id": "p2021-q14",
@@ -1820,7 +1832,8 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "，"
+  "officialKey": "，",
+  "__optUnavailable": "本题官方答案在原卷中残缺（公式未提取），不自动判分。请对照原卷自评。"
  },
  {
   "id": "p2021-q19",
@@ -8431,7 +8444,7 @@ export const EXAM_BANK = [
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 26,
-  "qtype": "single",
+  "qtype": "big",
   "chapter": "ch-rational",
   "cat": "推理",
   "score": 6,
@@ -8730,118 +8743,8 @@ export const EXAM_BANK = [
    "其中所有正确的结论是______．（填选项字母即可）",
    "⟨公式⟩用含⟨公式⟩的式子表示⟨公式⟩，并直接写出结果．"
   ],
-  "options": [
-   "原点⟨公式⟩可能与点⟨公式⟩重合；",
-   "原点⟨公式⟩不可能在点⟨公式⟩的右侧；",
-   "原点⟨公式⟩可能是线段⟨公式⟩的中点；",
-   "原点⟨公式⟩可能是线段⟨公式⟩的中点；"
-  ],
-  "optionParts": [
-   [
-    {
-     "t": "text",
-     "v": "原点"
-    },
-    {
-     "t": "img",
-     "rid": "rId162",
-     "src": "media/image76.png",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "可能与点"
-    },
-    {
-     "t": "img",
-     "rid": "rId209",
-     "src": "media/image92.png",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "重合；         "
-    }
-   ],
-   [
-    {
-     "t": "text",
-     "v": "原点"
-    },
-    {
-     "t": "img",
-     "rid": "rId162",
-     "src": "media/image76.png",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "不可能在点"
-    },
-    {
-     "t": "img",
-     "rid": "rId78",
-     "src": "media/image39.png",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "的右侧；"
-    }
-   ],
-   [
-    {
-     "t": "text",
-     "v": "原点"
-    },
-    {
-     "t": "img",
-     "rid": "rId162",
-     "src": "media/image76.png",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "可能是线段"
-    },
-    {
-     "t": "img",
-     "rid": "rId123",
-     "src": "media/image60.png",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "的中点；    "
-    }
-   ],
-   [
-    {
-     "t": "text",
-     "v": "原点"
-    },
-    {
-     "t": "img",
-     "rid": "rId162",
-     "src": "media/image76.png",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "可能是线段"
-    },
-    {
-     "t": "img",
-     "rid": "rId127",
-     "src": "media/image62.png",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "的中点；"
-    }
-   ]
-  ],
+  "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -8851,7 +8754,7 @@ export const EXAM_BANK = [
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 1,
-  "qtype": "single",
+  "qtype": "big",
   "chapter": "ch-rational",
   "cat": "概念",
   "score": 2,
@@ -8860,76 +8763,23 @@ export const EXAM_BANK = [
   "name": "绝对值",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "⟨公式⟩的绝对值是（    ）",
+  "stemText": "4 的相反数是（　　）",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "img",
-    "rid": "rId8",
-    "src": "media/image2.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的绝对值是（"
-   },
-   {
-    "t": "text",
-    "v": "    "
-   },
-   {
-    "t": "text",
-    "v": "）"
+    "v": "4 的相反数是（　　）"
    }
   ],
   "rawParas": [
-   "1. ⟨公式⟩的绝对值是（    ）",
-   "A. 3B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
+   "1. 4 的相反数是（   ）",
+   "A．−4/3    B．4/3    C．−3/4    D．3/4"
   ],
-  "options": [
-   "3",
-   "⟨公式⟩",
-   "⟨公式⟩",
-   "⟨公式⟩"
-  ],
-  "optionParts": [
-   [
-    {
-     "t": "text",
-     "v": "3"
-    }
-   ],
-   [
-    {
-     "t": "img",
-     "rid": "rId10",
-     "src": "media/image3.wmf",
-     "kind": "formula"
-    }
-   ],
-   [
-    {
-     "t": "img",
-     "rid": "rId8",
-     "src": "media/image2.wmf",
-     "kind": "formula"
-    }
-   ],
-   [
-    {
-     "t": "img",
-     "rid": "rId13",
-     "src": "media/image4.wmf",
-     "kind": "formula"
-    }
-   ]
-  ],
-  "key": 0,
-  "answer": "3",
-  "officialKey": "A"
+  "options": null,
+  "optionParts": null,
+  "key": null,
+  "answer": null,
+  "officialKey": "D",
+  "__optUnavailable": "本题在原卷中是选择题，选项为四个分数（排版为上下两行，未能拆成独立选项）。原卷选项：A．−4/3　B．4/3　C．−3/4　D．3/4。正确答案：D。"
  },
  {
   "id": "p2023-q2",
@@ -8945,131 +8795,53 @@ export const EXAM_BANK = [
   "name": "科学记数法",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "特色产业激发乡村发展新活力．据报道，截至2023年10月9日，全国已建设180个优势特色乡村产业集群，全产业链产值超过⟨公式⟩元，辐射带动1000多万户农民．数字⟨公式⟩用科学记数法表示为（    ）",
+  "stemText": "红树林、海草床和滨海盐沼组成三大滨海“蓝碳”生态系统．相关数据显示，按全球平均值估算，我国 三大滨海“蓝碳”生态系统的年碳汇量最高可达约 3080000 吨二氧化碳．将 3080000 用科学记数法表示应 为（                         ）",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "特色产业激发乡村发展新活力．据报道，截至"
-   },
-   {
-    "t": "text",
-    "v": "2023"
-   },
-   {
-    "t": "text",
-    "v": "年"
-   },
-   {
-    "t": "text",
-    "v": "10"
-   },
-   {
-    "t": "text",
-    "v": "月"
-   },
-   {
-    "t": "text",
-    "v": "9"
-   },
-   {
-    "t": "text",
-    "v": "日，全国已建设"
-   },
-   {
-    "t": "text",
-    "v": "180"
-   },
-   {
-    "t": "text",
-    "v": "个优势特色乡村产业集群，全产业链产值超过"
-   },
-   {
-    "t": "img",
-    "rid": "rId15",
-    "src": "media/image5.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "元，辐射带动"
-   },
-   {
-    "t": "text",
-    "v": "1000"
-   },
-   {
-    "t": "text",
-    "v": "多万户农民．数字"
-   },
-   {
-    "t": "img",
-    "rid": "rId15",
-    "src": "media/image5.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "用科学记数法表示为（"
-   },
-   {
-    "t": "text",
-    "v": "    "
-   },
-   {
-    "t": "text",
-    "v": "）"
+    "v": "红树林、海草床和滨海盐沼组成三大滨海“蓝碳”生态系统．相关数据显示，按全球平均值估算，我国 三大滨海“蓝碳”生态系统的年碳汇量最高可达约 3080000 吨二氧化碳．将 3080000 用科学记数法表示应 为（                         ）"
    }
   ],
   "rawParas": [
-   "2. 特色产业激发乡村发展新活力．据报道，截至2023年10月9日，全国已建设180个优势特色乡村产业集群，全产业链产值超过⟨公式⟩元，辐射带动1000多万户农民．数字⟨公式⟩用科学记数法表示为（    ）",
-   "A. ⟨公式⟩B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
+   "2. 红树林、海草床和滨海盐沼组成三大滨海“蓝碳”生态系统．相关数据显示，按全球平均值估算，我国",
+   "三大滨海“蓝碳”生态系统的年碳汇量最高可达约 3080000 吨二氧化碳．将 3080000 用科学记数法表示应",
+   "为（                         ）",
+   "A. 3.08  104                     B. 3.08  106       C. 308  10 4                    D. 0.308  107"
   ],
   "options": [
-   "⟨公式⟩",
-   "⟨公式⟩",
-   "⟨公式⟩",
-   "⟨公式⟩"
+   "3.08  104",
+   "3.08  106",
+   "308  10 4",
+   "0.308  107"
   ],
   "optionParts": [
    [
     {
-     "t": "img",
-     "rid": "rId18",
-     "src": "media/image6.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "3.08  104"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId20",
-     "src": "media/image7.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "3.08  106"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId22",
-     "src": "media/image8.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "308  10 4"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId24",
-     "src": "media/image9.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "0.308  107"
     }
    ]
   ],
   "key": 1,
-  "answer": "⟨公式⟩",
+  "answer": "3.08  106",
   "officialKey": "B"
  },
  {
@@ -9086,81 +8858,51 @@ export const EXAM_BANK = [
   "name": "展开图识别（三棱柱）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "下图是某个几何体的展开图，则这个几何体是（    ）⟨公式⟩⟨公式⟩",
+  "stemText": "如图是某个几何体的展开图，则该几何体是（                               ）",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "下图是某个几何体"
-   },
-   {
-    "t": "text",
-    "v": "的"
-   },
-   {
-    "t": "text",
-    "v": "展开图，则这个几何体是（"
-   },
-   {
-    "t": "text",
-    "v": "    "
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "img",
-    "rid": "rId26",
-    "src": "media/image10.png",
-    "kind": "figure"
+    "v": "如图是某个几何体的展开图，则该几何体是（                               ）"
    }
   ],
   "rawParas": [
-   "3. 下图是某个几何体的展开图，则这个几何体是（    ）",
-   "⟨公式⟩",
-   "A. 三棱柱B. 圆柱C. 四棱柱D. 圆锥"
+   "3. 如图是某个几何体的展开图，则该几何体是（                               ）",
+   "A. 五棱柱                            B. 长方体              C. 五棱锥                           D. 六棱柱"
   ],
   "options": [
-   "三棱柱",
-   "圆柱",
-   "四棱柱",
-   "圆锥"
+   "五棱柱",
+   "长方体",
+   "五棱锥",
+   "六棱柱"
   ],
   "optionParts": [
    [
     {
      "t": "text",
-     "v": "三棱柱"
+     "v": "五棱柱"
     }
    ],
    [
     {
      "t": "text",
-     "v": "圆柱"
+     "v": "长方体"
     }
    ],
    [
     {
      "t": "text",
-     "v": "四棱柱"
+     "v": "五棱锥"
     }
    ],
    [
     {
      "t": "text",
-     "v": "圆锥"
+     "v": "六棱柱"
     }
    ]
   ],
   "key": 0,
-  "answer": "三棱柱",
+  "answer": "五棱柱",
   "officialKey": "A"
  },
  {
@@ -9173,77 +8915,64 @@ export const EXAM_BANK = [
   "cat": "计算",
   "score": 2,
   "diff": "easy",
-  "topic": "合并同类项辨析",
-  "name": "合并同类项辨析",
+  "topic": "数轴读符号",
+  "name": "数轴读符号",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "下列各式计算中正确的是（    ）",
+  "stemText": "有理数 a，b 在数轴上的对应点的位置如图所示，则下列结论正确的是（                                                  ）",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
+    "v": "有理数 a，b 在数轴上的对应点的位置如图所示，则下列结论正确的是（                                                  ）"
    },
    {
-    "t": "text",
-    "v": "下列各式计算中正确的是（"
+    "t": "break"
    },
    {
-    "t": "text",
-    "v": "    "
-   },
-   {
-    "t": "text",
-    "v": "）"
+    "t": "img",
+    "src": "media/q4-f-005.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
-   "4. 下列各式计算中正确的是（    ）",
-   "A. ⟨公式⟩B. ⟨公式⟩",
-   "C. ⟨公式⟩ D. ⟨公式⟩"
+   "4. 有理数 a，b 在数轴上的对应点的位置如图所示，则下列结论正确的是（                                                  ）",
+   "A. a  b                          B. b  a            C. ab  0                        D. a + b  −3"
   ],
   "options": [
-   "⟨公式⟩",
-   "⟨公式⟩",
-   "⟨公式⟩",
-   "⟨公式⟩"
+   "a  b",
+   "b  a",
+   "ab  0",
+   "a + b  −3"
   ],
   "optionParts": [
    [
     {
-     "t": "img",
-     "rid": "rId27",
-     "src": "media/image11.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "a  b"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId29",
-     "src": "media/image12.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "b  a"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId31",
-     "src": "media/image13.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "ab  0"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId33",
-     "src": "media/image14.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "a + b  −3"
     }
    ]
   ],
-  "key": 2,
-  "answer": "⟨公式⟩",
-  "officialKey": "C"
+  "key": 1,
+  "answer": "b  a",
+  "officialKey": "B"
  },
  {
   "id": "p2023-q5",
@@ -9255,84 +8984,60 @@ export const EXAM_BANK = [
   "cat": "建模",
   "score": 2,
   "diff": "mid",
-  "topic": "余角补角列方程",
-  "name": "余角列方程",
+  "topic": "合并同类项辨析",
+  "name": "合并同类项辨析",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如果一个角等于它的余角的2倍，那么这个角的度数是（    ）",
+  "stemText": "下列计算中正确的是（                          ）",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "如果一个角等于它的余角的"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "倍，那么这个角的度数是（"
-   },
-   {
-    "t": "text",
-    "v": "    "
-   },
-   {
-    "t": "text",
-    "v": "）"
+    "v": "下列计算中正确的是（                          ）"
    }
   ],
   "rawParas": [
-   "5. 如果一个角等于它的余角的2倍，那么这个角的度数是（    ）",
-   "A. ⟨公式⟩B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
+   "5. 下列计算中正确的是（                          ）",
+   "A. 2 x + 3 y = 5 xy                                   B. 6 x − − x",
+   "2",
+   "(   2",
+   ") = 5x   2",
+   "C. 4mn − 3mn = 1                                      D. −7 ab 2 + 4ab 2 = −3ab 2"
   ],
   "options": [
-   "⟨公式⟩",
-   "⟨公式⟩",
-   "⟨公式⟩",
-   "⟨公式⟩"
+   "2 x + 3 y = 5 xy",
+   "6 x − − x",
+   "4mn − 3mn = 1",
+   "−7 ab 2 + 4ab 2 = −3ab 2"
   ],
   "optionParts": [
    [
     {
-     "t": "img",
-     "rid": "rId35",
-     "src": "media/image15.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "2 x + 3 y = 5 xy"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId37",
-     "src": "media/image16.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "6 x − − x"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId39",
-     "src": "media/image17.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "4mn − 3mn = 1"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId41",
-     "src": "media/image18.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "−7 ab 2 + 4ab 2 = −3ab 2"
     }
    ]
   ],
-  "key": 1,
-  "answer": "⟨公式⟩",
-  "officialKey": "B"
+  "key": 3,
+  "answer": "−7 ab 2 + 4ab 2 = −3ab 2",
+  "officialKey": "D"
  },
  {
   "id": "p2023-q6",
@@ -9344,106 +9049,56 @@ export const EXAM_BANK = [
   "cat": "概念",
   "score": 2,
   "diff": "mid",
-  "topic": "数轴读符号",
-  "name": "数轴判断符号",
+  "topic": "余角补角列方程",
+  "name": "余角补角列方程",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "有理数⟨公式⟩，⟨公式⟩在数轴上的对应点的位置如图所示，下列结论正确的是（    ）⟨公式⟩⟨公式⟩",
+  "stemText": "已知一个角比它的补角小 30° ，则这个角的大小为（                            ）",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "有理数"
-   },
-   {
-    "t": "img",
-    "rid": "rId43",
-    "src": "media/image19.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "img",
-    "rid": "rId45",
-    "src": "media/image20.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "在数轴上的对应点的位置如图所示，下列结论正确的是（"
-   },
-   {
-    "t": "text",
-    "v": "    "
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "img",
-    "rid": "rId47",
-    "src": "media/image21.png",
-    "kind": "figure"
+    "v": "已知一个角比它的补角小 30 ，则这个角的大小为（                            ）"
    }
   ],
   "rawParas": [
-   "6. 有理数⟨公式⟩，⟨公式⟩在数轴上的对应点的位置如图所示，下列结论正确的是（    ）",
-   "⟨公式⟩",
-   "A. ⟨公式⟩B. ⟨公式⟩C. ⟨公式⟩D. ⟨公式⟩"
+   "6. 已知一个角比它的补角小 30 ，则这个角的大小为（                            ）",
+   "A. 30                    B. 60                    C. 75    D. 105"
   ],
   "options": [
-   "⟨公式⟩",
-   "⟨公式⟩",
-   "⟨公式⟩",
-   "⟨公式⟩"
+   "30",
+   "60",
+   "75",
+   "105"
   ],
   "optionParts": [
    [
     {
-     "t": "img",
-     "rid": "rId48",
-     "src": "media/image22.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "30"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId50",
-     "src": "media/image23.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "60"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId52",
-     "src": "media/image24.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "75"
     }
    ],
    [
     {
-     "t": "img",
-     "rid": "rId54",
-     "src": "media/image25.wmf",
-     "kind": "formula"
+     "t": "text",
+     "v": "105"
     }
    ]
   ],
-  "key": 3,
-  "answer": "⟨公式⟩",
-  "officialKey": "D"
+  "key": 2,
+  "answer": "75",
+  "officialKey": "C"
  },
  {
   "id": "p2023-q7",
@@ -9455,135 +9110,58 @@ export const EXAM_BANK = [
   "cat": "概念",
   "score": 2,
   "diff": "mid",
-  "topic": "方程变形与等式性质",
-  "name": "方程变形辨析",
+  "topic": "代数式求值",
+  "name": "代数式求值",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "下列解方程的变形过程正确的是（    ）",
+  "stemText": "若 x − 3 y = −4 ，则 ( x − 3 y ) + 2 x − 6 y − 10 的值为（ 2 ）",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "下列解方程的变形过程正确的是（"
-   },
-   {
-    "t": "text",
-    "v": "    "
-   },
-   {
-    "t": "text",
-    "v": "）"
+    "v": "若 x − 3 y = −4 ，则 ( x − 3 y ) + 2 x − 6 y − 10 的值为（ 2 ）"
    }
   ],
   "rawParas": [
-   "7. 下列解方程的变形过程正确的是（    ）",
-   "A. 方程⟨公式⟩，移项得⟨公式⟩",
-   "B. 方程⟨公式⟩，系数化为1得⟨公式⟩",
-   "C. 方程⟨公式⟩，去括号得⟨公式⟩",
-   "D. 方程⟨公式⟩，去分母得⟨公式⟩"
+   "7. 若 x − 3 y = −4 ，则 ( x − 3 y ) + 2 x − 6 y − 10 的值为（",
+   "2",
+   "）",
+   "A. 14                     B. 2                      C. −18    D. −2"
   ],
   "options": [
-   "方程⟨公式⟩，移项得⟨公式⟩",
-   "方程⟨公式⟩，系数化为1得⟨公式⟩",
-   "方程⟨公式⟩，去括号得⟨公式⟩",
-   "方程⟨公式⟩，去分母得⟨公式⟩"
+   "14",
+   "2",
+   "−18",
+   "−2"
   ],
   "optionParts": [
    [
     {
      "t": "text",
-     "v": "方程"
-    },
-    {
-     "t": "img",
-     "rid": "rId56",
-     "src": "media/image26.wmf",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "，移项得"
-    },
-    {
-     "t": "img",
-     "rid": "rId58",
-     "src": "media/image27.wmf",
-     "kind": "formula"
+     "v": "14"
     }
    ],
    [
     {
      "t": "text",
-     "v": "方程"
-    },
-    {
-     "t": "img",
-     "rid": "rId60",
-     "src": "media/image28.wmf",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "，系数化为1得"
-    },
-    {
-     "t": "img",
-     "rid": "rId62",
-     "src": "media/image29.wmf",
-     "kind": "formula"
+     "v": "2"
     }
    ],
    [
     {
      "t": "text",
-     "v": "方程"
-    },
-    {
-     "t": "img",
-     "rid": "rId64",
-     "src": "media/image30.wmf",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "，去括号得"
-    },
-    {
-     "t": "img",
-     "rid": "rId66",
-     "src": "media/image31.wmf",
-     "kind": "formula"
+     "v": "−18"
     }
    ],
    [
     {
      "t": "text",
-     "v": "方程"
-    },
-    {
-     "t": "img",
-     "rid": "rId68",
-     "src": "media/image32.wmf",
-     "kind": "formula"
-    },
-    {
-     "t": "text",
-     "v": "，去分母得"
-    },
-    {
-     "t": "img",
-     "rid": "rId70",
-     "src": "media/image33.wmf",
-     "kind": "formula"
+     "v": "−2"
     }
    ]
   ],
-  "key": 2,
-  "answer": "方程⟨公式⟩，去括号得⟨公式⟩",
-  "officialKey": "C"
+  "key": 3,
+  "answer": "−2",
+  "officialKey": "D"
  },
  {
   "id": "p2023-q8",
@@ -9595,174 +9173,66 @@ export const EXAM_BANK = [
   "cat": "分类",
   "score": 2,
   "diff": "hard",
-  "topic": "线段中点计算",
-  "name": "线段距离和最小（分类讨论）",
+  "topic": "图形规律探究",
+  "name": "图形规律探究",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，某乡镇的五户居民依次居住在同一条笔直的小道边的A处，B处，C处，D处，E处，且这五户居民的人数依次有1人，2人，3人，3人，2人．乡村扶贫改造期间，该乡镇打算在这条小道上新建一个便民服务点M，使得所有居民到便民服务点的距离之和（每户所有居民均需要计算）最小，则便民服务点M应建在（    ）⟨公式⟩⟨公式⟩",
+  "stemText": "用边长相等的正方形和等边三角形卡片按如图所示的方式和规律拼出图形．拼第 1 个图形所用两种卡片 的总数为 7 枚，拼第 2 个图形所用两种卡片的总数为 12 枚 若按照这样的规律拼出的第 n 个图形中， 所用正方形卡片比等边三角形卡片多 10 枚，则拼第 n 个图形所用两种卡片的总数为（                              ）",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "如图，某乡镇的五户居民依次居住在同一条笔直的小道边的"
-   },
-   {
-    "t": "text",
-    "v": "A"
-   },
-   {
-    "t": "text",
-    "v": "处，"
-   },
-   {
-    "t": "text",
-    "v": "B"
-   },
-   {
-    "t": "text",
-    "v": "处，"
-   },
-   {
-    "t": "text",
-    "v": "C"
-   },
-   {
-    "t": "text",
-    "v": "处，"
-   },
-   {
-    "t": "text",
-    "v": "D"
-   },
-   {
-    "t": "text",
-    "v": "处，"
-   },
-   {
-    "t": "text",
-    "v": "E"
-   },
-   {
-    "t": "text",
-    "v": "处，且这五户居民的人数依次有"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "人，"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "人，"
-   },
-   {
-    "t": "text",
-    "v": "3"
-   },
-   {
-    "t": "text",
-    "v": "人，"
-   },
-   {
-    "t": "text",
-    "v": "3"
-   },
-   {
-    "t": "text",
-    "v": "人，"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "人．乡村扶贫改造期间，该乡镇打算在这条小道上新建一个便民服务点"
-   },
-   {
-    "t": "text",
-    "v": "M"
-   },
-   {
-    "t": "text",
-    "v": "，使得所有居民到便民服务点的距离之和（每户所有居民均需要计算）最小，则便民服务点"
-   },
-   {
-    "t": "text",
-    "v": "M"
-   },
-   {
-    "t": "text",
-    "v": "应建在（"
-   },
-   {
-    "t": "text",
-    "v": "    "
-   },
-   {
-    "t": "text",
-    "v": "）"
+    "v": "用边长相等的正方形和等边三角形卡片按如图所示的方式和规律拼出图形．拼第 1 个图形所用两种卡片 的总数为 7 枚，拼第 2 个图形所用两种卡片的总数为 12 枚 若按照这样的规律拼出的第 n 个图形中， 所用正方形卡片比等边三角形卡片多 10 枚，则拼第 n 个图形所用两种卡片的总数为（                              ）"
    },
    {
     "t": "break"
    },
    {
     "t": "img",
-    "rid": "rId72",
-    "src": "media/image34.png",
+    "src": "media/q8-f-010.png",
     "kind": "figure"
    }
   ],
   "rawParas": [
-   "8. 如图，某乡镇的五户居民依次居住在同一条笔直的小道边的A处，B处，C处，D处，E处，且这五户居民的人数依次有1人，2人，3人，3人，2人．乡村扶贫改造期间，该乡镇打算在这条小道上新建一个便民服务点M，使得所有居民到便民服务点的距离之和（每户所有居民均需要计算）最小，则便民服务点M应建在（    ）",
-   "⟨公式⟩",
-   "A. A处B. B处C. C处D. D处"
+   "8. 用边长相等的正方形和等边三角形卡片按如图所示的方式和规律拼出图形．拼第 1 个图形所用两种卡片",
+   "的总数为 7 枚，拼第 2 个图形所用两种卡片的总数为 12 枚 若按照这样的规律拼出的第 n 个图形中，",
+   "所用正方形卡片比等边三角形卡片多 10 枚，则拼第 n 个图形所用两种卡片的总数为（                              ）",
+   "A. 57 枚                   B. 52 枚                   C. 50 枚   D. 47 枚"
   ],
   "options": [
-   "A处",
-   "B处",
-   "C处",
-   "D处"
+   "57 枚",
+   "52 枚",
+   "50 枚",
+   "47 枚"
   ],
   "optionParts": [
    [
     {
      "t": "text",
-     "v": "A处"
+     "v": "57 枚"
     }
    ],
    [
     {
      "t": "text",
-     "v": "B处"
+     "v": "52 枚"
     }
    ],
    [
     {
      "t": "text",
-     "v": "C处"
+     "v": "50 枚"
     }
    ],
    [
     {
      "t": "text",
-     "v": "D处"
+     "v": "47 枚"
     }
    ]
   ],
-  "key": 2,
-  "answer": "C处",
-  "officialKey": "C"
+  "key": 1,
+  "answer": "52 枚",
+  "officialKey": "B"
  },
  {
   "id": "p2023-q9",
@@ -9774,270 +9244,128 @@ export const EXAM_BANK = [
   "cat": "概念",
   "score": 2,
   "diff": "easy",
-  "topic": "相反数",
-  "name": "正负数意义",
+  "topic": "近似数与精确度",
+  "name": "近似数与精确度",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如果向东走5米记作⟨公式⟩米，那么向西走10米可记作________米．",
+  "stemText": "用四舍五入法把 4.0692 精确到 0.01，所得到的近似数为______．",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "如果向东走"
-   },
-   {
-    "t": "text",
-    "v": "5"
-   },
-   {
-    "t": "text",
-    "v": "米记作"
-   },
-   {
-    "t": "img",
-    "rid": "rId73",
-    "src": "media/image35.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "米，那么向西走"
-   },
-   {
-    "t": "text",
-    "v": "10"
-   },
-   {
-    "t": "text",
-    "v": "米可记作"
-   },
-   {
-    "t": "text",
-    "v": "________"
-   },
-   {
-    "t": "text",
-    "v": "米．"
+    "v": "用四舍五入法把 4.0692 精确到 0.01，所得到的近似数为______．"
    }
   ],
   "rawParas": [
-   "9. 如果向东走5米记作⟨公式⟩米，那么向西走10米可记作________米．"
+   "9. 用四舍五入法把 4.0692 精确到 0.01，所得到的近似数为______．"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": "-10",
+  "answer": "4.07",
   "accept": [
-   "-10"
+   "4.07"
   ],
-  "officialKey": "-10"
+  "officialKey": "4.07"
  },
  {
   "id": "p2023-q10",
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 10,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-rational",
   "cat": "概念",
   "score": 2,
   "diff": "easy",
-  "topic": "数轴读符号",
-  "name": "有理数比较大小",
+  "topic": "角度换算（度分秒）",
+  "name": "角度换算（度分秒）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "比较大小：⟨公式⟩__________⟨公式⟩",
+  "stemText": "计算： 31°15 × 4 = ______°．",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "比较大小："
-   },
-   {
-    "t": "img",
-    "rid": "rId75",
-    "src": "media/image36.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "__________"
-   },
-   {
-    "t": "img",
-    "rid": "rId77",
-    "src": "media/image37.wmf",
-    "kind": "formula"
+    "v": "计算： 3115  4 = ______°．"
    }
   ],
   "rawParas": [
-   "10. 比较大小：⟨公式⟩__________⟨公式⟩"
+   "10. 计算： 3115  4 = ______°．"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "&gt;"
+  "answer": "125",
+  "accept": [
+   "125"
+  ],
+  "officialKey": "125"
  },
  {
   "id": "p2023-q11",
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 11,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "计算",
   "score": 2,
   "diff": "mid",
-  "topic": "角的和差计算",
-  "name": "网格中角的大小比较",
+  "topic": "绝对值非负性",
+  "name": "绝对值非负性",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图所示的网格是正方形网格，则⟨公式⟩________⟨公式⟩（填“＞”“＜”“＝”）．⟨公式⟩⟨公式⟩",
+  "stemText": "若 x + 1 + ( y − 8 ) = 0 ，则 x − y 的值为______． 2",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "如图所示的网格是正方形网格，则"
-   },
-   {
-    "t": "img",
-    "rid": "rId79",
-    "src": "media/image38.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "________"
-   },
-   {
-    "t": "img",
-    "rid": "rId81",
-    "src": "media/image39.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "（填“＞”“＜”“＝”）．"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "img",
-    "rid": "rId83",
-    "src": "media/image40.png",
-    "kind": "figure"
+    "v": "若 x + 1 + ( y − 8 ) = 0 ，则 x − y 的值为______． 2"
    }
   ],
   "rawParas": [
-   "11. 如图所示的网格是正方形网格，则⟨公式⟩________⟨公式⟩（填“＞”“＜”“＝”）．",
-   "⟨公式⟩"
+   "11. 若 x + 1 + ( y − 8 ) = 0 ，则 x − y 的值为______．",
+   "2"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "＞"
+  "answer": "−9",
+  "accept": [
+   "−9"
+  ],
+  "officialKey": "−9"
  },
  {
   "id": "p2023-q12",
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 12,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-poly",
   "cat": "概念",
   "score": 2,
   "diff": "mid",
-  "topic": "同类项概念",
-  "name": "同类项求参数",
+  "topic": "单项式概念（构造）",
+  "name": "单项式概念（构造）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如果单项式⟨公式⟩与单项式⟨公式⟩的和仍是单项式，那么m的值是________，n的值是________．",
+  "stemText": "写出一个同时满足以下两个条件的单项式：①系数是负数；②次数是 5．这个单项式可以是：______．",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "如果单项式"
-   },
-   {
-    "t": "img",
-    "rid": "rId84",
-    "src": "media/image41.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "与单项式"
-   },
-   {
-    "t": "img",
-    "rid": "rId86",
-    "src": "media/image42.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的"
-   },
-   {
-    "t": "text",
-    "v": "和仍是单项式，那么"
-   },
-   {
-    "t": "text",
-    "v": "m"
-   },
-   {
-    "t": "text",
-    "v": "的值是"
-   },
-   {
-    "t": "text",
-    "v": "________"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "n"
-   },
-   {
-    "t": "text",
-    "v": "的值是"
-   },
-   {
-    "t": "text",
-    "v": "________"
-   },
-   {
-    "t": "text",
-    "v": "．"
+    "v": "写出一个同时满足以下两个条件的单项式：①系数是负数；②次数是 5．这个单项式可以是：______．"
    }
   ],
   "rawParas": [
-   "12. 如果单项式⟨公式⟩与单项式⟨公式⟩的和仍是单项式，那么m的值是________，n的值是________．"
+   "12. 写出一个同时满足以下两个条件的单项式：①系数是负数；②次数是 5．这个单项式可以是：______．"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "①. 2    ②. 3"
+  "answer": "− a 4b （答案不唯一）",
+  "accept": [
+   "− a 4b （答案不唯一）"
+  ],
+  "officialKey": "− a 4b （答案不唯一）"
  },
  {
   "id": "p2023-q13",
@@ -10049,146 +9377,70 @@ export const EXAM_BANK = [
   "cat": "概念",
   "score": 2,
   "diff": "easy",
-  "topic": "方程解求参数",
-  "name": "方程解求参数",
+  "topic": "线段中点计算",
+  "name": "线段中点计算",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "若⟨公式⟩是关于x的方程⟨公式⟩的解，则a的值为________．",
+  "stemText": "如图，C 是线段 AB 的中点，点 D 在线段 CB 上， E 是线段 DB 的中点．若 AB = 14 ， EB = 2 ，则 CD 的长为______．",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
+    "v": "如图，C 是线段 AB 的中点，点 D 在线段 CB 上， E 是线段 DB 的中点．若 AB = 14 ， EB = 2 ，则 CD 的长为______．"
    },
    {
-    "t": "text",
-    "v": "若"
-   },
-   {
-    "t": "img",
-    "rid": "rId88",
-    "src": "media/image43.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "是关于"
-   },
-   {
-    "t": "text",
-    "v": "x"
-   },
-   {
-    "t": "text",
-    "v": "的方程"
+    "t": "break"
    },
    {
     "t": "img",
-    "rid": "rId90",
-    "src": "media/image44.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的解，则"
-   },
-   {
-    "t": "text",
-    "v": "a"
-   },
-   {
-    "t": "text",
-    "v": "的值为"
-   },
-   {
-    "t": "text",
-    "v": "________"
-   },
-   {
-    "t": "text",
-    "v": "．"
+    "src": "media/q13-f-011.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
-   "13. 若⟨公式⟩是关于x的方程⟨公式⟩的解，则a的值为________．"
+   "13. 如图，C 是线段 AB 的中点，点 D 在线段 CB 上， E 是线段 DB 的中点．若 AB = 14 ， EB = 2 ，则 CD",
+   "的长为______．"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": "1/3",
+  "answer": "3",
   "accept": [
-   "1/3"
+   "3"
   ],
-  "officialKey": "1/3"
+  "officialKey": "3"
  },
  {
   "id": "p2023-q14",
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 14,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-expr",
   "cat": "计算",
   "score": 2,
   "diff": "mid",
-  "topic": "代数式求值",
-  "name": "代数式求值（整体）",
+  "topic": "方程解求参数",
+  "name": "方程解求参数",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "若代数式⟨公式⟩的值为2，则代数式⟨公式⟩的值为________．",
+  "stemText": "若 x = 6 是关于 x 的方程 3 x + 2m = 8 的解，则 m 的值为______．",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "若代数式"
-   },
-   {
-    "t": "img",
-    "rid": "rId92",
-    "src": "media/image45.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的值为"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "，则代数式"
-   },
-   {
-    "t": "img",
-    "rid": "rId94",
-    "src": "media/image46.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的值为"
-   },
-   {
-    "t": "text",
-    "v": "________"
-   },
-   {
-    "t": "text",
-    "v": "．"
+    "v": "若 x = 6 是关于 x 的方程 3 x + 2m = 8 的解，则 m 的值为______．"
    }
   ],
   "rawParas": [
-   "14. 若代数式⟨公式⟩的值为2，则代数式⟨公式⟩的值为________．"
+   "14. 若 x = 6 是关于 x 的方程 3 x + 2m = 8 的解，则 m 的值为______．"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "9"
+  "answer": "−5",
+  "accept": [
+   "−5"
+  ],
+  "officialKey": "−5"
  },
  {
   "id": "p2023-q15",
@@ -10200,95 +9452,36 @@ export const EXAM_BANK = [
   "cat": "建模",
   "score": 2,
   "diff": "mid",
-  "topic": "列方程（分配）",
-  "name": "列方程（算法统宗·客房）",
+  "topic": "列代数式",
+  "name": "列代数式",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "我国古代《算法统宗》里有这样一首诗：“我问开店李三公，众客都来到店中，一房七客多七客，一房九客一房空．”诗中后面两句的意思是：如果每一间客房住 7人，那么有7人无房可住；如果每一间客房住9人，那么就空出一间客房．设有x间客房，可列方程为：_____．",
+  "stemText": "某商品原价是每件 a 元，第一次降价打“九折”，第二次降价每件又减 50 元，则第二次降价后的售价 为每件______元．（用含 a 的式子表示）",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "我国古代《算法统宗》里有这样一首诗：“我问开店李三公，众客都来到店中，"
-   },
-   {
-    "t": "text",
-    "v": "一房七客多七客"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "一房九客一"
-   },
-   {
-    "t": "text",
-    "v": "房空．”诗中后面两句的意思是：如果每一间客房住"
-   },
-   {
-    "t": "text",
-    "v": " 7"
-   },
-   {
-    "t": "text",
-    "v": "人，那么有"
-   },
-   {
-    "t": "text",
-    "v": "7"
-   },
-   {
-    "t": "text",
-    "v": "人无房可住；如果每一间客房住"
-   },
-   {
-    "t": "text",
-    "v": "9"
-   },
-   {
-    "t": "text",
-    "v": "人，那么就空出一间客房．设有"
-   },
-   {
-    "t": "text",
-    "v": "x"
-   },
-   {
-    "t": "text",
-    "v": "间客房，可列方程为："
-   },
-   {
-    "t": "text",
-    "v": "_____"
-   },
-   {
-    "t": "text",
-    "v": "．"
+    "v": "某商品原价是每件 a 元，第一次降价打“九折”，第二次降价每件又减 50 元，则第二次降价后的售价 为每件______元．（用含 a 的式子表示）"
    }
   ],
   "rawParas": [
-   "15. 我国古代《算法统宗》里有这样一首诗：“我问开店李三公，众客都来到店中，一房七客多七客，一房九客一房空．”诗中后面两句的意思是：如果每一间客房住 7人，那么有7人无房可住；如果每一间客房住9人，那么就空出一间客房．设有x间客房，可列方程为：_____．"
+   "15. 某商品原价是每件 a 元，第一次降价打“九折”，第二次降价每件又减 50 元，则第二次降价后的售价",
+   "为每件______元．（用含 a 的式子表示）"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": "7x+7=9(x-1)",
+  "answer": "( 0.9a − 50 )",
   "accept": [
-   "7x+7=9(x-1)"
+   "( 0.9a − 50 )"
   ],
-  "officialKey": "7x+7=9(x-1)"
+  "officialKey": "( 0.9a − 50 )"
  },
  {
   "id": "p2023-q16",
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 16,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-op",
   "cat": "推理",
   "score": 2,
@@ -10297,151 +9490,37 @@ export const EXAM_BANK = [
   "name": "幻方（三角形与正方形等和）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "“幻方”最早记载于春秋时期的《大戴礼》中，现将1，2，3，4，5，7，8，9这八个数字填入如图1所示的“幻方”中，使得每个三角形的三个顶点上的数字之和都与中间正方形四个顶点上的数字之和相等．若按同样的要求重新填数如图2所示，则⟨公式⟩的值是________，⟨公式⟩的值是________．⟨公式⟩⟨公式⟩",
+  "stemText": "在图所示的图案中，每个小三角形的边长都为 1，把由四个小三角形组成的边长为 2 的大三角形称为一 个“单元”．现将 1，2，3，4，5，6，7，8，9，10 这十个数分别填入图中的十个小三角形中，使得对于图 ．．“单元”，每个“单元”中的四个数之和都是 23．若 2，4，5，a 已填入图中，位置如图所示，则 中的四个 a 表示的数是______；请按上述要求，将剩余的数填入图中（填出一种即可）  ． 分，第 22-24 题，每题 7 分）解答应写出文字说明、演算步骤或证明过程．",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "“幻方”最早记载于春秋时期的《大戴礼》中，现将"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "3"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "4"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "5"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "7"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "8"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "9"
-   },
-   {
-    "t": "text",
-    "v": "这八个数字填入如图"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "所示的“幻方”中，使得每个三角形的三个顶点上的数字之和都与中间正方形四个顶点上的数字之和相等．若按同样的要求重新填数如图"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "所示，则"
-   },
-   {
-    "t": "img",
-    "rid": "rId96",
-    "src": "media/image47.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的值是"
-   },
-   {
-    "t": "text",
-    "v": "________"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "img",
-    "rid": "rId98",
-    "src": "media/image48.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的值是"
-   },
-   {
-    "t": "text",
-    "v": "________"
-   },
-   {
-    "t": "text",
-    "v": "．"
+    "v": "在图所示的图案中，每个小三角形的边长都为 1，把由四个小三角形组成的边长为 2 的大三角形称为一 个“单元”．现将 1，2，3，4，5，6，7，8，9，10 这十个数分别填入图中的十个小三角形中，使得对于图 ．．“单元”，每个“单元”中的四个数之和都是 23．若 2，4，5，a 已填入图中，位置如图所示，则 中的四个 a 表示的数是______；请按上述要求，将剩余的数填入图中（填出一种即可）  ． 分，第 22-24 题，每题 7 分）解答应写出文字说明、演算步骤或证明过程．"
    },
    {
     "t": "break"
    },
    {
     "t": "img",
-    "rid": "rId100",
-    "src": "media/image49.png",
+    "src": "media/q16-f-012.png",
     "kind": "figure"
    }
   ],
   "rawParas": [
-   "16. “幻方”最早记载于春秋时期的《大戴礼》中，现将1，2，3，4，5，7，8，9这八个数字填入如图1所示的“幻方”中，使得每个三角形的三个顶点上的数字之和都与中间正方形四个顶点上的数字之和相等．若按同样的要求重新填数如图2所示，则⟨公式⟩的值是________，⟨公式⟩的值是________．",
-   "⟨公式⟩"
+   "16. 在图所示的图案中，每个小三角形的边长都为 1，把由四个小三角形组成的边长为 2 的大三角形称为一",
+   "个“单元”．现将 1，2，3，4，5，6，7，8，9，10 这十个数分别填入图中的十个小三角形中，使得对于图",
+   "．．“单元”，每个“单元”中的四个数之和都是 23．若 2，4，5，a 已填入图中，位置如图所示，则",
+   "中的四个",
+   "a 表示的数是______；请按上述要求，将剩余的数填入图中（填出一种即可）  ．",
+   "分，第 22-24 题，每题 7 分）解答应写出文字说明、演算步骤或证明过程．"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "①. －3    ②. 3"
+  "answer": "3（答案不唯一）",
+  "accept": [
+   "3（答案不唯一）"
+  ],
+  "officialKey": "3（答案不唯一）"
  },
  {
   "id": "p2023-q17",
@@ -10457,117 +9536,35 @@ export const EXAM_BANK = [
   "name": "有理数混合运算（4 小问）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "计算：⟨公式⟩（1）⟨公式⟩⟨公式⟩（2）⟨公式⟩⟨公式⟩（3）⟨公式⟩⟨公式⟩（4）⟨公式⟩．",
+  "stemText": "计算： （1） −12 + ( −6 ) − ( −28 ) ；  8  15 （2）  −  ×                 ÷ ( −9 ) ；  5 4 .  3 7 5 （3）  −                − +  × ( −48) ；  16 24 6  7  − 1 × ( −2 ) ． 2 （4） −3 +  2 8 ",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "计算："
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "img",
-    "rid": "rId101",
-    "src": "media/image50.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "img",
-    "rid": "rId103",
-    "src": "media/image51.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "3"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "img",
-    "rid": "rId105",
-    "src": "media/image52.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "4"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "img",
-    "rid": "rId107",
-    "src": "media/image53.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "．"
+    "v": "计算： （1） −12 + ( −6 ) − ( −28 ) ；  8  15 （2）  −                    ( −9 ) ；  5 4 .  3 7 5 （3）  −                − +   ( −48) ；  16 24 6  7  − 1  ( −2 ) ． 2 （4） −3 +  2 8 "
    }
   ],
   "rawParas": [
    "17. 计算：",
-   "（1）⟨公式⟩",
-   "（2）⟨公式⟩",
-   "（3）⟨公式⟩",
-   "（4）⟨公式⟩．"
+   "（1） −12 + ( −6 ) − ( −28 ) ；",
+   " 8  15",
+   "（2）  −                    ( −9 ) ；",
+   " 5 4",
+   ".",
+   " 3 7 5",
+   "（3）  −                − +   ( −48) ；",
+   " 16 24 6 ",
+   "7 ",
+   "− 1  ( −2 ) ．",
+   "2",
+   "（4） −3 + ",
+   "2",
+   "8 "
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "（1）"
+  "answer": "（1）10 （2） 3 （3） −17 1 （4） −9 2",
+  "officialKey": "（1）10 （2） 3 （3） −17 1 （4） −9 2"
  },
  {
   "id": "p2023-q18",
@@ -10579,327 +9576,78 @@ export const EXAM_BANK = [
   "cat": "计算",
   "score": 6,
   "diff": "mid",
-  "topic": "整式化简求值",
-  "name": "整式化简求值",
+  "topic": "尺规作图与说理",
+  "name": "尺规作图与说理",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "18. 先化简，再求值：⟨公式⟩，其中⟨公式⟩，⟨公式⟩．",
+  "stemText": "如图，已知三点 A，B，C ，作直线 AB ． （1）用语句表述图中点 C 与直线 AB 的关系：______； （2）用直尺和圆规完成以下作图（保留作图痕迹） ：连接 CA ，在线段 CA 的延长线上作线段 AD ，使 AD = AB ． （3）连接 BC ，比较线段 DC 与线段 BC 的长短，并将下面的推理补充完整： DC = AD + AC ， AD = AB ，  DC = AB + AC ， AB + AC ______ BC ，（______）（填推理             依据）  DC ______ BC ． 的",
   "stemParts": [
    {
     "t": "text",
-    "v": "18"
+    "v": "如图，已知三点 A，B，C ，作直线 AB ． （1）用语句表述图中点 C 与直线 AB 的关系：______； （2）用直尺和圆规完成以下作图（保留作图痕迹） ：连接 CA ，在线段 CA 的延长线上作线段 AD ，使 AD = AB ． （3）连接 BC ，比较线段 DC 与线段 BC 的长短，并将下面的推理补充完整： DC = AD + AC ， AD = AB ，  DC = AB + AC ， AB + AC ______ BC ，（______）（填推理             依据）  DC ______ BC ． 的"
    },
    {
-    "t": "text",
-    "v": ". "
-   },
-   {
-    "t": "text",
-    "v": "先化简，再求值："
+    "t": "break"
    },
    {
     "t": "img",
-    "rid": "rId109",
-    "src": "media/image54.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，其中"
-   },
-   {
-    "t": "img",
-    "rid": "rId111",
-    "src": "media/image55.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "img",
-    "rid": "rId113",
-    "src": "media/image56.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "．"
+    "src": "media/q18-f-021.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
-   "18. 先化简，再求值：⟨公式⟩，其中⟨公式⟩，⟨公式⟩．"
+   "18 如图，已知三点 A，B，C ，作直线 AB ．",
+   "（1）用语句表述图中点 C 与直线 AB 的关系：______；",
+   "（2）用直尺和圆规完成以下作图（保留作图痕迹）",
+   "：连接 CA ，在线段 CA 的延长线上作线段 AD ，使",
+   "AD = AB ．",
+   "（3）连接 BC ，比较线段 DC 与线段 BC 的长短，并将下面的推理补充完整：",
+   "DC = AD + AC ， AD = AB ，",
+   " DC = AB + AC ，",
+   "AB + AC ______ BC ，（______）（填推理             依据）",
+   " DC ______ BC ．",
+   "的"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "，"
+  "answer": "（1）点 C 在直线 AB 外； （2）见解析 （3） > ；两点之间，线段最短； >",
+  "officialKey": "（1）点 C 在直线 AB 外； （2）见解析 （3） > ；两点之间，线段最短； >"
  },
  {
   "id": "p2023-q19",
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 19,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "作图",
   "score": 6,
   "diff": "mid",
-  "topic": "尺规作图与说理",
-  "name": "尺规作图 + 三边关系说理",
+  "topic": "整式化简求值",
+  "name": "整式化简求值",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "如图，已知直线l和点A，B，P．⟨公式⟩⟨公式⟩⟨公式⟩（1）用适当的语句表述点A与直线l的位置关系：        ；⟨公式⟩（2）请用直尺和圆规按下列要求作图（保留作图痕迹）：⟨公式⟩①画射线⟨公式⟩；⟨公式⟩②连接⟨公式⟩，在线段⟨公式⟩的延长线上作线段⟨公式⟩，使⟨公式⟩；⟨公式⟩（3）连接⟨公式⟩，则⟨公式⟩        ⟨公式⟩（填“＞”“＜”“＝”）成立的理由是        ．",
+  "stemText": "求 3 x − 2 y     (       2 ) − ( 3 y + 7 x ) + 10 y 的值，其中 x = − 14 ， y = 5 ． 2            2",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "如图，已知直线"
-   },
-   {
-    "t": "text",
-    "v": "l"
-   },
-   {
-    "t": "text",
-    "v": "和点"
-   },
-   {
-    "t": "text",
-    "v": "A"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "B"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "P"
-   },
-   {
-    "t": "text",
-    "v": "．"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "img",
-    "rid": "rId115",
-    "src": "media/image57.png",
-    "kind": "figure"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "用适当的语句表述点"
-   },
-   {
-    "t": "text",
-    "v": "A"
-   },
-   {
-    "t": "text",
-    "v": "与直线"
-   },
-   {
-    "t": "text",
-    "v": "l"
-   },
-   {
-    "t": "text",
-    "v": "的位置关系："
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "text",
-    "v": "；"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "请用直尺和圆规按下列要求作图（保留作图痕迹）："
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "①画射线"
-   },
-   {
-    "t": "img",
-    "rid": "rId116",
-    "src": "media/image58.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "；"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "②连接"
-   },
-   {
-    "t": "img",
-    "rid": "rId118",
-    "src": "media/image59.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，在线段"
-   },
-   {
-    "t": "img",
-    "rid": "rId118",
-    "src": "media/image59.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的延长线上作线段"
-   },
-   {
-    "t": "img",
-    "rid": "rId121",
-    "src": "media/image60.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，使"
-   },
-   {
-    "t": "img",
-    "rid": "rId123",
-    "src": "media/image61.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "；"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "3"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "连接"
-   },
-   {
-    "t": "img",
-    "rid": "rId125",
-    "src": "media/image62.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，则"
-   },
-   {
-    "t": "img",
-    "rid": "rId127",
-    "src": "media/image63.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "img",
-    "rid": "rId129",
-    "src": "media/image64.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "（填“＞”“＜”“＝”）成立的理由是"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "text",
-    "v": "．"
+    "v": "求 3 x − 2 y     (       2 ) − ( 3 y + 7 x ) + 10 y 的值，其中 x = − 14 ， y = 5 ． 2            2"
    }
   ],
   "rawParas": [
-   "19. 如图，已知直线l和点A，B，P．",
-   "⟨公式⟩",
-   "（1）用适当的语句表述点A与直线l的位置关系：        ；",
-   "（2）请用直尺和圆规按下列要求作图（保留作图痕迹）：",
-   "①画射线⟨公式⟩；",
-   "②连接⟨公式⟩，在线段⟨公式⟩的延长线上作线段⟨公式⟩，使⟨公式⟩；",
-   "（3）连接⟨公式⟩，则⟨公式⟩        ⟨公式⟩（填“＞”“＜”“＝”）成立的理由是        ．"
+   "19. 求 3 x − 2 y     (       2",
+   ") − ( 3 y + 7 x ) + 10 y 的值，其中 x = − 14 ， y = 5 ．",
+   "2            2"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "（1）点A在直线l上"
+  "answer": "−4x + y 2 ， 26",
+  "accept": [
+   "−4x + y 2 ， 26"
+  ],
+  "officialKey": "−4x + y 2 ， 26"
  },
  {
   "id": "p2023-q20",
@@ -10915,77 +9663,25 @@ export const EXAM_BANK = [
   "name": "解方程（2 小问，含去分母）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "解下列方程：⟨公式⟩（1）⟨公式⟩；⟨公式⟩（2）⟨公式⟩．",
+  "stemText": "解下列方程： （1） 7 x − 20 = 2 ( 3 − 3 x ) ； 2 x − 3 3x − 1 （2）                       =       +1． 5      2",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "解下列方程："
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "img",
-    "rid": "rId131",
-    "src": "media/image65.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "；"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "img",
-    "rid": "rId133",
-    "src": "media/image66.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "．"
+    "v": "解下列方程： （1） 7 x − 20 = 2 ( 3 − 3 x ) ； 2 x − 3 3x − 1 （2）                       =       +1． 5      2"
    }
   ],
   "rawParas": [
    "20. 解下列方程：",
-   "（1）⟨公式⟩；",
-   "（2）⟨公式⟩．"
+   "（1） 7 x − 20 = 2 ( 3 − 3 x ) ；",
+   "2 x − 3 3x − 1",
+   "（2）                       =       +1．",
+   "5      2"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "（1）；"
+  "answer": "（2） x = − 1",
+  "officialKey": "（2） x = − 1"
  },
  {
   "id": "p2023-q21",
@@ -11001,394 +9697,51 @@ export const EXAM_BANK = [
   "name": "角度推理填空（双角平分线）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "已知⟨公式⟩，⟨公式⟩平分⟨公式⟩，⟨公式⟩平分⟨公式⟩．⟨公式⟩⟨公式⟩⟨公式⟩（1）如图，⟨公式⟩在⟨公式⟩外部，求⟨公式⟩的度数．⟨公式⟩①依题意补全图形；⟨公式⟩②完成下面的解答过程．⟨公式⟩解：∵⟨公式⟩平分⟨公式⟩，⟨公式⟩平分⟨公式⟩，⟨公式⟩∴ ⟨公式⟩， ⟨公式⟩（理由：                ）．⟨公式⟩∵⟨公式⟩，⟨公式⟩∴⟨公式⟩        °，⟨公式⟩        °，⟨公式⟩∴⟨公式⟩        ⟨公式⟩⟨公式⟩（2）若⟨公式⟩在⟨公式⟩内部，则⟨公式⟩的度数是        ．",
+  "stemText": "如图， ∠AOB = ∠COD ，∠AOC =90° ．过点 O 在 ∠ AOC 的内部画射线 OE ． 探究发现： （1）当 ∠EOD = 90° 时， OA 平分 ∠EOB ． ① 依题意补全图形； ② 将下面的推理补充完整． 证明：                ∠EOD = 90° ，  ∠EOC + ∠ ______ = 90° ， ∠AOB = ∠COD ，  ∠EOC + ∠ ______ = 90° ， ∠AOC =90° ，  ∠EOC + ∠AOE = 90° ，  ∠ ______ = ∠ （             ）． （______） （填推理的依据）  OA 平分 ∠EOB （2）当 ∠EOB = 90° 时，射线______平分 ∠ ______．",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "已知"
-   },
-   {
-    "t": "img",
-    "rid": "rId135",
-    "src": "media/image67.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "img",
-    "rid": "rId137",
-    "src": "media/image68.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "平分"
-   },
-   {
-    "t": "img",
-    "rid": "rId139",
-    "src": "media/image69.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "img",
-    "rid": "rId141",
-    "src": "media/image70.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "平分"
-   },
-   {
-    "t": "img",
-    "rid": "rId143",
-    "src": "media/image71.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "．"
+    "v": "如图， AOB = COD ，∠AOC =90 ．过点 O 在  AOC 的内部画射线 OE ． 探究发现： （1）当 EOD = 90 时， OA 平分 EOB ． ① 依题意补全图形； ② 将下面的推理补充完整． 证明：                EOD = 90 ，  EOC +  ______ = 90 ， AOB = COD ，  EOC +  ______ = 90 ， ∠AOC =90 ，  EOC + AOE = 90 ，   ______ =  （             ）． （______） （填推理的依据）  OA 平分 EOB （2）当 EOB = 90 时，射线______平分  ______．"
    },
    {
     "t": "break"
    },
    {
     "t": "img",
-    "rid": "rId145",
-    "src": "media/image72.png",
+    "src": "media/q21-f-032.png",
     "kind": "figure"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "如图，"
-   },
-   {
-    "t": "img",
-    "rid": "rId146",
-    "src": "media/image73.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "在"
-   },
-   {
-    "t": "img",
-    "rid": "rId139",
-    "src": "media/image69.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "外部，求"
-   },
-   {
-    "t": "img",
-    "rid": "rId149",
-    "src": "media/image74.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的度数．"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "①依题意补全图形；"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "②完成下面的解答过程．"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "解：∵"
-   },
-   {
-    "t": "img",
-    "rid": "rId137",
-    "src": "media/image68.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "平分"
-   },
-   {
-    "t": "img",
-    "rid": "rId139",
-    "src": "media/image69.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "img",
-    "rid": "rId141",
-    "src": "media/image70.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "平分"
-   },
-   {
-    "t": "img",
-    "rid": "rId143",
-    "src": "media/image71.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "∴"
-   },
-   {
-    "t": "text",
-    "v": " "
-   },
-   {
-    "t": "img",
-    "rid": "rId155",
-    "src": "media/image75.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": " "
-   },
-   {
-    "t": "img",
-    "rid": "rId157",
-    "src": "media/image76.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "（理由："
-   },
-   {
-    "t": "text",
-    "v": "                "
-   },
-   {
-    "t": "text",
-    "v": "）．"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "∵"
-   },
-   {
-    "t": "img",
-    "rid": "rId135",
-    "src": "media/image67.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "∴"
-   },
-   {
-    "t": "img",
-    "rid": "rId160",
-    "src": "media/image77.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "text",
-    "v": "°"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "img",
-    "rid": "rId162",
-    "src": "media/image78.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "text",
-    "v": "°"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "∴"
-   },
-   {
-    "t": "img",
-    "rid": "rId164",
-    "src": "media/image79.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "img",
-    "rid": "rId166",
-    "src": "media/image80.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "若"
-   },
-   {
-    "t": "img",
-    "rid": "rId146",
-    "src": "media/image73.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "在"
-   },
-   {
-    "t": "img",
-    "rid": "rId139",
-    "src": "media/image69.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "内部，则"
-   },
-   {
-    "t": "img",
-    "rid": "rId149",
-    "src": "media/image74.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的度数是"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "text",
-    "v": "．"
    }
   ],
   "rawParas": [
-   "21. 已知⟨公式⟩，⟨公式⟩平分⟨公式⟩，⟨公式⟩平分⟨公式⟩．",
-   "⟨公式⟩",
-   "（1）如图，⟨公式⟩在⟨公式⟩外部，求⟨公式⟩的度数．",
-   "①依题意补全图形；",
-   "②完成下面的解答过程．",
-   "解：∵⟨公式⟩平分⟨公式⟩，⟨公式⟩平分⟨公式⟩，",
-   "∴ ⟨公式⟩， ⟨公式⟩（理由：                ）．",
-   "∵⟨公式⟩，",
-   "∴⟨公式⟩        °，⟨公式⟩        °，",
-   "∴⟨公式⟩        ⟨公式⟩",
-   "（2）若⟨公式⟩在⟨公式⟩内部，则⟨公式⟩的度数是        ．"
+   "21. 如图， AOB = COD ，∠AOC =90 ．过点 O 在  AOC 的内部画射线 OE ．",
+   "探究发现：",
+   "（1）当 EOD = 90 时， OA 平分 EOB ．",
+   "① 依题意补全图形；",
+   "② 将下面的推理补充完整．",
+   "证明：                EOD = 90 ，",
+   " EOC +  ______ = 90 ，",
+   "AOB = COD ，",
+   " EOC +  ______ = 90 ，",
+   "∠AOC =90 ，",
+   " EOC + AOE = 90 ，",
+   "  ______ =  （             ）．",
+   "（______）",
+   "（填推理的依据）",
+   " OA 平分 EOB",
+   "（2）当 EOB = 90 时，射线______平分  ______．"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "（1）①见解析②角平分线的定义，"
+  "answer": "（2） OC ， ∠EOD",
+  "officialKey": "（2） OC ， ∠EOD"
  },
  {
   "id": "p2023-q22",
   "paperId": "p2023",
   "year": "2023—2024",
   "no": 22,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-eq",
   "cat": "建模",
   "score": 7,
@@ -11397,113 +9750,39 @@ export const EXAM_BANK = [
   "name": "方程应用题（工期与费用）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "某外贸公司为庆祝共建“一带一路”十周年，计划采购一批纪念品．现有甲、乙两个工厂可以生产这批纪念品，若这两个工厂单独生产这批纪念品，则甲工厂比乙工厂多用5天完成．已知甲工厂每天生产240件，乙工厂每天生产360件．⟨公式⟩（1）求这批纪念品共有多少件？⟨公式⟩（2）该外贸公司请甲、乙两个工厂一起生产这批纪念品．在纪念品生产过程中，该外贸公司每天支付给甲工厂的费用是11000元，每天支付给乙工厂的费用是16000元，且每天的其它支出费用是1000元．求该外贸公司为这批纪念品的生产所支出的费用总和．",
+  "stemText": "用 A，B 两种型号的机器生产相同的产品，产品装入同样规格的包装箱后运往仓库．已知每台 B 型机 器比 A 型机器一天多生产 2 件产品，3 台 A 型机器一天生产的产品恰好能装满 5 箱，4 台 B 型机器一天生 产的产品恰好能装满 7 箱．每台 A 型机器一天生产多少件产品？每箱装多少件产品？ 下面是解决该问题的两种方法，请选择其中的一种 ．．．．．．．方法完成分析和解答． 方法二 方法一 分析：设每箱装 x 件产品，则 3 台 A 型机 分析：设每台 A 型机器一天生产 x 件产品，则每台 B 型机 器一天共生产______件产品，4 台 B 型机 器一天生产 ( x + 2 ) 件产品，3 台 A 型机器一天共生产           器一天共生产______件产品，再根据题意 ______件产品，4 台 B 型机器一天共生产______件产品，           列方程． 再根据题意列方程．                                    解：设每箱装 x 件产品． 解：设每台 A 型机器一天生产 x 件产品． 答： 答：",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "某外贸公司为庆祝共建“一带一路”十周年，计划采购一批纪念品．现有甲、乙两个工厂可以生产这批纪念品，若这两个工厂单独生产这批纪念品，则甲工厂比乙工厂多用"
-   },
-   {
-    "t": "text",
-    "v": "5"
-   },
-   {
-    "t": "text",
-    "v": "天完成．已知甲工厂每天生产"
-   },
-   {
-    "t": "text",
-    "v": "240"
-   },
-   {
-    "t": "text",
-    "v": "件，乙工厂每天生产"
-   },
-   {
-    "t": "text",
-    "v": "360"
-   },
-   {
-    "t": "text",
-    "v": "件．"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "求这批纪念品共有多少件？"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "该外贸公司请甲、乙两个工厂一起生产这批纪念品．在纪念品生产过程中，该外贸公司每天支付给甲工厂的费用是"
-   },
-   {
-    "t": "text",
-    "v": "11000"
-   },
-   {
-    "t": "text",
-    "v": "元，每天支付给乙工厂的费用是"
-   },
-   {
-    "t": "text",
-    "v": "16000"
-   },
-   {
-    "t": "text",
-    "v": "元，且每天的其它支出费用是"
-   },
-   {
-    "t": "text",
-    "v": "1000"
-   },
-   {
-    "t": "text",
-    "v": "元．求该外贸公司为这批纪念品的生产所支出的费用总和．"
+    "v": "用 A，B 两种型号的机器生产相同的产品，产品装入同样规格的包装箱后运往仓库．已知每台 B 型机 器比 A 型机器一天多生产 2 件产品，3 台 A 型机器一天生产的产品恰好能装满 5 箱，4 台 B 型机器一天生 产的产品恰好能装满 7 箱．每台 A 型机器一天生产多少件产品？每箱装多少件产品？ 下面是解决该问题的两种方法，请选择其中的一种 ．．．．．．．方法完成分析和解答． 方法二 方法一 分析：设每箱装 x 件产品，则 3 台 A 型机 分析：设每台 A 型机器一天生产 x 件产品，则每台 B 型机 器一天共生产______件产品，4 台 B 型机 器一天生产 ( x + 2 ) 件产品，3 台 A 型机器一天共生产           器一天共生产______件产品，再根据题意 ______件产品，4 台 B 型机器一天共生产______件产品，           列方程． 再根据题意列方程．                                    解：设每箱装 x 件产品． 解：设每台 A 型机器一天生产 x 件产品． 答： 答："
    }
   ],
   "rawParas": [
-   "22. 某外贸公司为庆祝共建“一带一路”十周年，计划采购一批纪念品．现有甲、乙两个工厂可以生产这批纪念品，若这两个工厂单独生产这批纪念品，则甲工厂比乙工厂多用5天完成．已知甲工厂每天生产240件，乙工厂每天生产360件．",
-   "（1）求这批纪念品共有多少件？",
-   "（2）该外贸公司请甲、乙两个工厂一起生产这批纪念品．在纪念品生产过程中，该外贸公司每天支付给甲工厂的费用是11000元，每天支付给乙工厂的费用是16000元，且每天的其它支出费用是1000元．求该外贸公司为这批纪念品的生产所支出的费用总和．"
+   "22. 用 A，B 两种型号的机器生产相同的产品，产品装入同样规格的包装箱后运往仓库．已知每台 B 型机",
+   "器比 A 型机器一天多生产 2 件产品，3 台 A 型机器一天生产的产品恰好能装满 5 箱，4 台 B 型机器一天生",
+   "产的产品恰好能装满 7 箱．每台 A 型机器一天生产多少件产品？每箱装多少件产品？",
+   "下面是解决该问题的两种方法，请选择其中的一种",
+   "．．．．．．．方法完成分析和解答．",
+   "方法二",
+   "方法一",
+   "分析：设每箱装 x 件产品，则 3 台 A 型机",
+   "分析：设每台 A 型机器一天生产 x 件产品，则每台 B 型机",
+   "器一天共生产______件产品，4 台 B 型机",
+   "器一天生产 ( x + 2 ) 件产品，3 台 A 型机器一天共生产           器一天共生产______件产品，再根据题意",
+   "______件产品，4 台 B 型机器一天共生产______件产品，           列方程．",
+   "再根据题意列方程．                                    解：设每箱装 x 件产品．",
+   "解：设每台 A 型机器一天生产 x 件产品．",
+   "答：",
+   "答："
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "（1）3600件"
+  "answer": "每台 A 型机器一天生产 40 件产品，每箱装 24 件产品．",
+  "accept": [
+   "每台 A 型机器一天生产 40 件产品，每箱装 24 件产品．"
+  ],
+  "officialKey": "每台 A 型机器一天生产 40 件产品，每箱装 24 件产品．"
  },
  {
   "id": "p2023-q23",
@@ -11515,295 +9794,40 @@ export const EXAM_BANK = [
   "cat": "分类",
   "score": 7,
   "diff": "top",
-  "topic": "线段中点压轴（含参）",
-  "name": "线段中点 + 延长线（含参）",
+  "topic": "动射线（含参）",
+  "name": "动射线（含参）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "已知点C，N在射线AB上，点M是线段AC的中点．⟨公式⟩⟨公式⟩⟨公式⟩（1）如图，当点C在线段AB上时，若点N是线段CB的中点，AC＝10，BC＝14，求线段MN的长；⟨公式⟩（2）当点C在线段AB的延长线上时，若CN∶BN＝1∶2，AC＝a，BC＝b，直接写出线段MN的长（用含a，b的式子表示）．",
+  "stemText": "已知 ∠AOB = 75° ，射线 OC 在 ∠ AOB          内部，且 ∠AOC = 4∠BOC ．射线 OD 是平面上绕点 O 旋 转的一条动射线， OE 平分 ∠DOC ． （1）如图 1，射线 OD 在 ∠ AOC                  内部． ① 求 ∠ BOC 的度数； 的 ② 若 ∠EOC 与 ∠DOB 互余，求 ∠EOC 的度数； （2）若 ∠AOD = n° ( 0 < n < 60 ) ，直接写出 ∠BOE 的度数（用含 n 的式子表示） ．",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "已知点"
-   },
-   {
-    "t": "text",
-    "v": "C"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "N"
-   },
-   {
-    "t": "text",
-    "v": "在射线"
-   },
-   {
-    "t": "text",
-    "v": "AB"
-   },
-   {
-    "t": "text",
-    "v": "上，点"
-   },
-   {
-    "t": "text",
-    "v": "M"
-   },
-   {
-    "t": "text",
-    "v": "是线段"
-   },
-   {
-    "t": "text",
-    "v": "AC"
-   },
-   {
-    "t": "text",
-    "v": "的中点．"
+    "v": "已知 AOB = 75 ，射线 OC 在  AOB          内部，且 AOC = 4BOC ．射线 OD 是平面上绕点 O 旋 转的一条动射线， OE 平分 DOC ． （1）如图 1，射线 OD 在  AOC                  内部． ① 求  BOC 的度数； 的 ② 若 EOC 与 DOB 互余，求 EOC 的度数； （2）若 AOD = n ( 0  n  60 ) ，直接写出 BOE 的度数（用含 n 的式子表示） ．"
    },
    {
     "t": "break"
    },
    {
     "t": "img",
-    "rid": "rId171",
-    "src": "media/image81.png",
+    "src": "media/q23-f-037.png",
     "kind": "figure"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "如图，当点"
-   },
-   {
-    "t": "text",
-    "v": "C"
-   },
-   {
-    "t": "text",
-    "v": "在线段"
-   },
-   {
-    "t": "text",
-    "v": "AB"
-   },
-   {
-    "t": "text",
-    "v": "上时，若点"
-   },
-   {
-    "t": "text",
-    "v": "N"
-   },
-   {
-    "t": "text",
-    "v": "是线段"
-   },
-   {
-    "t": "text",
-    "v": "CB"
-   },
-   {
-    "t": "text",
-    "v": "的中点，"
-   },
-   {
-    "t": "text",
-    "v": "AC"
-   },
-   {
-    "t": "text",
-    "v": "＝"
-   },
-   {
-    "t": "text",
-    "v": "10"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "BC"
-   },
-   {
-    "t": "text",
-    "v": "＝"
-   },
-   {
-    "t": "text",
-    "v": "14"
-   },
-   {
-    "t": "text",
-    "v": "，求线段"
-   },
-   {
-    "t": "text",
-    "v": "MN"
-   },
-   {
-    "t": "text",
-    "v": "的长；"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "当点"
-   },
-   {
-    "t": "text",
-    "v": "C"
-   },
-   {
-    "t": "text",
-    "v": "在线段"
-   },
-   {
-    "t": "text",
-    "v": "AB"
-   },
-   {
-    "t": "text",
-    "v": "的延长线上时，若"
-   },
-   {
-    "t": "text",
-    "v": "CN"
-   },
-   {
-    "t": "text",
-    "v": "∶"
-   },
-   {
-    "t": "text",
-    "v": "BN"
-   },
-   {
-    "t": "text",
-    "v": "＝"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "∶"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "AC"
-   },
-   {
-    "t": "text",
-    "v": "＝"
-   },
-   {
-    "t": "text",
-    "v": "a"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "BC"
-   },
-   {
-    "t": "text",
-    "v": "＝"
-   },
-   {
-    "t": "text",
-    "v": "b"
-   },
-   {
-    "t": "text",
-    "v": "，直接写出线段"
-   },
-   {
-    "t": "text",
-    "v": "MN"
-   },
-   {
-    "t": "text",
-    "v": "的长（用含"
-   },
-   {
-    "t": "text",
-    "v": "a"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "b"
-   },
-   {
-    "t": "text",
-    "v": "的式子表示）．"
    }
   ],
   "rawParas": [
-   "23. 已知点C，N在射线AB上，点M是线段AC的中点．",
-   "⟨公式⟩",
-   "（1）如图，当点C在线段AB上时，若点N是线段CB的中点，AC＝10，BC＝14，求线段MN的长；",
-   "（2）当点C在线段AB的延长线上时，若CN∶BN＝1∶2，AC＝a，BC＝b，直接写出线段MN的长（用含a，b的式子表示）．"
+   "23. 已知 AOB = 75 ，射线 OC 在  AOB          内部，且 AOC = 4BOC ．射线 OD 是平面上绕点 O 旋",
+   "转的一条动射线， OE 平分 DOC ．",
+   "（1）如图 1，射线 OD 在  AOC                  内部．",
+   "① 求  BOC 的度数；",
+   "的",
+   "② 若 EOC 与 DOB 互余，求 EOC 的度数；",
+   "（2）若 AOD = n ( 0  n  60 ) ，直接写出 BOE 的度数（用含 n 的式子表示）",
+   "．"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "（1）12    （2）或"
+  "answer": "1 1 （2） 45° − n° 或 45° + n° 2 2",
+  "officialKey": "1 1 （2） 45° − n° 或 45° + n° 2 2"
  },
  {
   "id": "p2023-q24",
@@ -11819,425 +9843,39 @@ export const EXAM_BANK = [
   "name": "新定义「变速点」（数轴动点）",
   "bonus": false,
   "hasAnswer": true,
-  "stemText": "对于数轴上的定点P和动点M，如果满足：①点M以速度v沿数轴正方向运动，经过点P后以速度⟨公式⟩继续沿数轴正方向运动；②点M以速度v沿数轴负方向运动，经过点P后以速度⟨公式⟩继续沿数轴负方向运动，那么称定点P为变速点．点A，B都在数轴上，点A表示的数为0，点B表示的数为12⟨公式⟩（1）已知线段⟨公式⟩的中点是变速点，①若点D从点A出发，以每秒1个单位长度的速度沿数轴正方向运动，则在第        秒时与点B重合；②若点E从点B出发，以每秒1个单位长度的速度沿数轴负方向运动，则在第        秒时与点A重合．⟨公式⟩（2）已知在线段⟨公式⟩上存在一变速点K（不与点A，B重合），点K表示的数为k．点F从点A出发以每秒1个单位长度的速度沿数轴正方向运动，同时点G从点B出发以每秒1个单位长度的速度沿数轴负方向运动，若它们在点H处相遇，且点H表示的数为7，求k的值．",
+  "stemText": "对于数轴上不同的三个点 M，N，P，若满足 PM = kPN ，则称点 P 是点 M 关于点 N 的“k 倍分点”．例 如，如图，在数轴上，点 M，N 表示的数分別是 −2 ，1，可知原点 O 是点 M 关于点 N 的“2 倍分点”，原 1 点 O 也是点 N 关于点 M 的“ 2 倍分点”． 在数轴上，已知点 A 表示的数是 −4 ，点 B 表示的数是 2． （1）若点 C 在线段 AB 上，且点 C 是点 A 关于点 B 的“5 倍分点”，则点 C 表示的数是______； （2）若点 D 在数轴上， AD = 10 ，且点 D 是点 B 关于点 A 的“k 倍分点”，求 k 的值； （3）点 E 从点 B 出发，以每秒 3 个单位长度的速度沿数轴正方向运动．当点 E 运动 t 秒时，在 A，B，E 1 三个点中，恰有一个点是另一个点关于第三个点的“                                   倍分点”，直接写出 t 的值． 4",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "对于数轴上的定点"
-   },
-   {
-    "t": "text",
-    "v": "P"
-   },
-   {
-    "t": "text",
-    "v": "和动点"
-   },
-   {
-    "t": "text",
-    "v": "M"
-   },
-   {
-    "t": "text",
-    "v": "，如果满足：①点"
-   },
-   {
-    "t": "text",
-    "v": "M"
-   },
-   {
-    "t": "text",
-    "v": "以速度"
-   },
-   {
-    "t": "text",
-    "v": "v"
-   },
-   {
-    "t": "text",
-    "v": "沿数轴正方向运动，经过点"
-   },
-   {
-    "t": "text",
-    "v": "P"
-   },
-   {
-    "t": "text",
-    "v": "后以速度"
-   },
-   {
-    "t": "img",
-    "rid": "rId172",
-    "src": "media/image82.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "继续沿数轴正方向运动；②点"
-   },
-   {
-    "t": "text",
-    "v": "M"
-   },
-   {
-    "t": "text",
-    "v": "以速度"
-   },
-   {
-    "t": "text",
-    "v": "v"
-   },
-   {
-    "t": "text",
-    "v": "沿数轴负方向运动，经过点"
-   },
-   {
-    "t": "text",
-    "v": "P"
-   },
-   {
-    "t": "text",
-    "v": "后以速度"
-   },
-   {
-    "t": "img",
-    "rid": "rId174",
-    "src": "media/image83.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "继续沿数轴负方向运动，那么称定点"
-   },
-   {
-    "t": "text",
-    "v": "P"
-   },
-   {
-    "t": "text",
-    "v": "为变速点．点"
-   },
-   {
-    "t": "text",
-    "v": "A"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "B"
-   },
-   {
-    "t": "text",
-    "v": "都在数轴上，点"
-   },
-   {
-    "t": "text",
-    "v": "A"
-   },
-   {
-    "t": "text",
-    "v": "表示的数为"
-   },
-   {
-    "t": "text",
-    "v": "0"
-   },
-   {
-    "t": "text",
-    "v": "，点"
-   },
-   {
-    "t": "text",
-    "v": "B"
-   },
-   {
-    "t": "text",
-    "v": "表示的数为"
-   },
-   {
-    "t": "text",
-    "v": "12"
+    "v": "对于数轴上不同的三个点 M，N，P，若满足 PM = kPN ，则称点 P 是点 M 关于点 N 的“k 倍分点”．例 如，如图，在数轴上，点 M，N 表示的数分別是 −2 ，1，可知原点 O 是点 M 关于点 N 的“2 倍分点”，原 1 点 O 也是点 N 关于点 M 的“ 2 倍分点”． 在数轴上，已知点 A 表示的数是 −4 ，点 B 表示的数是 2． （1）若点 C 在线段 AB 上，且点 C 是点 A 关于点 B 的“5 倍分点”，则点 C 表示的数是______； （2）若点 D 在数轴上， AD = 10 ，且点 D 是点 B 关于点 A 的“k 倍分点”，求 k 的值； （3）点 E 从点 B 出发，以每秒 3 个单位长度的速度沿数轴正方向运动．当点 E 运动 t 秒时，在 A，B，E 1 三个点中，恰有一个点是另一个点关于第三个点的“                                   倍分点”，直接写出 t 的值． 4"
    },
    {
     "t": "break"
    },
    {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "已知线段"
-   },
-   {
     "t": "img",
-    "rid": "rId176",
-    "src": "media/image84.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的中点是变速点，①若点"
-   },
-   {
-    "t": "text",
-    "v": "D"
-   },
-   {
-    "t": "text",
-    "v": "从点"
-   },
-   {
-    "t": "text",
-    "v": "A"
-   },
-   {
-    "t": "text",
-    "v": "出发，以每秒"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "个单位长度的速度沿数轴正方向运动，则在第"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "text",
-    "v": "秒时与点"
-   },
-   {
-    "t": "text",
-    "v": "B"
-   },
-   {
-    "t": "text",
-    "v": "重合；②若点"
-   },
-   {
-    "t": "text",
-    "v": "E"
-   },
-   {
-    "t": "text",
-    "v": "从点"
-   },
-   {
-    "t": "text",
-    "v": "B"
-   },
-   {
-    "t": "text",
-    "v": "出发，以每秒"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "个单位长度的速度沿数轴负方向运动，则在第"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "text",
-    "v": "秒时与点"
-   },
-   {
-    "t": "text",
-    "v": "A"
-   },
-   {
-    "t": "text",
-    "v": "重合．"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "已知在线段"
-   },
-   {
-    "t": "img",
-    "rid": "rId176",
-    "src": "media/image84.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "上存在一变速点"
-   },
-   {
-    "t": "text",
-    "v": "K"
-   },
-   {
-    "t": "text",
-    "v": "（不与点"
-   },
-   {
-    "t": "text",
-    "v": "A"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "text",
-    "v": "B"
-   },
-   {
-    "t": "text",
-    "v": "重合），点"
-   },
-   {
-    "t": "text",
-    "v": "K"
-   },
-   {
-    "t": "text",
-    "v": "表示的数为"
-   },
-   {
-    "t": "text",
-    "v": "k"
-   },
-   {
-    "t": "text",
-    "v": "．点"
-   },
-   {
-    "t": "text",
-    "v": "F"
-   },
-   {
-    "t": "text",
-    "v": "从点"
-   },
-   {
-    "t": "text",
-    "v": "A"
-   },
-   {
-    "t": "text",
-    "v": "出发以每秒"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "个单位长度的速度沿数轴正方向运动，同时点"
-   },
-   {
-    "t": "text",
-    "v": "G"
-   },
-   {
-    "t": "text",
-    "v": "从点"
-   },
-   {
-    "t": "text",
-    "v": "B"
-   },
-   {
-    "t": "text",
-    "v": "出发以每秒"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "个单位长度的速度沿数轴负方向运动，若它们在点"
-   },
-   {
-    "t": "text",
-    "v": "H"
-   },
-   {
-    "t": "text",
-    "v": "处相遇，"
-   },
-   {
-    "t": "text",
-    "v": "且点"
-   },
-   {
-    "t": "text",
-    "v": "H"
-   },
-   {
-    "t": "text",
-    "v": "表示的数为"
-   },
-   {
-    "t": "text",
-    "v": "7"
-   },
-   {
-    "t": "text",
-    "v": "，求"
-   },
-   {
-    "t": "text",
-    "v": "k"
-   },
-   {
-    "t": "text",
-    "v": "的值．"
+    "src": "media/q24-f-038.png",
+    "kind": "figure"
    }
   ],
   "rawParas": [
-   "24. 对于数轴上的定点P和动点M，如果满足：①点M以速度v沿数轴正方向运动，经过点P后以速度⟨公式⟩继续沿数轴正方向运动；②点M以速度v沿数轴负方向运动，经过点P后以速度⟨公式⟩继续沿数轴负方向运动，那么称定点P为变速点．点A，B都在数轴上，点A表示的数为0，点B表示的数为12",
-   "（1）已知线段⟨公式⟩的中点是变速点，①若点D从点A出发，以每秒1个单位长度的速度沿数轴正方向运动，则在第        秒时与点B重合；②若点E从点B出发，以每秒1个单位长度的速度沿数轴负方向运动，则在第        秒时与点A重合．",
-   "（2）已知在线段⟨公式⟩上存在一变速点K（不与点A，B重合），点K表示的数为k．点F从点A出发以每秒1个单位长度的速度沿数轴正方向运动，同时点G从点B出发以每秒1个单位长度的速度沿数轴负方向运动，若它们在点H处相遇，且点H表示的数为7，求k的值．"
+   "24. 对于数轴上不同的三个点 M，N，P，若满足 PM = kPN ，则称点 P 是点 M 关于点 N 的“k 倍分点”．例",
+   "如，如图，在数轴上，点 M，N 表示的数分別是 −2 ，1，可知原点 O 是点 M 关于点 N 的“2 倍分点”，原",
+   "1",
+   "点 O 也是点 N 关于点 M 的“ 2 倍分点”．",
+   "在数轴上，已知点 A 表示的数是 −4 ，点 B 表示的数是 2．",
+   "（1）若点 C 在线段 AB 上，且点 C 是点 A 关于点 B 的“5 倍分点”，则点 C 表示的数是______；",
+   "（2）若点 D 在数轴上， AD = 10 ，且点 D 是点 B 关于点 A 的“k 倍分点”，求 k 的值；",
+   "（3）点 E 从点 B 出发，以每秒 3 个单位长度的速度沿数轴正方向运动．当点 E 运动 t 秒时，在 A，B，E",
+   "1",
+   "三个点中，恰有一个点是另一个点关于第三个点的“                                   倍分点”，直接写出 t 的值．",
+   "4"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "（1）①9②18"
+  "answer": "（1）1 （2） k = 或 5 5 1 2 （3） 2 ， ，6，8 3",
+  "officialKey": "（1）1 （2） k = 或 5 5 1 2 （3） 2 ， ，6，8 3"
  },
  {
   "id": "p2023-q25",
@@ -12253,299 +9891,38 @@ export const EXAM_BANK = [
   "name": "新定义运算（迭代：相反数→加1→倒数）",
   "bonus": true,
   "hasAnswer": true,
-  "stemText": "将有理数m（m不等于0和1）按以下步骤进行运算：⟨公式⟩第一步，求相反数；⟨公式⟩第二步，求所得的相反数与1的和；⟨公式⟩第三步，求这个和的倒数．⟨公式⟩如，有理数3按上述步骤运算，得到的结果是⟨公式⟩．⟨公式⟩现将有理数2和⟨公式⟩分别按上述步骤运算，得到的结果记为⟨公式⟩和⟨公式⟩，再将⟨公式⟩和⟨公式⟩分别按上述步骤运算，得到的结果记为⟨公式⟩和⟨公式⟩，如此重复上述过程，…⟨公式⟩（1）⟨公式⟩的值是        ，⟨公式⟩的值是        ；⟨公式⟩（2）⟨公式⟩的值是        ．",
+  "stemText": "小东对有理数 a，b 定义了一种新的运算，叫做“乘减法”，记作“ a  b ”．他写出了一些按照“乘减 法”运算的算式： ( +3)  ( +2 ) = +1 ， ( +11)  ( −3) = −8 ， ( −2 )  ( +5 ) = −3 ， ( −6 )  ( −1) = +5 ，  1             2  +   ( +1) = + ， ( −4 )  ( +0.5 ) = −3.5 ， ( −8 )  ( −8 ) = 0 ， ( +2.4 )  ( −2.4 ) = 0 ，  3             3 ( +23)  0 = +23 ， 0   −  = + 7         7 ．  4        4 小玲看了这些算式后说：“我明白你定义的乘减法法则了．”她将法则整理出来给小东看，小东说：“你 的理解完全正确．” （1）请将下面小玲整理的“乘减法”法则补充完整： 绝对值不相等的两数相“乘减”，同号得______，异号得______，并______；绝对值相等的两数相“乘 减”，都得 0；一个数与 0 相“乘减”，或 0 与一个数相“乘减”，都得这个数的绝对值． （2）若括号的作用与它在有理数运算中的作用相同， ① 用“乘减法”计算： ( +3)  ( −2 )   ( −9 )  0  = ______． ② 小东发现交换律在有理数的“乘减法”中仍然成立，即 a  b = b  a ．但是结合律在有理数的“乘减 法”中不一定成立，请你举一个例子说明 ( a  b )  c = a  ( b  c ) 不成立．",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "将有理数"
-   },
-   {
-    "t": "text",
-    "v": "m"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "m"
-   },
-   {
-    "t": "text",
-    "v": "不等于"
-   },
-   {
-    "t": "text",
-    "v": "0"
-   },
-   {
-    "t": "text",
-    "v": "和"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "）按以下步骤进行运算："
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "第一步，求相反数；"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "第二步，"
-   },
-   {
-    "t": "text",
-    "v": "求所得"
-   },
-   {
-    "t": "text",
-    "v": "的相反数与"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "的和；"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "第三步，求这个和的倒数．"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "如，有理数"
-   },
-   {
-    "t": "text",
-    "v": "3"
-   },
-   {
-    "t": "text",
-    "v": "按上述步骤运算，得到的结果是"
-   },
-   {
-    "t": "img",
-    "rid": "rId179",
-    "src": "media/image85.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "．"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "现将有理数"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "和"
-   },
-   {
-    "t": "img",
-    "rid": "rId181",
-    "src": "media/image86.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "分别按上述步骤运算，得到的结果记为"
-   },
-   {
-    "t": "img",
-    "rid": "rId183",
-    "src": "media/image87.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "和"
-   },
-   {
-    "t": "img",
-    "rid": "rId185",
-    "src": "media/image88.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，再将"
-   },
-   {
-    "t": "img",
-    "rid": "rId183",
-    "src": "media/image87.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "和"
-   },
-   {
-    "t": "img",
-    "rid": "rId185",
-    "src": "media/image88.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "分别按上述步骤运算，得到的结果记为"
-   },
-   {
-    "t": "img",
-    "rid": "rId189",
-    "src": "media/image89.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "和"
-   },
-   {
-    "t": "img",
-    "rid": "rId191",
-    "src": "media/image90.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，如此重复上述过程，"
-   },
-   {
-    "t": "text",
-    "v": "…"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "img",
-    "rid": "rId183",
-    "src": "media/image87.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的值是"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "img",
-    "rid": "rId185",
-    "src": "media/image88.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的值是"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "text",
-    "v": "；"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "img",
-    "rid": "rId195",
-    "src": "media/image91.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的值是"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "text",
-    "v": "．"
+    "v": "小东对有理数 a，b 定义了一种新的运算，叫做“乘减法”，记作“ a  b ”．他写出了一些按照“乘减 法”运算的算式： ( +3)  ( +2 ) = +1 ， ( +11)  ( −3) = −8 ， ( −2 )  ( +5 ) = −3 ， ( −6 )  ( −1) = +5 ，  1             2  +   ( +1) = + ， ( −4 )  ( +0.5 ) = −3.5 ， ( −8 )  ( −8 ) = 0 ， ( +2.4 )  ( −2.4 ) = 0 ，  3             3 ( +23)  0 = +23 ， 0   −  = + 7         7 ．  4        4 小玲看了这些算式后说：“我明白你定义的乘减法法则了．”她将法则整理出来给小东看，小东说：“你 的理解完全正确．” （1）请将下面小玲整理的“乘减法”法则补充完整： 绝对值不相等的两数相“乘减”，同号得______，异号得______，并______；绝对值相等的两数相“乘 减”，都得 0；一个数与 0 相“乘减”，或 0 与一个数相“乘减”，都得这个数的绝对值． （2）若括号的作用与它在有理数运算中的作用相同， ① 用“乘减法”计算： ( +3)  ( −2 )   ( −9 )  0  = ______． ② 小东发现交换律在有理数的“乘减法”中仍然成立，即 a  b = b  a ．但是结合律在有理数的“乘减 法”中不一定成立，请你举一个例子说明 ( a  b )  c = a  ( b  c ) 不成立．"
    }
   ],
   "rawParas": [
-   "25. 将有理数m（m不等于0和1）按以下步骤进行运算：",
-   "第一步，求相反数；",
-   "第二步，求所得的相反数与1的和；",
-   "第三步，求这个和的倒数．",
-   "如，有理数3按上述步骤运算，得到的结果是⟨公式⟩．",
-   "现将有理数2和⟨公式⟩分别按上述步骤运算，得到的结果记为⟨公式⟩和⟨公式⟩，再将⟨公式⟩和⟨公式⟩分别按上述步骤运算，得到的结果记为⟨公式⟩和⟨公式⟩，如此重复上述过程，…",
-   "（1）⟨公式⟩的值是        ，⟨公式⟩的值是        ；",
-   "（2）⟨公式⟩的值是        ．"
+   "25. 小东对有理数 a，b 定义了一种新的运算，叫做“乘减法”，记作“ a  b ”．他写出了一些按照“乘减",
+   "法”运算的算式： ( +3)  ( +2 ) = +1 ， ( +11)  ( −3) = −8 ， ( −2 )  ( +5 ) = −3 ， ( −6 )  ( −1) = +5 ，",
+   " 1             2",
+   " +   ( +1) = + ， ( −4 )  ( +0.5 ) = −3.5 ， ( −8 )  ( −8 ) = 0 ， ( +2.4 )  ( −2.4 ) = 0 ，",
+   " 3             3",
+   "( +23)  0 = +23 ， 0   −  = +",
+   "7         7",
+   "．",
+   " 4        4",
+   "小玲看了这些算式后说：“我明白你定义的乘减法法则了．”她将法则整理出来给小东看，小东说：“你",
+   "的理解完全正确．”",
+   "（1）请将下面小玲整理的“乘减法”法则补充完整：",
+   "绝对值不相等的两数相“乘减”，同号得______，异号得______，并______；绝对值相等的两数相“乘",
+   "减”，都得 0；一个数与 0 相“乘减”，或 0 与一个数相“乘减”，都得这个数的绝对值．",
+   "（2）若括号的作用与它在有理数运算中的作用相同，",
+   "① 用“乘减法”计算： ( +3)  ( −2 )   ( −9 )  0  = ______．",
+   "② 小东发现交换律在有理数的“乘减法”中仍然成立，即 a  b = b  a ．但是结合律在有理数的“乘减",
+   "法”中不一定成立，请你举一个例子说明 ( a  b )  c = a  ( b  c ) 不成立．"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "（1） ；"
+  "answer": "（1）正，负，把绝对值相减 （2） ① − 8 ； ② 答案不唯一",
+  "officialKey": "（1）正，负，把绝对值相减 （2） ① − 8 ； ② 答案不唯一"
  },
  {
   "id": "p2023-q26",
@@ -12557,419 +9934,35 @@ export const EXAM_BANK = [
   "cat": "新定义",
   "score": 6,
   "diff": "top",
-  "topic": "新定义（运算类）",
-  "name": "新定义「特征值」（射线角）",
+  "topic": "数轴与整除",
+  "name": "数轴与整除",
   "bonus": true,
   "hasAnswer": true,
-  "stemText": "已知⟨公式⟩，对于射线⟨公式⟩， 将⟨公式⟩的值定义为射线⟨公式⟩关于⟨公式⟩的特征值，记为⟨公式⟩，即⟨公式⟩ ，其中⟨公式⟩，⟨公式⟩．特别地，当射线⟨公式⟩与射线⟨公式⟩或⟨公式⟩重合时，⟨公式⟩．⟨公式⟩（1）已知⟨公式⟩，则⟨公式⟩的值是        ；⟨公式⟩（2）若⟨公式⟩，求⟨公式⟩的大小；⟨公式⟩（3）已知⟨公式⟩，⟨公式⟩的平分线为⟨公式⟩，射线⟨公式⟩位于⟨公式⟩内部或边上，将射线⟨公式⟩关于⟨公式⟩的所有可能的特征值⟨公式⟩的最小值记为⟨公式⟩，当⟨公式⟩在平面内运动时，直接写出⟨公式⟩的最大值及此时⟨公式⟩的大小．⟨公式⟩参考答案⟨公式⟩第1－8题均有四个选项，符合题意的选项只有一个．",
+  "stemText": "已知点 A，B，C，D 在数轴上，它们表示的数分别是 a，b，c，d ，且 a < b < c < d ， AB = 1 ， BC = m + 3 ， CD = m + 4 （其中 m > 0 ）． （1）若 m = 5 ， a 为任意的整数． ① 用含 a 的式子表示 c ； ② 试说明 a + b + c + d 一定能被 4 整除； （2）若 abcd > 0 ，且 a，b，c，d 中有两个数的和与 a + b + c + d 相等． ① 有如下四个结论：",
   "stemParts": [
    {
     "t": "text",
-    "v": ""
-   },
-   {
-    "t": "text",
-    "v": "已知"
-   },
-   {
-    "t": "img",
-    "rid": "rId197",
-    "src": "media/image92.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，对于射线"
-   },
-   {
-    "t": "img",
-    "rid": "rId199",
-    "src": "media/image93.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "， 将"
-   },
-   {
-    "t": "img",
-    "rid": "rId201",
-    "src": "media/image94.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的值定义为射线"
-   },
-   {
-    "t": "img",
-    "rid": "rId199",
-    "src": "media/image93.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "关于"
-   },
-   {
-    "t": "img",
-    "rid": "rId204",
-    "src": "media/image95.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的特征值，记为"
-   },
-   {
-    "t": "img",
-    "rid": "rId206",
-    "src": "media/image96.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，即"
-   },
-   {
-    "t": "img",
-    "rid": "rId208",
-    "src": "media/image97.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": " ，其中"
-   },
-   {
-    "t": "img",
-    "rid": "rId210",
-    "src": "media/image98.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "img",
-    "rid": "rId212",
-    "src": "media/image99.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "．特别地，当射线"
-   },
-   {
-    "t": "img",
-    "rid": "rId199",
-    "src": "media/image93.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "与射线"
-   },
-   {
-    "t": "img",
-    "rid": "rId215",
-    "src": "media/image100.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "或"
-   },
-   {
-    "t": "img",
-    "rid": "rId217",
-    "src": "media/image101.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "重合时，"
-   },
-   {
-    "t": "img",
-    "rid": "rId219",
-    "src": "media/image102.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "．"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "已知"
-   },
-   {
-    "t": "img",
-    "rid": "rId221",
-    "src": "media/image103.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，则"
-   },
-   {
-    "t": "img",
-    "rid": "rId223",
-    "src": "media/image104.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的值是"
-   },
-   {
-    "t": "text",
-    "v": "        "
-   },
-   {
-    "t": "text",
-    "v": "；"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "2"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "若"
-   },
-   {
-    "t": "img",
-    "rid": "rId225",
-    "src": "media/image105.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，求"
-   },
-   {
-    "t": "img",
-    "rid": "rId227",
-    "src": "media/image106.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的大小；"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "（"
-   },
-   {
-    "t": "text",
-    "v": "3"
-   },
-   {
-    "t": "text",
-    "v": "）"
-   },
-   {
-    "t": "text",
-    "v": "已知"
-   },
-   {
-    "t": "img",
-    "rid": "rId229",
-    "src": "media/image107.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，"
-   },
-   {
-    "t": "img",
-    "rid": "rId231",
-    "src": "media/image108.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的平分线为"
-   },
-   {
-    "t": "img",
-    "rid": "rId233",
-    "src": "media/image109.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，射线"
-   },
-   {
-    "t": "img",
-    "rid": "rId235",
-    "src": "media/image110.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "位于"
-   },
-   {
-    "t": "img",
-    "rid": "rId231",
-    "src": "media/image108.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "内部或边上，将射线"
-   },
-   {
-    "t": "img",
-    "rid": "rId235",
-    "src": "media/image110.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "关于"
-   },
-   {
-    "t": "img",
-    "rid": "rId204",
-    "src": "media/image95.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的所有可能的特征值"
-   },
-   {
-    "t": "img",
-    "rid": "rId240",
-    "src": "media/image111.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的最小值记为"
-   },
-   {
-    "t": "img",
-    "rid": "rId242",
-    "src": "media/image112.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "，当"
-   },
-   {
-    "t": "img",
-    "rid": "rId231",
-    "src": "media/image108.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "在平面内运动时，直接写出"
-   },
-   {
-    "t": "img",
-    "rid": "rId242",
-    "src": "media/image112.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的最大值及此时"
-   },
-   {
-    "t": "img",
-    "rid": "rId246",
-    "src": "media/image113.wmf",
-    "kind": "formula"
-   },
-   {
-    "t": "text",
-    "v": "的大小．"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "参考答案"
-   },
-   {
-    "t": "break"
-   },
-   {
-    "t": "text",
-    "v": "第"
-   },
-   {
-    "t": "text",
-    "v": "1"
-   },
-   {
-    "t": "text",
-    "v": "－"
-   },
-   {
-    "t": "text",
-    "v": "8"
-   },
-   {
-    "t": "text",
-    "v": "题均有四个选项，符合题意的选项只有一个．"
+    "v": "已知点 A，B，C，D 在数轴上，它们表示的数分别是 a，b，c，d ，且 a  b  c  d ， AB = 1 ， BC = m + 3 ， CD = m + 4 （其中 m  0 ）． （1）若 m = 5 ， a 为任意的整数． ① 用含 a 的式子表示 c ； ② 试说明 a + b + c + d 一定能被 4 整除； （2）若 abcd  0 ，且 a，b，c，d 中有两个数的和与 a + b + c + d 相等． ① 有如下四个结论："
    }
   ],
   "rawParas": [
-   "26. 已知⟨公式⟩，对于射线⟨公式⟩， 将⟨公式⟩的值定义为射线⟨公式⟩关于⟨公式⟩的特征值，记为⟨公式⟩，即⟨公式⟩ ，其中⟨公式⟩，⟨公式⟩．特别地，当射线⟨公式⟩与射线⟨公式⟩或⟨公式⟩重合时，⟨公式⟩．",
-   "（1）已知⟨公式⟩，则⟨公式⟩的值是        ；",
-   "（2）若⟨公式⟩，求⟨公式⟩的大小；",
-   "（3）已知⟨公式⟩，⟨公式⟩的平分线为⟨公式⟩，射线⟨公式⟩位于⟨公式⟩内部或边上，将射线⟨公式⟩关于⟨公式⟩的所有可能的特征值⟨公式⟩的最小值记为⟨公式⟩，当⟨公式⟩在平面内运动时，直接写出⟨公式⟩的最大值及此时⟨公式⟩的大小．",
-   "参考答案",
-   "第1－8题均有四个选项，符合题意的选项只有一个．"
+   "26. 已知点 A，B，C，D 在数轴上，它们表示的数分别是 a，b，c，d ，且 a  b  c  d ， AB = 1 ，",
+   "BC = m + 3 ， CD = m + 4 （其中 m  0 ）．",
+   "（1）若 m = 5 ， a 为任意的整数．",
+   "① 用含 a 的式子表示 c ；",
+   "② 试说明 a + b + c + d 一定能被 4 整除；",
+   "（2）若 abcd  0 ，且 a，b，c，d 中有两个数的和与 a + b + c + d 相等．",
+   "① 有如下四个结论：",
+   "A．原点 O 可能与点 B 重合；               B．原点 O 不可能在点 D 的右侧；",
+   "C．原点 O 可能是线段 AD 的中点；              D．原点 O 可能是线段 BC 的中点；",
+   "其中所有正确的结论是______．（填选项字母即可）",
+   "② 用含 m 的式子表示 a ，并直接写出结果．"
   ],
   "options": null,
   "optionParts": null,
   "key": null,
-  "answer": null,
-  "officialKey": "（1） 或"
+  "answer": "−m − 5 − m − 4 （2） ① B、D； ② a = 或 2 2",
+  "officialKey": "−m − 5 − m − 4 （2） ① B、D； ② a = 或 2 2"
  },
  {
   "id": "p2024-q1",
@@ -13968,14 +10961,15 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "3"
+  "officialKey": "3",
+  "__optUnavailable": "本题的表格数据在原卷中为图片，未能提取。请对照原卷作答。"
  },
  {
   "id": "p2024-q10",
   "paperId": "p2024",
   "year": "2024—2025",
   "no": 10,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "概念",
   "score": 2,
@@ -14052,7 +11046,12 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "点P在直线l外"
+  "officialKey": "点P在直线l外",
+  "accept": [
+   "点P在直线l外",
+   "点P在直线l外．",
+   "点P在直线l外。"
+  ]
  },
  {
   "id": "p2024-q11",
@@ -14109,7 +11108,7 @@ export const EXAM_BANK = [
   "paperId": "p2024",
   "year": "2024—2025",
   "no": 12,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-eq",
   "cat": "概念",
   "score": 2,
@@ -14180,14 +11179,17 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "6"
+  "officialKey": "6",
+  "accept": [
+   "6"
+  ]
  },
  {
   "id": "p2024-q13",
   "paperId": "p2024",
   "year": "2024—2025",
   "no": 13,
-  "qtype": "big",
+  "qtype": "calc",
   "chapter": "ch-geo",
   "cat": "计算",
   "score": 2,
@@ -14272,7 +11274,11 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": null,
-  "officialKey": "76"
+  "officialKey": "76",
+  "accept": [
+   "76",
+   "76°"
+  ]
  },
  {
   "id": "p2024-q14",
@@ -14359,8 +11365,8 @@ export const EXAM_BANK = [
   "cat": "建模",
   "score": 2,
   "diff": "mid",
-  "topic": "列代数式",
-  "name": "列方程（劳动分配）",
+  "topic": "列方程（分配）",
+  "name": "列方程（分配）",
   "bonus": false,
   "hasAnswer": true,
   "stemText": "在一次劳动课上，有⟨公式⟩名同学在甲处劳动，有⟨公式⟩名同学在乙处劳动．现在另调⟨公式⟩人也去这两处劳动，使得在甲处劳动的人数是在乙处劳动的人数的⟨公式⟩倍，应调往甲处多少人？如果设调往甲处⟨公式⟩人，那么依题意可列方程为________．",
@@ -17797,7 +14803,8 @@ export const EXAM_BANK = [
   ],
   "key": 1,
   "answer": "6",
-  "officialKey": "B"
+  "officialKey": "B",
+  "__optMissing": "D"
  },
  {
   "id": "p2025-q2",
@@ -18137,7 +15144,7 @@ export const EXAM_BANK = [
   "paperId": "p2025",
   "year": "2025—2026",
   "no": 7,
-  "qtype": "single",
+  "qtype": "big",
   "chapter": "ch-eq",
   "cat": "建模",
   "score": 2,
@@ -18162,41 +15169,11 @@ export const EXAM_BANK = [
    "C．",
    "D．"
   ],
-  "options": [
-   "",
-   "",
-   "",
-   ""
-  ],
-  "optionParts": [
-   [
-    {
-     "t": "text",
-     "v": ""
-    }
-   ],
-   [
-    {
-     "t": "text",
-     "v": ""
-    }
-   ],
-   [
-    {
-     "t": "text",
-     "v": ""
-    }
-   ],
-   [
-    {
-     "t": "text",
-     "v": ""
-    }
-   ]
-  ],
-  "key": 0,
+  "options": null,
+  "optionParts": null,
   "answer": "",
-  "officialKey": "A"
+  "officialKey": "A",
+  "__optUnavailable": "四个选项在原卷中均为公式图，抽取未取得内容"
  },
  {
   "id": "p2025-q8",
@@ -18305,8 +15282,8 @@ export const EXAM_BANK = [
   "cat": "概念",
   "score": 2,
   "diff": "easy",
-  "topic": "数轴读符号",
-  "name": "有理数比较大小",
+  "topic": "数轴与大小比较",
+  "name": "数轴与大小比较",
   "bonus": false,
   "hasAnswer": true,
   "stemText": "比较大小： （填“＞”“＜”或“＝”）．",
@@ -18671,7 +15648,7 @@ export const EXAM_BANK = [
   "paperId": "p2025",
   "year": "2025—2026",
   "no": 20,
-  "qtype": "calc",
+  "qtype": "big",
   "chapter": "ch-geo",
   "cat": "作图",
   "score": 5,
@@ -18707,9 +15684,6 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "8；7",
-  "accept": [
-   "8；7"
-  ],
   "officialKey": "8；7"
  },
  {
@@ -18717,7 +15691,7 @@ export const EXAM_BANK = [
   "paperId": "p2025",
   "year": "2025—2026",
   "no": 21,
-  "qtype": "calc",
+  "qtype": "big",
   "chapter": "ch-eq",
   "cat": "建模",
   "score": 7,
@@ -18754,9 +15728,6 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "6x，7x；（200﹣8x）；",
-  "accept": [
-   "6x，7x；（200﹣8x）；"
-  ],
   "officialKey": "6x，7x；（200﹣8x）；"
  },
  {
@@ -18764,7 +15735,7 @@ export const EXAM_BANK = [
   "paperId": "p2025",
   "year": "2025—2026",
   "no": 22,
-  "qtype": "calc",
+  "qtype": "big",
   "chapter": "ch-op",
   "cat": "推理",
   "score": 5,
@@ -18802,9 +15773,6 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "4C，1A，5F；",
-  "accept": [
-   "4C，1A，5F；"
-  ],
   "officialKey": "4C，1A，5F；"
  },
  {
@@ -18812,7 +15780,7 @@ export const EXAM_BANK = [
   "paperId": "p2025",
   "year": "2025—2026",
   "no": 23,
-  "qtype": "calc",
+  "qtype": "big",
   "chapter": "ch-rational",
   "cat": "分类",
   "score": 6,
@@ -18850,9 +15818,6 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "﹣5+2t；",
-  "accept": [
-   "﹣5+2t；"
-  ],
   "officialKey": "﹣5+2t；"
  },
  {
@@ -18860,7 +15825,7 @@ export const EXAM_BANK = [
   "paperId": "p2025",
   "year": "2025—2026",
   "no": 24,
-  "qtype": "calc",
+  "qtype": "big",
   "chapter": "ch-geo",
   "cat": "分类",
   "score": 7,
@@ -18896,9 +15861,6 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "45°；",
-  "accept": [
-   "45°；"
-  ],
   "officialKey": "45°；"
  },
  {
@@ -18906,7 +15868,7 @@ export const EXAM_BANK = [
   "paperId": "p2025",
   "year": "2025—2026",
   "no": 25,
-  "qtype": "calc",
+  "qtype": "big",
   "chapter": "ch-op",
   "cat": "新定义",
   "score": 4,
@@ -18936,9 +15898,6 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "﹣ ；",
-  "accept": [
-   "﹣ ；"
-  ],
   "officialKey": "﹣ ；"
  },
  {
@@ -18946,7 +15905,7 @@ export const EXAM_BANK = [
   "paperId": "p2025",
   "year": "2025—2026",
   "no": 26,
-  "qtype": "calc",
+  "qtype": "big",
   "chapter": "ch-rational",
   "cat": "新定义",
   "score": 6,
@@ -18987,9 +15946,6 @@ export const EXAM_BANK = [
   "optionParts": null,
   "key": null,
   "answer": "120；140；",
-  "accept": [
-   "120；140；"
-  ],
   "officialKey": "120；140；"
  }
 ];

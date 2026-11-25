@@ -7,7 +7,7 @@
 <title>巩固练习 · 初一(上)数学期末复习</title>
 <meta name="description" content="分步判定刷题：130 题，按方法卡、章节、分层筛选，记录卡在第几步。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/style.css?v=ec7a7a58">
+<link rel="stylesheet" href="assets/style.css?v=64e7c31c">
 <script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
 </head>
 <body data-base=""><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
@@ -133,7 +133,7 @@
   </div>
 </footer>
 <script src="assets/app.js?v=4d5d80ff"></script>
-<script src="assets/step-engine.js?v=eb6e1425"></script>
+<script src="assets/step-engine.js?v=f4c1c2dc"></script>
 <script src="dist/data/meta.js?v=4d5d80ff"></script>
 <script>
 window.YZ = window.YZ || {};
@@ -629,7 +629,14 @@ window.YZ.completeChains = function(pool){
     /* 冲刺计划的一天：题量就是当天的全部，不截断。
        否则「第 3 天 40 题」会被默认 10 题截掉，完成度永远到不了 100%。 */
     if (sel.day) sel.len = raw.length;
-    var arranged = arrangeByLadder(raw);
+    /* 冲刺计划不走三级链重排。
+       原因：arrangeByLadder 按方法卡三级链重新分组，会打乱
+       「第 1 天 = 2021 卷 1–8 题」这个按卷按题号的顺序。
+       而冲刺计划的价值正在于「同题位跨卷对比」——
+       2021 第 1 题、2022 第 1 题连着做，才看得出是这套卷不会
+       还是这类题不会。重排后这个信息就丢了。
+       踩过的现象：计划 q1,q2,q3…，实际出题 q1,q3,2022-q1… */
+    var arranged = sel.day ? { pool: raw, chains: [] } : arrangeByLadder(raw);
     var pool = arranged.pool;
     var chains = arranged.chains;
     var n = Math.min(sel.len, pool.length);

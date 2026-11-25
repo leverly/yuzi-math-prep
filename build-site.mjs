@@ -435,6 +435,10 @@ function renderQuestion(q, R) {
     o.stemHtml = C(R.math.render(q.stem || ''));
   }
   if (q.solution) o.solutionHtml = C(R.math.render(q.solution));
+  /* 内容不可用的说明（选项未提取 / 表格图缺失 / 答案残缺）。
+     不写这一行，学生看到「只有题干、没有选项、没有答案」会以为是站点坏了。 */
+  if (q.__optUnavailable) o.unavailableNote = q.__optUnavailable;
+  if (q.__optMissing) o.optMissing = q.__optMissing;
   /* 「易错」一句：答错时单独一行显示，比混在解析里更容易被读到 */
   if (q.pitfall) o.pitfallHtml = C(R.math.render(q.pitfall));
 
@@ -461,11 +465,20 @@ function renderQuestion(q, R) {
     /* 字段名是 __optParts（data-exam-bank 的 optionParts 在 index.js 里
        改名带过来），写 optionParts 会静默取到 undefined 并回退成占位符。 */
     const parts = q.__optParts && q.__optParts[q.key];
-    const body = (parts && parts.length)
+    let body = (parts && parts.length)
       ? parts.map((p) => {
           if (p.t === 'text') return C(R.math.render(p.v));
           if (p.t === 'img' && p.src) {
             const name = p.src.split('/').pop();
+            /* 与选项同一套降级：WMF 浏览器不支持，直接给「看原卷」链接，
+               不先塞一个注定加载失败的 img 再等 onerror。 */
+            if (/\.wmf$/i.test(name)) {
+              const href = q.examRef && q.examRef.paperId
+                ? ('exam-verify.html#' + q.examRef.paperId + '-q' + q.examRef.no) : '';
+              return '<span class="q-f-miss">' +
+                (href ? '<a href="' + href + '" target="_blank" rel="noopener">⟨公式·看原卷⟩</a>' : '⟨公式⟩') +
+                '</span>';
+            }
             return figImg(q.__imgBase || '', name, q.examRef);
           }
           return '';
@@ -475,6 +488,15 @@ function renderQuestion(q, R) {
              宁可少给，也不给出一个看起来像答案的假内容。 */
           ? ''
           : C(R.math.render(String(q.options[q.key] || ''))));
+    /* 那一项本身内容就丢了（PDF 源常见）：给占位链接，别只留一个「A．」。
+       判据是「有没有产出东西」，不能剥标签看文本——纯公式图选项剥完就是空文本。 */
+    if (!body) {
+      const href = q.examRef && q.examRef.paperId
+        ? ('exam-verify.html#' + q.examRef.paperId + '-q' + q.examRef.no) : '';
+      body = '<span class="q-f-miss" title="该项公式为图形，源文件文本层未包含">' +
+        (href ? '<a href="' + href + '" target="_blank" rel="noopener">⟨公式·看原卷⟩</a>' : '⟨公式⟩') +
+        '</span>';
+    }
     /* 字母与公式图放在同一个行内盒里：图是 inline-block 且
        vertical-align:middle，不加盒子时字母会被挤到图片下方。 */
     o.answerHtml = '<span class="ans-inline">' + letter + '．' + body + '</span>';
@@ -484,15 +506,23 @@ function renderQuestion(q, R) {
        q.__optParts（由 data-exam-bank 带过来）。有 parts 就逐片段渲染，
        否则走 MathJax（原创题的选项是 LaTeX）。 */
     const base = q.__imgBase || '';
+    /* 选项内容整块丢失时的降级：p2025 来自 PDF，公式是图形、文本层只剩
+       「A．」空壳，抽出来就是空字符串。这时不能渲染成「只有一个字母」的
+       空行——那看着像页面坏了，学生也不知道该选什么。给一个能点回原卷的
+       占位，让他自己去看。 */
+    const ref = q.examRef || {};
+    const missHref = ref.paperId ? ('exam-verify.html#' + ref.paperId + '-q' + ref.no) : '';
+    const missHtml = '<span class="q-f-miss" title="该项公式为图形，源文件文本层未包含">' +
+      (missHref ? '<a href="' + missHref + '" target="_blank" rel="noopener">⟨公式·看原卷⟩</a>' : '⟨公式⟩') +
+      '</span>';
     o.optionsHtml = q.options.map((opt, i) => {
       const parts = q.__optParts && q.__optParts[i];
       if (parts && parts.length) {
-        return parts.map((p) => {
+        const html = parts.map((p) => {
           if (p.t === 'text') return C(R.math.render(p.v));
           if (p.t === 'img' && p.src) {
             const nm = p.src.split('/').pop();
             if (/\.wmf$/i.test(nm)) {
-              const ref = q.examRef || {};
               const href = ref.paperId ? ('exam-verify.html#' + ref.paperId + '-q' + ref.no) : '';
               return '<span class="q-f-miss">' +
                 (href ? '<a href="' + href + '" target="_blank" rel="noopener">⟨公式·看原卷⟩</a>' : '⟨公式⟩') +
@@ -502,8 +532,14 @@ function renderQuestion(q, R) {
           }
           return '';
         }).join('');
+        /* parts 全空 = 抽取时内容就没了，按缺失处理。
+           注意判据是「有没有产出任何东西」，不能剥标签看文本——
+           纯公式图选项剥完标签本来就是空文本，那样会把好选项误判成缺失。 */
+        return html ? html : missHtml;
       }
-      return C(R.math.render(opt));
+      const fallback = C(R.math.render(opt));
+      /* 选项文本只有占位符、又没有 parts 可渲染 → 同样按缺失处理 */
+      return fallback && String(opt).trim() && String(opt).trim() !== '⟨公式⟩' ? fallback : missHtml;
     });
     o.key = q.key;
     o.distractors = (q.distractors || []).map((d) => ({
@@ -1967,7 +2003,14 @@ function buildDrill() {
     /* 冲刺计划的一天：题量就是当天的全部，不截断。
        否则「第 3 天 40 题」会被默认 10 题截掉，完成度永远到不了 100%。 */
     if (sel.day) sel.len = raw.length;
-    var arranged = arrangeByLadder(raw);
+    /* 冲刺计划不走三级链重排。
+       原因：arrangeByLadder 按方法卡三级链重新分组，会打乱
+       「第 1 天 = 2021 卷 1–8 题」这个按卷按题号的顺序。
+       而冲刺计划的价值正在于「同题位跨卷对比」——
+       2021 第 1 题、2022 第 1 题连着做，才看得出是这套卷不会
+       还是这类题不会。重排后这个信息就丢了。
+       踩过的现象：计划 q1,q2,q3…，实际出题 q1,q3,2022-q1… */
+    var arranged = sel.day ? { pool: raw, chains: [] } : arrangeByLadder(raw);
     var pool = arranged.pool;
     var chains = arranged.chains;
     var n = Math.min(sel.len, pool.length);
@@ -2572,6 +2615,7 @@ function buildWrong() {
         '<span class="wb-meta">' + chName(w.chapter) + (w.errTag ? ' · ' + (Z.ERR_NAME && Z.ERR_NAME[w.errTag] ? Z.ERR_NAME[w.errTag] : '') : '') + ' · 错 ' + w.n + ' 次' +
         (w.nearMiss ? ' · <b style="color:var(--gold)">会做但错</b>' : '') + '</span></div>' +
         '<div class="wb-stem">' + (x.stemHtml || x.stem || '') + '</div>' +
+        (x.unavailableNote ? '<div class="wb-unavail">' + x.unavailableNote + '</div>' : '') +
         (x.figHtml ? '<div class="wb-fig">' + x.figHtml + '</div>' : '') +
         /* 单选题必须列出选项：不列的话学生复盘时只看到题干，
            根本不知道当时在四个什么之间选——选项本身就是题的一部分。 */
@@ -3095,6 +3139,7 @@ function buildDiag() {
                 (x.w.nearMiss ? '<span class="wd-nm">会做但错</span>' : '') +
               '</div>' +
               '<div class="wd-stem">' + (q.stemHtml || q.stem || '') + '</div>' +
+              (q.unavailableNote ? '<div class="wb-unavail">' + q.unavailableNote + '</div>' : '') +
               (q.qtype === 'single' && q.optionsHtml
                 ? '<ol class="wb-opts">' + q.optionsHtml.map(function(o, i){
                     var on = (i === q.key) ? ' class="on"' : '';

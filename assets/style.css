@@ -4642,3 +4642,15 @@ details[open] > summary::before { content: '▾ '; }
 }
 .q-f-miss a { color: var(--accent); text-decoration: none; }
 .q-f-miss a:hover { text-decoration: underline; }
+
+/* 内容不可用说明（选项未提取 / 表格图缺失 / 答案残缺） */
+.se-unavail {
+  padding: 10px 14px; border-radius: var(--r-sm);
+  background: #fff8e6; border-left: 3px solid #d9a441;
+  font-size: .85rem; line-height: 1.75; color: var(--text);
+}
+.wb-unavail {
+  margin: 8px 0 0; padding: 9px 12px; border-radius: 8px;
+  background: #fff8e6; border-left: 3px solid #d9a441;
+  font-size: .84rem; line-height: 1.75; color: var(--text);
+}

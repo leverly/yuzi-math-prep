@@ -111,6 +111,10 @@ export const ALL_QUESTIONS = EXAM_BANK.map((q) => {
     ...(q.options ? { options: q.options } : {}),
     /* 选项的原始片段（含公式图），渲染层据此逐片段输出 */
     ...(q.options && q.optionParts ? { __optParts: q.optionParts } : {}),
+    /* 内容不可用说明：选项未提取 / 表格图缺失 / 答案残缺。
+       映射是白名单式的，不显式带过来，页面就永远看不到这行说明。 */
+    ...(q.__optUnavailable ? { __optUnavailable: q.__optUnavailable } : {}),
+    ...(q.__optMissing ? { __optMissing: q.__optMissing } : {}),
     ...(q.key != null ? { key: q.key } : {}),
     ...(q.answer ? { answer: q.answer } : {}),
     ...(q.accept ? { accept: q.accept } : {}),

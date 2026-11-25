@@ -90,6 +90,8 @@
       results: [],         // 每步 {ok, input, ms}
       startAt: Date.now(),
       done: false,
+      left: false,         // 本题是否已经离开（防重复推进：自动跳 + 手动点会撞）
+      autoShown: false,    // 是否已自动展示结果卡（防 guidedDone 被调用两次）
       selfChecks: [],      // selfcheck: 每步 true=做出来 / false=卡住
       revealed: false,     // selfcheck: 是否已展开完整解答
     };
@@ -168,7 +170,14 @@
       /* 每题重置「已落盘」标记，否则第二题起会被 recordNow 的开头
          if (_pendingRec) return 挡掉，错题一条也记不下来。 */
       _pendingRec = null;
+      /* 清掉上一题的自动跳转定时器：
+         答对后 700ms 自动进下一题，若用户在这 700ms 内自己点了「下一题」，
+         定时器仍会触发并再跳一次——等于一次点击跳过两道题。
+         state 换新时旧 timer 的守卫看不出来（它闭包的是旧 state），
+         所以必须在这里显式清。 */
+      if (state && state.autoTimer) { clearTimeout(state.autoTimer); state.autoTimer = null; }
       state = newState(pool[qi], mode);
+      state.autoTimer = null;
       // 调试钩子：便于自动化测试与卡点统计取当前题
       host.__curQ = state.q;
       host.__state = state;
@@ -318,6 +327,13 @@
       }
       /* big：不给作答区，只留「看解答」 */
 
+      /* 内容不可用说明：放在作答区之前，学生一眼能看到「这题为什么长这样」 */
+      if (q.unavailableNote) {
+        h += '<div class="se-unavail">' + esc(q.unavailableNote) + '</div>';
+      } else if (q.optMissing) {
+        h += '<div class="se-unavail">选项 ' + esc(q.optMissing) +
+          ' 在原卷中是公式图，未能提取；其余选项与判分不受影响。</div>';
+      }
       h += '<div class="se-fb"></div>';
       h += '<div class="se-actions"><span class="spacer"></span>' +
         '<button class="btn primary se-next"' + (qt === 'big' ? '' : ' disabled') + '>' +
@@ -338,8 +354,22 @@
         if (opts.onStep) opts.onStep(q, 0, ok, errTag);
         nextBtn.disabled = false;
         nextBtn.focus();
+        /* 音效在作答瞬间响，不等结算。
+           completeQuestion 里也有 sfx，但那只在整题结算时触发；
+           答错不自动推进，结算可能几秒后才发生，那时再响已脱离「我错了」这一刻。
+           这里覆盖 single / calc 两类（judge 与多步题在 drawGuided 里各自处理）。 */
+        if (Z.sfx) Z.sfx(ok ? 'ok' : 'bad');
         /* 立刻落盘，不等「下一题」 */
         recordNow();
+        /* 答对 → 立刻结算并跳下一题（guidedDone 内部会直接 nextQuestion）。
+           不给延迟：答对就是答对了，让用户多等一会儿没有任何信息增量。
+           答错不自动推进——解析要留在屏幕上给用户读。
+           用 state.autoShown 防重：guidedDone 会重建 DOM，
+           重复进入会绑出两个监听器，一次点击连跳两题。 */
+        if (ok && qt !== 'big' && !state.autoShown) {
+          state.autoShown = true;
+          guidedDone();
+        }
       }
 
       if (qt === 'single') {
@@ -522,11 +552,24 @@
           if (steps.length === 1) { setTimeout(function () { if (!state.done) guidedDone(); }, 620); }
         } else {
           fb.className = 'se-fb bad';
+          /* 答错要摊开解析，不能只给「提示 + 正确答案」。
+             单步题（概念判断、单步填空）整题就只有这一步，
+             答错后不给 why 等于「错了但不知道为什么」——
+             而这类题正是考「条件边界」的，没有解释就没有学习。
+             多步题的中间步骤仍只给提示：那里需要学生自己再试，
+             一上来摊全解会剥夺思考。 */
+          var isLast = state.stepIdx >= steps.length - 1;
           fb.innerHTML = '<b>✕ 卡在这一步</b>' +
             (s.hint ? '<div class="se-hint"><span class="se-hint-t">提示</span>' + fieldHtml(s, 'hint') + '</div>' : '') +
-            (s.answer ? '<div class="se-ans">这一步应该是：<b>' + fieldHtml(s, 'answer') + '</b></div>' : '');
+            (s.answer ? '<div class="se-ans">这一步应该是：<b>' + fieldHtml(s, 'answer') + '</b></div>' : '') +
+            ((steps.length === 1 || isLast) ? solBox(q) : '');
           nextBtn.disabled = false;
           nextBtn.focus();
+          /* 答错瞬间就响，不等「下一步」。
+             completeQuestion 里也有 sfx('bad')，但那只在整题结算时触发；
+             答错不自动推进（用户要停下来看解析），结算可能几秒后才发生，
+             那时再响已经脱离「我错了」这个时刻。 */
+          if (Z.sfx) Z.sfx('bad');
         }
       }
 
@@ -596,6 +639,19 @@
         ok = state.results.length === (q.steps || []).length && state.results.every(function (r) { return r && r.ok; });
       }
       completeQuestion(ok);
+
+      /* 答对且不是最后一题 → 直接跳下一题，不插「本题完成」中间页。
+         为什么去掉：答对时那张卡只显示一句「✓ 全部步骤正确」，
+         用户还要等 700ms 或再点一次，纯属多一步。
+         答错仍保留结果卡——那上面有「卡在第几步」和完整解答，
+         是需要停下来读的内容。
+         最后一题也保留：后面接总览页，需要一个过渡确认。 */
+      if (ok && qi + 1 < total) {
+        qi++;
+        nextQuestion();
+        return;
+      }
+
       var h = '<div class="se-card se-done-card">';
       h += '<div class="se-kicker">本题完成</div>';
       h += '<div class="se-result ' + (ok ? 'ok' : 'bad') + '">' +
@@ -607,10 +663,12 @@
         '<button class="btn primary se-go">' + (qi + 1 >= total ? '看结果 →' : '下一题 →') + '</button></div>';
       h += '</div>';
       el.body.innerHTML = h;
-      el.body.querySelector('.se-go').addEventListener('click', function () {
+
+      function go() {
         qi++;
         if (qi >= total) finish(); else nextQuestion();
-      });
+      }
+      el.body.querySelector('.se-go').addEventListener('click', go);
     }
 
     /* ==========================================================
