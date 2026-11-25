@@ -1,5 +1,5 @@
 /* ==========================================================
-   柚子初一上数学期末备考 · 静态站点生成器
+   柚子初一(上)数学期末复习 · 静态站点生成器
    用法：node build-site.mjs [--only=home,calc,today]
    输出：根目录各页面、method/ map/ 子目录、dist/data 分片
 
@@ -41,10 +41,10 @@ const OUT = __dir;
 
 /* ---------------- 品牌与口径（唯一来源） ---------------- */
 const SITE = {
-  name: '柚子 · 初一上数学期末',
-  short: '初一上数学',
-  full: '柚子初一上数学期末备考',
-  exam: '初一上期末',
+  name: '柚子 · 初一(上)数学期末复习',
+  short: '初一(上)数学期末复习',
+  full: '柚子初一(上)数学期末复习',
+  exam: '初一(上)期末',
   school: '北师大实验中学',
 };
 
@@ -301,7 +301,7 @@ function footer(base) {
   <div class="foot-in yz-foot">
     <div>
       <div class="yz-foot-title">${esc(SITE.full)}</div>
-      <div class="yz-foot-sub">面向 ${esc(SITE.school)} 初一上期末 · 巩固练习 / 知识复习 / 错题 / 真题</div>
+      <div class="yz-foot-sub">面向 ${esc(SITE.school)} ${esc(SITE.exam)} · 知识复习 / 巩固练习 / 错题 / 考情</div>
     </div>
     <div class="foot-links">
       <a href="${base}learn.html">知识复习</a>
@@ -531,7 +531,7 @@ function buildHome() {
 <section class="hero">
   <div class="hero-split">
     <div>
-      <div class="hero-badge"><span class="dot-live"></span>${esc(SITE.school)} · 初一上期末</div>
+      <div class="hero-badge"><span class="dot-live"></span>${esc(SITE.school)} · ${esc(SITE.exam)}</div>
       <h1>丢分不是因为不会，<br>是<span class="accent-word">会做但没做对</span></h1>
       <p class="lede">
         这两种错的补法完全相反：<b>不会</b>要去学方法，<b>会做但错</b>要去练收尾。
@@ -710,7 +710,7 @@ function buildHome() {
   const html = page({
     active: 'index.html',
     title: `${SITE.full} · 巩固练习与知识复习`,
-    desc: `${SITE.school} 初一上数学期末备考：${STATS.allQuestions} 道题分步判定、${STATS.methods} 张方法卡、${STATS.concepts} 张概念卡、${STATS.formulas} 条公式法则。`,
+    desc: `${SITE.school} ${SITE.exam}复习：${STATS.allQuestions} 道题分步判定、${STATS.methods} 张方法卡、${STATS.concepts} 张概念卡、${STATS.formulas} 条公式法则。`,
     body, script, data: ['meta'],
   });
   return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
@@ -902,7 +902,7 @@ function buildCalc() {
   const html = page({
     active: 'calc.html',
     title: '计算专项',
-    desc: `初一上计算专项：${STATS.calcQuestions} 题，按四则混合、乘方、去括号、解方程、化简求值分组，分步判定 + 连对计数。`,
+    desc: `${SITE.exam}计算专项：${STATS.calcQuestions} 题，按四则混合、乘方、去括号、解方程、化简求值分组，分步判定 + 连对计数。`,
     body, script, useStep: true, data: ['meta'],
   });
   return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
@@ -1284,7 +1284,7 @@ function buildConcept() {
   const html = page({
     active: 'concept.html',
     title: '概念自测',
-    desc: `初一上概念条件判断：${STATS.concepts} 张概念卡、${STATS.conceptTests} 个判断，只考条件不考背诵。`,
+    desc: `${SITE.exam}概念条件判断：${STATS.concepts} 张概念卡、${STATS.conceptTests} 个判断，只考条件不考背诵。`,
     body, script, useStep: true, data: ['meta'],
   });
   return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
@@ -1633,7 +1633,7 @@ ${TIER_ORDER.map((t) => {
   const html = page({
     active: 'method.html',
     title: '方法卡',
-    desc: `初一上方法卡：${STATS.methods} 张，按识别信号组织，覆盖熟练层、理解层、攻坚层。`,
+    desc: `${SITE.exam}方法卡：${STATS.methods} 张，按识别信号组织，覆盖熟练层、理解层、攻坚层。`,
     body, data: ['meta'],
   });
   return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
@@ -2577,7 +2577,7 @@ function buildPapers() {
   const html = page({
     active: 'papers.html',
     title: '考情解读',
-    desc: `${PAPERS.length} 份西城初一上期末真题的考点族频次、分值分布、跨年对比与备考优先级。`,
+    desc: `${PAPERS.length} 份西城${SITE.exam}真题的考点族频次、分值分布、跨年对比与备考优先级。`,
     body, script, data: ['meta'],
   });
   return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
@@ -3724,7 +3724,7 @@ function buildExam() {
 
   const html = page({
     active: 'exam.html', title: '整卷模考',
-    desc: `初一上期末整卷模考：${EXAM.total} 分 / ${TOTAL_Q} 题 / ${TOTAL_MIN} 分钟，报告看三层得分率。`,
+    desc: `${SITE.exam}整卷模考：${EXAM.total} 分 / ${TOTAL_Q} 题 / ${TOTAL_MIN} 分钟，报告看三层得分率。`,
     body, script, useStep: true, data: ['meta'],
   });
   return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
@@ -4233,7 +4233,7 @@ function buildGraph() {
 
   const html = page({
     active: 'graph.html', title: '公式法则库',
-    desc: `初一上公式法则库：${STATS.formulas} 条，每条带适用条件与常见误用。`,
+    desc: `${SITE.exam}公式法则库：${STATS.formulas} 条，每条带适用条件与常见误用。`,
     body, script, data: ['meta'],
   });
   return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
@@ -4389,7 +4389,7 @@ function buildContent() {
 <section class="section" style="margin-top:20px">
   <div class="card" style="padding:22px 24px">
     <h3>当前规模</h3>
-    <p class="desc">面向 ${esc(SITE.school)} 初一上期末。内容按人教版 2024 新版章节组织，方法卡按「识别信号」编排；做错的题自动进错题本并按六类错因归类；学情诊断把记录聚合成三层达标度、薄弱单元与可执行清单。</p>
+    <p class="desc">面向 ${esc(SITE.school)} ${esc(SITE.exam)}。内容按人教版 2024 新版章节组织，方法卡按「识别信号」编排；做错的题自动进错题本并按六类错因归类；学情诊断把记录聚合成三层达标度、薄弱单元与可执行清单。</p>
     <div class="grid c4" style="margin-top:16px">
       <div><b>${STATS.chapters}</b><br><span style="color:var(--text-2);font-size:.86rem">章节</span></div>
       <div><b>${STATS.methods}</b><br><span style="color:var(--text-2);font-size:.86rem">方法卡</span></div>
