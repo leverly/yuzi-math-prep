@@ -250,11 +250,6 @@ tbody tr:hover{background:var(--surface-2)}
 tbody tr:last-child td{border-bottom:none}
 tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none;background:var(--bg-3)}
 .cell-hi{color:var(--accent);font-weight:700}
-.diff-table th:first-child,.diff-table td:first-child{width:20%}
-.diff-k{font-weight:700;color:var(--text);white-space:nowrap}
-.diff-old{color:var(--text-3);font-size:13px}
-.diff-new{color:var(--text);font-size:13px}
-.diff-new b{color:var(--accent)}
 
 /* ---------- 标签 ---------- */
 .tag{display:inline-block;font-size:11.5px;font-weight:650;padding:2.5px 8px;border-radius:6px;line-height:1.55;white-space:nowrap}
@@ -556,20 +551,6 @@ ${section('满分从哪来', '三个判断，决定复习顺序', '这三个判�
       <a class="sell-link" href="papers.html">看逐年真题 →</a>
     </div>
   </div>
-</div>`)}
-
-${section('与「刷题」的区别', '同样是复习，依据不一样', '', `
-<div class="tbl-wrap">
-  <table class="diff-table">
-    <thead><tr><th></th><th style="width:36%">凭感觉复习</th><th style="width:44%">本站的做法</th></tr></thead>
-    <tbody>
-      <tr><td class="diff-k">优先级</td><td class="diff-old">哪个难就先攻哪个</td><td class="diff-new"><b>按分值 × 确定性排序</b>，计算排在压轴前</td></tr>
-      <tr><td class="diff-k">考点归纳</td><td class="diff-old">按题干 / 章节罗列</td><td class="diff-new"><b>按考法归族</b>，载体换了仍算同一族</td></tr>
-      <tr><td class="diff-k">频率判断</td><td class="diff-old">「感觉每年都考」</td><td class="diff-new"><b>${N_PAPERS} 套样本实算</b>，必考 5/5、高频 4/5、偶考 ≤3/5</td></tr>
-      <tr><td class="diff-k">难度口径</td><td class="diff-old">凭印象说「今年难」</td><td class="diff-new"><b>四级分值加权</b>，指数五年 ${DIFF_INDEX_MIN}–${DIFF_INDEX_MAX}</td></tr>
-      <tr><td class="diff-k">数字来源</td><td class="diff-old">手写、口口相传</td><td class="diff-new"><b>全部从 ${LEDGER.length} 题台账派生</b>，改数据页面自动跟着变</td></tr>
-    </tbody>
-  </table>
 </div>`)}
 
 ${section('分值分区', '100 分不是均匀分布的', '三块的目标不同，练法也不同', `
