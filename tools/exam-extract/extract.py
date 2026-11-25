@@ -49,41 +49,50 @@ def parts_to_text(parts):
 
 def split_options(parts):
     """把「A. xx B. yy C. zz D. ww」拆成 4 个选项。
-    片段序列可能是 text/img 交替，按 text 里的 A./B./C./D. 标记切。
-    返回 [{key, text, parts}]"""
+
+    坑：docx 里选项常被拆成多个 w:t 片段（'A' + '. ' + '三棱柱' + 'B. ' + ...），
+    逐片段找 [ABCD][.．] 会匹配不上（'A' 和 '. ' 分属两段）。
+    所以先把整段拼成一个字符串，再按标记切，最后按字符区间映射回原片段。
+    """
+    # 拼接：记录每个字符来自哪个片段
+    flat = []
+    for pi, p in enumerate(parts):
+        if p['t'] == 'text':
+            for ch in p['v']:
+                flat.append((ch, pi, False))
+        else:
+            # 公式占位，作为一个整体字符
+            flat.append(('⟨公式⟩', pi, True))
+    text = ''.join(c for c, _, _ in flat)
+
+    # 找所有 A./B./C./D. 标记位置
+    marks = [(m.start(), m.group(1)) for m in re.finditer(r'([ABCD])[.．]', text)]
+    if not marks:
+        return []
+
     out = []
-    cur_key = None
-    cur_parts = []
-    buf = []
-
-    def flush():
-        nonlocal cur_key, cur_parts, buf
-        if cur_key is not None:
-            txt = ''.join(p['v'] if p['t'] == 'text' else '⟨公式⟩' for p in cur_parts).strip()
-            txt = re.sub(r'^[ABCD][.．]\s*', '', txt)
-            out.append({'key': cur_key, 'text': cur_key + '. ' + txt, 'parts': cur_parts})
-        cur_parts = []
-        buf = []
-
-    for p in parts:
-        if p['t'] == 'img':
-            if cur_key is not None:
-                cur_parts.append(p)
-            continue
-        v = p['v']
-        # 在文本里找 A./B./C./D. 标记
-        pos = 0
-        for m in re.finditer(r'([ABCD])[.．]', v):
-            if cur_key is not None:
-                cur_parts.append({'t': 'text', 'v': v[pos:m.start()]})
-            flush()
-            cur_key = m.group(1)
-            pos = m.end()
-        if cur_key is not None:
-            tail = v[pos:]
-            if tail:
-                cur_parts.append({'t': 'text', 'v': tail})
-    flush()
+    for i, (start, key) in enumerate(marks):
+        end = marks[i + 1][0] if i + 1 < len(marks) else len(text)
+        seg = text[start:end]
+        body = re.sub(r'^[ABCD][.．]\s*', '', seg).strip()
+        # 还原成片段（保留公式图）
+        seg_parts = []
+        for ch, pi, is_img in flat[start:end]:
+            if is_img:
+                seg_parts.append(parts[pi])
+            else:
+                seg_parts.append({'t': 'text', 'v': ch})
+        # 合并相邻 text 片段
+        merged = []
+        for p in seg_parts:
+            if p['t'] == 'text' and merged and merged[-1]['t'] == 'text':
+                merged[-1]['v'] += p['v']
+            else:
+                merged.append(dict(p))
+        # 去掉开头的 A./B. 标记
+        if merged and merged[0]['t'] == 'text':
+            merged[0]['v'] = re.sub(r'^[ABCD][.．]\s*', '', merged[0]['v'])
+        out.append({'key': key, 'text': key + '. ' + body, 'parts': merged})
     return out
 
 
@@ -132,12 +141,26 @@ def build_questions(paras):
             continue
 
         cur['rawParas'].append(text)
+        # 情况①：整段以 A./B./C./D. 开头 → 整段是选项（可能含多个）
         if re.match(r'^\s*[ABCD][.．]', text):
-            # 一行里可能挤着 A/B/C/D 四个选项，要按标记拆开
             cur['options'].extend(split_options(parts))
-        else:
-            cur['stemParts'].append({'t': 'break'})
-            cur['stemParts'].extend(parts)
+            continue
+        # 情况②：题干段末尾夹带 A. 选项（如「…的是（ ）\nA. 三棱柱」同行）→ 拆开
+        am = re.search(r'(?<![A-Za-z])A[.．]', text)
+        if am and len(re.findall(r'[ABCD][.．]', text)) >= 2:
+            head = text[:am.start()].strip()
+            if head:
+                cur['stemParts'].append({'t': 'break'})
+                cur['stemParts'].append({'t': 'text', 'v': head})
+            tail_parts = [{'t': 'text', 'v': text[am.start():]}]
+            cur['options'].extend(split_options(tail_parts))
+            continue
+        # 情况③：正在收选项时，新段是选项续行（如单独的 D.）
+        if cur['options'] and re.match(r'^\s*[ABCD][.．]', text):
+            cur['options'].extend(split_options(parts))
+            continue
+        cur['stemParts'].append({'t': 'break'})
+        cur['stemParts'].extend(parts)
     if cur:
         qs.append(cur)
     return qs

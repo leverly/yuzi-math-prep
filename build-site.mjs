@@ -191,7 +191,7 @@ const MULTI_STEP_PCT = Math.round((MULTI_STEP_Q / QUESTIONS.length) * 100);
 /* 年年考的族：这些是「押不押」都躲不开的分，用年均分合计说明分量 */
 const ALWAYS_FAMILIES = FAMILY_MAP.filter((f) => f.freq === 'always');
 const ALWAYS_AVG_SCORE = Math.round(ALWAYS_FAMILIES.reduce((a, f) => a + f.avgPerYear, 0));
-/* 四份真题的逐题标注条数 */
+/* 五份真题的逐题标注条数 */
 const PAPER_Q_TOTAL = PAPERS.reduce((a, p) => a + (p.items || []).length, 0);
 
 /* 三级变式齐全的族数（首页「变式三级」那张卡用）。
@@ -381,7 +381,22 @@ function renderQuestion(q, R) {
       })),
     };
   }
-  o.stemHtml = C(R.math.render(q.stem || ''));
+  /* 真题题干：stemParts 里文本/公式图交替，公式图是 MathType 导出的 PNG。
+     不能整体走 MathJax（会吃掉 img 标签），要逐片段处理。 */
+  if (q.stemParts && q.stemParts.length) {
+    const base = q.__imgBase || '';
+    o.stemHtml = q.stemParts.map((p) => {
+      if (p.t === 'text') return C(R.math.render(p.v));
+      if (p.t === 'break') return '<br>';
+      if (p.t === 'img' && p.src) {
+        const name = p.src.split('/').pop();
+        return '<img class="q-f" src="' + base + name + '" alt="公式" loading="lazy">';
+      }
+      return '';
+    }).join('');
+  } else {
+    o.stemHtml = C(R.math.render(q.stem || ''));
+  }
   if (q.solution) o.solutionHtml = C(R.math.render(q.solution));
 
   /* ---------- 四类题型：渲染层按 qtype 决定形态 ----------
@@ -1046,7 +1061,7 @@ function buildToday() {
   var BAND_NAME = { P0:'熟练层零失误', P1:'年年考中档', P2:'其余中档', P3:'压轴入场分', P4:'少见族' };
   var BAND_NOTE = {
     P0: '必做段丢分补不回来，这一档先做到不错',
-    P1: '4 年都考、年均 ≥5 分，路径确定',
+    P1: '年年考、年均 ≥5 分，路径确定',
     P2: '值得练，但不构成满分瓶颈',
     P3: '只求入场分——压轴是整题给分，没有「答一半」',
     P4: '时间充裕才碰',
@@ -1110,7 +1125,7 @@ function buildToday() {
           var rateTxt = it.tested ? Math.round(it.rate*100) + '%' : '—';
           var meta = [
             it.avgPerYear + ' 分/年',
-            it.hitYears + '/4 年',
+            it.hitYears + '/' + PAPERS.length + ' 年',
             it.qCount + ' 题',
             STATE_NAME[it.state] || it.state
           ].join(' · ');
@@ -1554,7 +1569,7 @@ function buildDrill() {
     /* 第一行：练什么 */
     what.innerHTML = '<b>' + escH(f.name) + '</b>' +
       '<span class="why-tag">' + (FAM_TARGET_LABEL[tier] || tier) + '</span>' +
-      '<span class="why-tag ghost">' + (f.hitYears || 0) + '/4 年考 · 年均 ' +
+      '<span class="why-tag ghost">' + (f.hitYears || 0) + '/' + PAPERS.length + ' 年考 · 年均 ' +
       (Math.round((f.avgPerYear || 0) * 10) / 10) + ' 分</span>';
 
     /* 第二行：为什么是它 */
@@ -2629,11 +2644,11 @@ function buildExamVerify() {
   const html = page({
     active: 'exam-verify.html',
     title: '真题核验',
-    desc: '四套西城期末真题的抽取结果与原卷对照，用于人工抽查一致性。',
+    desc: TAGS.length + ' 套西城期末真题的抽取结果与原卷对照，用于人工抽查一致性。',
     body: '<div class="page-head">' +
       '<div class="crumb"><a href="index.html">首页</a> / 真题核验</div>' +
       '<h1>真题核验</h1>' +
-      '<p class="lede">四套卷共 <b>' + TAGS.reduce((a, t) => a + EXAM_FULL[t].qcount, 0) + ' 道题</b>已抽取进内容库。' +
+      '<p class="lede">' + TAGS.length + ' 套卷共 <b>' + TAGS.reduce((a, t) => a + EXAM_FULL[t].qcount, 0) + ' 道题</b>已抽取进内容库。' +
       '这一页用来抽查：<b>抽出来的题和原卷是否一致</b>。公式是 MathType 嵌入对象（无法转文本），所以保留为图片——请重点核对公式位置与内容。</p>' +
       '</div>' + body,
     script: '',
@@ -3414,11 +3429,11 @@ ${KNOW_TIERS.map(tierSection).join('')}
   </div></div>
   <div class="card">
     <ul class="bound-list">
-      <li><b>「这一族考的是」是推断，不是数据。</b>它来自该族四年真题的给分结构与教材知识，
-        不能像「年均 4.8 分」那样从逐题标注里算出来。每块都标了徽章，两者不要混读。</li>
+      <li><b>「这一族考的是」是推断，不是数据。</b>它来自该族 ${PAPERS.length} 年真题的给分结构与教材知识，
+        不能像年均分那样从逐题标注里算出来。每块都标了徽章，两者不要混读。</li>
       <li><b>速览档 ${KNOW_STATS.byTier.scan.families} 族不写正文。</b>合计 ${fmt(KNOW_STATS.byTier.scan.avg)} 分/年，
-        其中 f-read、f-inverse、f-geomodel、f-pos 只出现过 1 年——按投入产出它们不构成满分瓶颈，
-        但「见过」仍然必要，所以保留识别信号与陷阱。</li>
+        其中 f-read、f-inverse、f-geomodel、f-pos 只出现过 1–2 年——按投入产出它们不构成满分瓶颈，
+        但「见过」仍然必要，所以保留识别信号与陷阱。f-read 在 2025-26 进必做位后已升到 2/5，需要单独看。</li>
       <li><b>不宣称押题。</b>讲解依据是 ${PAPERS.length} 份西城<b>区统考</b>卷的考法分布；
         本校自命题（有加试传统）可能更难，本页结论只对区统考口径成立。</li>
     </ul>
@@ -4482,7 +4497,7 @@ function buildLearn() {
   /* 知识点按「章 + 考点」记录（43 条）。有 1 个考点跨两章，
      必须各归各章，否则会有一章漏项。
      排序：先按出现年数、再按分值——只按分值会把「14 分/2 年」
-     排在「12 分/4 年」前面，与「先练年年考的」相反。 */
+     排在「12 分/5 年」前面，与「先练年年考的」相反。 */
   const topicGroups = CHAPTERS.map((ch) => ({
     ch,
     items: Object.entries(TOPIC_MAP)
