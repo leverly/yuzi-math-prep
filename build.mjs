@@ -592,21 +592,6 @@ ${section('必考清单', `五年年年考的 ${FREQ.must.length} 个考点族`,
     </div>`).join('')}
 </div>
 <p style="margin-top:16px"><a href="trend.html#families" style="color:var(--accent);font-weight:650;text-decoration:none;font-size:13.5px">查看全部 ${FAMILY_MAP.length} 个考点年均分值 →</a></p>`)}
-
-${section('一个必须说明的前提', '原始材料里有两份是同一套卷', '', `
-<div class="card">
-  <div class="note risk" style="margin-bottom:14px">
-    <b>如果不查出来，后面的数字全部不可信。</b>
-    <code style="font-family:var(--mono);font-size:12.5px">2022-2023年…期末数学试卷.pdf</code> 与
-    <code style="font-family:var(--mono);font-size:12.5px">2023-2024…（教师版）.pdf</code>
-    逐题比对后，<b>17/26 题完全重合</b>——它们是同一套 2022-23 卷的两种抽取版本（一份公式抽成图片、一份抽成文本）。
-    真正的 2023-24 卷只存在于 <code style="font-family:var(--mono);font-size:12.5px">…（教师版）.docx</code> 里。
-  </div>
-  <p style="font-size:13.8px;color:var(--text-2);line-height:1.75">
-    如果把这套重复卷当成两年，会得出「某考点五年考了五次」的假结论，从而把不该重点练的东西排到最前面。
-    <b style="color:var(--text)">本站所有统计都建立在五套真实不同的卷子上。</b>
-  </p>
-</div>`)}
 `;
   return page('index.html', SITE.name, '西城区初一上数学期末五年真题考情分析与满分备考建议', body);
 }
