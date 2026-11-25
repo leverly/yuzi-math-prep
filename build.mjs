@@ -340,19 +340,6 @@ ul.clean li b{color:var(--text);font-weight:650}
 .pri p{font-size:13.3px;color:var(--text-2);line-height:1.72}
 .pri p b{color:var(--text);font-weight:650}
 
-/* ---------- 阶段表 ---------- */
-.phase{display:grid;grid-template-columns:104px 1fr;border:1px solid var(--border);background:var(--surface);overflow:hidden}
-.phase:first-of-type{border-radius:var(--r) var(--r) 0 0}
-.phase:last-of-type{border-radius:0 0 var(--r) var(--r)}
-.phase+.phase{border-top:none}
-.phase-w{
-  background:var(--bg-3);padding:16px 13px;font-size:12.2px;font-weight:700;color:var(--accent);
-  border-right:1px solid var(--border);display:flex;align-items:center;white-space:nowrap;
-}
-.phase-b{padding:16px 18px}
-.phase-b h4{font-size:14px;font-weight:700;margin-bottom:5px}
-.phase-b p{font-size:13.2px;color:var(--text-2);line-height:1.65}
-.phase-ok{font-size:12.2px;color:var(--ok);margin-top:8px;font-weight:650}
 
 /* ---------- 页脚 ---------- */
 footer{margin-top:60px;padding:30px 0 40px;border-top:1px solid var(--border);font-size:12.5px;color:var(--text-3)}
@@ -380,8 +367,6 @@ footer b{color:var(--text-2)}
   .dist-row{grid-template-columns:92px 1fr 74px;gap:9px}
   table{font-size:12.4px}
   th,td{padding:8px 9px}
-  .phase{grid-template-columns:1fr}
-  .phase-w{border-right:none;border-bottom:1px solid var(--border)}
   .pri{padding:16px 18px}
 }
 `;
@@ -507,7 +492,7 @@ function buildHome() {
         </a>
         <a class="mission-item" href="plan.html">
           <span class="mi-ico gold">🎯</span>
-          <span class="mi-main"><b>冲刺计划</b><small>五级优先级 + 六周节奏</small></span>
+          <span class="mi-main"><b>冲刺计划</b><small>五级优先级，先练什么后练什么</small></span>
           <span class="mi-go">去看 →</span>
         </a>
       </div>
@@ -794,18 +779,9 @@ function buildPlan() {
     },
   ];
 
-  const phases = [
-    { w: '第 1–2 周', t: '计算固化', b: '每天 1 组第 17 题（4 小问）+ 1 组解方程 + 1 道化简求值，限时完成。', ok: '达标：连续 5 天全对，且不再超时' },
-    { w: '第 2–3 周', t: '概念清单', b: '把五套卷所有选择题的错误选项归类，做成「陷阱清单」，每类写出识别方法。', ok: '达标：能说出每类陷阱怎么识别' },
-    { w: '第 3–4 周', t: '几何格式', b: '作图题专练「画 + 写依据」；角度推理专练补全过程与理由用词。', ok: '达标：依据写全、理由用词准确' },
-    { w: '第 4–5 周', t: '分类压轴', b: '五套卷第 23 题逐题重做，重点练「分几种情况、为什么是这几种」。', ok: '达标：每道题能说清分类为什么完备、不漏' },
-    { w: '第 5–6 周', t: '整卷实战', b: '五套真题限时整卷，按真实考试节奏走一遍，主要是熟悉节奏。', ok: '达标：基础段没有非受迫性失误' },
-    { w: '考前 3 天', t: '只回看', b: '只过错题与陷阱清单，不做新题。', ok: '达标：错题清单上的题都能说出错在哪' },
-  ];
-
   const body = `
 <section class="hero" style="padding:44px 0 8px">
-  <div class="hero-badge"><span class="dot-live"></span>五级优先级 · 六周节奏</div>
+  <div class="hero-badge"><span class="dot-live"></span>五级优先级</div>
   <h1>冲刺计划</h1>
   <p class="lede">按「先练什么、后练什么」排顺序。顺序不是凭感觉定的——它由五年真题的考法分布决定。</p>
 </section>
@@ -844,16 +820,6 @@ ${section('优先级', '五级优先，按「能不能练稳」排序', '顺序�
   </div>`).join('')}
 </div>`, 'priority')}
 
-${section('节奏', '六周冲刺节奏（可按实际剩余时间压缩）', '每个阶段带达标判据，不达标不进入下一阶段',
-    phases.map((p) => `<div class="phase">
-      <div class="phase-w">${p.w}</div>
-      <div class="phase-b">
-        <h4>${p.t}</h4>
-        <p>${p.b}</p>
-        <div class="phase-ok">${p.ok}</div>
-      </div>
-    </div>`).join(''), 'rhythm')}
-
 ${section('提醒', '三条反直觉的建议', '', `
 <div class="card">
   <ul class="clean">
@@ -881,7 +847,7 @@ ${section('自检', '一份可以打印的考前清单', '按题位检查，不�
   </tbody>
 </table></div>`, 'checklist')}
 `;
-  return page('plan.html', '冲刺计划 · ' + SITE.short, '西城区初一上数学期末冲刺计划：五级优先级与六周节奏', body);
+  return page('plan.html', '冲刺计划 · ' + SITE.short, '西城区初一上数学期末冲刺计划：五级优先级', body);
 }
 
 /* ============================ 输出 ============================ */
