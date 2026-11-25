@@ -66,6 +66,66 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "5"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "﹣"
+    },
+    {
+     "t": "text",
+     "v": "5"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId7",
+     "src": "media/image3.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId9",
+     "src": "media/image4.png"
+    }
+   ]
+  ],
   "key": 0,
   "answer": "5",
   "officialKey": "A"
@@ -120,6 +180,64 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩",
    "⟨公式⟩"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId11",
+     "src": "media/image5.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId13",
+     "src": "media/image6.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId15",
+     "src": "media/image7.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId17",
+     "src": "media/image8.png"
+    }
+   ]
   ],
   "key": 1,
   "answer": "⟨公式⟩",
@@ -180,6 +298,64 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId20",
+     "src": "media/image10.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId22",
+     "src": "media/image11.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId24",
+     "src": "media/image12.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId26",
+     "src": "media/image13.png"
+    }
+   ]
+  ],
   "key": 3,
   "answer": "⟨公式⟩",
   "officialKey": "D"
@@ -219,6 +395,60 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩",
    "⟨公式⟩"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId28",
+     "src": "media/image14.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId30",
+     "src": "media/image15.png"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId32",
+     "src": "media/image16.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId34",
+     "src": "media/image17.png"
+    }
+   ]
   ],
   "key": 1,
   "answer": "⟨公式⟩",
@@ -304,6 +534,60 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId43",
+     "src": "media/image21.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId45",
+     "src": "media/image22.png"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId47",
+     "src": "media/image23.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId49",
+     "src": "media/image24.png"
+    }
+   ]
+  ],
   "key": 0,
   "answer": "⟨公式⟩",
   "officialKey": "A"
@@ -350,6 +634,64 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩",
    "⟨公式⟩"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId52",
+     "src": "media/image26.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId54",
+     "src": "media/image27.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId56",
+     "src": "media/image28.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId58",
+     "src": "media/image29.png"
+    }
+   ]
   ],
   "key": 3,
   "answer": "⟨公式⟩",
@@ -400,6 +742,112 @@ export const EXAM_BANK = [
    "方程⟨公式⟩，系数化为1得⟨公式⟩",
    "方程⟨公式⟩，去括号得⟨公式⟩",
    "方程⟨公式⟩，去分母得⟨公式⟩"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "方程"
+    },
+    {
+     "t": "img",
+     "rid": "rId60",
+     "src": "media/image30.png"
+    },
+    {
+     "t": "text",
+     "v": "，移项得"
+    },
+    {
+     "t": "img",
+     "rid": "rId62",
+     "src": "media/image31.png"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "方程"
+    },
+    {
+     "t": "img",
+     "rid": "rId64",
+     "src": "media/image32.png"
+    },
+    {
+     "t": "text",
+     "v": "，系数化为"
+    },
+    {
+     "t": "text",
+     "v": "1"
+    },
+    {
+     "t": "text",
+     "v": "得"
+    },
+    {
+     "t": "img",
+     "rid": "rId66",
+     "src": "media/image33.png"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "方程"
+    },
+    {
+     "t": "img",
+     "rid": "rId68",
+     "src": "media/image34.png"
+    },
+    {
+     "t": "text",
+     "v": "，去括号得"
+    },
+    {
+     "t": "img",
+     "rid": "rId70",
+     "src": "media/image35.png"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "方程"
+    },
+    {
+     "t": "img",
+     "rid": "rId72",
+     "src": "media/image36.png"
+    },
+    {
+     "t": "text",
+     "v": "，去分母得"
+    },
+    {
+     "t": "img",
+     "rid": "rId74",
+     "src": "media/image37.png"
+    }
+   ]
   ],
   "key": 2,
   "answer": "方程⟨公式⟩，去括号得⟨公式⟩",
@@ -480,6 +928,44 @@ export const EXAM_BANK = [
    "",
    ""
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    }
+   ]
+  ],
   "key": 3,
   "answer": "",
   "officialKey": "D"
@@ -530,6 +1016,7 @@ export const EXAM_BANK = [
    "9. ⟨公式⟩＝___°．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "38.5"
@@ -587,6 +1074,7 @@ export const EXAM_BANK = [
    "10. 用四舍五入法把3.786精确到0.01，所得到的近似数为___．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "3.79"
@@ -670,6 +1158,7 @@ export const EXAM_BANK = [
    "11. 如果单项式⟨公式⟩与⟨公式⟩是同类项，那么a＝___，b＝___．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "①. 3    ②. 4"
@@ -729,6 +1218,7 @@ export const EXAM_BANK = [
    "12. 若⟨公式⟩，则⟨公式⟩的值为___．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "0"
@@ -804,6 +1294,7 @@ export const EXAM_BANK = [
    "13. 若⟨公式⟩是关于x的方程⟨公式⟩的解，则a＝___．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "-2"
@@ -897,6 +1388,7 @@ export const EXAM_BANK = [
    "14. 有理数a，b在数轴上的对应点的位置如图所示，有以下结论：①⟨公式⟩；②⟨公式⟩：③⟨公式⟩；④⟨公式⟩其中所有正确的结论是___（只填写序号）．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "①④"
@@ -996,6 +1488,7 @@ export const EXAM_BANK = [
    "15. 线段⟨公式⟩，C为线段AB的中点，点D在直线AB上，若⟨公式⟩，则CD＝___．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "6或12##12或6"
@@ -1231,6 +1724,7 @@ export const EXAM_BANK = [
    "三、解答题（共68分，第17题18分，第⟨公式⟩题，每题6分，第20题11分，第21题7分，第22题8分，第⟨公式⟩题，每题6分）"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -1344,6 +1838,7 @@ export const EXAM_BANK = [
    "（4）⟨公式⟩"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）；（2）；（3）；（4）"
@@ -1408,6 +1903,7 @@ export const EXAM_BANK = [
    "18. 先化简，再求值： ⟨公式⟩其中⟨公式⟩，⟨公式⟩．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "，"
@@ -1661,6 +2157,7 @@ export const EXAM_BANK = [
    "（4）直接写出∠AOB的度数．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -1744,6 +2241,7 @@ export const EXAM_BANK = [
    "（2）⟨公式⟩"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）；（2）"
@@ -2098,6 +2596,7 @@ export const EXAM_BANK = [
    "（2）用等式表示∠AOD与∠BOC的数量关系．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）；同角的余角相等；；角平分线的定义；，；（2）"
@@ -2259,6 +2758,7 @@ export const EXAM_BANK = [
    "（2）同学们打算用A，B两种不同的编结方式来制作这一批中国结，已知每个A型中国结需用红绳0.6米，每个B型中国结需用红绳0.9米，现有50米红绳，制作这批中国结能恰好用完这50米红绳吗？请说明你的理由．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）这个手工兴趣小组共有7人，计划要做的这批中国结有80个；"
@@ -2525,6 +3025,7 @@ export const EXAM_BANK = [
    "（3）若数轴上的点Q满足⟨公式⟩，求点Q表示的数．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）M为1，C为3；图见解析；（2）图见解析，是长为10的线段CD；（3）Q表示"
@@ -3194,6 +3695,7 @@ export const EXAM_BANK = [
    "（3）利用以上信息说明：当M（⟨公式⟩）是19的倍数时，⟨公式⟩也是19的倍数．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）532是19的倍数，过程见解析；"
@@ -3365,6 +3867,7 @@ export const EXAM_BANK = [
    "（3）如图4，已知⟨公式⟩，画∠MON的角平分线OP．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）见解析；（2）见解析；（3）见解析"
@@ -3878,6 +4381,7 @@ export const EXAM_BANK = [
    "（3）点Q在数轴上运动（点Q不与A，B两点重合），作点A关于点Q的“3星点”，记为⟨公式⟩，作点B关于点Q的“3星点”，记为⟨公式⟩．当点Q运动时，⟨公式⟩是否存在最小值？若存在，求出最小值及相应点Q的位置；若不存在，请说明理由．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1），；"
@@ -3887,7 +4391,7 @@ export const EXAM_BANK = [
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 1,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-rational",
   "cat": "概念",
   "score": 2,
@@ -3926,6 +4430,64 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId10",
+     "src": "media/image5.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId12",
+     "src": "media/image6.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId8",
+     "src": "media/image4.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId15",
+     "src": "media/image7.png"
+    }
+   ]
+  ],
   "key": null,
   "answer": null,
   "officialKey": null
@@ -3935,7 +4497,7 @@ export const EXAM_BANK = [
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 2,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-op",
   "cat": "概念",
   "score": 2,
@@ -3989,6 +4551,64 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId17",
+     "src": "media/image8.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId19",
+     "src": "media/image9.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId21",
+     "src": "media/image10.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId23",
+     "src": "media/image11.png"
+    }
+   ]
+  ],
   "key": null,
   "answer": null,
   "officialKey": null
@@ -3998,7 +4618,7 @@ export const EXAM_BANK = [
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 3,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-geo",
   "cat": "空间",
   "score": 2,
@@ -4036,6 +4656,60 @@ export const EXAM_BANK = [
    "五棱锥",
    "六棱柱"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "五棱柱"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "长方体"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "五棱锥"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "六棱柱"
+    }
+   ]
+  ],
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4045,7 +4719,7 @@ export const EXAM_BANK = [
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 4,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-rational",
   "cat": "概念",
   "score": 2,
@@ -4092,6 +4766,64 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId29",
+     "src": "media/image15.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId31",
+     "src": "media/image16.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId33",
+     "src": "media/image17.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId35",
+     "src": "media/image18.png"
+    }
+   ]
+  ],
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4101,7 +4833,7 @@ export const EXAM_BANK = [
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 5,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-poly",
   "cat": "计算",
   "score": 2,
@@ -4140,6 +4872,60 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId37",
+     "src": "media/image19.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId39",
+     "src": "media/image20.png"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId41",
+     "src": "media/image21.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId43",
+     "src": "media/image22.png"
+    }
+   ]
+  ],
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4149,7 +4935,7 @@ export const EXAM_BANK = [
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 6,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-eq",
   "cat": "建模",
   "score": 2,
@@ -4196,6 +4982,64 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId45",
+     "src": "media/image23.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId48",
+     "src": "media/image24.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId50",
+     "src": "media/image25.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId52",
+     "src": "media/image26.png"
+    }
+   ]
+  ],
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4205,7 +5049,7 @@ export const EXAM_BANK = [
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 7,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-expr",
   "cat": "计算",
   "score": 2,
@@ -4261,6 +5105,62 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "14"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "2"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId58",
+     "src": "media/image29.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId60",
+     "src": "media/image30.png"
+    }
+   ]
+  ],
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4270,7 +5170,7 @@ export const EXAM_BANK = [
   "paperId": "p2022",
   "year": "2022—2023",
   "no": 8,
-  "qtype": "big",
+  "qtype": "single",
   "chapter": "ch-expr",
   "cat": "推理",
   "score": 2,
@@ -4375,6 +5275,76 @@ export const EXAM_BANK = [
    "50枚",
    "47枚"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "57"
+    },
+    {
+     "t": "text",
+     "v": "枚"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "52"
+    },
+    {
+     "t": "text",
+     "v": "枚"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "50"
+    },
+    {
+     "t": "text",
+     "v": "枚"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "47"
+    },
+    {
+     "t": "text",
+     "v": "枚"
+    }
+   ]
+  ],
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4432,6 +5402,7 @@ export const EXAM_BANK = [
    "9. 用四舍五入法把4.0692精确到0.01，所得到的近似数为______．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4482,6 +5453,7 @@ export const EXAM_BANK = [
    "10. 计算：⟨公式⟩______°．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4541,6 +5513,7 @@ export const EXAM_BANK = [
    "11. 若⟨公式⟩，则⟨公式⟩的值为______．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4606,6 +5579,7 @@ export const EXAM_BANK = [
    "12. 写出一个同时满足以下两个条件的单项式：①系数是负数；②次数是5．这个单项式可以是：______．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4728,6 +5702,7 @@ export const EXAM_BANK = [
    "13. 如图，⟨公式⟩是线段⟨公式⟩的中点，点⟨公式⟩在线段⟨公式⟩上，⟨公式⟩是线段⟨公式⟩的中点．若⟨公式⟩，⟨公式⟩，则⟨公式⟩的长为______．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4805,6 +5780,7 @@ export const EXAM_BANK = [
    "14. 若⟨公式⟩是关于⟨公式⟩的方程⟨公式⟩的解，则⟨公式⟩的值为______．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -4872,6 +5848,7 @@ export const EXAM_BANK = [
    "15. 某商品原价是每件⟨公式⟩元，第一次降价打“九折”，第二次降价每件又减50元，则第二次降价后的售价为每件______元．（用含⟨公式⟩的式子表示）"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -5066,6 +6043,7 @@ export const EXAM_BANK = [
    "16. 在图所示的图案中，每个小三角形的边长都为1，把由四个小三角形组成的边长为2的大三角形称为一个“单元”．现将1，2，3，4，5，6，7，8，9，10这十个数分别填入图中的十个小三角形中，使得对于图中的四个“单元”，每个“单元”中的四个数之和都是23．若2，4，5，a已填入图中，位置如图所示，则⟨公式⟩表示的数是______；请按上述要求，将剩余的数填入图中（填出一种即可）．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -5167,6 +6145,7 @@ export const EXAM_BANK = [
    "（4）⟨公式⟩．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -5450,6 +6429,7 @@ export const EXAM_BANK = [
    "⟨公式⟩⟨公式⟩______⟨公式⟩．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -5510,6 +6490,7 @@ export const EXAM_BANK = [
    "19. 先化简，再求值：⟨公式⟩，其中⟨公式⟩，⟨公式⟩．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -5577,6 +6558,7 @@ export const EXAM_BANK = [
    "（2）⟨公式⟩．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -5966,6 +6948,7 @@ export const EXAM_BANK = [
    "（2）当⟨公式⟩时，射线______平分⟨公式⟩______．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -6345,6 +7328,7 @@ export const EXAM_BANK = [
    "答："
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -6597,6 +7581,7 @@ export const EXAM_BANK = [
    "（2）若⟨公式⟩，求⟨公式⟩的度数（用含n的式子表示）．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -7073,6 +8058,7 @@ export const EXAM_BANK = [
    "（3）点E从点B出发，以每秒3个单位长度的速度沿数轴正方向运动．当点E运动t秒时，在A，B，E三个点中，恰有一个点是另一个点关于第三个点的“⟨公式⟩倍分点”，直接写出t的值．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -7375,6 +8361,7 @@ export const EXAM_BANK = [
    "⟨公式⟩小东发现交换律在有理数的“乘减法”中仍然成立，即⟨公式⟩．但是结合律在有理数的“乘减法”中不一定成立，请你举一个例子说明⟨公式⟩不成立．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -7663,6 +8650,7 @@ export const EXAM_BANK = [
    "⟨公式⟩用含⟨公式⟩的式子表示⟨公式⟩，并直接写出结果．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -7709,6 +8697,48 @@ export const EXAM_BANK = [
    "",
    "",
    ""
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "3"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    }
+   ]
   ],
   "key": 0,
   "answer": "3",
@@ -7805,6 +8835,44 @@ export const EXAM_BANK = [
    "",
    ""
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    }
+   ]
+  ],
   "key": 1,
   "answer": "",
   "officialKey": "B"
@@ -7855,6 +8923,7 @@ export const EXAM_BANK = [
    "A. 三棱柱B. 圆柱C. 四棱柱D. 圆锥"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "A"
@@ -7902,6 +8971,48 @@ export const EXAM_BANK = [
    "",
    "",
    ""
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": " "
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    }
+   ]
   ],
   "key": 2,
   "answer": "",
@@ -7958,6 +9069,44 @@ export const EXAM_BANK = [
    "",
    ""
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    }
+   ]
+  ],
   "key": 1,
   "answer": "",
   "officialKey": "B"
@@ -8013,6 +9162,44 @@ export const EXAM_BANK = [
    "",
    ""
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    }
+   ]
+  ],
   "key": 3,
   "answer": "",
   "officialKey": "D"
@@ -8058,6 +9245,7 @@ export const EXAM_BANK = [
    "D. 方程，去分母得"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "C"
@@ -8201,6 +9389,76 @@ export const EXAM_BANK = [
    "C处",
    "D处"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "A"
+    },
+    {
+     "t": "text",
+     "v": "处"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "B"
+    },
+    {
+     "t": "text",
+     "v": "处"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "C"
+    },
+    {
+     "t": "text",
+     "v": "处"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "D"
+    },
+    {
+     "t": "text",
+     "v": "处"
+    }
+   ]
+  ],
   "key": 2,
   "answer": "C处",
   "officialKey": "C"
@@ -8262,6 +9520,7 @@ export const EXAM_BANK = [
    "9. 如果向东走5米记作米，那么向西走10米可记作________米．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -8299,6 +9558,7 @@ export const EXAM_BANK = [
    "10. 比较大小：__________"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "&gt;"
@@ -8340,6 +9600,7 @@ export const EXAM_BANK = [
    "11. 如图所示的网格是正方形网格，则________（填“＞”“＜”“＝”）．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "＞"
@@ -8417,6 +9678,7 @@ export const EXAM_BANK = [
    "12. 如果单项式与单项式的和仍是单项式，那么m的值是________，n的值是________．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "①. 2    ②. 3"
@@ -8482,6 +9744,7 @@ export const EXAM_BANK = [
    "13. 若是关于x的方程的解，则a的值为________．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -8539,6 +9802,7 @@ export const EXAM_BANK = [
    "14. 若代数式的值为2，则代数式的值为________．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "9"
@@ -8628,6 +9892,7 @@ export const EXAM_BANK = [
    "15. 我国古代《算法统宗》里有这样一首诗：“我问开店李三公，众客都来到店中，一房七客多七客，一房九客一房空．”诗中后面两句的意思是：如果每一间客房住 7人，那么有7人无房可住；如果每一间客房住9人，那么就空出一间客房．设有x间客房，可列方程为：_____．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -8765,6 +10030,7 @@ export const EXAM_BANK = [
    "16. “幻方”最早记载于春秋时期的《大戴礼》中，现将1，2，3，4，5，7，8，9这八个数字填入如图1所示的“幻方”中，使得每个三角形的三个顶点上的数字之和都与中间正方形四个顶点上的数字之和相等．若按同样的要求重新填数如图2所示，则的值是________，的值是________．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "①. －3    ②. 3"
@@ -8866,6 +10132,7 @@ export const EXAM_BANK = [
    "（4）．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）"
@@ -8915,6 +10182,7 @@ export const EXAM_BANK = [
    "18. 先化简，再求值：，其中，．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "，"
@@ -9120,6 +10388,7 @@ export const EXAM_BANK = [
    "（3）连接，则        （填“＞”“＜”“＝”）成立的理由是        ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）点A在直线l上"
@@ -9193,6 +10462,7 @@ export const EXAM_BANK = [
    "（2）．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）；"
@@ -9446,6 +10716,7 @@ export const EXAM_BANK = [
    "（2）若在内部，则的度数是        ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）①见解析②角平分线的定义，"
@@ -9567,6 +10838,7 @@ export const EXAM_BANK = [
    "（2）该外贸公司请甲、乙两个工厂一起生产这批纪念品．在纪念品生产过程中，该外贸公司每天支付给甲工厂的费用是11000元，每天支付给乙工厂的费用是16000元，且每天的其它支出费用是1000元．求该外贸公司为这批纪念品的生产所支出的费用总和．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）3600件"
@@ -9856,6 +11128,7 @@ export const EXAM_BANK = [
    "（2）当点C在线段AB的延长线上时，若CN∶BN＝1∶2，AC＝a，BC＝b，直接写出线段MN的长（用含a，b的式子表示）．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）12    （2）或"
@@ -10265,6 +11538,7 @@ export const EXAM_BANK = [
    "（2）已知在线段上存在一变速点K（不与点A，B重合），点K表示的数为k．点F从点A出发以每秒1个单位长度的速度沿数轴正方向运动，同时点G从点B出发以每秒1个单位长度的速度沿数轴负方向运动，若它们在点H处相遇，且点H表示的数为7，求k的值．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）①9②18"
@@ -10506,6 +11780,7 @@ export const EXAM_BANK = [
    "（2）的值是        ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1） ；"
@@ -10755,6 +12030,7 @@ export const EXAM_BANK = [
    "第1－8题均有四个选项，符合题意的选项只有一个．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1） 或"
@@ -10798,6 +12074,63 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩",
    "⟨公式⟩"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "7"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId10",
+     "src": "media/image5.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId12",
+     "src": "media/image6.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId8",
+     "src": "media/image4.png"
+    }
+   ]
   ],
   "key": 0,
   "answer": "7",
@@ -10869,6 +12202,64 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩",
    "⟨公式⟩"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId15",
+     "src": "media/image7.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId17",
+     "src": "media/image8.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId19",
+     "src": "media/image9.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId21",
+     "src": "media/image10.png"
+    }
+   ]
   ],
   "key": 2,
   "answer": "⟨公式⟩",
@@ -10989,6 +12380,64 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId37",
+     "src": "media/image17.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId39",
+     "src": "media/image18.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId41",
+     "src": "media/image19.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId43",
+     "src": "media/image20.png"
+    }
+   ]
+  ],
   "key": 0,
   "answer": "⟨公式⟩",
   "officialKey": "A"
@@ -11037,6 +12486,40 @@ export const EXAM_BANK = [
    "",
    ""
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    }
+   ]
+  ],
   "key": 2,
   "answer": "",
   "officialKey": "C"
@@ -11084,6 +12567,60 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩",
    "⟨公式⟩"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId49",
+     "src": "media/image25.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId51",
+     "src": "media/image26.png"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId53",
+     "src": "media/image27.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId55",
+     "src": "media/image28.png"
+    }
+   ]
   ],
   "key": 2,
   "answer": "⟨公式⟩",
@@ -11141,6 +12678,64 @@ export const EXAM_BANK = [
    "⟨公式⟩",
    "⟨公式⟩"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId59",
+     "src": "media/image30.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId61",
+     "src": "media/image31.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId63",
+     "src": "media/image32.png"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "img",
+     "rid": "rId65",
+     "src": "media/image33.png"
+    }
+   ]
+  ],
   "key": 3,
   "answer": "⟨公式⟩",
   "officialKey": "D"
@@ -11188,6 +12783,60 @@ export const EXAM_BANK = [
    "50米短跑测试，跑步的平均速度与时间",
    "圆柱的底面积一定，圆柱的体积与高",
    "长方形的周长一定，长方形相邻两边的长"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "每天阅读半小时，阅读的总时长与天数"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "50"
+    },
+    {
+     "t": "text",
+     "v": "米短跑测试，跑步的平均速度与时间"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "圆柱的底面积一定，圆柱的体积与高"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "长方形的周长一定，长方形相邻两边的长"
+    }
+   ]
   ],
   "key": 1,
   "answer": "50米短跑测试，跑步的平均速度与时间",
@@ -11331,6 +12980,60 @@ export const EXAM_BANK = [
    "①③",
    "③④"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "①②"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "③"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "①③"
+    },
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": " "
+    },
+    {
+     "t": "text",
+     "v": "③④"
+    }
+   ]
+  ],
   "key": 1,
   "answer": "③",
   "officialKey": "B"
@@ -11468,6 +13171,7 @@ export const EXAM_BANK = [
    "⟨公式⟩"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "3"
@@ -11541,6 +13245,7 @@ export const EXAM_BANK = [
    "10. 如图，已知点P与直线l，用适当的语句表述图中点P与直线l的关系：________．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "点P在直线l外"
@@ -11590,6 +13295,7 @@ export const EXAM_BANK = [
    "11. 写出一个次数是4的单项式，这个单项式可以是________（写出一个即可）．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（答案不唯一）"
@@ -11665,6 +13371,7 @@ export const EXAM_BANK = [
    "12. 若⟨公式⟩是关于x的方程⟨公式⟩的解，则k的值为________．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "6"
@@ -11742,6 +13449,7 @@ export const EXAM_BANK = [
    "13. 如图，⟨公式⟩，⟨公式⟩，⟨公式⟩，则⟨公式⟩的度数为________°"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "76"
@@ -11799,6 +13507,7 @@ export const EXAM_BANK = [
    "14. 如图，边长相等的小正方形组成一组有规律的图案，其中部分小正方形涂有阴影．按照这样的规律，第n个图案中涂有阴影的小正方形的个数为________（用含n的式子表示）．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -11885,6 +13594,7 @@ export const EXAM_BANK = [
    "15. 在一次劳动课上，有⟨公式⟩名同学在甲处劳动，有⟨公式⟩名同学在乙处劳动．现在另调⟨公式⟩人也去这两处劳动，使得在甲处劳动的人数是在乙处劳动的人数的⟨公式⟩倍，应调往甲处多少人？如果设调往甲处⟨公式⟩人，那么依题意可列方程为________．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -12218,6 +13928,7 @@ export const EXAM_BANK = [
    "解答应写出文字说明、演算步骤或证明过程．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "①.     ②.     ③.     ④."
@@ -12319,6 +14030,7 @@ export const EXAM_BANK = [
    "（4）⟨公式⟩．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）"
@@ -12379,6 +14091,7 @@ export const EXAM_BANK = [
    "18. 先化简，再求值：⟨公式⟩，其中⟨公式⟩，⟨公式⟩．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "；"
@@ -12623,6 +14336,7 @@ export const EXAM_BANK = [
    "（2）若⟨公式⟩，⟨公式⟩，则（1）中线段⟨公式⟩的长为________⟨公式⟩．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）图形如图所示；"
@@ -12690,6 +14404,7 @@ export const EXAM_BANK = [
    "（2）⟨公式⟩．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）"
@@ -12979,6 +14694,7 @@ export const EXAM_BANK = [
    "（2）如果丁售出的徽章数量比他售出的冰箱贴数量的3倍还多1个，那么丁售出冰箱贴和徽章各多少个？"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）帆布袋、冰箱贴、徽章的单价分别是20元，15元，8元"
@@ -13343,6 +15059,7 @@ export const EXAM_BANK = [
    "②对于图2的这种设计，在图2和图1两种赛道的内圈长相同的前提下，如果这两种赛道宽度的差在⟨公式⟩范围内，那么可以直接使用之前制定的比赛方案，否则需要对比赛方案作出调整．判断使用图2的设计时，是否需要调整小明之前制定的比赛方案，并说明理由．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1），"
@@ -13695,6 +15412,7 @@ export const EXAM_BANK = [
    "（3）当⟨公式⟩时，求t的值．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）3；6；"
@@ -14022,6 +15740,7 @@ export const EXAM_BANK = [
    "（3）将三角尺绕点A旋转，使得射线⟨公式⟩，⟨公式⟩都在直线⟨公式⟩的下方，直接写出⟨公式⟩的度数的所有可能值．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）"
@@ -14247,6 +15966,7 @@ export const EXAM_BANK = [
    "从中选出正确结论，并以四位的三进制数⟨公式⟩为例，说明该结论正确的道理．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）"
@@ -15001,6 +16721,7 @@ export const EXAM_BANK = [
    "②是否存在正整数n，对于任意的正数k，都有线段⟨公式⟩的长为667？如果存在，直接写出n的值；如果不存在，说明理由．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": "（1）"
@@ -15035,6 +16756,32 @@ export const EXAM_BANK = [
    "6",
    "﹣",
    ""
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": "﹣6"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "6"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "﹣"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": ""
+    }
+   ]
   ],
   "key": 1,
   "answer": "6",
@@ -15074,6 +16821,32 @@ export const EXAM_BANK = [
    "3.5×104",
    "35×104"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": "0.35×106"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "3.5×105"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "3.5×104"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "35×104"
+    }
+   ]
+  ],
   "key": 1,
   "answer": "3.5×105",
   "officialKey": "B"
@@ -15110,6 +16883,32 @@ export const EXAM_BANK = [
    "",
    ""
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": ""
+    }
+   ]
+  ],
   "key": 3,
   "answer": "",
   "officialKey": "D"
@@ -15144,6 +16943,32 @@ export const EXAM_BANK = [
    "ab＞1",
    "a﹣b＞0",
    "a+b＞0"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": "﹣a＜b"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "ab＞1"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "a﹣b＞0"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "a+b＞0"
+    }
+   ]
   ],
   "key": 2,
   "answer": "a﹣b＞0",
@@ -15180,6 +17005,32 @@ export const EXAM_BANK = [
    "2a2+a2＝3a4",
    "3ab﹣ba＝2ab",
    "a2b﹣ab2＝0"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": "3a﹣a＝2"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "2a2+a2＝3a4"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "3ab﹣ba＝2ab"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "a2b﹣ab2＝0"
+    }
+   ]
   ],
   "key": 2,
   "answer": "3ab﹣ba＝2ab",
@@ -15218,6 +17069,32 @@ export const EXAM_BANK = [
    "长方形的周长一定，长方形的长和宽",
    "车间加工零件的时间一定，加工的零件总数和单位时间内加工的零件个数",
    "圆柱的体积为 10m3，这个圆柱的底面积和高"
+  ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": "某班共有 40 名学生，该班参加艺术社团的人数和参加科技社团的人数"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "长方形的周长一定，长方形的长和宽"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "车间加工零件的时间一定，加工的零件总数和单位时间内加工的零件个数"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "圆柱的体积为 10m3，这个圆柱的底面积和高"
+    }
+   ]
   ],
   "key": 3,
   "answer": "圆柱的体积为 10m3，这个圆柱的底面积和高",
@@ -15259,6 +17136,32 @@ export const EXAM_BANK = [
    "",
    ""
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": ""
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": ""
+    }
+   ]
+  ],
   "key": 0,
   "answer": "",
   "officialKey": "A"
@@ -15297,6 +17200,32 @@ export const EXAM_BANK = [
    "d 的最小值为﹣3",
    "d 的最小值为﹣6"
   ],
+  "optionParts": [
+   [
+    {
+     "t": "text",
+     "v": "d 的最大值为 6"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "d 的最大值为 3"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "d 的最小值为﹣3"
+    }
+   ],
+   [
+    {
+     "t": "text",
+     "v": "d 的最小值为﹣6"
+    }
+   ]
+  ],
   "key": 1,
   "answer": "d 的最大值为 3",
   "officialKey": "B"
@@ -15326,6 +17255,7 @@ export const EXAM_BANK = [
    "9．（2 分）·【易】用四舍五入法把 6.5378 精确到 0.001，所得到的近似数为              ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "6.538",
   "accept": [
@@ -15358,6 +17288,7 @@ export const EXAM_BANK = [
    "10．（2 分）·【易】比较大小：             （填“＞”“＜”或“＝”）．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "＞",
   "accept": [
@@ -15390,6 +17321,7 @@ export const EXAM_BANK = [
    "11．（2 分）·【较易】若单项式         是关于 x，y 的五次单项式，则 m+n＝       ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "5",
   "accept": [
@@ -15422,6 +17354,7 @@ export const EXAM_BANK = [
    "12．（2 分）·【易】若 x＝2 是关于 x 的方程 3x﹣2k＝2 的解，则 k 的值为    ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "2",
   "accept": [
@@ -15455,6 +17388,7 @@ export const EXAM_BANK = [
    "为         °．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "110",
   "accept": [
@@ -15488,6 +17422,7 @@ export const EXAM_BANK = [
    "个棋子，摆第 n 个图形需要                           个棋子（用含 n 的式子表示）．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "17，（3n+5）",
   "accept": [
@@ -15527,6 +17462,7 @@ export const EXAM_BANK = [
    "如：数字 823 所对应的图案为“                        ”，则“          ”所表示的数是         ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "﹣3672",
   "accept": [
@@ -15562,6 +17498,7 @@ export const EXAM_BANK = [
    "之和为            ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "0，3",
   "accept": [
@@ -15598,6 +17535,7 @@ export const EXAM_BANK = [
    "（4）                   ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -15627,6 +17565,7 @@ export const EXAM_BANK = [
    "18．（6 分）·【易】先化简，再求值：10xy﹣3xy2﹣2（5xy﹣xy2），其中 x＝2，y＝﹣1．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -15658,6 +17597,7 @@ export const EXAM_BANK = [
    "（2）          ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": null,
   "officialKey": null
@@ -15692,6 +17632,7 @@ export const EXAM_BANK = [
    "线段 AE 的长为         ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "8；7",
   "accept": [
@@ -15730,6 +17671,7 @@ export const EXAM_BANK = [
    "（2）若裁剪出的侧面和底面恰好全部用完，能装饰多少个盒子？"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "6x，7x；（200﹣8x）；",
   "accept": [
@@ -15777,6 +17719,7 @@ export const EXAM_BANK = [
    "#                 ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "4C，1A，5F；",
   "accept": [
@@ -15816,6 +17759,7 @@ export const EXAM_BANK = [
    "为                          ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "﹣5+2t；",
   "accept": [
@@ -15853,6 +17797,7 @@ export const EXAM_BANK = [
    "等分线，则∠BOE 的度数为                           ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "45°；",
   "accept": [
@@ -15892,6 +17837,7 @@ export const EXAM_BANK = [
    "其中所有正确结论的序号是              ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "﹣ ；",
   "accept": [
@@ -15934,6 +17880,7 @@ export const EXAM_BANK = [
    "分别记为 dB，dC，dD，则 dB+dC+dD 的最大值为         ，取得最大值时点 R 所表示的数为   ．"
   ],
   "options": null,
+  "optionParts": null,
   "key": null,
   "answer": "120；140；",
   "accept": [

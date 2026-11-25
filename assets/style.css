@@ -4360,3 +4360,17 @@ details[open] > summary::before { content: '▾ '; }
   font-size: .82em; text-decoration: none; font-variant-numeric: tabular-nums;
 }
 .se-trace-lnk:hover { background: var(--accent); color: #fff; }
+
+/* 真题公式图：MathType 导出的 PNG 原始尺寸很大（如 400×150），
+   必须限制成行内高度，否则会把题干撑爆。 */
+.se-stem .q-f,
+.se-opt .q-f,
+.mc-q-stem .q-f {
+  display: inline-block;
+  vertical-align: middle;
+  max-height: 1.5em;
+  width: auto;
+  margin: 0 1px;
+}
+/* 独立成行的公式（题干里的 break 之后）可以稍高 */
+.se-stem .q-f { max-height: 1.7em; }

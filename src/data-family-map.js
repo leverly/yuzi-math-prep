@@ -27,6 +27,8 @@
 /* ---------------- ① 人工覆盖 ----------------
    28 道题既无 method 也无 calcType，靠章节 + 题干定族。
    每条都要能说清「凭什么归这一族」，不能只写族名。 */
+import { FAMILY_DEFS } from './data-papers.js';
+
 export const Q_FAMILY_OVERRIDE = {
   /* 尺规作图：题干含「用直尺和圆规」「用语句表述…作图」 */
   'q-draw-1': 'f-construct',
@@ -280,11 +282,28 @@ function matchRules(rules, hay) {
  * @param q 站内题对象（需 id / method / calcType / stem / solution）
  * @returns 族 id，或 null（无解）
  */
+/* 真题（带 examRef）用 PAPERS 里已标注的 topic 直接定族。
+   真题没有 method/calcType（那是原创题的分组字段），
+   但 PAPERS 逐题标注过 topic，而 FAMILY_DEFS 定义了 topic→族，
+   所以这是最准的路径——不靠关键词猜。 */
+const TOPIC_TO_FAMILY = (() => {
+  const m = {};
+  (FAMILY_DEFS || []).forEach((f) => {
+    (f.topics || []).forEach((t) => { m[t] = f.id; });
+  });
+  return m;
+})();
+
 export function resolveFamily(q) {
   if (!q || !q.id) return null;
 
   const ov = Q_FAMILY_OVERRIDE[q.id];
   if (ov) return ov;
+
+  /* 真题：topic 直查（最准） */
+  if (q.examRef && q.topic && TOPIC_TO_FAMILY[q.topic]) {
+    return TOPIC_TO_FAMILY[q.topic];
+  }
 
   const hay = (q.stem || '') + '\n' + (q.solution || '');
 

@@ -520,7 +520,7 @@ export const FAMILY_QTYPE = {
 
 export const FAMILY_DEFS = [
   /* --- 有理数与运算 --- */
-  { id: 'f-abs-line', name: '绝对值与数轴（概念题）', ch: 'ch-rational', cat: '概念',
+  { id: 'f-abs-line', name: '绝对值与数轴', ch: 'ch-rational', cat: '概念',
     topics: ['绝对值', '绝对值意义', '相反数', '非负性求值', '数轴与大小比较', '数轴与符号', '数轴与相反数',
       '数轴读符号', '绝对值非负性', '数轴与整除'],
     note: '每年 3–4 道选择题：绝对值 / 相反数 / 数轴读符号 / 距离最值，全在选择题前段' },

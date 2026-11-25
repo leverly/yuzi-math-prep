@@ -365,8 +365,21 @@ function emit(relPath, html) {
 function renderQuestion(q, R) {
   const C = R.math.compact;
   const o = Object.assign({}, q);
-  /* 真题溯源：这道题对应哪些真题（构建期算好，运行时直接用） */
-  const tr = traceQuestion(q);
+  /* 真题溯源：
+     真题本身（带 examRef）直接用它自己的出处，不必再算相似题；
+     原创题走 traceQuestion 找相似的真题。 */
+  if (q.examRef) {
+    o.trace = {
+      n: 1,
+      latest: q.examRef.year,
+      latestNo: q.examRef.no,
+      latestScore: q.examRef.score,
+      srcs: [{ label: q.examRef.year.slice(0, 4) + '#' + q.examRef.no + '(' + q.examRef.score + ')',
+        paperId: q.examRef.paperId, no: q.examRef.no, year: q.examRef.year, score: q.examRef.score }],
+      isOrigin: true,
+    };
+  }
+  const tr = q.examRef ? { strength: 0, topics: [], sources: [] } : traceQuestion(q);
   if (tr.strength > 0) {
     o.trace = {
       n: tr.strength,
@@ -415,7 +428,23 @@ function renderQuestion(q, R) {
     : ((q.accept || q.answer != null) ? 'calc' : 'big'));
   o.answerHtml = q.answer != null ? C(R.math.render(String(q.answer))) : '';
   if (o.qtype === 'single' && q.options) {
-    o.optionsHtml = q.options.map((opt) => C(R.math.render(opt)));
+    /* 真题选项：options 是纯文本（含 ⟨公式⟩ 占位），真正的内容在
+       q.__optParts（由 data-exam-bank 带过来）。有 parts 就逐片段渲染，
+       否则走 MathJax（原创题的选项是 LaTeX）。 */
+    const base = q.__imgBase || '';
+    o.optionsHtml = q.options.map((opt, i) => {
+      const parts = q.__optParts && q.__optParts[i];
+      if (parts && parts.length) {
+        return parts.map((p) => {
+          if (p.t === 'text') return C(R.math.render(p.v));
+          if (p.t === 'img' && p.src) {
+            return '<img class="q-f" src="' + base + p.src.split('/').pop() + '" alt="公式" loading="lazy">';
+          }
+          return '';
+        }).join('');
+      }
+      return C(R.math.render(opt));
+    });
     o.key = q.key;
     o.distractors = (q.distractors || []).map((d) => ({
       v: d.v, vHtml: C(R.math.render(String(d.v))), errTag: d.errTag, why: d.why,
@@ -1569,7 +1598,7 @@ function buildDrill() {
     /* 第一行：练什么 */
     what.innerHTML = '<b>' + escH(f.name) + '</b>' +
       '<span class="why-tag">' + (FAM_TARGET_LABEL[tier] || tier) + '</span>' +
-      '<span class="why-tag ghost">' + (f.hitYears || 0) + '/' + PAPERS.length + ' 年考 · 年均 ' +
+      '<span class="why-tag ghost">' + (f.hitYears || 0) + '/' + ${PAPERS.length} + ' 年考 · 年均 ' +
       (Math.round((f.avgPerYear || 0) * 10) / 10) + ' 分</span>';
 
     /* 第二行：为什么是它 */
@@ -3166,7 +3195,7 @@ function buildPapers() {
 
   function show(el, x, y){
     var d = el.dataset;
-    tip.innerHTML = '<b>' + d.name + '</b><span>' + d.total + ' 分</span>';
+    tip.innerHTML = '<b>' + d.name + '</b><span>' + d.total + ' 分 · ' + d.years + '/${PAPERS.length} 年</span>';
     tip.classList.add('on');
     place(x, y);
   }
@@ -3688,7 +3717,7 @@ function buildLadder() {
   const items = LADDERS.map((L) => {
     const fam = (FAMILY_MAP || []).find((f) => f.id === L.anchor) || {};
     const qs = L.levels.map((lv) => Q_BY_ID.get(lv.qid)).filter(Boolean);
-    const years = fam.scores ? Object.keys(fam.scores).length : 0;
+    const years = fam.hitYears || 0;
     return {
       id: L.id, name: L.name, chapter: L.chapter, tier: L.tier,
       why: L.why, levels: L.levels, qs: qs.map((q) => q.id),
@@ -3737,16 +3766,16 @@ function buildLadder() {
   <div class="section-head"><div class="section-head-left">
     <span class="kicker">按真题权重排序</span>
     <h2>${items.length} 条阶梯</h2>
-    <span class="sub">分值是该考点族在 3 份西城期末卷里的累计分——排在前面的是每年必考的大块</span>
+    <span class="sub">分值是该考点族在 ${PAPERS.length} 份西城期末卷里的累计分——排在前面的是分值大的核心族</span>
   </div></div>
   <div class="grid c2">
     ${items.map((L) => `<div class="card ladder-card" data-ladder="${L.id}">
       <div class="lad-top">
         <span class="mcard-tier ${L.tier}">${tierName[L.tier]}</span>
-        <span class="lad-score">${L.total} 分<small> / 3 年</small></span>
+        <span class="lad-score">${L.total} 分<small> / ${PAPERS.length} 年</small></span>
       </div>
       <h3>${esc(L.name)}</h3>
-      <div class="lad-anchor">真题考点：${esc(L.anchorName)} · 每年都考</div>
+      <div class="lad-anchor">真题考点：${esc(L.anchorName)} · ${L.years}/${PAPERS.length} 年考</div>
       <p class="desc lad-why">${esc(L.why)}</p>
       <div class="lad-levels">
         ${L.levels.map((lv, i) => `<div class="lad-lv" data-lv="${i}">
@@ -5175,7 +5204,9 @@ function main() {
     ['diag', () => emit('diag.html', buildDiag())],
     ['wrong', () => emit('wrong.html', buildWrong())],
     ['slots', () => emit('slots.html', buildSlots())],
-    ['ladder', () => emit('ladder.html', buildLadder())],
+    /* ['ladder', () => emit('ladder.html', buildLadder())],  2026-11-25 下线：
+       变式阶梯依赖原创变式题（改数字/改条件/逆向），真题没有这类变式，
+       练习池换成真题后阶梯全部断链。生成函数与数据保留，加回即可恢复。 */
     ['exam', () => emit('exam.html', buildExam())],
     ['papers', () => emit('papers.html', buildPapers())],
     ['examverify', () => emit('exam-verify.html', buildExamVerify())],

@@ -29,6 +29,7 @@ import { SLOTS, SLOT_STATS, MUST100 } from './data-slots.js';
 import { SLOT_QUESTIONS } from './data-slot-questions.js';
 import { SLOT_FORMAT_QUESTIONS } from './data-slot-format.js';
 import { QTYPE_MAP } from './data-qtype.js';
+import { EXAM_BANK } from './data-exam-bank.js';
 import { buildFamilyMap } from './data-family-map.js';
 import { KNOW, FAMILY_ASSETS } from './data-know.js';
 import {
@@ -70,7 +71,41 @@ export const M_BY_ID = new Map(METHODS.map((m) => [m.id, m]));
 
 /* 全部可练题目 = 方法卡配套题 + 计算专项 */
 /* 把四类化字段合并进每道题：qtype / answer / options / key / distractors */
-export const ALL_QUESTIONS = [...METHOD_QUESTIONS, ...CALC_QUESTIONS, ...GEO_QUESTIONS, ...PAPER_GAP_QUESTIONS, ...BALANCE_QUESTIONS, ...BALANCE_QUESTIONS_2, ...BALANCE_QUESTIONS_3, ...EQ_QUESTIONS, ...MAGIC_QUESTIONS, ...LADDER_QUESTIONS, ...METHOD_VARIANTS_1, ...METHOD_VARIANTS_2, ...GAP_QUESTIONS, ...METHOD_FILL_QUESTIONS, ...BIG_QUESTIONS, ...SLOT_QUESTIONS, ...SLOT_FORMAT_QUESTIONS];
+/* 旧原创题库（2026-11-25 停用，保留定义以便回退）。
+   用户要求「只练真题」，所以 ALL_QUESTIONS 现在只含 EXAM_BANK。
+   要恢复旧库：把下面 LEGACY_QUESTIONS 加回 ALL_QUESTIONS 即可。 */
+export const LEGACY_QUESTIONS = [...METHOD_QUESTIONS, ...CALC_QUESTIONS, ...GEO_QUESTIONS, ...PAPER_GAP_QUESTIONS, ...BALANCE_QUESTIONS, ...BALANCE_QUESTIONS_2, ...BALANCE_QUESTIONS_3, ...EQ_QUESTIONS, ...MAGIC_QUESTIONS, ...LADDER_QUESTIONS, ...METHOD_VARIANTS_1, ...METHOD_VARIANTS_2, ...GAP_QUESTIONS, ...METHOD_FILL_QUESTIONS, ...BIG_QUESTIONS, ...SLOT_QUESTIONS, ...SLOT_FORMAT_QUESTIONS];
+
+/* 可练题库 = 真题原文（五套 130 题）。
+   字段与旧库对齐（id/chapter/tier/qtype/stem/options/key/answer/...），
+   额外带 stemParts（公式图）与 examRef（回链核验页）。 */
+export const ALL_QUESTIONS = EXAM_BANK.map((q) => {
+  const TIER = { easy: 'l1', mid: 'l2', hard: 'l3', top: 'l3' };
+  return {
+    id: q.id,
+    chapter: q.chapter,
+    method: null,
+    tier: TIER[q.diff] || 'l2',
+    qtype: q.qtype,
+    score: q.score,
+    tierName: q.year + ' 第' + q.no + '题 · ' + (q.name || q.topic || ''),
+    errorTags: ['exam'],
+    stemParts: q.stemParts,
+    stem: q.stemText,
+    solution: '',
+    examRef: { paperId: q.paperId, year: q.year, no: q.no, score: q.score, bonus: q.bonus },
+    topic: q.topic || '',
+    hasAnswer: q.hasAnswer,
+    officialKey: q.officialKey,
+    ...(q.options ? { options: q.options } : {}),
+    /* 选项的原始片段（含公式图），渲染层据此逐片段输出 */
+    ...(q.options && q.optionParts ? { __optParts: q.optionParts } : {}),
+    ...(q.key != null ? { key: q.key } : {}),
+    ...(q.answer ? { answer: q.answer } : {}),
+    ...(q.accept ? { accept: q.accept } : {}),
+    __imgBase: 'assets/exam-src/' + q.paperId + '/',
+  };
+});
 /* 合并四类化字段（就地补，不改原数据文件）
    ----------------------------------------------------------
    关键约束：有多步 steps 的题不能被标成 calc / single。
@@ -85,6 +120,8 @@ export const ALL_QUESTIONS = [...METHOD_QUESTIONS, ...CALC_QUESTIONS, ...GEO_QUE
    big 例外：big 是「不判分、只对答案」的大题，即使有多步也保留 big
      （big 的步骤只作展示骨架，不做判定） */
 ALL_QUESTIONS.forEach((q) => {
+  /* 真题库自带 qtype，不再走 QTYPE_MAP */
+  if (q.qtype) return;
   const t = QTYPE_MAP[q.id];
   const multiStep = (q.steps || []).length >= 2;
 
@@ -104,6 +141,23 @@ ALL_QUESTIONS.forEach((q) => {
   } else {
     q.qtype = q.qtype || (multiStep ? 'steps' : 'calc');
   }
+});
+
+/* ==========================================================
+   方法卡母题/变式清空（2026-11-25）
+   ----------------------------------------------------------
+   练习池换成真题后，方法卡原来引用的母题/变式（原创题）全不存在了。
+   真题没有「改数字/改条件/逆向」这种人工变式，无法重挂。
+
+   决定：方法卡退化为**纯讲解卡**——只保留
+     识别信号 / 标准步骤 / 常见误用
+   三段，不再挂母题与变式链。变式阶梯页同步下线。
+
+   源文件 data-methods.js 不改（保留原引用），便于日后恢复。
+   ========================================================== */
+METHODS.forEach((m) => {
+  m.motherId = null;
+  m.variantIds = [];
 });
 
 /* 页面生成器沿用 QUESTIONS 命名，指全部可练题目 */
@@ -174,8 +228,8 @@ export const KNOW_FORM_NOTE = {
 };
 
 /* 每族的讲解档位：deep ≥4 分/年、std 2–4、scan <2。
-   判据只用年均分，不用 freq——f-magic 年均 2 分却四年必考，
-   若按 freq 分会排在 f-anglereason（年均 4.8）前面，与提分效率相反。 */
+   判据只用年均分，不用 freq——f-magic 年均 2 分却五年必考，
+   若按 freq 分会排在 f-anglereason（年均 3.8）前面，与提分效率相反。 */
 export const KNOW_TIERS = [
   { key: 'deep', name: '深讲', min: 4, note: '分值高、要写正文，讲解与训练都要到位' },
   { key: 'std', name: '标准', min: 2, note: '分值中等，讲清识别规则即可' },

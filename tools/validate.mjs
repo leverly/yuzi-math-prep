@@ -112,9 +112,30 @@ function checkQuestion(q, opts = {}) {
   if (!q.stem || q.stem.length < 4) E(`${tag} ${q.id} 缺题干`);
   if (!TIER_KEYS.has(q.tier)) E(`${tag} ${q.id} 的 tier ${q.tier} 非法`);
   if (!(q.errorTags || []).length) E(`${tag} ${q.id} 缺 errorTags`);
-  (q.errorTags || []).forEach((t) => { if (!ERRS.has(t)) E(`${tag} ${q.id} 的错因 ${t} 非法`); });
+  (q.errorTags || []).forEach((t) => {
+    /* 'exam' 是真题标记，不是错因分类，放行 */
+    if (t === 'exam') return;
+    if (!ERRS.has(t)) E(`${tag} ${q.id} 的错因 ${t} 非法`);
+  });
 
   const steps = q.steps || [];
+  /* 真题（带 examRef）是「题目级单空」形态：没有 steps，
+     判分靠 qtype=single/calc 的 options/key/accept 字段。
+     这不是缺陷，是真题原貌——真题就是一道题一个答案。 */
+  if (q.examRef) {
+    if (!['single', 'calc', 'big'].includes(q.qtype)) {
+      E(`${tag} ${q.id} 真题的 qtype 必须是 single/calc/big，实际 ${q.qtype}`);
+    }
+    /* 单选题必须有 options；key 可为 null——那表示这套卷没有官方答案
+       （如 2022-23 只有原卷），前端会显示「不判分」，不是数据缺陷。 */
+    if (q.qtype === 'single' && !q.options) {
+      E(`${tag} ${q.id} 单选题缺 options`);
+    }
+    if (q.qtype === 'single' && q.hasAnswer && q.key == null) {
+      E(`${tag} ${q.id} 单选题有答案但缺 key`);
+    }
+    return;   /* 真题不再走 steps 校验 */
+  }
   /* 计算题必须 ≥2 步：nearMiss（会做但错）判据依赖多步 */
   const minSteps = opts.isCalc ? 2 : (q.kind === 'solve' ? 2 : 1);
   if (steps.length < minSteps) {
@@ -230,7 +251,11 @@ CONCEPTS.forEach((c) => {
    口径（用户确认）：练习内容本身必须按「改数字 → 改条件 → 逆向」三级设计，
    不是随机抽题。所以每张方法卡都必须有完整三级链。
    ========================================================== */
-{
+/* 2026-11-25 停用：练习池换成真题后，真题没有「改数字/改条件/逆向」
+   这类人工变式，方法卡已退化为纯讲解卡。三级变式链校验同步停用。
+   恢复：把 VARIANT_CHAIN_ENABLED 改回 true，并把原创变式题加回题库。 */
+const VARIANT_CHAIN_ENABLED = false;
+if (VARIANT_CHAIN_ENABLED) {
   const LEVEL_ORDER = ['number', 'condition', 'reverse'];
   let missing = [];
   METHODS.forEach((m) => {
@@ -263,7 +288,11 @@ CONCEPTS.forEach((c) => {
      ④ 阶梯题必须 ≥2 步（否则判不出「卡在哪一步」）
      ⑤ 同一阶梯内三级必须同 chapter / method（这才是「变式」不是「新题」）
    ========================================================== */
-{
+/* 2026-11-25 停用：变式阶梯依赖原创变式题，练习池换成真题后
+   42 道阶梯题全部不在题库里。阶梯功能已下线（ladder.html 不再生成），
+   数据与生成函数保留。恢复阶梯时把下面的 LADDER_ENABLED 改回 true。 */
+const LADDER_ENABLED = false;
+if (LADDER_ENABLED) {
   const FAM_IDS = new Set((FAMILY_MAP || []).map((f) => f.id));
   const LEVEL_ORDER = ['number', 'condition', 'reverse'];
   const LAD_IDS = new Set();
@@ -354,7 +383,11 @@ CONCEPTS.forEach((c) => {
   /* ② 每族至少 2 题：1 题无法做「改数字」的稳定性验证，也算不出正确率 */
   (FAMILY_MAP || []).forEach((f) => {
     const n = (Q_BY_FAMILY.get(f.id) || []).length;
-    if (n < 2) E(`考点族「${f.name}」只有 ${n} 道站内题，无法支撑训练与诊断（需 ≥2）`);
+    /* 真题库只有 130 题（五套 × 26），有些族一年只考 1 道，
+       所以「1 题」是真题原貌，不是缺陷——降为警告。
+       但 0 题仍是错误：说明该族在题库里完全没有可练内容。 */
+    if (n === 0) E(`考点族「${f.name}」0 道站内题——该族在题库里完全没有可练内容`);
+    else if (n < 2) W(`考点族「${f.name}」只有 ${n} 道站内题（真题本身如此，可选补）`);
   });
 
   /* ③ 阶梯锚定的族必须有题：阶梯题本身也带族，但若锚定族无题，
@@ -620,6 +653,8 @@ FORMULAS.forEach((f, i) => {
     '解一元一次方程': ['解方程', '去分母'],
     '整式化简求值': ['化简', '求值'],
     '方程应用（配套/分配）': ['配套', '分配', '工程', '行程', '销售', '打折', '利润'],
+    '方程应用（配套）': ['配套', '裁剪', '侧面', '底面'],
+    '方程应用（工程）': ['工程', '工作效率', '人完成', '整理'],
     '角度推理与说理': ['角平分线', '余角', '同角的余角'],
     '数轴动点与分类': ['动点'],
     '尺规作图与说理': ['作图', '尺规'],
@@ -639,6 +674,7 @@ FORMULAS.forEach((f, i) => {
     '角度换算（度分秒）': ['度分秒'],
     '近似数与精确度': ['近似', '精确', '四舍五入'],
     '进位制（综合与实践）': ['进位制', '三进制', '十六进制', '算筹', '二进制', '逢三进一'],
+    '面动成体': ['旋转一周', '旋转成', '绕轴', '平面图形'],
     '代数式求值': ['代数式', '整体代入'],
     '线段中点计算': ['中点'],
     '展开图识别': ['展开图'],
@@ -661,7 +697,10 @@ FORMULAS.forEach((f, i) => {
     '线段中点压轴（含参）': ['中点', '延长线', '用含'],
   };
 
-  const texts = QUESTIONS.map((q) => (q.stem || '') + ' ' + (q.solution || ''));
+  /* 真题的题干在 stemText（含 ⟨公式⟩ 占位），原创题在 stem。两处都要读，
+     否则真题会被判成「站内无对应题」。 */
+  const texts = QUESTIONS.map((q) => [q.stem, q.stemText, q.solution, q.name, q.tierName]
+    .filter(Boolean).join(' '));
   const { TOPIC_MAP } = await import('../src/index.js');
 
   let noQ = 0;
@@ -690,11 +729,15 @@ FORMULAS.forEach((f, i) => {
   /* 方法卡空卡检查 */
   const byMethod = {};
   QUESTIONS.forEach((q) => { if (q.method) byMethod[q.method] = (byMethod[q.method] || 0) + 1; });
-  const emptyCards = METHODS.filter((m) => !byMethod[m.id]);
-  if (emptyCards.length) {
-    E(`以下方法卡没有配套题：${emptyCards.map((m) => m.id + '(' + m.name + ')').join('、')}`);
+  /* 2026-11-25 起方法卡退化为「纯讲解卡」：练习池只含真题，
+     真题没有 method 字段，所以方法卡不再要求配套题。
+     只校验：方法卡自身结构完整（有 signal / steps / pitfalls）。 */
+  const brokenCards = METHODS.filter((m) =>
+    !m.signal || !(m.steps || []).length || !(m.pitfalls || []).length);
+  if (brokenCards.length) {
+    E(`以下方法卡结构不完整（缺 signal/steps/pitfalls）：${brokenCards.map((m) => m.id).join('、')}`);
   } else {
-    console.log(`  ✓ ${METHODS.length} 张方法卡全部有配套题`);
+    console.log(`  ✓ ${METHODS.length} 张方法卡结构完整（纯讲解形态，不要求配套题）`);
   }
 }
 

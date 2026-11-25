@@ -298,6 +298,23 @@
           b.addEventListener('click', function () {
             if (answered) return;
             var k = parseInt(b.getAttribute('data-k'), 10);
+            /* 无官方答案（如 2022-23 卷只有原卷没解析）：
+               让学生看到自己选了什么，但不判对错、不计入统计。 */
+            if (q.key == null) {
+              [].forEach.call(btns, function (x) { x.classList.add('locked'); });
+              b.classList.add('picked');
+              fb.className = 'se-fb';
+              fb.innerHTML = '<b>已选 ' + 'ABCD'[k] + '</b>' +
+                '<span>这套卷没有官方答案，不判分。可对照原卷自行核对。</span>' +
+                (q.trace && q.trace.srcs && q.trace.srcs[0]
+                  ? '<span><a href="exam-verify.html#' + q.trace.srcs[0].paperId + '-q' + q.trace.srcs[0].no +
+                    '" target="_blank" rel="noopener">去看原卷 →</a></span>' : '');
+              answered = true;
+              state.results[0] = { ok: true, input: 'ABCD'[k], ms: 0, errTag: null, skipped: true };
+              nextBtn.disabled = false;
+              nextBtn.focus();
+              return;
+            }
             var ok = k === q.key;
             /* 选错时找这个选项对应的干扰项，拿到 errTag */
             var errTag = null, whyTxt = '';
