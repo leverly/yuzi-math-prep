@@ -305,7 +305,9 @@ body{padding-bottom:80px}
     <div class="intro-actions">
       <button class="btn primary" id="startBtn">开始诊断</button>
       <span class="intro-hint">约 12 分钟 · 做完自动出诊断</span>
+      <a class="btn ghost" href="history.html" id="histLink" style="margin-left:auto">查看历史记录</a>
     </div>
+    <div id="histNote" style="display:none;margin-top:12px;font-size:13px;color:var(--text-3)"></div>
   </div>
 </div>
 
@@ -503,12 +505,25 @@ function diagnose(records) {
     a.totalScoreW += f.avg;
     for (const [k, v] of Object.entries(f.errMix || {})) a.errMix[k] = (a.errMix[k] || 0) + v;
   }
+  /* 章节级分档：单轮只有 3 题，百分比波动大（错 1 题就从 100% 掉到 67%）。
+   * 所以用比族级更宽的口径：
+   *   3–5 题：全对才算掌握，错 1 题算「不稳」，错 2 题以上算「薄弱」
+   *   ≥6 题：回到标准阈值（<60% 薄弱 / <85% 不稳 / ≥85% 掌握）  */
+  const chTier = (total, ok) => {
+    if (total < 3) return 'insufficient';
+    const rate = ok / total;
+    if (total < 6) {
+      if (ok === total) return 'solid';
+      if (ok >= total - 1) return 'shaky';
+      return 'weak';
+    }
+    return rate < 0.6 ? 'weak' : rate < 0.85 ? 'shaky' : 'solid';
+  };
+
   const chs = [...chAgg.values()].map((a) => {
     const rate = a.total ? a.ok / a.total : 0;
-    const enough = a.total >= TIER_RULE.minSample;
-    let tier = !enough ? 'insufficient'
-      : rate < TIER_RULE.weak ? 'weak'
-      : rate < TIER_RULE.solid ? 'shaky' : 'solid';
+    const enough = a.total >= 3;
+    const tier = chTier(a.total, a.ok);
     const top = Object.entries(a.errMix).sort((x, y) => y[1] - x[1])[0];
     return {
       ch: a.ch,
@@ -683,14 +698,16 @@ function saveStore(store) {
 function persistSession(records, diagResult) {
   const store = loadStore();
   const ts = Date.now();
+  // 存章节级结论（诊断口径是章节），供历史页逐轮展示
   store.sessions.push({
     at: ts,
     n: records.length,
     ok: records.filter((r) => r.ok).length,
-    scope: state.fam === 'all' ? '全部' : ((FAM_META[state.fam] || {}).name || state.fam),
-    seg: state.seg,
-    fams: diagResult.fams.map((f) => ({
-      fam: f.fam, name: f.name, total: f.total, ok: f.ok, tier: f.tier,
+    round: state.round,
+    redo: !!state.redo,
+    chs: (diagResult.chs || []).map((c) => ({
+      ch: c.ch, name: c.name, total: c.total, ok: c.ok, tier: c.tier,
+      topErr: c.topErr ? c.topErr.cat : null,
     })),
   });
   // 累计记录：用于「历史累计诊断」
@@ -968,7 +985,7 @@ function showDiag() {
 
     <div class="actions" style="margin-top:26px">
       <button class="btn primary" id="againBtn">再练一轮</button>
-      <button class="btn" id="weakBtn">只练薄弱考点</button>
+      <a class="btn ghost" href="history.html">查看全部记录</a>
       <button class="btn ghost" id="clearHist">清空历史</button>
       <a class="btn ghost" href="plan.html">看冲刺计划</a>
     </div>
@@ -983,13 +1000,6 @@ function showDiag() {
   };
 
   $('#againBtn').onclick = () => reset();
-  $('#weakBtn').onclick = () => {
-    const weakFams = d.fams.filter(f => f.tier === 'weak' || f.tier === 'shaky').map(f => f.fam);
-    if (!weakFams.length) { alert('这一轮没有明显薄弱的考点。'); return; }
-    state.fam = weakFams[0];
-    state.n = 999;
-    reset();
-  };
   bindRedo(d.wrongList);
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1146,6 +1156,25 @@ const startBtn = $('#startBtn');
 if (startBtn) startBtn.onclick = startRound;
 
 renderPlanPreview();
+
+/* 入口页提示：本机已有多少轮记录 */
+(function showHistNote() {
+  const note = $('#histNote');
+  const link = $('#histLink');
+  if (!note) return;
+  const store = loadStore();
+  const n = (store.sessions || []).length;
+  if (!n) {
+    if (link) link.style.display = 'none';   // 没有记录就不显示入口
+    return;
+  }
+  const totalQ = store.sessions.reduce((a, s) => a + (s.n || 0), 0);
+  const totalOk = store.sessions.reduce((a, s) => a + (s.ok || 0), 0);
+  note.style.display = 'block';
+  note.innerHTML = '本机已有 <b style="color:var(--text)">' + n + '</b> 轮记录，累计 ' +
+    totalQ + ' 题、正确率 <b style="color:var(--text)">' +
+    (totalQ ? Math.round(totalOk / totalQ * 100) : 0) + '%</b>。';
+})();
 
 $('#quitBtn').onclick = () => {
   if (!state.records.length) { reset(); return; }

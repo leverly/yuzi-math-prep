@@ -270,7 +270,9 @@ ${headerHtml('practice.html')}
     <div class="intro-actions">
       <button class="btn primary" id="startBtn">开始诊断</button>
       <span class="intro-hint">约 12 分钟 · 做完自动出诊断</span>
+      <a class="btn ghost" href="history.html" id="histLink" style="margin-left:auto">查看历史记录</a>
     </div>
+    <div id="histNote" style="display:none;margin-top:12px;font-size:13px;color:var(--text-3)"></div>
   </div>
 </div>
 
