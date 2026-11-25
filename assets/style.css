@@ -4247,3 +4247,108 @@ details[open] > summary::before { content: '▾ '; }
   .da-k { width: auto; }
   .today-line { flex-direction: column; align-items: flex-start; }
 }
+
+/* ==========================================================
+   真题核验页（exam-verify.html）
+   目标是「能一眼看出抽取结果和原卷是否一致」，
+   所以公式图要和正文同高对齐，不能飘。
+   ========================================================== */
+.ev-summary {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;
+}
+.ev-stat {
+  display: flex; align-items: baseline; gap: 6px;
+  padding: 8px 14px; border-radius: 8px;
+  background: var(--bg-2); border: 1px solid var(--line);
+}
+.ev-stat b { font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.ev-stat span { font-size: .8rem; color: var(--text-2); }
+.ev-stat.ok b { color: var(--ok, #16a34a); }
+.ev-stat.warn b { color: var(--warn, #d97706); }
+
+.ev-note { font-size: .88rem; color: var(--text-2); margin-bottom: 16px; }
+
+.ev-list { display: flex; flex-direction: column; gap: 10px; }
+.ev-q {
+  padding: 12px 14px; border-radius: 10px;
+  background: var(--bg-1); border: 1px solid var(--line);
+}
+.ev-q:target { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+.ev-qhead { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.ev-no {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 26px; height: 22px; padding: 0 6px;
+  border-radius: 6px; background: var(--accent-soft); color: var(--accent);
+  font-size: .8rem; font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.ev-meta { font-size: .78rem; color: var(--text-3); }
+
+/* 题干：公式图必须与文字基线对齐 */
+.ev-stem { font-size: .95rem; line-height: 2; color: var(--text-1); }
+.ev-stem .ev-f,
+.ev-opt .ev-f {
+  display: inline-block; vertical-align: middle;
+  max-height: 1.6em; width: auto; margin: 0 1px;
+}
+.ev-opts { display: flex; flex-direction: column; gap: 3px; margin-top: 8px; }
+.ev-opt { display: flex; gap: 8px; font-size: .92rem; line-height: 1.9; }
+.ev-key {
+  flex: 0 0 18px; color: var(--text-3); font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.ev-pages { margin-top: 18px; }
+.ev-pages summary {
+  cursor: pointer; font-size: .9rem; color: var(--accent);
+  padding: 8px 0; user-select: none;
+}
+.ev-pages-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px; margin-top: 12px;
+}
+.ev-pages-grid figure { margin: 0; }
+.ev-pages-grid img {
+  width: 100%; height: auto; border-radius: 8px;
+  border: 1px solid var(--line); background: #fff;
+}
+.ev-pages-grid figcaption {
+  font-size: .8rem; color: var(--text-3); text-align: center; margin-top: 4px;
+}
+
+/* 原文对照折叠区：核验的核心，要能一眼对比 */
+.ev-badge {
+  margin-left: auto; font-size: .72rem; padding: 2px 7px;
+  border-radius: 4px; background: var(--accent-soft); color: var(--accent);
+}
+.ev-raw { margin-top: 10px; border-top: 1px dashed var(--line); padding-top: 8px; }
+.ev-raw summary {
+  cursor: pointer; font-size: .82rem; color: var(--text-3);
+  user-select: none; list-style: none;
+}
+.ev-raw summary::before { content: '▸ '; }
+.ev-raw[open] summary::before { content: '▾ '; }
+.ev-raw-box {
+  margin-top: 8px; padding: 10px 12px; border-radius: 6px;
+  background: var(--bg-2); font-size: .84rem; line-height: 1.9;
+  color: var(--text-2); font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  white-space: pre-wrap; word-break: break-all;
+}
+.ev-raw-line { padding: 2px 0; }
+.ev-raw-hint {
+  margin: 8px 0 0; font-size: .8rem; color: var(--text-3); line-height: 1.7;
+}
+
+/* 图片加载失败降级：线上不发布真题图，显示占位而非破图 */
+.ev-f-wrap { display: inline-block; }
+.ev-f-miss {
+  display: inline-block; padding: 0 3px; border-radius: 3px;
+  background: var(--bg-3, #eef2f7); color: var(--text-3);
+  font-size: .8em; vertical-align: middle;
+}
+.ev-img-miss img { display: none; }
+.ev-img-miss::after {
+  content: '（原卷页图仅本地可见）';
+  display: block; padding: 24px 12px; text-align: center;
+  font-size: .82rem; color: var(--text-3);
+  background: var(--bg-2); border: 1px dashed var(--line); border-radius: 8px;
+}

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>学情诊断 · 初一(上)数学期末复习</title>
+<meta name="description" content="按数据 → 薄弱知识点 → 错因三步读的学情诊断。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='15' font-weight='800' fill='%23fff' text-anchor='middle'%3E柚%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css?v=8854f871">
+<script>try{var m=JSON.parse(localStorage.getItem('yz-theme-manual')||'null');var h=new Date().getHours();var t=(m==='light'||m==='dark')?m:((h>=19||h<6)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){var h2=new Date().getHours();document.documentElement.setAttribute('data-theme',(h2>=19||h2<6)?'dark':'light');}</script>
+</head>
+<body data-base=""><svg class="math-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
+<div class="scroll-progress"></div>
+<header class="hdr">
+  <div class="hdr-in">
+    <a class="logo" href="index.html"><span class="logo-mark">柚</span><span>初一(上)数学期末复习</span></a>
+    <nav class="hdr-nav" id="nav">
+      <a href="learn.html">知识复习</a><a href="drill.html">巩固练习</a><a href="wrong.html">错题本</a><a href="papers.html">考情解读</a><a href="exam-verify.html">真题核验</a>
+      
+    </nav>
+    <div class="hdr-tools">
+      <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+      <button class="menu-btn" id="navToggle" aria-label="菜单">☰</button>
+    </div>
+  </div>
+</header>
+<main class="main">
+<div class="wrap">
+
+<div class="page-head">
+  <div class="crumb"><a href="index.html">首页</a> / 学情诊断</div>
+  <h1>学情诊断</h1>
+  <p class="lede">按四步读：<b>一、看数据</b>（练了多少、正确率、三层各到哪）→ <b>二、判薄弱知识点</b>（最该补哪个）→ <b>三、归错因</b>（错在哪一类，决定怎么补）→ <b>四、去练</b>。</p>
+</div>
+
+<section class="section" style="margin-top:16px">
+  <div class="card diag-banner">
+    <h2 id="vTitle">还没有足够数据</h2>
+    <p id="vText" class="desc">先做一组题，这里才有判断依据。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="part-head">
+    <span class="part-no">一</span>
+    <div><h2>数据</h2><span class="sub">先看事实：练了多少、正确率多少、三层各到哪</span></div>
+  </div>
+  <div class="grid c4" id="diagMetrics" style="margin-bottom:16px"></div>
+
+  <div class="section-head" style="margin-top:8px"><div class="section-head-left">
+    <span class="kicker">三层达标</span><h2>各自离目标还差多少</h2>
+    <span class="sub">熟练层 98% · 理解层 90% · 攻坚层 50%</span>
+  </div></div>
+  <div class="tier-grid" id="tierGrid"></div>
+
+  <div class="grid c2" style="margin-top:16px">
+    <div>
+      <div class="section-head"><div class="section-head-left">
+        <span class="kicker">题型</span><h2>四类题型分别错多少</h2>
+        <span class="sub">单选错 → 概念/方法边界不清；计算错 → 熟练度不够</span>
+      </div></div>
+      <div class="card" id="qtypeCard"></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-head-left">
+        <span class="kicker">会做但错</span><h2>收尾稳定性</h2>
+        <span class="sub">不是不会，是没检查</span>
+      </div></div>
+      <div class="card" id="nearMissCard"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="part-head">
+    <span class="part-no">二</span>
+    <div><h2>薄弱知识点</h2><span class="sub">从数据里找出最该补的，每项可直接开练</span></div>
+  </div>
+  <div id="weakList"></div>
+</section>
+
+<section class="section">
+  <div class="part-head">
+    <span class="part-no">三</span>
+    <div><h2>错因归类</h2><span class="sub">错在哪一类——这决定怎么补：符号错要专项，算错要限时重复</span></div>
+  </div>
+  <div class="card" id="errCard"></div>
+</section>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in yz-foot">
+    <div>
+      <div class="yz-foot-title">柚子初一(上)数学期末复习</div>
+      <div class="yz-foot-sub">面向 北师大实验中学 初一(上)期末 · 知识复习 / 巩固练习 / 错题 / 考情</div>
+    </div>
+    <div class="foot-links">
+      <a href="learn.html">知识复习</a>
+      <a href="drill.html">巩固练习</a>
+      <a href="wrong.html">错题本</a>
+      <a href="papers.html">考情解读</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/app.js?v=4d5d80ff"></script>
+
+<script src="dist/data/meta.js?v=4d5d80ff"></script>
+<script>
+window.YZ = window.YZ || {};
+window.YZ.loadAll = function(chapters){
+  if (!chapters || !chapters.length) return Promise.resolve({});
+  var CH = window.YZ.CH = window.YZ.CH || {};
+  var need = chapters.filter(function(id){ return !CH[id]; });
+  return Promise.all(need.map(function(id){
+    return new Promise(function(res){
+      var s = document.createElement('script');
+      s.src = "" + 'dist/data/ch/' + id + '.js?v=' + "4d5d80ff";
+      s.onload = function(){ res(); };
+      s.onerror = function(){ res(); };
+      document.head.appendChild(s);
+    });
+  })).then(function(){
+    /* 分片自带字形 defs：动态加载的页面本身没有字形定义，
+       不注入的话公式会全部不可见。 */
+    Object.keys(CH).forEach(function(id){
+      var d = CH[id];
+      if (!d || !d.defs) return;
+      if (document.querySelector('[data-defs="' + id + '"]')) return;
+      var box = document.createElement('div');
+      box.setAttribute('data-defs', id);
+      box.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+      box.innerHTML = d.defs;
+      document.body.appendChild(box);
+    });
+    return CH;
+  });
+};
+window.YZ.chapterIds = function(){
+  var M = window.YZ.META || {};
+  return (M.chapters || []).map(function(c){ return c.id; });
+};
+
+/* ==========================================================
+   三级组卷：把题按「改数字 → 改条件 → 逆向问」排成链
+   这是全站练习内容的统一口径——不是随机抽题，而是按三级递进出题。
+   输入：题目池；输出：按 method 分组后、每组按三级顺序排列的题
+   ========================================================== */
+window.YZ.buildLadders = function(pool){
+  var LEVEL = { number: 0, condition: 1, reverse: 2 };
+  var byMethod = {};
+  (pool || []).forEach(function(q){
+    var key = q.method || ('__ch_' + (q.chapter || '') );
+    if (!byMethod[key]) byMethod[key] = { mothers: [], levels: {}, others: [] };
+    if (q.variantOf && q.changed != null && LEVEL[q.changed] != null) {
+      /* 三级变式：每级取第一道（同方法同级别通常只有一道） */
+      var li = LEVEL[q.changed];
+      if (!byMethod[key].levels[li]) byMethod[key].levels[li] = q;
+      else byMethod[key].others.push(q);
+    } else if (!q.variantOf) {
+      byMethod[key].mothers.push(q);
+    } else {
+      byMethod[key].others.push(q);
+    }
+  });
+  var out = [];
+  Object.keys(byMethod).forEach(function(k){
+    var g = byMethod[k];
+    var hasAll = g.levels[0] && g.levels[1] && g.levels[2];
+    /* 有完整三级：先出「三级链」（这是本组核心），再出其余母题与题 */
+    if (hasAll) {
+      out.push({ q: g.levels[0], group: k, role: 'L1' });
+      out.push({ q: g.levels[1], group: k, role: 'L2' });
+      out.push({ q: g.levels[2], group: k, role: 'L3' });
+    } else {
+      [0,1,2].forEach(function(i){ if (g.levels[i]) out.push({ q: g.levels[i], group: k, role: '' }); });
+    }
+    /* 其余题全部保留，不能丢 */
+    g.mothers.forEach(function(q){ out.push({ q: q, group: k, role: 'mother' }); });
+    g.others.forEach(function(q){ out.push({ q: q, group: k, role: '' }); });
+  });
+  return out;
+};
+
+/* 只取「有完整三级链」的组，用于达标判定 */
+window.YZ.completeChains = function(pool){
+  var built = window.YZ.buildLadders(pool);
+  var byGroup = {};
+  built.forEach(function(x){ (byGroup[x.group] = byGroup[x.group] || []).push(x); });
+  var out = [];
+  Object.keys(byGroup).forEach(function(k){
+    var g = byGroup[k];
+    var l1 = g.filter(function(x){ return x.role === 'L1'; })[0];
+    var l2 = g.filter(function(x){ return x.role === 'L2'; })[0];
+    var l3 = g.filter(function(x){ return x.role === 'L3'; })[0];
+    var m = g.filter(function(x){ return x.role === 'mother'; })[0];
+    if (l1 && l2 && l3) out.push({ group: k, mother: m ? m.q : null, qs: [l1.q, l2.q, l3.q] });
+  });
+  return out;
+};</script>
+<script>
+(function(){
+  var Z = window.YZ;
+  var TIER_NAME = {"l1":"熟练层","l2":"理解层","l3":"攻坚层"};
+  var TIER_TARGET = {"l1":"98%","l2":"90%","l3":"50%"};
+  var ERR_NAME = { concept:'概念边界', sign:'符号错误', calc:'计算失误', method:'方法未掌握' };
+  var ERR_FIX = {
+    concept: '看概念卡对应那张的「差在哪个条件」',
+    sign: '专门练去括号/移项的变号，连续 10 题不错再换',
+    calc: '限时重复同类计算，记录「会做但错」的次数',
+    method: '看方法卡的「常见误用」那段，对照自己选错的选项',
+  };
+  var QTYPE_NAME = { single:'单选', calc:'计算', big:'大题', judge:'判断' };
+  var QTYPE_HINT = {
+    single: '概念/方法边界不清 —— 看错项揭示的是哪类误解',
+    calc: '熟练度不够 —— 限时重复，重点看「会做但错」',
+    big: '过程写不全 —— 对照解答查每步依据',
+    judge: '条件判断有偏差 —— 回到对应概念卡',
+  };
+  function pct(x){ return Math.round(x*100); }
+
+  function paint(){
+    var log = (Z.qLog ? Z.qLog() : null) || {};
+    var st = log.stats || {};
+    var byTier = st.byTier || {};
+    var wrong = log.wrong || {};
+    var errStats = log.errStats || {};
+    var qtStats = log.qtypeStats || {};
+    var nm = (Z.nearMissRate ? Z.nearMissRate() : { n:0, total:0, rate:0 });
+
+    var totalN = 0, totalOk = 0;
+    Object.keys(byTier).forEach(function(k){ totalN += byTier[k].n||0; totalOk += byTier[k].ok||0; });
+    var overall = totalN ? totalOk/totalN : 0;
+    var wCount = Object.keys(wrong).length;
+
+    var vt = document.getElementById('vTitle'), vx = document.getElementById('vText');
+    if (!totalN) {
+      vt.textContent = '还没有足够数据';
+      vx.textContent = '先做一组题，这里才有判断依据。';
+    } else {
+      var l1 = byTier.l1 && byTier.l1.n ? byTier.l1.ok/byTier.l1.n : null;
+      var l2 = byTier.l2 && byTier.l2.n ? byTier.l2.ok/byTier.l2.n : null;
+      var l3 = byTier.l3 && byTier.l3.n ? byTier.l3.ok/byTier.l3.n : null;
+      var mainErr=null, mainN=0;
+      Object.keys(errStats).forEach(function(k){ if((errStats[k].n||0)>mainN){ mainN=errStats[k].n; mainErr=k; } });
+      var head='';
+      if (l1!=null && l1<0.98) head='第一道门槛是<b>熟练层零失误</b>——现在 '+pct(l1)+'%，要求 98%。';
+      else if (l2!=null && l2<0.90) head='熟练层已达标，接下来是<b>理解层</b>——现在 '+pct(l2)+'%，要求 90%。';
+      else if (l3!=null && l3<0.50) head='前两层都达标，剩下<b>攻坚层</b>——现在 '+pct(l3)+'%，目标 50%。';
+      else head='三层都在目标线上，接下来靠<b>限时模考</b>把稳定性坐实。';
+      vt.innerHTML = head;
+      vx.innerHTML = mainErr ? ('最集中的错因是 <b>'+(ERR_NAME[mainErr]||mainErr)+'</b>（'+mainN+' 次）——'+(ERR_FIX[mainErr]||'')) : '还没有错因记录，继续练。';
+    }
+
+    var dm = document.getElementById('diagMetrics');
+    if (dm) {
+      dm.innerHTML = [
+        ['已练题数', totalN, ''],
+        ['总正确率', pct(overall)+'%', ''],
+        ['待复习错题', wCount, ''],
+        ['会做但错', pct(nm.rate)+'%', nm.n+'/'+nm.total],
+      ].map(function(x){
+        return '<div class="ck-item"><b>'+x[1]+'</b><span>'+x[0]+'</span>'+(x[2]?'<i>'+x[2]+'</i>':'')+'</div>';
+      }).join('');
+    }
+
+    var tg = document.getElementById('tierGrid');
+    if (tg) {
+      tg.innerHTML = ['l1','l2','l3'].map(function(t){
+        var d = byTier[t] || { n:0, ok:0 };
+        var r = d.n ? d.ok/d.n : 0;
+        var target = parseFloat(TIER_TARGET[t])/100 || 0;
+        var cls = r>=target ? 'ok' : (d.n?'bad':'');
+        return '<div class="tier-card '+cls+'"><div class="tc-name">'+TIER_NAME[t]+'</div>'+
+          '<div class="tc-rate">'+(d.n?pct(r)+'%':'—')+'</div>'+
+          '<div class="tc-meta">'+(d.n?(d.ok+'/'+d.n):'未练')+' · 目标 '+TIER_TARGET[t]+'</div></div>';
+      }).join('');
+    }
+
+    var nc = document.getElementById('nearMissCard');
+    if (nc) {
+      var nr = pct(nm.rate);
+      var verdict = nr<=15 ? '收尾很稳。' : nr<=30 ? '收尾有波动，注意最后一步的符号与检验。' : '收尾不稳是当前最大问题——不是不会，是没检查。';
+      nc.innerHTML = '<div class="nm-row"><div class="nm-big">'+nr+'%</div><div><b>'+nm.n+' / '+nm.total+'</b> 次「会做但错」<p class="desc" style="margin:6px 0 0;font-size:.88rem">'+verdict+'</p></div></div>';
+    }
+
+    var qc = document.getElementById('qtypeCard');
+    if (qc) {
+      var qk = Object.keys(qtStats).filter(function(k){ return (qtStats[k].n||0)>0; });
+      if (!qk.length) {
+        qc.innerHTML = '<p style="margin:0;color:var(--text-2);font-size:.9rem">还没有分题型数据。做一组题后这里显示四类题型正确率。</p>';
+      } else {
+        qc.innerHTML = '<div class="err-rows">'+qk.map(function(k){
+          var e = qtStats[k];
+          var rate = e.n ? Math.round((e.ok||0)/e.n*100) : 0;
+          var cls = rate>=90 ? 'ok' : rate>=70 ? 'mid' : 'bad';
+          return '<div class="err-row"><span class="err-name">'+(QTYPE_NAME[k]||k)+'</span>'+
+            '<span class="err-bar-wrap"><span class="err-bar '+cls+'" style="width:'+rate+'%"></span></span>'+
+            '<span class="err-n">'+rate+'% · '+(e.ok||0)+'/'+e.n+'</span></div>'+
+            '<p class="desc" style="margin:-4px 0 10px;font-size:.82rem;color:var(--text-3)">→ '+(QTYPE_HINT[k]||'')+'</p>';
+        }).join('')+'</div>';
+      }
+    }
+
+    var ec = document.getElementById('errCard');
+    if (ec) {
+      var errs = Object.keys(errStats).filter(function(k){ return (errStats[k].n||0)>0; });
+      if (!errs.length) {
+        ec.innerHTML = '<p style="margin:0;color:var(--text-2);font-size:.9rem">还没有错因记录。答错时系统会按你选的错项反推错因。</p>';
+      } else {
+        var sum = errs.reduce(function(a,k){ return a+errStats[k].n; }, 0);
+        ec.innerHTML = '<div class="err-rows">'+errs.sort(function(a,b){ return errStats[b].n-errStats[a].n; }).map(function(k){
+          var e = errStats[k];
+          var p2 = Math.round(e.n/sum*100);
+          var fix = e.n ? Math.round((e.ok||0)/e.n*100) : 0;
+          return '<div class="err-row"><span class="err-name">'+(ERR_NAME[k]||k)+'</span>'+
+            '<span class="err-bar-wrap"><span class="err-bar" style="width:'+p2+'%"></span></span>'+
+            '<span class="err-n">'+e.n+' 次</span><span class="err-fix">补救 '+fix+'%</span></div>'+
+            '<p class="desc" style="margin:-4px 0 10px;font-size:.82rem;color:var(--text-3)">→ '+(ERR_FIX[k]||'')+'</p>';
+        }).join('')+'</div>';
+      }
+    }
+
+    var wl = document.getElementById('weakList');
+    if (wl) {
+      var mw = (Z.methodWeakness ? Z.methodWeakness() : []) || [];
+      var cw = (Z.chapterWeakness ? Z.chapterWeakness() : []) || [];
+      var items = [];
+      mw.slice(0,4).forEach(function(x){ items.push({ name:x.name, rate:x.rate, n:x.n, go:'drill.html?method='+x.id+'&autostart=1', kind:'方法' }); });
+      cw.slice(0,3).forEach(function(x){ items.push({ name:x.name, rate:x.rate, n:x.n, go:'drill.html?chapter='+x.id+'&autostart=1', kind:'章节' }); });
+      if (!items.length) {
+        wl.innerHTML = '<div class="card"><p style="margin:0;color:var(--text-2);font-size:.9rem">还没有足够数据判断薄弱点。做 2–3 组题后这里会排序。</p></div>';
+      } else {
+        wl.innerHTML = '<div class="grid c2">'+items.map(function(x){
+          var r = Math.round((x.rate||0)*100);
+          return '<a class="card weak-card" data-go="'+x.go+'">'+
+            '<div class="wc-head"><b>'+x.name+'</b><span class="wc-kind">'+x.kind+'</span></div>'+
+            '<div class="wc-rate">'+r+'%<span> · '+x.n+' 次</span></div>'+
+            '<div class="wc-go">去练 →</div></a>';
+        }).join('')+'</div>';
+        [].forEach.call(wl.querySelectorAll('.weak-card[data-go]'), function(a){
+          a.setAttribute('href', a.getAttribute('data-go'));
+        });
+      }
+    }
+  }
+
+  Z.ready(function(){ paint(); document.addEventListener('yz:qlog', paint); });
+})();
+</script>
+</body>
+</html>

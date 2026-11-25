@@ -33,6 +33,7 @@ import {
   FAMILY_OF_Q, Q_BY_FAMILY,
   SLOTS, SLOT_STATS, MUST100,
 } from './src/index.js';
+import { EXAM_FULL } from './src/data-exam-full.js';
 import { createMathRenderer } from './tools/math-render.mjs';
 import { createFigureRenderer } from './tools/fig-render.mjs';
 
@@ -235,6 +236,7 @@ const NAV_PRIMARY = [
   ['drill.html', '巩固练习'],
   ['wrong.html', '错题本'],
   ['papers.html', '考情解读'],
+  ['exam-verify.html', '真题核验'],
 ];
 
 /* 次级：讲解类。它们不是入口，是「不会的时候去哪儿看」。
@@ -2529,6 +2531,336 @@ function buildWrong() {
 /* ==========================================================
    页面 10：考情解读 papers.html
    ========================================================== */
+
+/* ==========================================================
+   真题核验页（exam-verify.html）
+   ----------------------------------------------------------
+   用途：抽查「抽取出来的题」和「原题」是否一致。
+   两侧对照：
+     左 = 抽取结果（文本 + 公式图，就是内容库里的原文）
+     右 = 原卷（2022-23 有 PDF 页图；其余三套标来源文件 + 逐题核对要点）
+
+   为什么需要这一页：公式是 MathType 对象，抽取过程必然有误差，
+   人工抽查是唯一可靠的验收方式。不能自己说「抽对了」。
+   ========================================================== */
+function buildExamVerify() {
+  const R = newRenderers();
+  const C = R.math.compact;
+  const TAGS = Object.keys(EXAM_FULL);
+  const YEAR_LABEL = { p2021: '2021—2022', p2022: '2022—2023', p2023: '2023—2024', p2024: '2024—2025' };
+  /* 只有 2022-23 有 PDF，可提供原卷页图 */
+  const HAS_PAGE_IMG = { p2022: 6 };
+
+  /* 片段渲染：文本直接输出，公式图引用 assets/exam-src/<tag>/<name> */
+  function renderParts(parts, tag) {
+    return parts.map((p) => {
+      if (p.t === 'text') return esc(p.v);
+      if (p.t === 'break') return '<br>';
+      if (p.t === 'img' && p.src) {
+        const name = p.src.split('/').pop();
+        /* 线上（GitHub Pages）不发布真题图，加载失败时显示占位而不是破图 */
+        return '<span class="ev-f-wrap"><img class="ev-f" src="assets/exam-src/' + tag + '/' + name +
+          '" alt="公式" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\'">' +
+          '<span class="ev-f-miss" style="display:none" title="本地未找到该公式图">⟨公式⟩</span></span>';
+      }
+      return '';
+    }).join('');
+  }
+
+  const body = TAGS.map((tag) => {
+    const d = EXAM_FULL[tag];
+    const qs = d.questions;
+    const withOpt = qs.filter((q) => q.options.length).length;
+    const withImg = qs.filter((q) => q.stemParts.some((p) => p.t === 'img')).length;
+    const pageCount = HAS_PAGE_IMG[tag];
+    return '<section class="section" data-paper="' + tag + '">' +
+      '<div class="section-head"><div class="section-head-left">' +
+        '<span class="kicker">' + YEAR_LABEL[tag] + '</span>' +
+        '<h2>' + d.qcount + ' 题 · 抽取核对</h2>' +
+        '<span class="sub">源文件：' + esc(d.source) + '</span>' +
+      '</div></div>' +
+
+      '<div class="ev-summary">' +
+        '<div class="ev-stat"><b>' + d.qcount + '</b><span>题</span></div>' +
+        '<div class="ev-stat"><b>' + withOpt + '</b><span>带选项</span></div>' +
+        '<div class="ev-stat"><b>' + withImg + '</b><span>含公式图</span></div>' +
+        (pageCount ? '<div class="ev-stat ok"><b>' + pageCount + '</b><span>原卷页图</span></div>'
+                   : '<div class="ev-stat warn"><b>—</b><span>无原卷页图</span></div>') +
+      '</div>' +
+
+      (pageCount ? '<div class="card ev-note">右栏原卷页图可逐页对照。点题号高亮该题所在页（近似定位）。</div>'
+                 : '<div class="card ev-note">这套只有 docx 源文件，没有原卷页图。核对方式：对照源文件 ' + esc(d.source) + ' 逐题看题干与公式是否一致。</div>') +
+
+      '<div class="ev-list">' + qs.map((q) => {
+        const opts = q.options.length
+          ? '<div class="ev-opts">' + q.options.map((o) =>
+              '<div class="ev-opt"><span class="ev-key">' + esc(o.key) + '</span><span>' + renderParts(o.parts, tag) + '</span></div>'
+            ).join('') + '</div>'
+          : '';
+        const raw = (q.rawParas || []).map((t) =>
+          '<div class="ev-raw-line">' + esc(t) + '</div>').join('');
+        return '<div class="ev-q" id="' + tag + '-q' + q.no + '">' +
+          '<div class="ev-qhead"><span class="ev-no">' + q.no + '</span>' +
+            '<span class="ev-meta">' + (q.options.length ? '选择' : '非选择') + '</span>' +
+            '<span class="ev-badge">抽取结果</span></div>' +
+          '<div class="ev-stem">' + renderParts(q.stemParts, tag) + '</div>' +
+          opts +
+          (raw ? '<details class="ev-raw"><summary>看原文（未加工）</summary>' +
+            '<div class="ev-raw-box">' + raw + '</div>' +
+            '<p class="ev-raw-hint">这是从 docx 直接读出的段落，公式处显示为 ⟨公式⟩。' +
+            '对照上面：题干文字是否一致、选项是否拆对、公式图位置是否对。</p></details>' : '') +
+          '</div>';
+      }).join('') + '</div>' +
+
+      (pageCount ? '<details class="ev-pages"><summary>展开原卷页图（' + pageCount + ' 页）</summary>' +
+        '<div class="ev-pages-grid">' + Array.from({ length: pageCount }, (_, i) =>
+          '<figure><img src="assets/exam-src/pages/p2022-' + (i + 1) + '.png" alt="原卷第 ' + (i + 1) + ' 页" loading="lazy" onerror="this.parentNode.classList.add(\'ev-img-miss\')">' +
+          '<figcaption>第 ' + (i + 1) + ' 页</figcaption></figure>'
+        ).join('') + '</div></details>' : '') +
+      '</section>';
+  }).join('');
+
+  const html = page({
+    active: 'exam-verify.html',
+    title: '真题核验',
+    desc: '四套西城期末真题的抽取结果与原卷对照，用于人工抽查一致性。',
+    body: '<div class="page-head">' +
+      '<div class="crumb"><a href="index.html">首页</a> / 真题核验</div>' +
+      '<h1>真题核验</h1>' +
+      '<p class="lede">四套卷共 <b>' + TAGS.reduce((a, t) => a + EXAM_FULL[t].qcount, 0) + ' 道题</b>已抽取进内容库。' +
+      '这一页用来抽查：<b>抽出来的题和原卷是否一致</b>。公式是 MathType 嵌入对象（无法转文本），所以保留为图片——请重点核对公式位置与内容。</p>' +
+      '</div>' + body,
+    script: '',
+    data: ['meta'],
+  });
+  return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
+}
+
+function buildDiag() {
+  const R = newRenderers();
+
+  const body = `
+<div class="page-head">
+  <div class="crumb"><a href="index.html">首页</a> / 学情诊断</div>
+  <h1>学情诊断</h1>
+  <p class="lede">按四步读：<b>一、看数据</b>（练了多少、正确率、三层各到哪）→ <b>二、判薄弱知识点</b>（最该补哪个）→ <b>三、归错因</b>（错在哪一类，决定怎么补）→ <b>四、去练</b>。</p>
+</div>
+
+<section class="section" style="margin-top:16px">
+  <div class="card diag-banner">
+    <h2 id="vTitle">还没有足够数据</h2>
+    <p id="vText" class="desc">先做一组题，这里才有判断依据。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="part-head">
+    <span class="part-no">一</span>
+    <div><h2>数据</h2><span class="sub">先看事实：练了多少、正确率多少、三层各到哪</span></div>
+  </div>
+  <div class="grid c4" id="diagMetrics" style="margin-bottom:16px"></div>
+
+  <div class="section-head" style="margin-top:8px"><div class="section-head-left">
+    <span class="kicker">三层达标</span><h2>各自离目标还差多少</h2>
+    <span class="sub">熟练层 ${TIER_TARGET.l1} · 理解层 ${TIER_TARGET.l2} · 攻坚层 ${TIER_TARGET.l3}</span>
+  </div></div>
+  <div class="tier-grid" id="tierGrid"></div>
+
+  <div class="grid c2" style="margin-top:16px">
+    <div>
+      <div class="section-head"><div class="section-head-left">
+        <span class="kicker">题型</span><h2>四类题型分别错多少</h2>
+        <span class="sub">单选错 → 概念/方法边界不清；计算错 → 熟练度不够</span>
+      </div></div>
+      <div class="card" id="qtypeCard"></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-head-left">
+        <span class="kicker">会做但错</span><h2>收尾稳定性</h2>
+        <span class="sub">不是不会，是没检查</span>
+      </div></div>
+      <div class="card" id="nearMissCard"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="part-head">
+    <span class="part-no">二</span>
+    <div><h2>薄弱知识点</h2><span class="sub">从数据里找出最该补的，每项可直接开练</span></div>
+  </div>
+  <div id="weakList"></div>
+</section>
+
+<section class="section">
+  <div class="part-head">
+    <span class="part-no">三</span>
+    <div><h2>错因归类</h2><span class="sub">错在哪一类——这决定怎么补：符号错要专项，算错要限时重复</span></div>
+  </div>
+  <div class="card" id="errCard"></div>
+</section>
+`;
+
+  const script = `
+(function(){
+  var Z = window.YZ;
+  var TIER_NAME = ${JSON.stringify(TIER_NAME)};
+  var TIER_TARGET = ${JSON.stringify(TIER_TARGET)};
+  var ERR_NAME = { concept:'概念边界', sign:'符号错误', calc:'计算失误', method:'方法未掌握' };
+  var ERR_FIX = {
+    concept: '看概念卡对应那张的「差在哪个条件」',
+    sign: '专门练去括号/移项的变号，连续 10 题不错再换',
+    calc: '限时重复同类计算，记录「会做但错」的次数',
+    method: '看方法卡的「常见误用」那段，对照自己选错的选项',
+  };
+  var QTYPE_NAME = { single:'单选', calc:'计算', big:'大题', judge:'判断' };
+  var QTYPE_HINT = {
+    single: '概念/方法边界不清 —— 看错项揭示的是哪类误解',
+    calc: '熟练度不够 —— 限时重复，重点看「会做但错」',
+    big: '过程写不全 —— 对照解答查每步依据',
+    judge: '条件判断有偏差 —— 回到对应概念卡',
+  };
+  function pct(x){ return Math.round(x*100); }
+
+  function paint(){
+    var log = (Z.qLog ? Z.qLog() : null) || {};
+    var st = log.stats || {};
+    var byTier = st.byTier || {};
+    var wrong = log.wrong || {};
+    var errStats = log.errStats || {};
+    var qtStats = log.qtypeStats || {};
+    var nm = (Z.nearMissRate ? Z.nearMissRate() : { n:0, total:0, rate:0 });
+
+    var totalN = 0, totalOk = 0;
+    Object.keys(byTier).forEach(function(k){ totalN += byTier[k].n||0; totalOk += byTier[k].ok||0; });
+    var overall = totalN ? totalOk/totalN : 0;
+    var wCount = Object.keys(wrong).length;
+
+    var vt = document.getElementById('vTitle'), vx = document.getElementById('vText');
+    if (!totalN) {
+      vt.textContent = '还没有足够数据';
+      vx.textContent = '先做一组题，这里才有判断依据。';
+    } else {
+      var l1 = byTier.l1 && byTier.l1.n ? byTier.l1.ok/byTier.l1.n : null;
+      var l2 = byTier.l2 && byTier.l2.n ? byTier.l2.ok/byTier.l2.n : null;
+      var l3 = byTier.l3 && byTier.l3.n ? byTier.l3.ok/byTier.l3.n : null;
+      var mainErr=null, mainN=0;
+      Object.keys(errStats).forEach(function(k){ if((errStats[k].n||0)>mainN){ mainN=errStats[k].n; mainErr=k; } });
+      var head='';
+      if (l1!=null && l1<0.98) head='第一道门槛是<b>熟练层零失误</b>——现在 '+pct(l1)+'%，要求 98%。';
+      else if (l2!=null && l2<0.90) head='熟练层已达标，接下来是<b>理解层</b>——现在 '+pct(l2)+'%，要求 90%。';
+      else if (l3!=null && l3<0.50) head='前两层都达标，剩下<b>攻坚层</b>——现在 '+pct(l3)+'%，目标 50%。';
+      else head='三层都在目标线上，接下来靠<b>限时模考</b>把稳定性坐实。';
+      vt.innerHTML = head;
+      vx.innerHTML = mainErr ? ('最集中的错因是 <b>'+(ERR_NAME[mainErr]||mainErr)+'</b>（'+mainN+' 次）——'+(ERR_FIX[mainErr]||'')) : '还没有错因记录，继续练。';
+    }
+
+    var dm = document.getElementById('diagMetrics');
+    if (dm) {
+      dm.innerHTML = [
+        ['已练题数', totalN, ''],
+        ['总正确率', pct(overall)+'%', ''],
+        ['待复习错题', wCount, ''],
+        ['会做但错', pct(nm.rate)+'%', nm.n+'/'+nm.total],
+      ].map(function(x){
+        return '<div class="ck-item"><b>'+x[1]+'</b><span>'+x[0]+'</span>'+(x[2]?'<i>'+x[2]+'</i>':'')+'</div>';
+      }).join('');
+    }
+
+    var tg = document.getElementById('tierGrid');
+    if (tg) {
+      tg.innerHTML = ['l1','l2','l3'].map(function(t){
+        var d = byTier[t] || { n:0, ok:0 };
+        var r = d.n ? d.ok/d.n : 0;
+        var target = parseFloat(TIER_TARGET[t])/100 || 0;
+        var cls = r>=target ? 'ok' : (d.n?'bad':'');
+        return '<div class="tier-card '+cls+'"><div class="tc-name">'+TIER_NAME[t]+'</div>'+
+          '<div class="tc-rate">'+(d.n?pct(r)+'%':'—')+'</div>'+
+          '<div class="tc-meta">'+(d.n?(d.ok+'/'+d.n):'未练')+' · 目标 '+TIER_TARGET[t]+'</div></div>';
+      }).join('');
+    }
+
+    var nc = document.getElementById('nearMissCard');
+    if (nc) {
+      var nr = pct(nm.rate);
+      var verdict = nr<=15 ? '收尾很稳。' : nr<=30 ? '收尾有波动，注意最后一步的符号与检验。' : '收尾不稳是当前最大问题——不是不会，是没检查。';
+      nc.innerHTML = '<div class="nm-row"><div class="nm-big">'+nr+'%</div><div><b>'+nm.n+' / '+nm.total+'</b> 次「会做但错」<p class="desc" style="margin:6px 0 0;font-size:.88rem">'+verdict+'</p></div></div>';
+    }
+
+    var qc = document.getElementById('qtypeCard');
+    if (qc) {
+      var qk = Object.keys(qtStats).filter(function(k){ return (qtStats[k].n||0)>0; });
+      if (!qk.length) {
+        qc.innerHTML = '<p style="margin:0;color:var(--text-2);font-size:.9rem">还没有分题型数据。做一组题后这里显示四类题型正确率。</p>';
+      } else {
+        qc.innerHTML = '<div class="err-rows">'+qk.map(function(k){
+          var e = qtStats[k];
+          var rate = e.n ? Math.round((e.ok||0)/e.n*100) : 0;
+          var cls = rate>=90 ? 'ok' : rate>=70 ? 'mid' : 'bad';
+          return '<div class="err-row"><span class="err-name">'+(QTYPE_NAME[k]||k)+'</span>'+
+            '<span class="err-bar-wrap"><span class="err-bar '+cls+'" style="width:'+rate+'%"></span></span>'+
+            '<span class="err-n">'+rate+'% · '+(e.ok||0)+'/'+e.n+'</span></div>'+
+            '<p class="desc" style="margin:-4px 0 10px;font-size:.82rem;color:var(--text-3)">→ '+(QTYPE_HINT[k]||'')+'</p>';
+        }).join('')+'</div>';
+      }
+    }
+
+    var ec = document.getElementById('errCard');
+    if (ec) {
+      var errs = Object.keys(errStats).filter(function(k){ return (errStats[k].n||0)>0; });
+      if (!errs.length) {
+        ec.innerHTML = '<p style="margin:0;color:var(--text-2);font-size:.9rem">还没有错因记录。答错时系统会按你选的错项反推错因。</p>';
+      } else {
+        var sum = errs.reduce(function(a,k){ return a+errStats[k].n; }, 0);
+        ec.innerHTML = '<div class="err-rows">'+errs.sort(function(a,b){ return errStats[b].n-errStats[a].n; }).map(function(k){
+          var e = errStats[k];
+          var p2 = Math.round(e.n/sum*100);
+          var fix = e.n ? Math.round((e.ok||0)/e.n*100) : 0;
+          return '<div class="err-row"><span class="err-name">'+(ERR_NAME[k]||k)+'</span>'+
+            '<span class="err-bar-wrap"><span class="err-bar" style="width:'+p2+'%"></span></span>'+
+            '<span class="err-n">'+e.n+' 次</span><span class="err-fix">补救 '+fix+'%</span></div>'+
+            '<p class="desc" style="margin:-4px 0 10px;font-size:.82rem;color:var(--text-3)">→ '+(ERR_FIX[k]||'')+'</p>';
+        }).join('')+'</div>';
+      }
+    }
+
+    var wl = document.getElementById('weakList');
+    if (wl) {
+      var mw = (Z.methodWeakness ? Z.methodWeakness() : []) || [];
+      var cw = (Z.chapterWeakness ? Z.chapterWeakness() : []) || [];
+      var items = [];
+      mw.slice(0,4).forEach(function(x){ items.push({ name:x.name, rate:x.rate, n:x.n, go:'drill.html?method='+x.id+'&autostart=1', kind:'方法' }); });
+      cw.slice(0,3).forEach(function(x){ items.push({ name:x.name, rate:x.rate, n:x.n, go:'drill.html?chapter='+x.id+'&autostart=1', kind:'章节' }); });
+      if (!items.length) {
+        wl.innerHTML = '<div class="card"><p style="margin:0;color:var(--text-2);font-size:.9rem">还没有足够数据判断薄弱点。做 2–3 组题后这里会排序。</p></div>';
+      } else {
+        wl.innerHTML = '<div class="grid c2">'+items.map(function(x){
+          var r = Math.round((x.rate||0)*100);
+          return '<a class="card weak-card" data-go="'+x.go+'">'+
+            '<div class="wc-head"><b>'+x.name+'</b><span class="wc-kind">'+x.kind+'</span></div>'+
+            '<div class="wc-rate">'+r+'%<span> · '+x.n+' 次</span></div>'+
+            '<div class="wc-go">去练 →</div></a>';
+        }).join('')+'</div>';
+        [].forEach.call(wl.querySelectorAll('.weak-card[data-go]'), function(a){
+          a.setAttribute('href', a.getAttribute('data-go'));
+        });
+      }
+    }
+  }
+
+  Z.ready(function(){ paint(); document.addEventListener('yz:qlog', paint); });
+})();
+`;
+
+  const html = page({
+    active: 'diag.html',
+    title: '学情诊断',
+    desc: '按数据 → 薄弱知识点 → 错因三步读的学情诊断。',
+    body, script, data: ['meta'],
+  });
+  return html.replace('<body data-base="">', '<body data-base="">' + R.math.defs());
+}
+
 function buildPapers() {
   const R = newRenderers();
   const CH_ORDER = ['ch-rational', 'ch-op', 'ch-expr', 'ch-poly', 'ch-eq', 'ch-geo'];
@@ -4819,11 +5151,13 @@ function main() {
       emit('map.html', buildMap());
       CHAPTERS.forEach((c) => emit(`map/${c.id}.html`, buildChapter(c)));
     }],
+    ['diag', () => emit('diag.html', buildDiag())],
     ['wrong', () => emit('wrong.html', buildWrong())],
     ['slots', () => emit('slots.html', buildSlots())],
     ['ladder', () => emit('ladder.html', buildLadder())],
     ['exam', () => emit('exam.html', buildExam())],
     ['papers', () => emit('papers.html', buildPapers())],
+    ['examverify', () => emit('exam-verify.html', buildExamVerify())],
     ['plan', () => emit('plan.html', buildPlan())],
     ['graph', () => emit('graph.html', buildGraph())],
     ['content', () => emit('content.html', buildContent())],
