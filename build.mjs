@@ -7,7 +7,7 @@ import { dirname, join } from 'node:path';
 
 import {
   PAPER_STATS, YEARS, CH_SCORE, CAT_SCORE, DIFF_SCORE,
-  FAMILY_MAP, FREQ, FREQ_SUMMARY, SLOT_MATRIX, STRUCTURE,
+  FAMILY_MAP, FREQ, FREQ_SUMMARY,
   SCORE_TIERS, MAIN_GRAND, N_PAPERS,
 } from './work/papers/stats.mjs';
 import { CH_NAME, CH_ORDER, CAT_NAME, CAT_ORDER, DIFF_NAME, DIFF_ORDER, LEDGER } from './work/papers/ledger.mjs';
@@ -342,10 +342,6 @@ ul.clean li b{color:var(--text);font-weight:650}
 .phase-b p{font-size:13.2px;color:var(--text-2);line-height:1.65}
 .phase-ok{font-size:12.2px;color:var(--ok);margin-top:8px;font-weight:650}
 
-/* ---------- 题位矩阵 ---------- */
-.slot-tbl td{white-space:normal;font-size:12.3px;line-height:1.5;min-width:104px}
-.slot-no{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
-
 /* ---------- 页脚 ---------- */
 footer{margin-top:60px;padding:30px 0 40px;border-top:1px solid var(--border);font-size:12.5px;color:var(--text-3)}
 footer p{margin:5px 0}
@@ -543,10 +539,10 @@ ${section('满分从哪来', '三个判断，决定复习顺序', '这三个判�
       <span class="sell-pain-sub">按题号背「第 19 题是作图」会失手</span>
     </div>
     <div class="sell-fix">
-      <span class="sell-tag">题位骨架</span>
-      <p>26 题 / 100 分钟 / 选择 16 + 填空 16 + 解答 68，五年一动没动，<b>所以「按题位复习」的框架成立</b>。
+      <span class="sell-tag">卷面结构</span>
+      <p>26 题 / 100 分钟 / 选择 16 + 填空 16 + 解答 68，五年一动没动。
       但 2025-26 把「解方程」放到第 19 题（12 分）、「尺规作图」放到第 20 题（5 分），与往年相反——<b>要按题型认，不按题号认。</b></p>
-      <a class="sell-link" href="papers.html#slots">看 26 个题位骨架 →</a>
+      <a class="sell-link" href="papers.html">看逐年真题 →</a>
     </div>
   </div>
 </div>`)}
@@ -688,22 +684,6 @@ ${section('横向对照', '五套卷放在一起看', '哪一年最难、哪一�
   难度指数 = 按分值加权（基础 1 / 中档 2 / 较难 3 / 压轴 4）后归一。五年在 ${DIFF_INDEX_MIN}–${DIFF_INDEX_MAX} 之间，几乎没有变化。
 </p>`, 'compare')}
 
-${section('题位骨架', '每一题的位置都在考什么', '26 行 × 5 年，稳定与分散一目了然', `
-<div class="tbl-wrap"><table class="slot-tbl">
-  <thead><tr><th>题号</th><th class="num">分值</th><th>稳定族</th>${YEARS.map((y) => `<th>${y}</th>`).join('')}</tr></thead>
-  <tbody>${SLOT_MATRIX.map((r) => {
-    const fam = r.stableFam ? FAMILY_MAP.find((f) => f.id === r.stableFam) : null;
-    return `<tr>
-      <td class="slot-no">${r.no}${r.isBonus ? ' <span class="tag bonus">选</span>' : ''}</td>
-      <td class="num">${r.scoreMin === r.scoreMax ? r.scoreMin : r.scoreMin + '–' + r.scoreMax}</td>
-      <td>${fam ? `<span class="tag ${r.stableN === 5 ? 'must' : 'often'}">${r.stableN}/5</span> ${esc(fam.name)}` : '<span style="color:var(--text-3)">分散</span>'}</td>
-      ${r.cells.map((c) => `<td>${c ? esc(c.topic) : '—'}</td>`).join('')}
-    </tr>`;
-  }).join('')}</tbody>
-</table></div>
-<div class="note warn" style="margin-top:14px">
-  <b>提醒：</b>第 19、20 题的内容会在年份之间<b>互换位置</b>——2025-26 把「解方程」放到第 19 题（12 分）、「尺规作图」放到第 20 题（5 分），与往年相反。<b>按题号背会失手，要按题型认。</b>
-</div>`, 'slots')}
 `;
   return page('papers.html', '逐年真题拆解 · ' + SITE.short, '西城区初一上数学期末五套真题逐卷结构分析', body);
 }
@@ -806,7 +786,7 @@ ${section('诚实边界', '三个必须说明的限制', '', `
   </ul>
 </div>`)}
 `;
-  return page('trend.html', '五年趋势与考点频次 · ' + SITE.short, '西城区初一上数学期末五年考情趋势、考点族频次与题位骨架', body);
+  return page('trend.html', '五年趋势与考点频次 · ' + SITE.short, '西城区初一上数学期末五年考情趋势与考点族频次', body);
 }
 
 /* ============================ 满分计划 ============================ */
