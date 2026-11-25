@@ -363,6 +363,19 @@ function emit(relPath, html) {
 }
 
 /* ---------------- 题目渲染（构建期） ---------------- */
+/* 公式图的统一输出：图片加载失败时降级为可点回原卷的占位。
+   为什么必须加：assets/exam-src/ 因版权不进仓库，线上（GitHub Pages）
+   这些图全部 404。没有 onerror 就是满屏破图，比占位符更糟。 */
+function figImg(base, name, examRef) {
+  const ref = examRef || {};
+  const href = ref.paperId ? ('exam-verify.html#' + ref.paperId + '-q' + ref.no) : '';
+  const fallback = href
+    ? '&lt;a class=&quot;q-f-miss&quot; href=&quot;' + href + '&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;⟨公式·看原卷⟩&lt;/a&gt;'
+    : '⟨公式⟩';
+  return '<img class="q-f" src="' + base + name + '" alt="公式" loading="lazy"' +
+    ' onerror="this.outerHTML=\'' + fallback.replace(/'/g, "\\'") + '\'">';
+}
+
 function renderQuestion(q, R) {
   const C = R.math.compact;
   const o = Object.assign({}, q);
@@ -414,7 +427,7 @@ function renderQuestion(q, R) {
             (href ? '<a href="' + href + '" target="_blank" rel="noopener">⟨公式·看原卷⟩</a>' : '⟨公式⟩') +
             '</span>';
         }
-        return '<img class="q-f" src="' + base + name + '" alt="公式" loading="lazy">';
+        return figImg(base, name, q.examRef);
       }
       return '';
     }).join('');
@@ -453,7 +466,7 @@ function renderQuestion(q, R) {
           if (p.t === 'text') return C(R.math.render(p.v));
           if (p.t === 'img' && p.src) {
             const name = p.src.split('/').pop();
-            return '<img class="q-f" src="' + (q.__imgBase || '') + name + '" alt="公式" loading="lazy">';
+            return figImg(q.__imgBase || '', name, q.examRef);
           }
           return '';
         }).join('')
@@ -485,7 +498,7 @@ function renderQuestion(q, R) {
                 (href ? '<a href="' + href + '" target="_blank" rel="noopener">⟨公式·看原卷⟩</a>' : '⟨公式⟩') +
                 '</span>';
             }
-            return '<img class="q-f" src="' + base + nm + '" alt="公式" loading="lazy">';
+            return figImg(base, nm, q.examRef);
           }
           return '';
         }).join('');
@@ -663,7 +676,7 @@ function buildHome() {
       </p>
       <div class="hero-cta">
         <a class="btn primary" href="sprint.html">看 10 天计划 <span aria-hidden="true">→</span></a>
-        <a class="btn" href="drill.html">直接开始做题</a>
+        <a class="btn" href="sprint.html">进入冲刺计划</a>
       </div>
     </div>
     <div class="cockpit-card" id="cockpit">
@@ -725,7 +738,7 @@ function buildHome() {
       <div class="meta">单选 / 填空自动判 · 解答题给标准过程</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
         <a class="btn primary sm" href="drill.html?day=1&autostart=1">从第 1 天开始 →</a>
-        <a class="btn ghost sm" href="drill.html?qtype=all&autostart=1">随便练一组</a>
+        <a class="btn ghost sm" href="sprint.html">看看整份计划</a>
       </div>
     </div>
     <a class="card entry-card" href="wrong.html">
