@@ -234,7 +234,8 @@ const html = `<!DOCTYPE html>
   <div class="crumb"><a href="index.html">首页</a> / 练习与诊断</div>
   <h1>练习与诊断</h1>
   <p class="lede">
-    ${totalQ} 道题，按西城真题的考点分布与题型编制：<b>${choiceN} 道选择题</b>对标第 1–16 题位，<b>${calcN} 道计算题</b>对标第 17/18/19 题位。
+    ${totalQ} 道题，按西城真题的考点分布与难度编制，全部为单选题。
+    计算类题目也以「选出正确结果」的形式出现——省去手写步骤，但考点与真题第 17/18/19 题位一致。
     做完自动判分，并按考点族告诉你<b>先补哪里、怎么补</b>。
   </p>
 </div>
@@ -251,9 +252,7 @@ const html = `<!DOCTYPE html>
   <div class="setup-row">
     <span class="setup-label">题型</span>
     <div class="chips" id="segChips">
-      <span class="chip on" data-seg="all">全部</span>
-      <span class="chip" data-seg="选择">选择题 ${choiceN}</span>
-      <span class="chip" data-seg="解答">计算题 ${calcN}</span>
+      <span class="chip on" data-seg="all">全部 ${totalQ}</span>
     </div>
   </div>
   <div class="setup-row">

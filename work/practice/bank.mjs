@@ -488,10 +488,10 @@ BANK.push(
   /* ---------- 多步解方程：含小数、含分母 ---------- */
   { id: 'eq-11', fam: 'f-solveeq', seg: '解答', diff: 'hard',
     stem: '解方程：(0.1x − 0.2)/0.02 − (x + 1)/0.5 = 3',
-    expr: '-8' },
+    expr: '5' },
   { id: 'eq-12', fam: 'f-solveeq', seg: '解答', diff: 'hard',
     stem: '解方程：(x − 1)/2 − (2x + 3)/3 = 1',
-    expr: '-11' },
+    expr: '-15' },
   { id: 'eq-13', fam: 'f-solveeq', seg: '解答', diff: 'hard',
     stem: '若关于 x 的方程 2x + a = 3(x − 1) 的解是 x = 4，则 a = ______',
     expr: '3*(4-1) - 2*4' },

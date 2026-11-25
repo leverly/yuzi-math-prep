@@ -105,11 +105,30 @@ if (fs.existsSync('practice.html')) {
   ok(!/import \{ BANK/.test(pr), '无外部 import（避免 CORS）');
   ok(pr.includes('function diagnose('), '诊断引擎已内联');
   ok(pr.includes('class="frac"') || pr.includes('mathText'), '分数渲染已接入');
-  // 每题必须有答案或选项
-  const noAns = BANK.filter((q) => !q.options && q.answer === undefined);
-  ok(noAns.length === 0, '计算题均有答案', noAns.map((q) => q.id).join(','));
+  // 全部必须是单选题
+  const noOpts = BANK.filter((q) => !q.options);
+  ok(noOpts.length === 0, '所有题均为单选题', noOpts.map((q) => q.id).join(','));
   const badKey = BANK.filter((q) => q.options && !(q.key >= 0 && q.key < 4));
   ok(badKey.length === 0, '选择题 key 均合法', badKey.map((q) => q.id).join(','));
+  // 每题四选项、且互不重复（图题按图区分）
+  let badOpt = 0;
+  for (const q of BANK) {
+    if (!q.options || q.options.length !== 4) { badOpt++; continue; }
+    const figs = q.options.filter((o) => o.figSvg).length;
+    if (figs === 0) {
+      const ts = q.options.map((o) => o.t);
+      if (new Set(ts).size !== 4) badOpt++;
+    }
+  }
+  ok(badOpt === 0, '每题 4 个不重复选项', badOpt + ' 题异常');
+  // 正确选项必须与 answer 一致
+  let mism = 0;
+  for (const q of BANK) {
+    if (q.answer === undefined || !q.options) continue;
+    const c = q.options[q.key];
+    if (c && c.expr != null && Math.abs(+c.expr - q.answer) > 1e-6) mism++;
+  }
+  ok(mism === 0, '正确选项与答案一致', mism + ' 题不符');
 } else {
   ok(false, 'practice.html 已生成');
 }

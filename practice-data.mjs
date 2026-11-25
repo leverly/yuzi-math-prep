@@ -1,438 +1,1407 @@
 // 自动生成，请勿手改。源文件：work/practice/bank.mjs
 // 答案由 verify-bank.mjs 独立验算后回填。
-// 生成时间：2026-11-25T09:32:17
+// 生成时间：2026-11-25T09:42:51
 
 export const BANK = [
  {
   "id": "ar-01",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：−12 + (−6) − (−28)",
-  "answer": 10
+  "answer": 10,
+  "options": [
+   {
+    "t": "8",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "10",
+    "errTag": null
+   },
+   {
+    "t": "12",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   }
+  ],
+  "key": 2
  },
  {
   "id": "ar-02",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：{−8/5} × {15/4} ÷ (−9)",
-  "answer": 0.6666666667
+  "answer": 0.6666666667,
+  "options": [
+   {
+    "t": "0.6667",
+    "errTag": null
+   },
+   {
+    "t": "0.3333",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "1.3333",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "-0.6667",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "ar-03",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：({−3/16} − {7/24} + {5/6}) × (−48)",
-  "answer": -17
+  "answer": -17,
+  "options": [
+   {
+    "t": "-19",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "-8.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "-17",
+    "errTag": null
+   },
+   {
+    "t": "-15",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   }
+  ],
+  "key": 2
  },
  {
   "id": "ar-04",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "计算：−3² + ({7/8} − 1) × (−2)²",
-  "answer": -9.5
+  "answer": -9.5,
+  "options": [
+   {
+    "t": "-15/2",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "-19/2",
+    "errTag": null
+   },
+   {
+    "t": "-23/2",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "-19/4",
+    "errTag": "计算错误：漏算了其中一半"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "ar-05",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：−7 + 13 − (−5) + (−20)",
-  "answer": -9
+  "answer": -9,
+  "options": [
+   {
+    "t": "-4.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "-11",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "-9",
+    "errTag": null
+   },
+   {
+    "t": "-7",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   }
+  ],
+  "key": 2
  },
  {
   "id": "ar-06",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：(−36) × ({1/4} − {5/9} + {7/12})",
-  "answer": -10
+  "answer": -10,
+  "options": [
+   {
+    "t": "-10",
+    "errTag": null
+   },
+   {
+    "t": "-8",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "-12",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "-5",
+    "errTag": "计算错误：漏算了其中一半"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "ar-07",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：(−2)³ ÷ 4 − (−3) × 2",
-  "answer": 4
+  "answer": 4,
+  "options": [
+   {
+    "t": "4",
+    "errTag": null
+   },
+   {
+    "t": "2",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "8",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "6",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "ar-08",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "计算：−1⁴ − (1 − 0.5) × {1/3} × [2 − (−3)²]",
-  "answer": 0.1666666667
+  "answer": 0.1666666667,
+  "options": [
+   {
+    "t": "0.1667",
+    "errTag": null
+   },
+   {
+    "t": "0.0833",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "0.3333",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "-0.1667",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "ar-09",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：18 + 6 ÷ (−3) − (−2) × 5",
-  "answer": 26
+  "answer": 26,
+  "options": [
+   {
+    "t": "26",
+    "errTag": null
+   },
+   {
+    "t": "24",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "36",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "28",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "ar-10",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：({−3/4}) × ({−8/9}) ÷ ({−2/3})",
-  "answer": -1
+  "answer": -1,
+  "options": [
+   {
+    "t": "-1",
+    "errTag": null
+   },
+   {
+    "t": "-0.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "-2",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "1",
+    "errTag": "符号错误：整个结果的符号反了"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "ar-11",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "计算：−2² × ({−1/2})³ − |−3|",
-  "answer": -2.5
+  "answer": -2.5,
+  "options": [
+   {
+    "t": "-1/2",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "-5/2",
+    "errTag": null
+   },
+   {
+    "t": "-9/2",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "-5/4",
+    "errTag": "计算错误：漏算了其中一半"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "ar-12",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：5 − (−3)² ÷ 9 × ({−1/3})",
-  "answer": 5.3333333333
+  "answer": 5.3333333333,
+  "options": [
+   {
+    "t": "7.3333",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "5.3333",
+    "errTag": null
+   },
+   {
+    "t": "3.3333",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "2.6667",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "eq-01",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "解方程：2x + 5(x + 1) = 6",
-  "answer": 0.1428571429
+  "answer": 0.1428571429,
+  "options": [
+   {
+    "t": "0.0714",
+    "errTag": "解方程变形出错：检查去分母/去括号/移项"
+   },
+   {
+    "t": "0.2857",
+    "errTag": "解方程变形出错：检查去分母/去括号/移项"
+   },
+   {
+    "t": "0.2143",
+    "errTag": "解方程变形出错：检查去分母/去括号/移项"
+   },
+   {
+    "t": "0.1429",
+    "errTag": null
+   }
+  ],
+  "key": 3
  },
  {
   "id": "eq-02",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "解方程：7x − 20 = 2(3 − 3x)",
-  "answer": 2
+  "answer": 2,
+  "options": [
+   {
+    "t": "1",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "2",
+    "errTag": null
+   },
+   {
+    "t": "4",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "3",
+    "errTag": "计算错误：最后一步加减出错"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "eq-03",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "解方程：(2x − 3)/5 = (3x − 1)/2 + 1",
-  "answer": -1
+  "answer": -1,
+  "options": [
+   {
+    "t": "-1",
+    "errTag": null
+   },
+   {
+    "t": "-1.5",
+    "errTag": "解方程变形出错：检查去分母/去括号/移项"
+   },
+   {
+    "t": "-2",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "-0.5",
+    "errTag": "计算错误：漏算了其中一半"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "eq-04",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "解方程：3(x − 2) − 2(x + 1) = 4",
-  "answer": 12
+  "answer": 12,
+  "options": [
+   {
+    "t": "12",
+    "errTag": null
+   },
+   {
+    "t": "13",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "11",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "6",
+    "errTag": "计算错误：漏算了其中一半"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "eq-05",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "解方程：(x + 1)/2 − (2x − 1)/3 = 1",
-  "answer": -1
+  "answer": -1,
+  "options": [
+   {
+    "t": "-1",
+    "errTag": null
+   },
+   {
+    "t": "-1.5",
+    "errTag": "解方程变形出错：检查去分母/去括号/移项"
+   },
+   {
+    "t": "-2",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "-0.5",
+    "errTag": "计算错误：漏算了其中一半"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "eq-06",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "解方程：5x − 3 = 2(x + 3)",
-  "answer": 3
+  "answer": 3,
+  "options": [
+   {
+    "t": "3",
+    "errTag": null
+   },
+   {
+    "t": "4",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "2",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "1.5",
+    "errTag": "计算错误：漏算了其中一半"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "eq-07",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "解方程：(3x − 1)/4 = (x + 3)/2",
-  "answer": 7
+  "answer": 7,
+  "options": [
+   {
+    "t": "6",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "7",
+    "errTag": null
+   },
+   {
+    "t": "3.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "8",
+    "errTag": "计算错误：最后一步加减出错"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "eq-08",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "解方程：4 − 3(x − 2) = 2x",
-  "answer": 2
+  "answer": 2,
+  "options": [
+   {
+    "t": "1",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "2",
+    "errTag": null
+   },
+   {
+    "t": "3",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "4",
+    "errTag": "计算错误：某一步重复算了一次"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "eq-09",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "解方程：(2x + 1)/3 − (5x − 1)/6 = 1",
-  "answer": -3
+  "answer": -3,
+  "options": [
+   {
+    "t": "-4",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "-3",
+    "errTag": null
+   },
+   {
+    "t": "-1.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "-2",
+    "errTag": "计算错误：最后一步加减出错"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "eq-10",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "解方程：0.3x − 0.1 = 0.2(x + 1)",
-  "answer": 3
+  "answer": 3,
+  "options": [
+   {
+    "t": "4",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "3",
+    "errTag": null
+   },
+   {
+    "t": "1.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "2",
+    "errTag": "计算错误：最后一步加减出错"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "sp-01",
   "fam": "f-simplify",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "先化简，再求值：3(2a − b) − 2(a − 3b)，其中 a = 1，b = −2",
-  "answer": -2
+  "answer": -2,
+  "options": [
+   {
+    "t": "-4",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "-2",
+    "errTag": null
+   },
+   {
+    "t": "0",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "2",
+    "errTag": "符号错误：整个结果的符号反了"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "sp-02",
   "fam": "f-simplify",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "先化简，再求值：10xy − 3xy² − 2(5xy − xy²)，其中 x = 2，y = −1",
-  "answer": -2
+  "answer": -2,
+  "options": [
+   {
+    "t": "2",
+    "errTag": "符号错误：整个结果的符号反了"
+   },
+   {
+    "t": "-4",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "-2",
+    "errTag": null
+   },
+   {
+    "t": "0",
+    "errTag": "化简出错：检查去括号时的符号"
+   }
+  ],
+  "key": 2
  },
  {
   "id": "sp-03",
   "fam": "f-simplify",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "先化简，再求值：2(x² − 3x) − (x² − 4x + 1)，其中 x = −2",
-  "answer": 7
+  "answer": 7,
+  "options": [
+   {
+    "t": "7",
+    "errTag": null
+   },
+   {
+    "t": "5",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "9",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "11",
+    "errTag": "化简出错：检查去括号时的符号"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "sp-04",
   "fam": "f-simplify",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "先化简，再求值：3(2x²y − xy²) − (xy² + 4x²y)，其中 x = −1，y = 2",
-  "answer": 20
+  "answer": 20,
+  "options": [
+   {
+    "t": "18",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "24",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "20",
+    "errTag": null
+   },
+   {
+    "t": "22",
+    "errTag": "化简出错：检查去括号时的符号"
+   }
+  ],
+  "key": 2
  },
  {
   "id": "sp-05",
   "fam": "f-simplify",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "先化简，再求值：5(a²b − ab²) − 2(a²b − 3ab²)，其中 a = 2，b = −1",
-  "answer": -10
+  "answer": -10,
+  "options": [
+   {
+    "t": "-10",
+    "errTag": null
+   },
+   {
+    "t": "-8",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "-12",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "-6",
+    "errTag": "化简出错：检查去括号时的符号"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "sp-06",
   "fam": "f-simplify",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "先化简，再求值：4x² − [3x − 2(x² − x + 1)]，其中 x = {1/2}",
-  "answer": 1
+  "answer": 1,
+  "options": [
+   {
+    "t": "5",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "3",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "1",
+    "errTag": null
+   },
+   {
+    "t": "-1",
+    "errTag": "符号错误：整个结果的符号反了"
+   }
+  ],
+  "key": 2
  },
  {
   "id": "sp-07",
   "fam": "f-simplify",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "先化简，再求值：2(3a² − 2ab) − 3(2a² − ab + 1)，其中 a = −1，b = 2",
-  "answer": -1
+  "answer": -1,
+  "options": [
+   {
+    "t": "1",
+    "errTag": "符号错误：整个结果的符号反了"
+   },
+   {
+    "t": "-1",
+    "errTag": null
+   },
+   {
+    "t": "-3",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "3",
+    "errTag": "化简出错：检查去括号时的符号"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "sp-08",
   "fam": "f-simplify",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "先化简，再求值：3x²y − 2[xy² + 2(x²y − xy²)]，其中 x = −2，y = {1/2}",
-  "answer": -3
+  "answer": -3,
+  "options": [
+   {
+    "t": "1",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "-5",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "-3",
+    "errTag": null
+   },
+   {
+    "t": "-1",
+    "errTag": "化简出错：检查去括号时的符号"
+   }
+  ],
+  "key": 2
  },
  {
   "id": "ev-01",
   "fam": "f-exprval",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "若 x − 3y = −4，求 (x − 3y)² + 2x − 6y − 10 的值",
-  "answer": -2
+  "answer": -2,
+  "options": [
+   {
+    "t": "2",
+    "errTag": "符号错误：整个结果的符号反了"
+   },
+   {
+    "t": "0",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "-4",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "-2",
+    "errTag": null
+   }
+  ],
+  "key": 3
  },
  {
   "id": "ev-02",
   "fam": "f-exprval",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "若 a + b = 3，求 2(a + b)² − (a + b) + 1 的值",
-  "answer": 16
+  "answer": 16,
+  "options": [
+   {
+    "t": "20",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "16",
+    "errTag": null
+   },
+   {
+    "t": "18",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "14",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "ev-03",
   "fam": "f-exprval",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "若 2m − n = 5，求 6m − 3n + 2 的值",
-  "answer": 17
+  "answer": 17,
+  "options": [
+   {
+    "t": "19",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "15",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "21",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "17",
+    "errTag": null
+   }
+  ],
+  "key": 3
  },
  {
   "id": "ev-04",
   "fam": "f-exprval",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "若 x² + x = 2，求 2x² + 2x − 3 的值",
-  "answer": 1
+  "answer": 1,
+  "options": [
+   {
+    "t": "5",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "1",
+    "errTag": null
+   },
+   {
+    "t": "-1",
+    "errTag": "符号错误：整个结果的符号反了"
+   },
+   {
+    "t": "3",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "ev-05",
   "fam": "f-exprval",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "若 a − 2b = 1，求 3a − 6b + 4 的值",
-  "answer": 7
+  "answer": 7,
+  "options": [
+   {
+    "t": "5",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "9",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "11",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "7",
+    "errTag": null
+   }
+  ],
+  "key": 3
  },
  {
   "id": "ev-06",
   "fam": "f-exprval",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "若 x + 2y = −3，求 2x + 4y − 5 的值",
-  "answer": -11
+  "answer": -11,
+  "options": [
+   {
+    "t": "-11",
+    "errTag": null
+   },
+   {
+    "t": "-7",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "-9",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "-13",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "ac-01",
   "fam": "f-angleconv",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：38°30′ = ______°",
   "unit": "°",
-  "answer": 38.5
+  "answer": 38.5,
+  "options": [
+   {
+    "t": "37.5",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "38.5",
+    "errTag": null
+   },
+   {
+    "t": "38.3",
+    "errTag": "换算出错：度分秒是 60 进制，不是 100 进制"
+   },
+   {
+    "t": "39.5",
+    "errTag": "计算错误：最后一步加减出错"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "ac-02",
   "fam": "f-angleconv",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：31°15′ × 4 = ______°",
   "unit": "°",
-  "answer": 125
+  "answer": 125,
+  "options": [
+   {
+    "t": "125.5",
+    "errTag": "换算出错：度分秒是 60 进制，不是 100 进制"
+   },
+   {
+    "t": "62.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "250",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "125",
+    "errTag": null
+   }
+  ],
+  "key": 3
  },
  {
   "id": "ac-03",
   "fam": "f-angleconv",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：1.5° = ______′",
   "unit": "′",
-  "answer": 90
+  "answer": 90,
+  "options": [
+   {
+    "t": "90.5",
+    "errTag": "换算出错：度分秒是 60 进制，不是 100 进制"
+   },
+   {
+    "t": "90",
+    "errTag": null
+   },
+   {
+    "t": "180",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "45",
+    "errTag": "计算错误：漏算了其中一半"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "ac-04",
   "fam": "f-angleconv",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：45°36′ = ______°",
   "unit": "°",
-  "answer": 45.6
+  "answer": 45.6,
+  "options": [
+   {
+    "t": "46.6",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "45.36",
+    "errTag": "换算出错：度分秒是 60 进制，不是 100 进制"
+   },
+   {
+    "t": "22.8",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "45.6",
+    "errTag": null
+   }
+  ],
+  "key": 3
  },
  {
   "id": "ac-05",
   "fam": "f-angleconv",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "计算：12°20′ × 3 = ______°",
   "unit": "°",
-  "answer": 37
+  "answer": 37,
+  "options": [
+   {
+    "t": "37",
+    "errTag": null
+   },
+   {
+    "t": "37.5",
+    "errTag": "换算出错：度分秒是 60 进制，不是 100 进制"
+   },
+   {
+    "t": "18.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "36.5",
+    "errTag": "换算出错：度分秒是 60 进制，不是 100 进制"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "sm-01",
   "fam": "f-segmid",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "线段 AB = 10，C 是 AB 的中点，则 AC = ______",
-  "answer": 5
+  "answer": 5,
+  "options": [
+   {
+    "t": "6",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "5",
+    "errTag": null
+   },
+   {
+    "t": "7",
+    "errTag": "线段关系出错：检查中点把线段分成了哪两段"
+   },
+   {
+    "t": "4",
+    "errTag": "计算错误：最后一步加减出错"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "sm-02",
   "fig": "sm-02",
   "fam": "f-segmid",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "线段 AB = 14，C 是 AB 的中点，点 D 在 CB 上，E 是 DB 的中点。若 EB = 2，则 CD = ______",
   "answer": 3,
+  "options": [
+   {
+    "t": "2",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "1.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "4",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "3",
+    "errTag": null
+   }
+  ],
+  "key": 3,
   "figSvg": "<svg viewBox=\"0 0 380 110\" width=\"100%\" style=\"max-width:380px;height:auto;display:block;margin:0 auto\"><line x1=\"46\" y1=\"52\" x2=\"334\" y2=\"52\" stroke=\"#334155\" stroke-width=\"1.6\" /><circle cx=\"46\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"46\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"190\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><circle cx=\"292.8571428571429\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"292.8571428571429\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">D</text><circle cx=\"292.8571428571429\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"292.8571428571429\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">E</text><circle cx=\"334\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"334\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text></svg>"
  },
  {
   "id": "sm-03",
   "fig": "sm-03",
   "fam": "f-segmid",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "线段 AB = 12，点 C 在 AB 上，AC = 4，M 是 BC 的中点，则 AM = ______",
   "answer": 8,
+  "options": [
+   {
+    "t": "9",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "8",
+    "errTag": null
+   },
+   {
+    "t": "10",
+    "errTag": "线段关系出错：检查中点把线段分成了哪两段"
+   },
+   {
+    "t": "7",
+    "errTag": "计算错误：最后一步加减出错"
+   }
+  ],
+  "key": 1,
   "figSvg": "<svg viewBox=\"0 0 340 110\" width=\"100%\" style=\"max-width:340px;height:auto;display:block;margin:0 auto\"><line x1=\"46\" y1=\"52\" x2=\"294\" y2=\"52\" stroke=\"#334155\" stroke-width=\"1.6\" /><circle cx=\"46\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"46\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"128.66666666666666\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"128.66666666666666\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><circle cx=\"211.33333333333331\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"211.33333333333331\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">M</text><circle cx=\"294\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"294\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text></svg>"
  },
  {
   "id": "sm-04",
   "fam": "f-segmid",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "线段 AB = 8，C 是 AB 的中点，点 D 在线段 AB 的延长线上，BD = 3，则 CD = ______",
-  "answer": 7
+  "answer": 7,
+  "options": [
+   {
+    "t": "9",
+    "errTag": "线段关系出错：检查中点把线段分成了哪两段"
+   },
+   {
+    "t": "6",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "8",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "7",
+    "errTag": null
+   }
+  ],
+  "key": 3
  },
  {
   "id": "sm-05",
   "fig": "sm-05",
   "fam": "f-segmid",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "点 C 在线段 AB 上，AC = 6，BC = 4，M 是 AC 的中点，N 是 BC 的中点，则 MN = ______",
   "answer": 5,
+  "options": [
+   {
+    "t": "5",
+    "errTag": null
+   },
+   {
+    "t": "6",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "7",
+    "errTag": "线段关系出错：检查中点把线段分成了哪两段"
+   },
+   {
+    "t": "4",
+    "errTag": "计算错误：最后一步加减出错"
+   }
+  ],
+  "key": 0,
   "figSvg": "<svg viewBox=\"0 0 360 110\" width=\"100%\" style=\"max-width:360px;height:auto;display:block;margin:0 auto\"><line x1=\"46\" y1=\"52\" x2=\"314\" y2=\"52\" stroke=\"#334155\" stroke-width=\"1.6\" /><circle cx=\"46\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"46\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"126.39999999999999\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"126.39999999999999\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">M</text><circle cx=\"206.79999999999998\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"206.79999999999998\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><circle cx=\"260.4\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"260.4\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">N</text><circle cx=\"314\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"314\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text></svg>"
  },
  {
   "id": "as-01",
   "fig": "as-01",
   "fam": "f-anglesum",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "如图，∠BOC = 12°，∠COD = 62°，∠AOB = 3∠BOC，且 OA、OB、OC、OD 依次排列，则 ∠AOD = ______°",
   "unit": "°",
   "answer": 110,
+  "options": [
+   {
+    "t": "105",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "115",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "110",
+    "errTag": null
+   },
+   {
+    "t": "120",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   }
+  ],
+  "key": 2,
   "figSvg": "<svg viewBox=\"0 0 330 220\" width=\"100%\" style=\"max-width:330px;height:auto;display:block;margin:0 auto\"><line x1=\"70\" y1=\"175\" x2=\"230\" y2=\"175\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"70\" y1=\"175\" x2=\"145.11545004574253\" y2=\"33.72838514257171\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"70\" y1=\"175\" x2=\"114.10197693071987\" y2=\"21.198128649868977\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"70\" y1=\"175\" x2=\"15.276777067893008\" y2=\"24.649180674254637\" stroke=\"#334155\" stroke-width=\"1.6\" /><path d=\"M88.8 139.7 A40 40 0 0 0 81.0 136.5\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><path d=\"M126.0 175.0 A56 56 0 0 0 96.3 125.6\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><text x=\"244\" y=\"179\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">D</text><text x=\"151.68805192474503\" y=\"25.367118842546716\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><text x=\"117.96089991215786\" y=\"22\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text><text x=\"22\" y=\"22\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"70\" cy=\"175\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"54\" y=\"195\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">O</text></svg>"
  },
  {
   "id": "as-02",
   "fig": "as-02",
   "fam": "f-anglesum",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "easy",
   "stem": "∠AOB = 70°，OC 在 ∠AOB 内部，∠AOC = 30°，则 ∠BOC = ______°",
   "unit": "°",
   "answer": 40,
+  "options": [
+   {
+    "t": "35",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "40",
+    "errTag": null
+   },
+   {
+    "t": "50",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "45",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   }
+  ],
+  "key": 1,
   "figSvg": "<svg viewBox=\"0 0 300 190\" width=\"100%\" style=\"max-width:300px;height:auto;display:block;margin:0 auto\"><line x1=\"65\" y1=\"150\" x2=\"215\" y2=\"150\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"65\" y1=\"150\" x2=\"194.9038105676658\" y2=\"75.00000000000001\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"65\" y1=\"150\" x2=\"116.30302149885031\" y2=\"9.046106882113747\" stroke=\"#334155\" stroke-width=\"1.6\" /><path d=\"M103.1 128.0 A44 44 0 0 0 80.0 108.7\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><text x=\"229\" y=\"154\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text><text x=\"207.02816622064796\" y=\"72.00000000000001\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><text x=\"121.09130350540968\" y=\"22\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"65\" cy=\"150\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"49\" y=\"170\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">O</text></svg>"
  },
  {
   "id": "as-03",
   "fig": "as-03",
   "fam": "f-anglesum",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "∠AOB = 90°，OC 平分 ∠AOB，∠BOD = 20°，OD 在 ∠AOB 外部，则 ∠COD = ______°",
   "unit": "°",
   "answer": 65,
+  "options": [
+   {
+    "t": "70",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "60",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "65",
+    "errTag": null
+   },
+   {
+    "t": "75",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   }
+  ],
+  "key": 2,
   "figSvg": "<svg viewBox=\"0 0 320 250\" width=\"100%\" style=\"max-width:320px;height:auto;display:block;margin:0 auto\"><line x1=\"95\" y1=\"155\" x2=\"220\" y2=\"155\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"95\" y1=\"155\" x2=\"183.38834764831844\" y2=\"66.61165235168157\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"95\" y1=\"155\" x2=\"95.00000000000001\" y2=\"30\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"95\" y1=\"155\" x2=\"212.46157759823853\" y2=\"197.75251791570858\" stroke=\"#334155\" stroke-width=\"1.6\" /><path d=\"M137.0 155.0 A42 42 0 0 0 124.7 125.3\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><path d=\"M123.2 165.3 A30 30 0 0 0 125.0 155.0\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><text x=\"234\" y=\"159\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text><text x=\"193.2878425849301\" y=\"60.712157415069896\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><text x=\"95.00000000000001\" y=\"22\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><text x=\"225.61727428924127\" y=\"206.54079992226795\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">D</text><circle cx=\"95\" cy=\"155\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"79\" y=\"175\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">O</text></svg>"
  },
  {
   "id": "as-04",
   "fam": "f-anglesum",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "mid",
   "stem": "∠1 = 35°18′，∠2 = 42°45′，则 ∠1 + ∠2 = ______°",
   "unit": "°",
-  "answer": 78.05
+  "answer": 78.05,
+  "options": [
+   {
+    "t": "73.05",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "78.05",
+    "errTag": null
+   },
+   {
+    "t": "88.05",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "83.05",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "as-05",
   "fig": "as-05",
   "fam": "f-anglesum",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "∠AOB = 120°，OC 平分 ∠AOB，OD 平分 ∠AOC，则 ∠BOD = ______°",
   "unit": "°",
   "answer": 90,
+  "options": [
+   {
+    "t": "85",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "95",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "90",
+    "errTag": null
+   },
+   {
+    "t": "100",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   }
+  ],
+  "key": 2,
   "figSvg": "<svg viewBox=\"0 0 360 230\" width=\"100%\" style=\"max-width:360px;height:auto;display:block;margin:0 auto\"><line x1=\"110\" y1=\"180\" x2=\"250\" y2=\"180\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"110\" y1=\"180\" x2=\"180\" y2=\"58.756443470178596\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"110\" y1=\"180\" x2=\"110.00000000000001\" y2=\"40\" stroke=\"#334155\" stroke-width=\"1.6\" /><line x1=\"110\" y1=\"180\" x2=\"40.00000000000003\" y2=\"58.75644347017858\" stroke=\"#334155\" stroke-width=\"1.6\" /><path d=\"M146.0 180.0 A36 36 0 0 0 128.0 148.8\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><path d=\"M128.0 148.8 A36 36 0 0 0 92.0 148.8\"\n        fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.2\"/><text x=\"264\" y=\"184\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text><text x=\"187\" y=\"50.632087817196464\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><text x=\"110.00000000000001\" y=\"30\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">D</text><text x=\"33.00000000000003\" y=\"50.632087817196435\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"110\" cy=\"180\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"94\" y=\"200\" font-size=\"14\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">O</text></svg>"
  },
  {
@@ -1353,151 +2322,493 @@ export const BANK = [
   "id": "sm-06",
   "fam": "f-segmid",
   "fig": "sm-06",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "点 C 在线段 AB 上，AC = 10，BC = 14。点 M 是 AC 的中点，点 N 是 BC 的中点，则 MN = ______",
   "answer": 12,
+  "options": [
+   {
+    "t": "14",
+    "errTag": "线段关系出错：检查中点把线段分成了哪两段"
+   },
+   {
+    "t": "11",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "13",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "12",
+    "errTag": null
+   }
+  ],
+  "key": 3,
   "figSvg": "<svg viewBox=\"0 0 380 110\" width=\"100%\" style=\"max-width:380px;height:auto;display:block;margin:0 auto\"><line x1=\"46\" y1=\"52\" x2=\"334\" y2=\"52\" stroke=\"#334155\" stroke-width=\"1.6\" /><circle cx=\"46\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"46\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">A</text><circle cx=\"106\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"106\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">M</text><circle cx=\"166\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"166\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">C</text><circle cx=\"250\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"250\" y=\"38\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">N</text><circle cx=\"334\" cy=\"52\" r=\"2.6\" fill=\"#2563eb\"/><text x=\"334\" y=\"78\" font-size=\"13\" fill=\"#0f172a\" text-anchor=\"middle\" font-family=\"-apple-system,PingFang SC,sans-serif\">B</text></svg>"
  },
  {
   "id": "sm-07",
   "fam": "f-segmid",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "点 C 在直线 AB 上，AC = a，BC = b（a > b），点 M 是 AC 的中点，点 N 是 BC 的中点。若 a + b = 16，则 MN = ______",
-  "answer": 8
+  "answer": 8,
+  "options": [
+   {
+    "t": "7",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "9",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "8",
+    "errTag": null
+   },
+   {
+    "t": "10",
+    "errTag": "线段关系出错：检查中点把线段分成了哪两段"
+   }
+  ],
+  "key": 2
  },
  {
   "id": "sm-08",
   "fam": "f-segmid",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "线段 AB = 12，点 C 在 AB 上且 AC = 4，点 M 从 A 出发以每秒 1 个单位向 B 运动，点 N 从 B 出发以每秒 2 个单位向 A 运动。若 M、N 同时出发，第 ______ 秒时 M、N 相遇",
-  "answer": 4
+  "answer": 4,
+  "options": [
+   {
+    "t": "3",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "4",
+    "errTag": null
+   },
+   {
+    "t": "6",
+    "errTag": "线段关系出错：检查中点把线段分成了哪两段"
+   },
+   {
+    "t": "5",
+    "errTag": "计算错误：最后一步加减出错"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "as-06",
   "fam": "f-anglesum",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "∠AOB = 75°，射线 OC 在 ∠AOB 内部，且 ∠AOC = 4∠BOC，则 ∠BOC = ______°",
   "unit": "°",
-  "answer": 15
+  "answer": 15,
+  "options": [
+   {
+    "t": "15",
+    "errTag": null
+   },
+   {
+    "t": "10",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "7.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "20",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "as-07",
   "fam": "f-anglesum",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "∠AOB = 140°，OC 平分 ∠AOB，OD 平分 ∠AOC，OE 平分 ∠AOD，则 ∠BOE = ______°",
   "unit": "°",
-  "answer": 122.5
+  "answer": 122.5,
+  "options": [
+   {
+    "t": "117.5",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "127.5",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "122.5",
+    "errTag": null
+   },
+   {
+    "t": "132.5",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   }
+  ],
+  "key": 2
  },
  {
   "id": "as-08",
   "fam": "f-anglesum",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "一个角的补角是它的余角的 3 倍，则这个角 = ______°",
   "unit": "°",
-  "answer": 45
+  "answer": 45,
+  "options": [
+   {
+    "t": "45",
+    "errTag": null
+   },
+   {
+    "t": "55",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "40",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "50",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "as-09",
   "fam": "f-anglesum",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "∠AOB = 90°，OC 在 ∠AOB 外部，且 ∠AOC = 130°，OD 平分 ∠BOC，则 ∠AOD = ______°",
   "unit": "°",
-  "answer": 110
+  "answer": 110,
+  "options": [
+   {
+    "t": "105",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "115",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   },
+   {
+    "t": "110",
+    "errTag": null
+   },
+   {
+    "t": "120",
+    "errTag": "角度关系出错：检查平分线与角的和差"
+   }
+  ],
+  "key": 2
  },
  {
   "id": "ev-07",
   "fam": "f-exprval",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "若 2x² + 3x + 1 = 5，则 4x² + 6x − 3 = ______",
-  "answer": 5
+  "answer": 5,
+  "options": [
+   {
+    "t": "7",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "3",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "9",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "5",
+    "errTag": null
+   }
+  ],
+  "key": 3
  },
  {
   "id": "ev-08",
   "fam": "f-exprval",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "若 a − b = 3，ab = 2，则 2a − 2b + 3ab = ______",
-  "answer": 12
+  "answer": 12,
+  "options": [
+   {
+    "t": "16",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "12",
+    "errTag": null
+   },
+   {
+    "t": "14",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "10",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "ev-09",
   "fam": "f-exprval",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "若 |x − 2| + (y + 3)² = 0，则 x + y = ______",
-  "answer": -1
+  "answer": -1,
+  "options": [
+   {
+    "t": "1",
+    "errTag": "符号错误：整个结果的符号反了"
+   },
+   {
+    "t": "-3",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "3",
+    "errTag": "整体代入出错：是否把一个整体看成了单个字母"
+   },
+   {
+    "t": "-1",
+    "errTag": null
+   }
+  ],
+  "key": 3
  },
  {
   "id": "ar-13",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "计算：−2³ ÷ (−4) − (−3)² × ({1/3} − 1)",
-  "answer": 8
+  "answer": 8,
+  "options": [
+   {
+    "t": "6",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "8",
+    "errTag": null
+   },
+   {
+    "t": "4",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "10",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   }
+  ],
+  "key": 1
  },
  {
   "id": "ar-14",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "计算：−1²⁰²⁵ + (−2)³ × ({1/4} − {5/6} + {1/2})",
-  "answer": -0.3333333333
+  "answer": -0.3333333333,
+  "options": [
+   {
+    "t": "-0.3333",
+    "errTag": null
+   },
+   {
+    "t": "-0.1667",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "-0.6667",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   },
+   {
+    "t": "0.3333",
+    "errTag": "混合运算顺序出错：先算乘方，再乘除，最后加减"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "ar-15",
   "fam": "f-arith",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "计算：|{−2/3}| × ({−9/4}) − (−1)²⁰²⁶ ÷ (−{1/2})",
-  "answer": 0.5
+  "answer": 0.5,
+  "options": [
+   {
+    "t": "0.5",
+    "errTag": null
+   },
+   {
+    "t": "1",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "-0.5",
+    "errTag": "符号错误：整个结果的符号反了"
+   },
+   {
+    "t": "0.25",
+    "errTag": "计算错误：漏算了其中一半"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "eq-11",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "解方程：(0.1x − 0.2)/0.02 − (x + 1)/0.5 = 3",
-  "answer": -8
+  "answer": 5,
+  "options": [
+   {
+    "t": "2.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "4",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "6",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "5",
+    "errTag": null
+   }
+  ],
+  "key": 3
  },
  {
   "id": "eq-12",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "解方程：(x − 1)/2 − (2x + 3)/3 = 1",
-  "answer": -11
+  "answer": -15,
+  "options": [
+   {
+    "t": "-15",
+    "errTag": null
+   },
+   {
+    "t": "-14",
+    "errTag": "计算错误：最后一步加减出错"
+   },
+   {
+    "t": "-7.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "-16",
+    "errTag": "计算错误：最后一步加减出错"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "eq-13",
   "fam": "f-solveeq",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "若关于 x 的方程 2x + a = 3(x − 1) 的解是 x = 4，则 a = ______",
-  "answer": 1
+  "answer": 1,
+  "options": [
+   {
+    "t": "2",
+    "errTag": "计算错误：某一步重复算了一次"
+   },
+   {
+    "t": "1.5",
+    "errTag": "解方程变形出错：检查去分母/去括号/移项"
+   },
+   {
+    "t": "0.5",
+    "errTag": "计算错误：漏算了其中一半"
+   },
+   {
+    "t": "1",
+    "errTag": null
+   }
+  ],
+  "key": 3
  },
  {
   "id": "sp-09",
   "fam": "f-simplify",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "先化简，再求值：3(a² − 2ab) − [2a² − (ab − 3b²)]，其中 a = 2，b = −1",
-  "answer": 11
+  "answer": 11,
+  "options": [
+   {
+    "t": "11",
+    "errTag": null
+   },
+   {
+    "t": "13",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "9",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "15",
+    "errTag": "化简出错：检查去括号时的符号"
+   }
+  ],
+  "key": 0
  },
  {
   "id": "sp-10",
   "fam": "f-simplify",
-  "seg": "解答",
+  "seg": "选择",
   "diff": "hard",
   "stem": "先化简，再求值：2x²y − [3xy² + 2(x²y − 2xy²)]，其中 x = −1，y = 3",
-  "answer": -9
+  "answer": -9,
+  "options": [
+   {
+    "t": "-5",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "-11",
+    "errTag": "化简出错：检查去括号时的符号"
+   },
+   {
+    "t": "-9",
+    "errTag": null
+   },
+   {
+    "t": "-7",
+    "errTag": "化简出错：检查去括号时的符号"
+   }
+  ],
+  "key": 2
  },
  {
   "id": "ab-09",

@@ -24,14 +24,19 @@ function evalExpr(src) {
 
 const { BANK } = await import('./work/practice/bank.mjs');
 const { FIGS } = await import('./work/practice/figs.mjs');
+const { toChoice } = await import('./work/practice/to-choice.mjs');
 const { FAMILY_MAP } = await import('./work/papers/stats.mjs');
 
-// 回填答案
-const out = BANK.map((q) => {
-  const o = { ...q };
-  if (q.expr !== undefined) {
-    o.answer = +evalExpr(q.expr).toFixed(10);
+// 回填答案 → 再转单选（顺序不能反：toChoice 需要 answer）
+const out = BANK.map((rawQ) => {
+  // 第一步：算出标准答案
+  const withAns = { ...rawQ };
+  if (rawQ.expr !== undefined) {
+    withAns.answer = +evalExpr(rawQ.expr).toFixed(10);
   }
+  // 第二步：没有选项的题转成单选题
+  const q = toChoice(withAns);
+  const o = { ...q };
   // 选择题：把数值型选项也留一份（用于展示校验，不用于判分）
   delete o.expr;      // 前端不需要表达式
 

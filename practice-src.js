@@ -19,8 +19,10 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
 
 /* 把 {a/b} 渲染成竖式分数（先转义，再替换标记） */
 function mathText(raw) {
-  return esc(raw).replace(/\{(-?\d+)\/(\d+)\}/g,
-    (_, n, d) => '<span class="frac"><span class="fn">' + n + '</span><span class="fd">' + d + '</span></span>');
+  // 分数标记 {a/b}：分子可带负号，也兼容 Unicode 减号 −
+  return esc(raw).replace(/\{([−-]?\d+)\/(\d+)\}/g,
+    (_, n, d) => '<span class="frac"><span class="fn">' + n.replace('−', '-') +
+      '</span><span class="fd">' + d + '</span></span>');
 }
 
 const ERR_FIX = {
