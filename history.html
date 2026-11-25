@@ -325,6 +325,9 @@ function render() {
   html += '<div class="actions">' +
     '<a class="btn primary" href="practice.html">再练一轮</a>' +
     '<button class="btn ghost" id="expandAll">全部展开</button>' +
+    '<button class="btn ghost" id="exportBtn">导出记录</button>' +
+    '<button class="btn ghost" id="importBtn">导入记录</button>' +
+    '<input type="file" id="importFile" accept=".json" style="display:none">' +
     '<button class="btn ghost" id="clearAll">清空全部记录</button>' +
     '</div>';
 
@@ -341,6 +344,62 @@ function render() {
     all.forEach((r) => r.classList.toggle('open', anyClosed));
     ea.textContent = anyClosed ? '全部收起' : '全部展开';
   };
+  // 导出：下载 JSON（换浏览器/清缓存后可用它恢复）
+  const ex = $('#exportBtn');
+  if (ex) ex.onclick = () => {
+    const blob = new Blob([JSON.stringify(load(), null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    const d = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+    a.href = URL.createObjectURL(blob);
+    a.download = '练习记录-' + d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate()) + '.json';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+
+  // 导入：合并到现有记录（按时间戳去重）
+  const im = $('#importBtn');
+  const imf = $('#importFile');
+  if (im && imf) {
+    im.onclick = () => imf.click();
+    imf.onchange = () => {
+      const f = imf.files && imf.files[0];
+      if (!f) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const incoming = JSON.parse(reader.result);
+          if (!incoming || !Array.isArray(incoming.sessions)) throw new Error('格式不对');
+          const cur = load();
+          const seen = new Set(cur.sessions.map((s) => s && s.at));
+          let added = 0;
+          for (const s of incoming.sessions) {
+            if (!s || !s.at || seen.has(s.at)) continue;
+            cur.sessions.push(s);
+            seen.add(s.at);
+            added++;
+          }
+          // allRecords 合并（按 id+at 去重）
+          const seenR = new Set(cur.allRecords.map((r) => r && (r.id + '@' + r.at)));
+          for (const r of (incoming.allRecords || [])) {
+            const k = r && (r.id + '@' + r.at);
+            if (!k || seenR.has(k)) continue;
+            cur.allRecords.push(r);
+            seenR.add(k);
+          }
+          cur.sessions.sort((a, b) => a.at - b.at);
+          localStorage.setItem(LS_KEY, JSON.stringify(cur));
+          alert('已导入 ' + added + ' 轮记录。');
+          render();
+        } catch (e) {
+          alert('导入失败：' + e.message);
+        }
+        imf.value = '';
+      };
+      reader.readAsText(f);
+    };
+  }
+
   const ca = $('#clearAll');
   if (ca) ca.onclick = () => {
     if (!confirm('清空全部 ' + sess.length + ' 轮记录？此操作无法撤销。')) return;

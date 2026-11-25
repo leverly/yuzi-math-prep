@@ -260,6 +260,7 @@ if (fs.existsSync('history.html')) {
   ok(hs.includes('const BANK = '), '题库已内联');
   ok(hs.includes('xz-practice-v1'), '与练习页共用同一存储键');
   ok(hs.includes('还没有练习记录'), '有空状态提示');
+  ok(hs.includes('exportBtn') && hs.includes('importBtn'), '有导出/导入（防清缓存丢数据）');
   // 练习页必须有入口
   const pr2 = fs.readFileSync('practice.html', 'utf8');
   ok(pr2.includes('href="history.html"'), '练习页有历史入口');
