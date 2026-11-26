@@ -19,6 +19,14 @@ const famList = Object.keys(FAM_META).map((id) => ({
 })).sort((a, b) => b.avg - a.avg);
 
 const totalQ = BANK.length;
+
+/* 每个能力的年均分（各族 avgPerYear 按 cat 累加）——诊断排序用 */
+const FAM_CAT_SCORE = (() => {
+  const m = {};
+  for (const f of FAMILY_MAP) m[f.cat] = (m[f.cat] || 0) + (f.avgPerYear || 0);
+  for (const k of Object.keys(m)) m[k] = +m[k].toFixed(1);
+  return m;
+})();
 const choiceN = BANK.filter((q) => q.options).length;
 const calcN = totalQ - choiceN;
 
@@ -227,7 +235,8 @@ SCRIPT = SCRIPT.replace(
   'const BANK = ' + JSON.stringify(BANK) + ';\n' +
   'const FAM_META = ' + JSON.stringify(FAM_META) + ';\n' +
   'const SOLUTIONS = ' + JSON.stringify(SOLUTIONS) + ';\n' +
-  'const CH_NAME = ' + JSON.stringify(CH_NAME) + ';'
+  'const CH_NAME = ' + JSON.stringify(CH_NAME) + ';\n' +
+  'const FAM_CAT_SCORE = ' + JSON.stringify(FAM_CAT_SCORE) + ';'
 );
 
 /* 页面 HTML */

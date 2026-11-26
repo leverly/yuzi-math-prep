@@ -121,6 +121,7 @@ function diagnose(records) {
     const meta = FAM_META[a.fam] || {};
     return {
       fam: a.fam, name: meta.name || a.fam, avg: meta.avgPerYear || 1,
+      cat: meta.cat || '未知',
       total: a.total, ok: a.ok, rate, tier, enough,
       topErr: top ? { cat: top[0], fix: ERR_FIX[top[0]] } : null,
       priority: (meta.avgPerYear || 1) * (1 - rate) * (enough ? 1 : 0.3),
@@ -204,9 +205,46 @@ function diagnose(records) {
     return ord[a.tier] - ord[b.tier] || b.scoreW - a.scoreW;
   });
 
+  /* 能力维度：同一批作答记录，按「能力」再切一次。
+   * 与章节是同一批题的两个切面——某章弱不等于某能力弱，反之亦然。
+   * 能力题库不均（计算 69 题、空间/分类/作图/新定义各 3–4 题），
+   * 所以低频能力在单轮里常常只有 1–2 题，会落进「样本不足」。
+   * 这不是缺陷：累计几轮后自然会补齐。 */
+  const catAgg = new Map();
+  // 以「全部能力」为全集初始化：这轮没做到的能力也要显示「待积累」，
+  // 否则用户看不到它在排队，会以为站点不诊断它
+  for (const c of Object.keys(FAM_CAT_SCORE)) {
+    catAgg.set(c, { cat: c, total: 0, ok: 0, scoreW: FAM_CAT_SCORE[c] || 0, errMix: {} });
+  }
+  for (const f of fams) {
+    const c = f.cat || '未知';
+    if (!catAgg.has(c)) catAgg.set(c, { cat: c, total: 0, ok: 0, scoreW: 0, errMix: {} });
+    const a = catAgg.get(c);
+    a.total += f.total;
+    a.ok += f.ok;
+    a.scoreW += (FAM_CAT_SCORE[c] || 0);
+    for (const [k, v] of Object.entries(f.errMix || {})) a.errMix[k] = (a.errMix[k] || 0) + v;
+  }
+  const cats = [...catAgg.values()].map((a) => {
+    const rate = a.total ? a.ok / a.total : 0;
+    const tier = chTier(a.total, a.ok);
+    const top = Object.entries(a.errMix).sort((x, y) => y[1] - x[1])[0];
+    return {
+      cat: a.cat,
+      name: a.cat,
+      total: a.total, ok: a.ok, rate, tier,
+      enough: a.total >= 3,
+      topErr: top ? { cat: top[0], fix: ERR_FIX[top[0]] } : null,
+      scoreW: a.scoreW,
+    };
+  }).sort((a, b) => {
+    const ord = { weak: 0, shaky: 1, insufficient: 2, solid: 3 };
+    return ord[a.tier] - ord[b.tier] || b.scoreW - a.scoreW;
+  });
+
   return {
     totalQ, totalOk, rate: totalQ ? totalOk / totalQ : 0,
-    fams, chs, actions: actions.slice(0, 6), wrongList,
+    fams, chs, cats, actions: actions.slice(0, 6), wrongList,
     weak: fams.filter(f => f.tier === 'weak').length,
     shaky: fams.filter(f => f.tier === 'shaky').length,
     solid: fams.filter(f => f.tier === 'solid').length,
@@ -376,6 +414,10 @@ function persistSession(records, diagResult) {
       ch: c.ch, name: c.name, total: c.total, ok: c.ok, tier: c.tier,
       topErr: c.topErr ? c.topErr.cat : null,
     })),
+    cats: (diagResult.cats || []).map((c) => ({
+      cat: c.cat, name: c.name, total: c.total, ok: c.ok, tier: c.tier,
+      topErr: c.topErr ? c.topErr.cat : null,
+    })),
   });
   // 累计记录：用于「历史累计诊断」
   for (const r of records) {
@@ -418,6 +460,24 @@ function shuffle(arr) {
 
 /* 出题策略：诊断要下结论，每族至少需要 3 题。
  * 所以「全部」不是跨族撒一遍，而是按族轮转、每族凑够样本再换下一族。 */
+const catOfFam = (fid) => (FAM_META[fid] || {}).cat || '未知';
+
+/* 统计各能力「累计已做过的题数」——用于优先补样本缺口 */
+function countAbilitySamples() {
+  const n = {};
+  try {
+    const store = loadStore();
+    const byId = new Map(BANK.map((q) => [q.id, q]));
+    for (const r of (store.allRecords || [])) {
+      const q = byId.get(r.id);
+      if (!q) continue;
+      const c = catOfFam(q.fam);
+      n[c] = (n[c] || 0) + 1;
+    }
+  } catch (e) { /* 无记录时全 0 */ }
+  return n;
+}
+
 /* 出题：按「章节」均衡取题，6 章 × 每章 3 题 = 18 题。
  *
  * 为什么按章而不是按族：
@@ -450,20 +510,76 @@ function pickQueue() {
   const picked = [];
   const usedIds = new Set();
 
-  // 每章取 PER_CH 题。关键：尽量集中在同一族，让该族样本够 3 题、
-  // 能判出结论。只有该族题不够时才从章内其他族补。
+  // 每章取 PER_CH 题。三层优先级：
+  //   ① 本章这 3 题落在同一族 —— 该族样本才够 3 题、判得出能力结论
+  //   ② 优先选「该能力累计样本最少」的族 —— 诊断的目的是补数据缺口，
+  //      而不是每轮重复练已经练过的（计算族年均分最高，若不干预会永远霸榜）
+  //   ③ 同条件时按族年均分降序，保证高分考点优先
+  const catDone = countAbilitySamples();   // 各能力已累计做过的题数
+
+  /* 选族：全局贪心 + 能力去重
+   * 逐条走「章 × 族」候选，按优先级排序后依次认领，
+   * 已被别章占用的能力跳过 —— 否则 3 个章会同时选计算族，
+   * 一轮 18 题里 9 题是计算、概念一题没有。
+   *
+   * 候选排序（依次比较）：
+   *   ① 该能力累计样本是否已够 3 题 —— 够了的往后排（先补数据缺口）
+   *   ② 该能力累计样本少者优先
+   *   ③ 族年均分高者优先（高分考点先覆盖） */
+  const cands = [];
   for (const c of chapters) {
-    let got = 0;
-    // 章内族按年均分降序，先主族取满，再往次族扩
     for (const f of c.fams) {
+      cands.push({ ch: c.ch, fam: f, avg: f.avg || 0, cat: catOfFam(f.id) });
+    }
+  }
+  cands.sort((a, b) => {
+    const na = catDone[a.cat] || 0, nb = catDone[b.cat] || 0;
+    const da = na >= 3 ? 1 : 0, db = nb >= 3 ? 1 : 0;
+    if (da !== db) return da - db;      // 已够样本的能力降级
+    if (na !== nb) return na - nb;      // 样本少的优先
+    return b.avg - a.avg;               // 年均分高的优先
+  });
+
+  const chPick = new Map();             // 章 → 选中的族
+  const catUsed = new Set();            // 本轮已占用的能力
+  for (const cd of cands) {
+    if (chPick.has(cd.ch)) continue;    // 该章已定
+    if (catUsed.has(cd.cat)) continue;  // 该能力已被别章占用
+    chPick.set(cd.ch, cd.fam);
+    catUsed.add(cd.cat);
+  }
+  // 兜底：没选到族的章取自己年均分最高的
+  for (const c of chapters) {
+    if (!chPick.has(c.ch) && c.fams.length) {
+      const f = c.fams.slice().sort((a, b) => (b.avg || 0) - (a.avg || 0))[0];
+      chPick.set(c.ch, f);
+    }
+  }
+
+  for (const c of chapters) {
+    const f = chPick.get(c.ch);
+    if (!f) continue;
+    let got = 0;
+    const qs = shuffle(f.qs);
+    for (const q of qs) {
       if (got >= PER_CH) break;
-      const qs = shuffle(f.qs);
-      for (const q of qs) {
+      if (usedIds.has(q.id)) continue;
+      picked.push(q);
+      usedIds.add(q.id);
+      got++;
+    }
+    // 该族题不够 PER_CH 时，从章内其他族补
+    if (got < PER_CH) {
+      for (const g of c.fams) {
         if (got >= PER_CH) break;
-        if (usedIds.has(q.id)) continue;
-        picked.push(q);
-        usedIds.add(q.id);
-        got++;
+        if (g.id === f.id) continue;
+        for (const q of shuffle(g.qs)) {
+          if (got >= PER_CH) break;
+          if (usedIds.has(q.id)) continue;
+          picked.push(q);
+          usedIds.add(q.id);
+          got++;
+        }
       }
     }
   }
@@ -634,6 +750,35 @@ function showDiag() {
           <div class="fam-tier tier-${c.tier}">${tierName[c.tier]}</div>
         </div>`).join('')}
     </div>
+
+    ${d.cats && d.cats.length ? `
+    <div style="margin-top:30px">
+      <div class="diag-head">
+        <span class="kicker">Abilities</span>
+        <h2 style="font-size:19px">按能力看</h2>
+        <span style="font-size:12.5px;color:var(--text-3)">同一批题的另一切面</span>
+      </div>
+      <div class="fam-rows">
+        ${d.cats.map(c => `
+          <div class="fam-row">
+            <div>
+              <div class="fam-name">${esc(c.name)}</div>
+              <div class="fam-sub">${c.total === 0
+                ? '这轮没做到（' + (FAM_CAT_SCORE[c.cat] || 0) + ' 分/年，下一轮会轮到）'
+                : c.enough
+                  ? `${c.ok}/${c.total} 题正确${c.topErr ? ' · 主错因：' + esc(c.topErr.cat) : ''}`
+                  : `这轮只做到 ${c.total} 题，还需 ${Math.max(0, 3 - c.total)} 题才能判`
+              }</div>
+            </div>
+            <div class="fam-rate ${rateCls(c.tier)}">${c.enough ? Math.round(c.rate * 100) + '%' : '—'}</div>
+            <div class="fam-tier tier-${c.tier}">${c.enough ? tierName[c.tier] : (c.total === 0 ? '未轮到' : '待积累')}</div>
+          </div>`).join('')}
+      </div>
+      <div class="callout" style="margin-top:12px;font-size:13px">
+        能力题库不均衡：计算与概念的题多，<b>分类 / 作图 / 空间 / 新定义每轮只出得到 1–2 题</b>。
+        这些能力要累计 2–3 轮才有结论——每轮的结果会自动累加。
+      </div>
+    </div>` : ''}
 
     ${d.actions.length ? `
     <div style="margin-top:26px">

@@ -205,6 +205,54 @@ function render() {
     }).join('') +
     '</div></div>';
 
+  // ---- 汇总：按能力累计 ----
+  const CAT_ORDER_UI = ['计算', '概念', '建模', '推理', '分类', '作图', '空间', '新定义'];
+  const catAgg = {};
+  for (const c of CAT_ORDER_UI) catAgg[c] = { cat: c, name: c, total: 0, ok: 0, times: 0 };
+  let catSessions = 0;
+  for (const s of sess) {
+    if (!Array.isArray(s.cats) || !s.cats.length) continue;
+    catSessions++;
+    for (const c of s.cats) {
+      if (!catAgg[c.cat]) catAgg[c.cat] = { cat: c.cat, name: c.name, total: 0, ok: 0, times: 0 };
+      catAgg[c.cat].total += c.total;
+      catAgg[c.cat].ok += c.ok;
+      if (c.total > 0) catAgg[c.cat].times += 1;
+    }
+  }
+  const cats = Object.values(catAgg);
+  for (const c of cats) {
+    c.rate = c.total ? c.ok / c.total : 0;
+    c.tier = c.total ? tierOf(c.total, c.ok) : 'insufficient';
+  }
+  cats.sort((a, b) => {
+    const ord = { weak: 0, shaky: 1, insufficient: 2, solid: 3 };
+    // 同档内：正确率低的在前（更该补），不看题量
+    return ord[a.tier] - ord[b.tier] || a.rate - b.rate;
+  });
+
+  if (catSessions > 0) {
+    html += '<div class="sect"><div class="sect-head"><span class="kicker">Abilities</span>' +
+      '<h2>各能力累计掌握情况</h2><span class="sub">' +
+        (catSessions < sess.length ? catSessions + ' / ' + sess.length + ' 轮有能力明细' : '全部 ' + sess.length + ' 轮合并统计') +
+        '</span></div>' +
+      '<div class="ch-grid">' +
+      cats.map((c) => {
+        const pct = Math.round(c.rate * 100);
+        const known = c.total > 0;
+        return '<div class="ch-card">' +
+          '<div class="ch-name">' + esc(c.name) + '</div>' +
+          '<div class="ch-meta">' + (known
+            ? '累计 ' + c.ok + '/' + c.total + ' 题 · 覆盖 ' + c.times + ' 轮'
+            : '还没做到 · 下一轮会优先安排') + '</div>' +
+          '<div class="ch-bar"><i class="bar-' + c.tier + '" style="width:' + (known ? pct : 0) + '%"></i></div>' +
+          '<div class="ch-row"><span class="ch-rate rate-' + c.tier + '">' + (known ? pct + '%' : '—') + '</span>' +
+          '<span class="ch-tier tier-' + c.tier + '">' + (known ? TIER[c.tier] : '未轮到') + '</span></div>' +
+          '</div>';
+      }).join('') +
+      '</div></div>';
+  }
+
   html += '<div class="sect"><div class="sect-head"><span class="kicker">Rounds</span>' +
     '<h2>逐轮记录</h2><span class="sub">点一行展开该轮的章节明细</span></div>' +
     '<div class="round-list">';

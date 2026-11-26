@@ -101,6 +101,14 @@ if (fs.existsSync('practice.html')) {
   ok(pr.includes('18 道题，覆盖全部 6 章'), '预告卡标题正确');
   // 诊断面板必须按章节展示（不是按族，族太细会导致样本不足）
   ok(pr.includes('薄弱章节'), '诊断按章节汇总');
+  // 能力维度：必须能从族映射到能力，且诊断面板展示
+  ok(pr.includes('const FAM_CAT_SCORE = {'), '能力分值表已内联');
+  ok(pr.includes('按能力看'), '诊断面板有能力区块');
+  ok(pr.includes('catAgg'), '诊断含按能力聚合');
+  // 出题必须做全局能力去重，否则 3 个章会同时选计算族
+  ok(pr.includes('catUsed') && pr.includes('已够样本的能力降级'), '出题按能力去重');
+  // 能力「未轮到」必须显式说明，不能静默不显示
+  ok(pr.includes('这轮没做到'), '未覆盖的能力有显式说明');
   ok(pr.includes('const BANK = ['), '题库已内联（file:// 可直开）');
   // 构建器用字符串 replace 注入数据：import 行一改，replace 静默失配，
   // 产物会「构建成功」但只剩 40KB 空壳。这里硬断言数据真的进去了。
@@ -275,6 +283,8 @@ if (fs.existsSync('history.html')) {
   ok(hs.includes('xz-practice-v1'), '与练习页共用同一存储键');
   ok(hs.includes('还没有练习记录'), '有空状态提示');
   ok(hs.includes('exportBtn') && hs.includes('importBtn'), '有导出/导入（防清缓存丢数据）');
+  ok(hs.includes('各能力累计掌握情况'), '有能力累计汇总区');
+  ok(hs.includes('还没做到'), '未覆盖能力在汇总里显式标注');
   // 练习页必须有入口
   const pr2 = fs.readFileSync('practice.html', 'utf8');
   ok(pr2.includes('href="history.html"'), '练习页有入口');

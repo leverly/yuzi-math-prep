@@ -1,6 +1,6 @@
 // 自动生成，请勿手改。源文件：work/practice/bank.mjs
 // 答案由 verify-bank.mjs 独立验算后回填；解析由 work/practice/verify-solutions.mjs 逐步验算。
-// 生成时间：2026-11-25T13:05:17
+// 生成时间：2026-11-26T02:38:10
 
 export const BANK = [
  {
@@ -4218,139 +4218,162 @@ export const FAM_META = {
   "name": "有理数四则混合运算",
   "avgPerYear": 18.4,
   "note": "第 17 题，17–20 分，全卷单题最高分值，纯计算",
-  "ch": "ch-op"
+  "ch": "ch-op",
+  "cat": "计算"
  },
  "f-solveeq": {
   "name": "解一元一次方程",
   "avgPerYear": 11.6,
   "note": "第 20 题位，11–12 分，去分母/去括号/移项全流程",
-  "ch": "ch-eq"
+  "ch": "ch-eq",
+  "cat": "计算"
  },
  "f-simplify": {
   "name": "整式化简求值",
   "avgPerYear": 6,
   "note": "第 18 题固定位置，6 分，去括号+合并同类项+代值",
-  "ch": "ch-poly"
+  "ch": "ch-poly",
+  "cat": "计算"
  },
  "f-exprval": {
   "name": "代数式求值（整体代入）",
   "avgPerYear": 1.2,
   "note": "填空位，考整体代入而非逐项展开",
-  "ch": "ch-expr"
+  "ch": "ch-expr",
+  "cat": "计算"
  },
  "f-angleconv": {
   "name": "角度换算（度分秒）",
   "avgPerYear": 0.8,
   "note": "填空前段，60 进制换算是固定失分点",
-  "ch": "ch-geo"
+  "ch": "ch-geo",
+  "cat": "计算"
  },
  "f-segmid": {
   "name": "线段中点",
   "avgPerYear": 0.8,
   "note": "填空位，考中点定义与线段和差",
-  "ch": "ch-geo"
+  "ch": "ch-geo",
+  "cat": "计算"
  },
  "f-anglesum": {
   "name": "角的和差",
   "avgPerYear": 0.8,
   "note": "填空位，纯角度加减",
-  "ch": "ch-geo"
+  "ch": "ch-geo",
+  "cat": "计算"
  },
  "f-abs-line": {
   "name": "绝对值与数轴",
   "avgPerYear": 8.8,
   "note": "选择/填空前段，每年 3–4 题，考绝对值、相反数、数轴判符号",
-  "ch": "ch-rational"
+  "ch": "ch-rational",
+  "cat": "概念"
  },
  "f-scinote": {
   "name": "科学记数法与近似数",
   "avgPerYear": 2,
   "note": "每年选择第 2 题固定位置，2 分",
-  "ch": "ch-rational"
+  "ch": "ch-rational",
+  "cat": "概念"
  },
  "f-poly": {
   "name": "整式加减辨析",
   "avgPerYear": 4.4,
   "note": "选择 1 题 + 填空 1 题，考概念辨析与构造",
-  "ch": "ch-poly"
+  "ch": "ch-poly",
+  "cat": "概念"
  },
  "f-eqconcept": {
   "name": "方程概念辨析",
   "avgPerYear": 2.8,
   "note": "选择 1 题 + 填空 1 题，考等式性质与解的定义",
-  "ch": "ch-eq"
+  "ch": "ch-eq",
+  "cat": "概念"
  },
  "f-compangle": {
   "name": "余角 / 补角列方程",
   "avgPerYear": 1.6,
   "note": "选择位，余补角定义转方程",
-  "ch": "ch-geo"
+  "ch": "ch-geo",
+  "cat": "建模"
  },
  "f-pattern": {
   "name": "图形规律（用含 n 式子表示）",
   "avgPerYear": 1.2,
   "note": "选择或填空，考从具体到一般的归纳",
-  "ch": "ch-expr"
+  "ch": "ch-expr",
+  "cat": "推理"
  },
  "f-space": {
   "name": "展开图 / 三视图 / 面动成体",
   "avgPerYear": 2.4,
   "note": "选择前段固定 1 题，考空间想象",
-  "ch": "ch-geo"
+  "ch": "ch-geo",
+  "cat": "空间"
  },
  "f-final": {
   "name": "分类压轴（第23题位）",
   "avgPerYear": 9.2,
   "note": "第 23 题固定题位，6–7 分；五套全是「分类」能力，载体每年换（数轴动点/动角/线段中点）",
-  "ch": "ch-rational"
+  "ch": "ch-rational",
+  "cat": "分类"
  },
  "f-eqmodel": {
   "name": "方程应用题",
   "avgPerYear": 8.4,
   "note": "解答题中段，5–8 分，从文字/表格建等量关系",
-  "ch": "ch-eq"
+  "ch": "ch-eq",
+  "cat": "建模"
  },
  "f-construct": {
   "name": "尺规作图与说理",
   "avgPerYear": 5.8,
   "note": "第 19 题固定位置，6 分，作图+依据说理",
-  "ch": "ch-geo"
+  "ch": "ch-geo",
+  "cat": "作图"
  },
  "f-anglereason": {
   "name": "角度推理填空（几何说理）",
   "avgPerYear": 3.8,
   "note": "解答题，6–7 分，补全推理过程并填依据",
-  "ch": "ch-geo"
+  "ch": "ch-geo",
+  "cat": "推理"
  },
  "f-newdef": {
   "name": "新定义（选做 / 24 题位）",
   "avgPerYear": 3.2,
   "note": "压轴或选做，给新规则→判断性质→迁移，是拉分主战场",
-  "ch": "ch-rational"
+  "ch": "ch-rational",
+  "cat": "新定义"
  },
  "f-exprmodel": {
   "name": "列代数式建模",
   "avgPerYear": 2.2,
   "note": "填空/选择位，考用字母表示量与判断关系",
-  "ch": "ch-expr"
+  "ch": "ch-expr",
+  "cat": "建模"
  },
  "f-fillnum": {
   "name": "数字填图 / 幻方",
   "avgPerYear": 2,
   "note": "填空最后一题（16 题），每年必考，考整体代换与方程思想",
-  "ch": "ch-rational"
+  "ch": "ch-rational",
+  "cat": "推理"
  },
  "f-basicnum": {
   "name": "进位制 / 综合与实践",
   "avgPerYear": 1.4,
   "note": "2024-25 起出现，给换算规则→照做→逆向，属新情境",
-  "ch": "ch-op"
+  "ch": "ch-op",
+  "cat": "推理"
  },
  "f-read": {
   "name": "阅读理解 / 规律探究",
   "avgPerYear": 1.2,
   "note": "解答或选做位，读材料→补表→说理",
-  "ch": "ch-op"
+  "ch": "ch-op",
+  "cat": "推理"
  }
 };
 

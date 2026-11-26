@@ -63,7 +63,7 @@ const out = BANK.map((rawQ) => {
 // 考点族元信息（用于诊断时显示分值权重）
 const famMeta = {};
 for (const f of FAMILY_MAP) {
-  famMeta[f.id] = { name: f.name, avgPerYear: f.avgPerYear, note: f.note, ch: f.ch };
+  famMeta[f.id] = { name: f.name, avgPerYear: f.avgPerYear, note: f.note, ch: f.ch, cat: f.cat };
 }
 
 // 只导出题库实际用到的族
