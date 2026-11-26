@@ -378,7 +378,6 @@ ${body}
 </main>
 <footer class="wrap">
   <p><b>${esc(SITE.full)}</b> · 样本：西城区 ${YEARS.join(' / ')} 五套期末真题，共 ${LEDGER.length} 题逐题标注</p>
-  <p>所有统计数字由逐题台账派生，非人工填写。频次结论基于 ${N_PAPERS} 套样本，不构成押题。</p>
 </footer>
 </body>
 </html>`;
