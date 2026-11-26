@@ -601,6 +601,14 @@ if (fs.existsSync('history.html')) {
       '老记录下考点区给出说明而不是隐藏');
     /* 一轮只覆盖 6 个族这件事必须写在页面上 */
     ok(hs.includes('一轮 18 题只覆盖'), '页面说明一轮只覆盖 6 个考点');
+    /* 按章折叠：默认收起，且收起后标题行必须自带信息 */
+    ok(hs.includes('<details class="fam-grp">'), '考点族按章用 details 折叠');
+    ok(!/details class="fam-grp" open/.test(hs), '折叠默认是收起的（不写 open）');
+    ok(/<summary class="fam-grp-h">/.test(hs), '用 summary 作可点标题行');
+    ok(hs.includes('个考点有样本'), '收起状态下标题行显示样本数');
+    ok(hs.includes('tier-weak') && hs.includes('fam-grp-badges'),
+      '收起状态下标题行显示薄弱/不稳角标');
+    ok(hs.includes('::-webkit-details-marker'), '已去掉浏览器默认三角（用自定义箭头）');
     /* 落库：练习页必须把 fams 存进 sessions */
     const prSrc = fs.readFileSync('practice.html', 'utf8');
     ok(/fams:\s*\(diagResult\.fams/.test(prSrc), '练习页把族级结果落库到 sessions');

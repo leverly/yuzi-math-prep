@@ -36,12 +36,28 @@ body{padding-bottom:80px}
 
 .ch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 /* 考点族按章分组：每章一个小组，带「几个考点有样本」的计数 */
-.fam-grp{margin-bottom:18px}
+/* 考点族按章折叠：收起时只留标题行，所以标题行必须自带信息 */
+.fam-grp{border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface);
+  margin-bottom:9px;overflow:hidden}
 .fam-grp:last-child{margin-bottom:0}
-.fam-grp-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
-  font-size:13px;font-weight:700;color:var(--text-2);margin-bottom:9px;
-  padding-bottom:6px;border-bottom:1px solid var(--border)}
+.fam-grp-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;cursor:pointer;
+  font-size:13.2px;font-weight:700;color:var(--text-2);list-style:none;
+  padding:11px 15px;user-select:none;transition:.14s var(--ease)}
+.fam-grp-h::-webkit-details-marker{display:none}
+.fam-grp-h:hover{background:var(--surface-2);color:var(--text)}
+/* 箭头用 CSS 三角，不依赖字体字形（▸ 在部分环境缺字，会渲染成一个小点） */
+.fam-grp-h::before{content:'';width:0;height:0;flex:none;
+  border-left:5px solid var(--text-3);
+  border-top:4px solid transparent;border-bottom:4px solid transparent;
+  transition:transform .16s var(--ease)}
+.fam-grp[open]>.fam-grp-h::before{transform:rotate(90deg)}
 .fam-grp-h span{font-size:11.5px;font-weight:600;color:var(--text-3)}
+.fam-grp-h .fam-grp-badges{margin-left:auto;display:flex;gap:7px}
+.fam-grp-h .fam-grp-badges b{font-size:11px;font-weight:700;padding:1.5px 7px;border-radius:5px}
+.fam-grp-h .tier-weak{background:var(--rose-soft);color:var(--rose)}
+.fam-grp-h .tier-shaky{background:var(--gold-soft);color:var(--gold)}
+/* 展开后内容留出内边距，与标题行对齐 */
+.fam-grp .ch-grid{padding:0 15px 15px}
 .ch-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:15px 17px}
 .ch-name{font-size:14.5px;font-weight:700;margin-bottom:3px}
 .ch-meta{font-size:12px;color:var(--text-3);margin-bottom:10px}
