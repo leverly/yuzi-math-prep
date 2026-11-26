@@ -472,8 +472,8 @@ function buildIndex() {
 .sel-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
   box-shadow:var(--shadow-3);padding:8px 0;max-width:760px;margin:0 auto;width:100%}
 
-.sel-row{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;
-  padding:18px 26px;border-bottom:1px solid var(--border)}
+.sel-row{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:start;
+  padding:18px 22px;border-bottom:1px solid var(--border)}
 .sel-row:last-of-type{border-bottom:none}
 .sel-lbl{font-size:13.5px;font-weight:700;color:var(--text-2);padding-top:7px}
 .sel-opts{display:flex;flex-wrap:wrap;gap:9px}
@@ -515,7 +515,7 @@ function buildIndex() {
 .sel-subj{display:flex;flex-direction:column;align-items:flex-start;gap:3px;
   padding:12px 18px;border-radius:12px;border:1px solid var(--border-2);
   background:var(--surface);cursor:pointer;font-family:inherit;text-align:left;
-  transition:.15s var(--ease);min-width:196px}
+  transition:.15s var(--ease);min-width:0;flex:0 1 auto;max-width:340px}
 .sel-subj:hover{border-color:var(--accent);background:var(--accent-soft)}
 /* 选中态与上面三级按钮保持一致：实心蓝 + 投影 */
 .sel-subj[aria-pressed="true"]{border-color:transparent;background:var(--accent-grad);
@@ -524,9 +524,18 @@ function buildIndex() {
 .sel-subj[aria-pressed="true"] small{color:rgba(255,255,255,.82)}
 .sel-subj[aria-pressed="true"] .ext{background:rgba(255,255,255,.22);color:#fff}
 .sel-subj b{font-size:15px;font-weight:750;display:flex;align-items:center;gap:7px}
-.sel-subj small{font-size:12px;color:var(--text-3);font-weight:500}
+.sel-subj small{font-size:11.5px;color:var(--text-3);font-weight:500;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .sel-subj .ext{font-size:10.5px;font-weight:700;color:var(--purple);
   background:var(--purple-soft);padding:1px 6px;border-radius:5px}
+/* 建设中：不可点。视觉上要明显「还没好」，但不能像禁用控件那样灰到看不见
+   ——它仍然是一条信息（这科会有，只是还没做完）。 */
+.sel-subj.building{cursor:not-allowed;background:var(--bg-3);border-style:dashed;
+  border-color:var(--border-2);box-shadow:none}
+.sel-subj.building:hover{border-color:var(--border-2);background:var(--bg-3)}
+.sel-subj.building b{color:var(--text-2)}
+.sel-subj.building small{color:var(--text-3)}
+.sel-subj.building .ext.build{color:var(--gold);background:var(--gold-soft)}
 
 /* 上次选择提示 */
 .sel-resume{max-width:760px;margin:0 auto 16px;display:none;align-items:center;gap:12px;
@@ -673,7 +682,8 @@ function buildIndex() {
       }
     }
     if (state.grade && state.term && !state.subject) {
-      var ss = subjectsFor();
+      /* 跳过「建设中」的科目——它们不可点，选中了也进不去 */
+      var ss = subjectsFor().filter(function(x){ return !x.building; });
       if (ss.length) state.subject = ss[0].id;
     }
   }
@@ -753,11 +763,20 @@ function buildIndex() {
       subs.forEach(function(s){
         var b = document.createElement('button');
         b.type = 'button';
-        b.className = 'sel-subj';
+        b.className = 'sel-subj' + (s.building ? ' building' : '');
         b.setAttribute('aria-pressed', state.subject === s.id ? 'true' : 'false');
-        b.innerHTML = '<b>' + s.name + (s.own ? '' : ' <span class="ext">独立站</span>') + '</b>' +
+        /* 建设中：不可点，且不参与选中 */
+        if (s.building) {
+          b.disabled = true;
+          b.setAttribute('aria-disabled', 'true');
+        }
+        var tag = s.building ? ' <span class="ext build">建设中</span>'
+                : (s.own ? '' : ' <span class="ext">独立站</span>');
+        b.innerHTML = '<b>' + s.name + tag + '</b>' +
                       '<small>' + s.desc + '</small>';
-        b.addEventListener('click', function(){ state.subject = s.id; render(); });
+        if (!s.building) {
+          b.addEventListener('click', function(){ state.subject = s.id; render(); });
+        }
         el.subject.appendChild(b);
       });
     }
@@ -1329,9 +1348,18 @@ ${section('考点族', '各考点分值分布与重要性',
 <tbody>
 ${CH_GROUPS.map((g) => `
 <tr class="ch-row-h"><td colspan="${YEARS.length + 3}">${esc(g.name)}<span class="ch-sum">${g.fams.length} 族 · 五年合计 ${g.total} 分</span></td></tr>
-${g.fams.map((f) => `<tr>
+${g.fams.map((f) => {
+  /* 族名里带的题位（「第23题位」或「24 题位」两种写法）可能只是主位，
+     实际还含别的题位。展示实际落点，免得读者把族名当成「只考这一题」。 */
+  const nos = [...new Set(f.slots.map((x) => x.no))].sort((a, b) => a - b);
+  const inName = (f.name.match(/(\d+)\s*题位/) || [])[1];
+  const mism = inName && !(nos.length === 1 && +inName === nos[0]);
+  const slotTag = mism
+    ? `<span style="color:var(--text-3);font-size:11px;margin-left:5px">实际落点：第 ${nos.join('、')} 题</span>`
+    : '';
+  return `<tr>
   <td class="hc-fam-cell">
-    <span class="fam-nm">${esc(f.name)}</span>
+    <span class="fam-nm">${esc(f.name)}${slotTag}</span>
     <span class="fam-sub">必做 ${f.hitYears}/${N_PAPERS} 年${f.bonusYears && f.bonusYears.length ? ' · 选做 ' + f.bonusYears.length + ' 年' : ''}</span>
   </td>
   ${YEARS.map((y) => {
@@ -1345,7 +1373,8 @@ ${g.fams.map((f) => `<tr>
     <span class="avg-bar"><i style="width:${Math.round((f.avgPerYear / HEAT_AVG_MAX) * 56)}px"></i><b>${f.avgPerYear || '—'}</b></span>
   </td>
   <td class="hc-hit-cell ${f.hitYears === N_PAPERS ? 'full' : ''}">${f.hitYears}/${N_PAPERS}</td>
-</tr>`).join('')}
+</tr>`;
+}).join('')}
 `).join('')}
 </tbody>
 </table>

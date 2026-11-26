@@ -41,10 +41,13 @@ export const CATALOG = {
   /* 键是 省/区/年级/学期；没材料的组合不登记，选到就提示「暂无材料」 */
   subjects: {
     'beijing/xicheng/g7/t1': [
-      /* 本站自有：数学 */
+      /* 本站自有：数学（唯一可点的科目） */
       { id: 'math', name: '数学', desc: '5 套区统考真题 · 130 题逐题标注', href: 'home.html', papers: 5, own: true },
-      /* 独立站点：英语 */
-      { id: 'english', name: '英语', desc: '4 套区统考真题 · 专项分层', href: 'https://leverly.github.io/yuzi-english-prep/', papers: 4, own: false },
+      /* 建设中：英语站已存在，但先不放出入口；语文尚未开工。
+       * 这类项没有 href，选择器渲染为不可点 + 「建设中」标记。
+       * 上线时补上 href 并去掉 building 即可。 */
+      { id: 'english', name: '英语', desc: '4 套区统考真题 · 专项分层', papers: 4, own: false, building: true },
+      { id: 'chinese', name: '语文', desc: '材料整理中', papers: 0, own: false, building: true },
     ],
   },
 };

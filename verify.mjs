@@ -173,7 +173,18 @@ console.log('\n【四之四】考区选择页（index.html）');
   /* 每个科目都要有可达目标：本站页必须存在，外站必须是 https */
   const allSubjects = Object.entries(CATALOG.subjects).flatMap(([k, arr]) => arr.map((s) => ({ ...s, key: k })));
   ok(allSubjects.length > 0, '目录里至少有一个科目');
+  const buildingSubjects = allSubjects.filter((s) => s.building);
+  for (const s of buildingSubjects) {
+    /* 建设中：不可点，且页面上必须有「建设中」角标——不能静默留一个点不动的按钮 */
+    ok(!s.href, `科目「${s.name}」建设中不挂跳转（避免点进空页）`);
+  }
+  if (buildingSubjects.length) {
+    ok(sel.includes('建设中'), '建设中科目在页面上有可见角标');
+    ok(sel.includes('b.disabled = true') || sel.includes('disabled = true'),
+      '建设中科目按钮实际被禁用');
+  }
   for (const s of allSubjects) {
+    if (s.building) continue;
     if (s.own) {
       ok(fs.existsSync(s.href), `科目「${s.name}」指向的 ${s.href} 存在`);
     } else {
@@ -181,10 +192,12 @@ console.log('\n【四之四】考区选择页（index.html）');
     }
   }
 
-  /* 声明了几套卷就要真有几套——不许把空科目列进选择器 */
+  /* 声明了几套卷就要真有几套——不许把空科目当可用科目列进选择器 */
   const paperDirs = fs.existsSync('真题试卷') ? fs.readdirSync('真题试卷') : [];
   ok(!allSubjects.some((s) => s.own && !paperDirs.includes(s.name)),
     '本站科目都在真题试卷目录下有材料');
+  ok(!allSubjects.some((s) => !s.building && s.papers === 0),
+    '没有标「建设中」的科目不能是 0 套卷');
 }
 
 console.log('\n【四之三】两页划分：逐年拆解 vs 整体解读');
@@ -231,6 +244,44 @@ console.log('\n【四之三】两页划分：逐年拆解 vs 整体解读');
   /* 整体页的三段结构必须在：没变 / 分在哪 / 在变 */
   for (const k of ['没变', '分在哪', '在变']) {
     ok(tr2.includes(`<span class="kicker">${k}</span>`), `整体页有「${k}」一节`);
+  }
+
+  /* ---- 考点族热力矩阵 ----
+   * 行 = 族，列 = 学年，格子深浅 = 该年分值。这是英语站的做法，比纯表格多一维「逐年分布」。 */
+  ok(tr2.includes('各考点分值分布与重要性'), '整体页有考点族热力矩阵');
+  ok(tr2.includes('class="heat"'), '热力矩阵用 table.heat');
+  ok(tr2.includes('heat-scroll-hint'), '窄屏有横滑提示（否则读者以为表格被裁断）');
+  ok(tr2.includes('heat-legend'), '有图例');
+  {
+    /* 格子总数必须 = 族数 × 学年数（不多不少，缺一格就是漏渲染） */
+    const cells = (tr2.match(/class="cellbox/g) || []).length;
+    const want = S.FAMILY_MAP.length * S.YEARS.length;
+    ok(cells === want, `格子数 = 族数 × 学年数（${cells} = ${S.FAMILY_MAP.length} × ${S.YEARS.length}）`);
+
+    /* 色阶必须 5 档、且 5 档都有格子。语义分档（2/3-5/6-8/9-12/13+）在数学站成立，
+       分位数会塌档（20% 与 40% 分位都是 2 分）——这里把「不塌档」锁住。 */
+    const lv = (v) => (v <= 0 ? 0 : v <= 2 ? 1 : v <= 5 ? 2 : v <= 8 ? 3 : v <= 12 ? 4 : 5);
+    const used = new Set();
+    for (const f of S.FAMILY_MAP) {
+      for (const y of S.YEARS) {
+        const v = (f.perYear && f.perYear[y]) || 0;
+        if (v > 0) used.add(lv(v));
+      }
+    }
+    ok(used.size === 5, `语义分档 5 档都有格子（实际用到 ${[...used].sort().join(',')}）`);
+
+    /* 分位数方案会塌档——留一条反向断言，防止有人换回分位数 */
+    const vals = [];
+    for (const f of S.FAMILY_MAP) for (const v of f.scores || []) if (v > 0) vals.push(v);
+    vals.sort((a, b) => a - b);
+    const q = (p) => vals[Math.min(vals.length - 1, Math.floor(vals.length * p))];
+    const qThresh = [q(0.2), q(0.4), q(0.6), q(0.8)];
+    ok(new Set(qThresh).size < qThresh.length,
+      `分位数阈值有重复（${qThresh.join('/')}）→ 分档会塌，故用语义分档`);
+
+    /* 不得把内部卷号（p2022）泄漏到页面 */
+    ok(!/选做 p20\d\d/.test(tr2), '选做年份用标签不用内部卷号');
+    ok(!/选做\s+年/.test(tr2), '无选做记录的族不渲染空的「选做 年」');
   }
 
   /* 整体页引用的每个数字都要能从台账重算出来 */
