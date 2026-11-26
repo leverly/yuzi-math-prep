@@ -414,6 +414,13 @@ if (fs.existsSync('slides.html')) {
     `计算三族年均分 ${calc3.map((f) => f.avgPerYear).join(' / ')} 都在页面上`);
   ok(calc3.every((f) => f.slots.every((s) => s.diff === 'easy')),
     '计算三族逐年落点全是基础档（"位置与难度都不变"这句话成立）');
+  /* 页面说"位置最多在相邻两题之间挪一次"——必须真的是相邻题位 */
+  const slotGaps = calc3.map((f) => {
+    const nos = [...new Set(f.slots.map((s) => s.no))].sort((a, b) => a - b);
+    return nos.length === 1 ? 0 : Math.max(...nos) - Math.min(...nos);
+  });
+  ok(slotGaps.every((g) => g <= 1),
+    `计算三族的题位跨度都不超过 1（${calc3.map((f, i) => f.name + ':' + slotGaps[i]).join(' ')}）`);
 
   // 第 23 题：五年全是分类能力
   const q23 = papers.map((p) => LEDGER.find((q) => q.p === p && q.no === 23));

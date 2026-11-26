@@ -181,8 +181,12 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
 }
 
 
-/* 封面：底部数据条下移一点，避开固定定位的翻页条 */
-.s-cover{padding-bottom:88px}
+/* 封面：内容比标准页高，收紧上下留白，保证底部数据条不被翻页条压住。
+   720px 高的舞台里 96+88 的内边距太奢侈。 */
+.s-cover{padding-top:64px;padding-bottom:74px}
+.s-cover .cover-points{margin-top:26px;gap:11px}
+.s-cover .cover-meta{padding-top:24px}
+.s-cover .cover-h{margin-bottom:18px}
 .slide.s-end{padding-bottom:52px}
 
 /* 断崖对比：两栏卡片 + 一条比例尺 */
@@ -220,6 +224,7 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
 .fam-unit{font-size:11.5px;color:var(--text-3)}
 .fam-bar{height:5px;background:var(--surface-2);border-radius:3px;margin-top:7px;overflow:hidden}
 .fam-bar i{display:block;height:100%;border-radius:3px;background:var(--accent-grad)}
+.fam-note{font-size:11px;color:var(--text-3);margin-top:1px}
 </style>
 </head>
 <body>
@@ -249,7 +254,7 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
 <div class="slide">
   <div class="s-head">
     <span class="s-kicker">Stable</span>
-    <h2 class="s-title">五年真题，结构几乎复制粘贴</h2>
+    <h2 class="s-title">五年真题，难度几乎没变过</h2>
     <p class="s-sub">基础 + 中档 80–83 分，难度指数 1.69–1.76</p>
   </div>
   <div class="s-body">
@@ -420,18 +425,19 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
         <td>基础</td>
       </tr><tr>
         <td><b>解一元一次方程</b></td>
-        <td>第 19 题 / 第 20 题</td>
+        <td>第 20 题（2025-26 在第 19 题）</td>
         <td class="num hi">11–12</td>
         <td>基础</td>
       </tr><tr>
         <td><b>整式化简求值</b></td>
-        <td>第 18 题 / 第 19 题</td>
+        <td>第 18 题（2022-23 在第 19 题）</td>
         <td class="num hi">6</td>
         <td>基础</td>
       </tr></tbody>
     </table>
     <div class="callout gold" style="margin-top:18px">
-      这三块五年合计年均 <b>36 分</b>——考点、题型、位置、难度档全都不变。
+      这三块五年合计年均 <b>36 分</b>——考点、题型、难度档全都不变，
+      位置最多在相邻两题之间挪一次。
       全卷再没有第二处<b>投入就能换来确定性</b>的地方：它不需要聪明，只需要不出错。
     </div>
   </div>
@@ -456,7 +462,7 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
     <div class="callout gold" style="margin-top:22px;font-size:15px">
       换的只是<b>载体</b>——动点、动角、还是线段中点。<br>
       不变的是同一件事：<b>把可能的情况列全</b>。动点落在哪些区间？动角转到哪些位置？端点重合算不算？<br>
-      所以练的不是这五种题，是分类的完备性——<b>漏一种，就丢一半分。</b>
+      所以别把这 5 道题当成 5 种题去背——要练的是分类的完备性：<b>漏一种，就丢一半分。</b>
     </div>
   </div>
 </div>
@@ -472,50 +478,62 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
       <div class="fam-card">
         <div class="fam-name">有理数四则混合运算</div>
         <div class="fam-meta"><span class="fam-avg">18.4</span><span class="fam-unit">分/年</span></div>
+        
         <div class="fam-bar"><i style="width:100%"></i></div>
       </div><div class="fam-card">
         <div class="fam-name">解一元一次方程</div>
         <div class="fam-meta"><span class="fam-avg">11.6</span><span class="fam-unit">分/年</span></div>
+        
         <div class="fam-bar"><i style="width:63%"></i></div>
       </div><div class="fam-card">
         <div class="fam-name">分类压轴（第23题位）</div>
         <div class="fam-meta"><span class="fam-avg">9.2</span><span class="fam-unit">分/年</span></div>
+        <div class="fam-note">第 23、24、26 题合计</div>
         <div class="fam-bar"><i style="width:50%"></i></div>
       </div><div class="fam-card">
         <div class="fam-name">绝对值与数轴</div>
         <div class="fam-meta"><span class="fam-avg">8.8</span><span class="fam-unit">分/年</span></div>
+        
         <div class="fam-bar"><i style="width:48%"></i></div>
       </div><div class="fam-card">
         <div class="fam-name">方程应用题</div>
         <div class="fam-meta"><span class="fam-avg">8.4</span><span class="fam-unit">分/年</span></div>
+        
         <div class="fam-bar"><i style="width:46%"></i></div>
       </div><div class="fam-card">
         <div class="fam-name">整式化简求值</div>
         <div class="fam-meta"><span class="fam-avg">6</span><span class="fam-unit">分/年</span></div>
+        
         <div class="fam-bar"><i style="width:33%"></i></div>
       </div><div class="fam-card">
         <div class="fam-name">尺规作图与说理</div>
         <div class="fam-meta"><span class="fam-avg">5.8</span><span class="fam-unit">分/年</span></div>
+        
         <div class="fam-bar"><i style="width:32%"></i></div>
       </div><div class="fam-card">
         <div class="fam-name">整式加减辨析</div>
         <div class="fam-meta"><span class="fam-avg">4.4</span><span class="fam-unit">分/年</span></div>
+        
         <div class="fam-bar"><i style="width:24%"></i></div>
       </div><div class="fam-card">
         <div class="fam-name">方程概念辨析</div>
         <div class="fam-meta"><span class="fam-avg">2.8</span><span class="fam-unit">分/年</span></div>
+        
         <div class="fam-bar"><i style="width:15%"></i></div>
       </div><div class="fam-card">
         <div class="fam-name">展开图 / 三视图 / 面动成体</div>
         <div class="fam-meta"><span class="fam-avg">2.4</span><span class="fam-unit">分/年</span></div>
+        
         <div class="fam-bar"><i style="width:13%"></i></div>
       </div><div class="fam-card">
         <div class="fam-name">科学记数法与近似数</div>
         <div class="fam-meta"><span class="fam-avg">2</span><span class="fam-unit">分/年</span></div>
+        
         <div class="fam-bar"><i style="width:11%"></i></div>
       </div><div class="fam-card">
         <div class="fam-name">数字填图 / 幻方</div>
         <div class="fam-meta"><span class="fam-avg">2</span><span class="fam-unit">分/年</span></div>
+        
         <div class="fam-bar"><i style="width:11%"></i></div>
       </div>
     </div>

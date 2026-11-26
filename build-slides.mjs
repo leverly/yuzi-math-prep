@@ -74,6 +74,16 @@ const STABLE_EASY = [...byNo.entries()]
     scoreMax: Math.max(...qs.map((q) => q.score)),
     topics: [...new Set(qs.map((q) => q.topic))],
   }));
+/* 必考族卡片：族名是 stats.mjs 的原始定义，但演示里第 23 题已有专页，
+   这里把「分类压轴」的构成（第 23/24/26 题）显式标出来，避免与那一页串味 */
+const FAM_CARDS = FREQ.must.map((f) => {
+  let note = '';
+  if (f.id === 'f-final') {
+    const nos = [...new Set(f.slots.map((s) => s.no))].sort((a, b) => a - b);
+    note = '第 ' + nos.join('、') + ' 题合计';
+  }
+  return { ...f, note };
+});
 /* 第 5 页只讲客观题位：第 17 题单独占一页，不在这里重复列 */
 const STABLE_OBJ = STABLE_EASY.filter((s) => s.no <= 16);
 const STABLE_OBJ_SUM_MIN = STABLE_OBJ.reduce((a, s) => a + s.score, 0);
@@ -109,12 +119,25 @@ const TAIL2_MAX = Math.max(...TAIL2);
 const Q17_BEATS_TAIL = Q17.every((q, i) => q.score > TAIL2[i]);
 
 /* 计算三块：连同题位一起给出——"位置也不变"才是可执行的部分。
-   slots 是台账派生好的逐年落点，不另外算。 */
+   slots 是台账派生好的逐年落点，不另外算。
+   题位写法：只在一年出现的位置标出是哪一年，避免读成"两个位置都考"。 */
 const CALC3 = ['f-arith', 'f-solveeq', 'f-simplify'].map((id) => {
   const f = famById(id);
-  const nos = f.slots.map((s) => s.no);
-  const uniq = [...new Set(nos)].sort((a, b) => a - b);
-  return { ...f, nos: uniq, fixedSlot: new Set(nos).size === 1, slotLabel: uniq.map((n) => '第 ' + n + ' 题').join(' / ') };
+  const noCount = new Map();
+  for (const s of f.slots) noCount.set(s.no, (noCount.get(s.no) || 0) + 1);
+  const uniq = [...noCount.keys()].sort((a, b) => a - b);
+  const fixedSlot = uniq.length === 1;
+  let slotLabel;
+  if (fixedSlot) {
+    slotLabel = '第 ' + uniq[0] + ' 题';
+  } else {
+    /* 主位（出现次数最多）+ 例外年份 */
+    const mainNo = [...noCount.entries()].sort((a, b) => b[1] - a[1])[0][0];
+    const odd = f.slots.filter((s) => s.no !== mainNo);
+    const oddYears = odd.map((s) => PAPER_STATS.find((p) => p.id === s.p).label);
+    slotLabel = '第 ' + mainNo + ' 题' + (oddYears.length ? '（' + oddYears.join('、') + ' 在第 ' + odd[0].no + ' 题）' : '');
+  }
+  return { ...f, nos: uniq, fixedSlot, slotLabel };
 });
 const CALC3_TOTAL = sum(CALC3.map((f) => f.total));
 const CALC3_AVG = +(CALC3_TOTAL / N_PAPERS).toFixed(1);
@@ -141,8 +164,12 @@ const Q23_ALL_CLASSIFY = Q23.every((q) => q.cat === '分类');
 /* ============================ 样式（复用英语站） ============================ */
 const BASE_CSS = readFileSync('work/slides-css.txt', 'utf8');
 const CSS = BASE_CSS + `
-/* 封面：底部数据条下移一点，避开固定定位的翻页条 */
-.s-cover{padding-bottom:88px}
+/* 封面：内容比标准页高，收紧上下留白，保证底部数据条不被翻页条压住。
+   720px 高的舞台里 96+88 的内边距太奢侈。 */
+.s-cover{padding-top:64px;padding-bottom:74px}
+.s-cover .cover-points{margin-top:26px;gap:11px}
+.s-cover .cover-meta{padding-top:24px}
+.s-cover .cover-h{margin-bottom:18px}
 .slide.s-end{padding-bottom:52px}
 
 /* 断崖对比：两栏卡片 + 一条比例尺 */
@@ -180,6 +207,7 @@ const CSS = BASE_CSS + `
 .fam-unit{font-size:11.5px;color:var(--text-3)}
 .fam-bar{height:5px;background:var(--surface-2);border-radius:3px;margin-top:7px;overflow:hidden}
 .fam-bar i{display:block;height:100%;border-radius:3px;background:var(--accent-grad)}
+.fam-note{font-size:11px;color:var(--text-3);margin-top:1px}
 `;
 
 /* ============================ 幻灯片 ============================ */
@@ -214,7 +242,7 @@ push('卷子很稳', `
 <div class="slide">
   <div class="s-head">
     <span class="s-kicker">Stable</span>
-    <h2 class="s-title">${SPAN}年真题，结构几乎复制粘贴</h2>
+    <h2 class="s-title">${SPAN}年真题，难度几乎没变过</h2>
     <p class="s-sub">基础 + 中档 ${Math.min(...SCORE_TIERS.map((t) => t.base))}–${Math.max(...SCORE_TIERS.map((t) => t.base))} 分，难度指数 ${DIFF_IDX_MIN}–${DIFF_IDX_MAX}</p>
   </div>
   <div class="s-body">
@@ -358,7 +386,8 @@ push('计算', `
       </tr>`).join('')}</tbody>
     </table>
     <div class="callout gold" style="margin-top:18px">
-      这三块${SPAN}年合计年均 <b>${CALC3_AVG} 分</b>——考点、题型、位置、难度档全都不变。
+      这三块${SPAN}年合计年均 <b>${CALC3_AVG} 分</b>——考点、题型、难度档全都不变，
+      位置最多在相邻两题之间挪一次。
       全卷再没有第二处<b>投入就能换来确定性</b>的地方：它不需要聪明，只需要不出错。
     </div>
   </div>
@@ -381,7 +410,7 @@ push('第 23 题', `
     <div class="callout gold" style="margin-top:22px;font-size:15px">
       换的只是<b>载体</b>——动点、动角、还是线段中点。<br>
       不变的是同一件事：<b>把可能的情况列全</b>。动点落在哪些区间？动角转到哪些位置？端点重合算不算？<br>
-      所以练的不是这五种题，是分类的完备性——<b>漏一种，就丢一半分。</b>
+      所以别把这 ${Q23.length} 道题当成 ${Q23.length} 种题去背——要练的是分类的完备性：<b>漏一种，就丢一半分。</b>
     </div>
   </div>
 </div>`);
@@ -396,9 +425,10 @@ push('必考清单', `
   </div>
   <div class="s-body">
     <div class="fam-grid">
-      ${FREQ.must.map((f) => `<div class="fam-card">
+      ${FAM_CARDS.map((f) => `<div class="fam-card">
         <div class="fam-name">${esc(f.name)}</div>
         <div class="fam-meta"><span class="fam-avg">${f.avgPerYear}</span><span class="fam-unit">分/年</span></div>
+        ${f.note ? `<div class="fam-note">${esc(f.note)}</div>` : ''}
         <div class="fam-bar"><i style="width:${Math.round(f.avgPerYear / FREQ.must[0].avgPerYear * 100)}%"></i></div>
       </div>`).join('')}
     </div>
