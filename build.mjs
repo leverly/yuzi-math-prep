@@ -631,23 +631,50 @@ function buildIndex() {
   /* 某一层只有一个选项时自动选中——现在省份/地区/年级/学期都各只有一个或很少，
      不自动填的话用户要点好几次才有反应，像是页面坏了。
      有多个选项时不动，交给用户选。 */
+  /* 默认选中：一路填到「有材料」的第一组合。
+   *
+   * 原实现只在「该层只有一个选项」时才自动选，学期与科目各有 2 项，于是停在
+   * 「先选学期」——用户打开页面看到五个格子只填了三个，还得自己点两下。
+   * 现在改成：只要当前层的某个选项能继续往下走通到有材料的科目，就自动选第一个。
+   * 唯一性不再是条件，可走通才是条件。
+   *
+   * 用户手动改过某一层后，下层会被清空并重新走一遍这套逻辑（见 render 里的
+   * 各层点击回调），所以「自动选」不会覆盖用户的选择。 */
+  function canReachSubjects(p, r, g, t) {
+    return !!(CATALOG.subjects[[p, r, g, t].join('/')] || []).length;
+  }
+
   function autoFill() {
-    if (!state.province && CATALOG.provinces.length === 1) {
-      state.province = CATALOG.provinces[0].id;
+    if (!state.province) {
+      var ps = CATALOG.provinces;
+      for (var i = 0; i < ps.length; i++) {
+        if (ps[i]) { state.province = ps[i].id; break; }
+      }
     }
     if (state.province && !state.region) {
       var rs = CATALOG.regions[state.province] || [];
-      if (rs.length === 1) state.region = rs[0].id;
+      if (rs.length) state.region = rs[0].id;
     }
-    if (state.region && !state.grade && CATALOG.grades.length === 1) {
-      state.grade = CATALOG.grades[0].id;
+    if (state.region && !state.grade) {
+      var gs = CATALOG.grades;
+      for (var j = 0; j < gs.length; j++) {
+        var canGo = CATALOG.terms.some(function(t){
+          return canReachSubjects(state.province, state.region, gs[j].id, t.id);
+        });
+        if (canGo) { state.grade = gs[j].id; break; }
+      }
     }
-    if (state.grade && !state.term && CATALOG.terms.length === 1) {
-      state.term = CATALOG.terms[0].id;
+    if (state.grade && !state.term) {
+      var ts = CATALOG.terms;
+      for (var k = 0; k < ts.length; k++) {
+        if (canReachSubjects(state.province, state.region, state.grade, ts[k].id)) {
+          state.term = ts[k].id; break;
+        }
+      }
     }
     if (state.grade && state.term && !state.subject) {
       var ss = subjectsFor();
-      if (ss.length === 1) state.subject = ss[0].id;
+      if (ss.length) state.subject = ss[0].id;
     }
   }
 
@@ -1053,8 +1080,8 @@ function buildTrend() {
    * 选它的理由在 CSS 注释里；这里加断言保证 5 档都有格子，
    * 否则图例写 5 档、实际只用到 4 档，读者无法验证深浅的含义。 */
   const HEAT_LEVEL = (v) => (v <= 0 ? 0 : v <= 2 ? 1 : v <= 5 ? 2 : v <= 8 ? 3 : v <= 12 ? 4 : 5);
-  const HEAT_BG = ['', 'rgba(37,99,235,.12)', 'rgba(37,99,235,.26)', 'rgba(37,99,235,.44)',
-    'rgba(37,99,235,.64)', 'rgba(37,99,235,.88)'];
+  const HEAT_BG = ['', 'rgba(37,99,235,.15)', 'rgba(37,99,235,.32)', 'rgba(37,99,235,.50)',
+    'rgba(37,99,235,.70)', 'rgba(37,99,235,.92)'];
   const HEAT_FG = ['', 'var(--accent)', 'var(--accent)', '#fff', '#fff', '#fff'];
   const HEAT_AVG_MAX = Math.max(...FAMILY_MAP.map((f) => f.avgPerYear || 0));
   {
@@ -1305,7 +1332,7 @@ ${CH_GROUPS.map((g) => `
 ${g.fams.map((f) => `<tr>
   <td class="hc-fam-cell">
     <span class="fam-nm">${esc(f.name)}</span>
-    <span class="fam-sub">${f.hitYears}/${N_PAPERS} 年${f.bonusYears ? ' · 选做 ' + f.bonusYears + ' 年' : ''}</span>
+    <span class="fam-sub">必做 ${f.hitYears}/${N_PAPERS} 年${f.bonusYears && f.bonusYears.length ? ' · 选做 ' + f.bonusYears.length + ' 年' : ''}</span>
   </td>
   ${YEARS.map((y) => {
     const v = (f.perYear && f.perYear[y]) || 0;
@@ -1338,7 +1365,7 @@ ${g.fams.map((f) => `<tr>
 </div>
 <p style="margin-top:10px;font-size:12.8px;color:var(--text-3)">
   年均分 = 五年必做分合计 ÷ ${N_PAPERS}。只出现在选做位的考点计 0 分（选做不计入必做 100 分）。
-</p>`, 'families')}}
+</p>`, 'families')}
 `;
   return page('trend.html', '整体解读 · ' + SITE.short, '西城区初一上数学期末五年考情整体解读', body);
 }
