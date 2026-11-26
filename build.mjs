@@ -472,7 +472,7 @@ function buildHome() {
   </div>
 </section>
 
-${section('为什么先练这块', '一个判断，决定复习顺序', '不是经验之谈，是从五年分值分布算出来的', `
+${section('为什么先练这块', '一个判断，决定复习顺序', '论证在整体解读，这里只给结论', `
 <div class="sell-row">
   <div class="sell-pain">
     <span class="sell-no">01</span>
@@ -480,11 +480,9 @@ ${section('为什么先练这块', '一个判断，决定复习顺序', '不是�
     <span class="sell-pain-sub">所以顺序是先保计算零失误，再攻压轴</span>
   </div>
   <div class="sell-fix">
-    <span class="sell-tag">分值结构</span>
-    <p>五年难度分布几乎不动：基础 + 中档 <b>${BASE_MIN}–${BASE_MAX} 分</b>，较难 + 压轴只有 <b>${HARD_MIN}–${HARD_MAX} 分</b>，
-    难度指数五年都在 ${DIFF_INDEX_MIN}–${DIFF_INDEX_MAX} 之间。
-    <b>把「计算零失误」排在「攻压轴」前面</b>——不是因为它更难，而是因为它更值钱、更可控。</p>
-    <a class="sell-link" href="trend.html#where">看断崖在哪 →</a>
+    <span class="sell-tag">一句话</span>
+    <p><b>把「计算零失误」排在「攻压轴」前面</b>——不是因为它更难，而是因为它更值钱、更可控。</p>
+    <a class="sell-link" href="trend.html#where">为什么这么排 →</a>
   </div>
 </div>`)}
 
