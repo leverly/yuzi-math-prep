@@ -22,7 +22,7 @@ export const NAV = [
   ['papers.html', '逐年拆解'],
   ['trend.html', '整体解读'],
   ['plan.html', '备考计划'],
-  ['practice.html', '练习与诊断'],
+  ['practice.html', '备考诊断'],
   ['history.html', '学情数据'],
   ['slides.html', '演示', 'nav-slides'],
 ];

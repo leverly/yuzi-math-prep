@@ -266,8 +266,8 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>练习与诊断 · 西城初一数学</title>
-<meta name="description" content="对标西城期末真题的选择题与计算题练习，自动判分并按考点族诊断薄弱环节">
+<title>备考诊断 · 西城初一数学</title>
+<meta name="description" content="对标西城期末真题的选择题与计算题诊断，自动判分并按考点族定位薄弱环节">
 <style>${CSS}</style>
 </head>
 <body>
@@ -276,7 +276,7 @@ ${headerHtml('practice.html')}
 <main class="wrap">
 <div class="head">
   <div class="hero-badge"><span class="dot-live"></span>18 题诊断 · 覆盖全部 6 章</div>
-  <h1>练习与诊断</h1>
+  <h1>备考诊断</h1>
   <p class="lede">
     每轮 ${ROUND_SIZE} 道题覆盖全部 6 章，按西城真题的考点分布与难度编制，全部为单选题。
     计算类题目也以「选出正确结果」的形式出现——省去手写步骤，但考点与真题第 17/18/19 题位一致。

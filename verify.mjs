@@ -73,17 +73,19 @@ ok(!idx.includes('五年年年考的'), '首页不再复述必考清单');
 ok(tr.includes(`共 ${S.FAMILY_MAP.length} 族`), '趋势页族数派生正确');
 // 备考计划页已去掉分数目标（避免给孩子压力），改为检查「三类题」结构与五级优先级
 ok(pl.includes('<h1>备考计划</h1>'), '计划页标题为「备考计划」');
-ok(!pl.includes('冲刺'), '计划页已无「冲刺」字样（2026-11-26 改名）');
 ok(pl.includes('练得稳') && pl.includes('要想一想') && pl.includes('尽力就好'), '计划页三类题结构存在');
 ok(!/先保约\s*\d+\s*分|总分\s*≥\s*\d+|目标正确率\s*100%/.test(pl), '计划页不含分数目标（无施压量化）');
-/* 改名必须全站同步：导航来自 site-shell，任一页面残留旧标签都是漏改 */
+/* 改名必须全站同步：导航来自 site-shell，任一页面残留旧标签都是漏改。
+   这里是历次改名留下的旧词清单——以后改名把旧词加进来，自动获得全站保护。 */
 {
-  const stale = [];
-  for (const h of fs.readdirSync('.').filter((f) => f.endsWith('.html'))) {
-    const t = fs.readFileSync(h, 'utf8');
-    if (t.includes('冲刺')) stale.push(h);
+  const RETIRED = ['冲刺计划', '练习与诊断', '学情诊断'];
+  for (const word of RETIRED) {
+    const stale = [];
+    for (const h of fs.readdirSync('.').filter((f) => f.endsWith('.html'))) {
+      if (fs.readFileSync(h, 'utf8').includes(word)) stale.push(h);
+    }
+    ok(stale.length === 0, `全站 HTML 均无旧标签「${word}」`, stale.join(','));
   }
-  ok(stale.length === 0, '全站 HTML 均无「冲刺」残留', stale.join(','));
 }
 
 console.log('\n【四之二】首页诊断入口');
@@ -415,13 +417,13 @@ if (fs.existsSync('history.html')) {
   // 练习页必须有入口
   const pr2 = fs.readFileSync('practice.html', 'utf8');
   ok(pr2.includes('href="history.html"'), '练习页有入口');
-  // 导航：必须排在「练习与诊断」之后
+  // 导航：必须排在「备考诊断」之后
   const navM = hs.match(/<nav class="hdr-nav">([\s\S]*?)<\/nav>/);
   if (navM) {
     const items = [...navM[1].matchAll(/<a href="([^"]+)"[^>]*>([^<]+)<\/a>/g)].map((m) => m[2]);
-    const iP = items.indexOf('练习与诊断');
+    const iP = items.indexOf('备考诊断');
     const iH = items.indexOf('学情数据');
-    ok(iP >= 0 && iH === iP + 1, '导航中「学情数据」紧跟「练习与诊断」', items.join('|'));
+    ok(iP >= 0 && iH === iP + 1, '导航中「学情数据」紧跟「备考诊断」', items.join('|'));
   } else {
     ok(false, '顶栏导航存在');
   }

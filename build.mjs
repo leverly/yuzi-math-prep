@@ -435,7 +435,7 @@ function buildHome() {
       </p>
       <div class="hero-cta">
         <a class="btn primary" href="practice.html">开始诊断 <span aria-hidden="true">→</span></a>
-        <a class="btn" href="history.html">看学情诊断</a>
+        <a class="btn" href="history.html">看学情数据</a>
       </div>
       <div class="hero-stats">
         <div><b>${ROUND_Q}</b><span>题一轮</span></div>
