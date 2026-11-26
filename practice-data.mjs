@@ -1,6 +1,6 @@
 // 自动生成，请勿手改。源文件：work/practice/bank.mjs
 // 答案由 verify-bank.mjs 独立验算后回填；解析由 work/practice/verify-solutions.mjs 逐步验算。
-// 生成时间：2026-11-26T10:11:37
+// 生成时间：2026-11-26T10:55:40
 
 export const BANK = [
  {

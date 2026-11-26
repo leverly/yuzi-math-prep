@@ -186,6 +186,23 @@ console.log('\n【四之四】考区选择页（index.html）');
   /* 单一选项的层级必须自动选中，否则用户要点三次才有反应 */
   ok(sel.includes('autoFill'), '有单选层级的自动填充逻辑');
 
+  /* ---------- 选择页各块必须等宽对齐 ----------
+   * 「上次看过」条与下方选择卡都写 max-width:760px，但只给卡片写了 width:100%。
+   * .sel-wrap 是 flex 列容器，子项默认 stretch；一旦同时写了 margin:0 auto
+   * （用来配合 max-width 居中），自动外边距会吃掉剩余空间、把子项压成内容宽度。
+   * 实测「上次看过」条只有 424px，比 760px 的卡片窄一大截（2026-11-26 用户反馈）。
+   * 判据：两条规则都必须有 width:100%，缺一就会重新变窄。 */
+  {
+    const resumeRule = (sel.match(/\.sel-resume\{[^}]*\}/) || [''])[0];
+    const cardRule = (sel.match(/\.sel-card\{[^}]*\}/) || [''])[0];
+    ok(/width:100%/.test(resumeRule), '「上次看过」条写了 width:100%（否则被压成内容宽度）');
+    ok(/width:100%/.test(cardRule), '选择卡写了 width:100%');
+    /* 两者 max-width 必须相同，否则即便都 100% 也会一宽一窄 */
+    const mw = (r) => (r.match(/max-width:\s*(\d+)px/) || [])[1];
+    ok(mw(resumeRule) && mw(resumeRule) === mw(cardRule),
+      '「上次看过」条与选择卡 max-width 相同', `${mw(resumeRule)} vs ${mw(cardRule)}`);
+  }
+
   /* 每个科目都要有可达目标：本站页必须存在，外站必须是 https */
   const allSubjects = Object.entries(CATALOG.subjects).flatMap(([k, arr]) => arr.map((s) => ({ ...s, key: k })));
   ok(allSubjects.length > 0, '目录里至少有一个科目');
