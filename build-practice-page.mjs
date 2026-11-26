@@ -5,8 +5,9 @@ import { writeFileSync, readFileSync } from 'node:fs';
 
 import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';
 import { FAMILY_MAP } from './work/papers/stats.mjs';
-import { CH_NAME } from './work/papers/ledger.mjs';
+import { CH_NAME, CAT_ORDER } from './work/papers/ledger.mjs';
 import { TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml, ROUND_SIZE, THEME_INIT, THEME_SCRIPT } from './work/site-shell.mjs';
+import { CHART_CSS, barBlock } from './work/charts.mjs';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -31,7 +32,7 @@ const choiceN = BANK.filter((q) => q.options).length;
 const calcN = totalQ - choiceN;
 
 // 设计变量 / 顶栏 / 页头排版来自 work/site-shell.mjs（全站唯一来源）
-const CSS = TOKENS + HEAD_CSS + PAGEHEAD_CSS + `
+const CSS = TOKENS + HEAD_CSS + PAGEHEAD_CSS + CHART_CSS + `
 /* 练习页局部：沿用旧变量名，避免改一堆组件 */
 :root{ --shadow:var(--shadow-2); }
 body{padding-bottom:80px}
@@ -193,7 +194,11 @@ body{padding-bottom:80px}
 .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
   color:var(--accent);font-weight:600}
 .diag-head h2{font-size:22px;font-weight:780;letter-spacing:-.02em}
-.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+/* 诊断里的小节（按章节 / 按能力）：小节之间留白，标题行与页面主标题区分开 */
+.diag-sub{margin-top:28px}
+.diag-sub:first-of-type{margin-top:0}
+.diag-sub-note{font-size:12.5px;color:var(--text-3)}
 .sm{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
 .sm .n{font-size:26px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
 .sm .l{font-size:12px;color:var(--text-3);margin-top:4px}
@@ -257,7 +262,10 @@ SCRIPT = SCRIPT.replace(
   'const FAM_META = ' + JSON.stringify(FAM_META) + ';\n' +
   'const SOLUTIONS = ' + JSON.stringify(SOLUTIONS) + ';\n' +
   'const CH_NAME = ' + JSON.stringify(CH_NAME) + ';\n' +
-  'const FAM_CAT_SCORE = ' + JSON.stringify(FAM_CAT_SCORE) + ';'
+  'const FAM_CAT_SCORE = ' + JSON.stringify(FAM_CAT_SCORE) + ';\n' +
+  'const CAT_ORDER = ' + JSON.stringify(CAT_ORDER) + ';\n' +
+  /* 柱状图画法与学情数据页共用同一份（work/charts.mjs），构建时内联进单文件页面 */
+  barBlock.toString()
 );
 
 /* 页面 HTML */

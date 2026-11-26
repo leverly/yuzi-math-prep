@@ -3,6 +3,11 @@ import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';
 
 /* ============ 诊断逻辑（内联以便单文件运行，file:// 可直开） ============ */
 const TIER_RULE = { minSample: 3, weak: 0.6, solid: 0.85 };
+/* 分档名与配色类名提到模块级：诊断面板的雷达兜底列表在 showDiag 之外生成，
+   用局部变量会 ReferenceError，整块诊断变空白（已踩过一次）。 */
+const TIER_NAME = { weak: '薄弱', shaky: '不稳', solid: '掌握', insufficient: '样本不足' };
+const rateCls = (t) => 'rate-' + t;
+
 
 const CALC_HINTS = {
   'f-arith': '① 乘方的底数是谁（−2² 与 (−2)² 不同）　② 除法变乘法时倒数有没有取　③ 分配律是否漏乘',
@@ -722,6 +727,19 @@ function next() {
 }
 
 /* ============ 诊断面板 ============ */
+/* 一节图表：标题 + 柱状图。
+ * 画法在 work/charts.mjs 的 barBlock（构建时内联到页面脚本）。 */
+function chartSection(o) {
+  return '<div class="diag-sub">' +
+    '<div class="diag-head">' +
+      '<span class="kicker">' + o.kicker + '</span>' +
+      '<h2 style="font-size:19px">' + o.title + '</h2>' +
+      '<span class="diag-sub-note">' + o.sub + '</span>' +
+    '</div>' +
+    barBlock(o.items, { aria: o.aria, note: o.note }) +
+    '</div>';
+}
+
 function showDiag() {
   const d = diagnose(state.records);
   // 落盘：本轮 + 累计
@@ -730,9 +748,6 @@ function showDiag() {
   $('#quiz').style.display = 'none';
   const host = $('#diag');
   host.style.display = 'block';
-
-  const tierName = { weak: '薄弱', shaky: '不稳', solid: '掌握', insufficient: '样本不足' };
-  const rateCls = (t) => 'rate-' + t;
 
   host.innerHTML = `
     <div class="diag-head">
@@ -771,7 +786,7 @@ function showDiag() {
       <div class="sm solid"><div class="n">${d.chs.filter(c=>c.tier==='solid').length}</div><div class="l">已掌握</div></div>
     </div>
 
-    <div class="fam-rows">
+    <div class="fam-rows" style="margin-bottom:4px">
       ${d.chs.map(c => `
         <div class="fam-row">
           <div>
@@ -779,38 +794,32 @@ function showDiag() {
             <div class="fam-sub">${c.ok}/${c.total} 题正确${c.topErr ? ' · 主错因：' + esc(c.topErr.cat) : ''}</div>
           </div>
           <div class="fam-rate ${rateCls(c.tier)}">${Math.round(c.rate * 100)}%</div>
-          <div class="fam-tier tier-${c.tier}">${tierName[c.tier]}</div>
+          <div class="fam-tier tier-${c.tier}">${TIER_NAME[c.tier]}</div>
         </div>`).join('')}
     </div>
 
-    ${d.cats && d.cats.length ? `
-    <div style="margin-top:30px">
-      <div class="diag-head">
-        <span class="kicker">Abilities</span>
-        <h2 style="font-size:19px">按能力看</h2>
-        <span style="font-size:12.5px;color:var(--text-3)">同一批题的另一切面</span>
-      </div>
-      <div class="fam-rows">
-        ${d.cats.map(c => `
-          <div class="fam-row">
-            <div>
-              <div class="fam-name">${esc(c.name)}</div>
-              <div class="fam-sub">${c.total === 0
-                ? '这轮没做到（' + (FAM_CAT_SCORE[c.cat] || 0) + ' 分/年，下一轮会轮到）'
-                : c.enough
-                  ? `${c.ok}/${c.total} 题正确${c.topErr ? ' · 主错因：' + esc(c.topErr.cat) : ''}`
-                  : `这轮只做到 ${c.total} 题，还需 ${Math.max(0, 3 - c.total)} 题才能判`
-              }</div>
-            </div>
-            <div class="fam-rate ${rateCls(c.tier)}">${c.enough ? Math.round(c.rate * 100) + '%' : '—'}</div>
-            <div class="fam-tier tier-${c.tier}">${c.enough ? tierName[c.tier] : (c.total === 0 ? '未轮到' : '待积累')}</div>
-          </div>`).join('')}
-      </div>
-      <div class="callout" style="margin-top:12px;font-size:13px">
-        能力题库不均衡：计算与概念的题多，<b>分类 / 作图 / 空间 / 新定义每轮只出得到 1–2 题</b>。
-        这些能力要累计 2–3 轮才有结论——每轮的结果会自动累加。
-      </div>
-    </div>` : ''}
+    ${d.cats && d.cats.length ? chartSection({
+      kicker: 'Abilities',
+      title: '按能力看',
+      sub: '同一批题的另一切面',
+      /* 横轴顺序必须固定（CAT_ORDER），不能沿用 d.cats 的「薄弱优先」排序：
+         柱状图是拿来跨轮比较的，每轮重排会让「上一轮这根短、这轮那根短」失去可比性。 */
+      items: CAT_ORDER.map(cat => {
+        const c = d.cats.find(x => x.cat === cat);
+        const known = !!(c && c.total > 0);
+        return {
+          name: cat,
+          rate: known ? c.rate : 0,
+          known,
+          ok: known ? c.ok : 0,
+          total: known ? c.total : 0,
+          tier: known ? c.tier : 'insufficient',
+        };
+      }),
+      note: '能力题库不均衡：计算与概念的题多，分类 / 作图 / 空间 / 新定义每轮只出得到 1–2 题。'
+        + '这些能力要累计 2–3 轮才有结论——每轮的结果会自动累加。',
+      aria: '本轮各能力掌握度柱状图',
+    }) : ''}
 
     ${d.actions.length ? `
     <div style="margin-top:26px">
@@ -909,7 +918,6 @@ function renderHistory(hist, store) {
         </div>
       </div>`;
   }
-  const tierName = { weak: '薄弱', shaky: '不稳', solid: '掌握', insufficient: '样本不足' };
   const rows = hist.fams.filter((f) => f.total > 0).slice(0, 10);
   return `
     <div style="margin-top:30px">
@@ -932,7 +940,7 @@ function renderHistory(hist, store) {
               <div class="fam-sub">累计 ${f.ok}/${f.total} 题正确${f.topErr ? ' · 主错因：' + esc(f.topErr.cat) : ''}</div>
             </div>
             <div class="fam-rate rate-${f.tier}">${Math.round(f.rate * 100)}%</div>
-            <div class="fam-tier tier-${f.tier}">${tierName[f.tier]}</div>
+            <div class="fam-tier tier-${f.tier}">${TIER_NAME[f.tier]}</div>
           </div>`).join('')}
       </div>
       ${hist.actions.length ? `

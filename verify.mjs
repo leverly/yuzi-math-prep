@@ -397,6 +397,20 @@ if (fs.existsSync('practice.html')) {
   ok(pr.includes('catUsed') && pr.includes('已够样本的能力降级'), '出题按能力去重');
   // 能力「未轮到」必须显式说明，不能静默不显示
   ok(pr.includes('这轮没做到'), '未覆盖的能力有显式说明');
+  /* 本轮诊断的能力切面用柱状图（2026-11-26 由列表行 → 雷达 → 柱状图）。
+   * 章节仍是列表——横轴是能力项，混进 6 个章节会读不出对应。 */
+  ok(pr.includes('function barBlock('), '本轮诊断内联了共享柱状图画法');
+  ok(/chartSection\(\{/.test(pr), '本轮诊断按能力出柱状图');
+  ok(pr.includes('本轮各能力掌握度柱状图'), '本轮柱状图有 aria-label');
+  ok(!pr.includes('本轮各章节') && !pr.includes('radarSection') && !pr.includes('radarBlock'),
+    '章节不画图（只保留能力一张），雷达已移除');
+  /* 横轴顺序必须固定：柱状图要跨轮比较，按「薄弱优先」重排会失去可比性 */
+  ok(/items: CAT_ORDER\.map/.test(pr), '柱状图横轴用固定顺序 CAT_ORDER');
+  ok(pr.includes('const CAT_ORDER = '), 'CAT_ORDER 已内联');
+  /* 分档名必须提到模块级：chartSection 在 showDiag 之外，用局部变量会 ReferenceError，
+     整块诊断面板会变空白（2026-11-26 实际踩到，产物构建成功但页面空） */
+  ok(/^const TIER_NAME = \{/m.test(pr), '分档名提到模块级（雷达兜底列表要用）');
+  ok(!/^  const tierName = \{/m.test(pr), 'showDiag 内不再有局部分档名（会遮蔽模块级）');
   ok(pr.includes('这一轮最该补的') && pr.includes('class="verdict'), '诊断有一句话结论条');
   ok(pr.includes('const BANK = ['), '题库已内联（file:// 可直开）');
   // 构建器用字符串 replace 注入数据：import 行一改，replace 静默失配，
@@ -590,20 +604,22 @@ if (fs.existsSync('history.html')) {
   ok(hs.includes('还没有练习记录'), '有空状态提示');
   ok(hs.includes('exportBtn') && hs.includes('importBtn'), '有导出/导入（防清缓存丢数据）');
   ok(hs.includes('各能力累计掌握情况'), '有能力累计汇总区');
-  /* 能力区展示形式是雷达图（2026-11-26 由卡片网格改来）：
-   * 8 条进度条读得出单项数值，读不出「哪几项齐、哪项凹进去」，而后者才是能力切面的用处。
-   * 判据落在产物里的实际结构，不是「有这个字」。 */
-  ok(hs.includes('class="radar"') || hs.includes('class=\\"radar\\"'), '能力区用雷达图');
-  ok(hs.includes('八种能力正确率雷达图'), '雷达图有 aria-label');
-  ok(/const radarSvg = \(\(\) => \{/.test(hs), '雷达由数据派生（radarSvg）');
+  /* 能力区展示形式是柱状图（2026-11-26 由卡片网格 → 雷达 → 柱状图）：
+   * 横轴是 8 个能力项、纵轴是掌握度。判据落在产物里的实际结构，不是「有这个字」。 */
+  ok(hs.includes('class="bar-chart"') || hs.includes('class=\\"bar-chart\\"'), '能力区用柱状图');
+  ok(hs.includes('八种能力掌握度柱状图'), '柱状图有 aria-label');
+  ok(/catChart = barBlock\(/.test(hs), '柱状图由数据派生（调 barBlock）');
+  /* 画法必须来自共享模块，不能在页面里另写一份——两份实现必然漂移 */
+  ok(hs.includes('function barBlock('), '柱状图画法已从 work/charts.mjs 内联');
+  ok(!hs.includes('radarBlock'), '雷达画法已彻底移除（不留两套图表）');
   ok(!/<div class="ch-grid">' \+\s*\n\s*cats\.map/.test(hs), '能力区不再渲染 8 张卡片网格');
-  /* 雷达必须是纯 SVG 绘制，不许引外部图表库（产物要能 file:// 直开）。
+  /* 纯 SVG 绘制，不许引外部图表库（产物要能 file:// 直开）。
      判据不能只写 /d3/——色值 #34d399 里也含 d3，会误报。 */
   ok(!/from ['"]d3|require\(['"]d3|cdn\.jsdelivr|unpkg\.com|echarts\.min\.js/i.test(hs),
-    '雷达不依赖外部图表库');
-  /* 未练到的能力要在图例里显式标注，不能静默按 0 显示成「0%」 */
-  ok(hs.includes('未练到'), '未覆盖能力在雷达图例里显式标注');
-  ok(hs.includes('没练到的画在圆心'), '雷达图说明未练到的按圆心画');
+    '柱状图不依赖外部图表库');
+  /* 未练到的能力要在图上显式标注，不能静默按 0 显示成「0%」 */
+  ok(hs.includes('未轮到'), '未覆盖能力在柱状图上显式标注');
+  ok(hs.includes('柱子缺失就是缺口'), '柱状图说明未练到的只有基线');
 
   /* 能力区不能被条件包裹后静默消失：老记录没有 cats 字段时，
      原来整块跳掉，用户只看到章节，会以为站点不诊断能力。
