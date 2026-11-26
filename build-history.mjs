@@ -213,6 +213,10 @@ function render() {
 
   // ---- 渲染 ----
   let html = '';
+  /* 三个知识维度的区块先攒到变量里，最后按指定顺序拼接。
+     顺序：能力 → 章节 → 考点（能力是主视角，知识维度是下钻）。
+     三块各自在不同作用域里生成，所以不能靠调整 append 先后实现。 */
+  let blockCat = '', blockCh = '', blockFam = '';
 
   html += '<div class="sum-grid">' +
     '<div class="sm accent"><div class="n">' + sess.length + '</div><div class="l">已完成轮次</div></div>' +
@@ -221,7 +225,7 @@ function render() {
     '<div class="sm rose"><div class="n">' + chs.filter(c => c.tier === 'weak').length + '</div><div class="l">薄弱章节</div></div>' +
     '</div>';
 
-  html += '<div class="sect"><div class="sect-head"><span class="kicker">Summary</span>' +
+  blockCh += '<div class="sect"><div class="sect-head"><span class="kicker">Summary</span>' +
     '<h2>各章累计掌握情况</h2><span class="sub">' +
       (withChs < sess.length ? withChs + ' / ' + sess.length + ' 轮有章节明细' : '全部 ' + sess.length + ' 轮合并统计') +
       '</span></div>' +
@@ -271,7 +275,7 @@ function render() {
   if (sess.length > 0) {
     const noCatDetail = catSessions === 0;
     const knownCats = cats.filter((c) => c.total > 0).length;
-    html += '<div class="sect"><div class="sect-head"><span class="kicker">Abilities</span>' +
+    blockCat += '<div class="sect"><div class="sect-head"><span class="kicker">Abilities</span>' +
       '<h2>各能力累计掌握情况</h2><span class="sub">' +
         (noCatDetail
           ? '暂无能力明细'
@@ -349,7 +353,7 @@ function render() {
       return { ch, name: CH_NAME[ch] || ch, items };
     }).filter((g) => g.items.length);
 
-    html += '<div class="sect"><div class="sect-head"><span class="kicker">Families</span>' +
+    blockFam += '<div class="sect"><div class="sect-head"><span class="kicker">Families</span>' +
       '<h2>各考点累计掌握情况</h2><span class="sub">' +
         (noFamDetail
           ? '暂无考点明细'
@@ -398,6 +402,9 @@ function render() {
         : '') +
       '</div>';
   }
+
+  /* 知识维度按「能力 → 章节 → 考点」输出：能力是第一视角，章节次之，考点最细 */
+  html += blockCat + blockCh + blockFam;
 
   html += '<div class="sect"><div class="sect-head"><span class="kicker">Rounds</span>' +
     '<h2>逐轮记录</h2><span class="sub">点一行展开该轮的章节与能力明细</span></div>' +
@@ -559,7 +566,7 @@ ${headerHtml('history.html')}
 <div class="head">
   <div class="hero-badge"><span class="dot-live"></span>逐轮记录 · 多轮汇总</div>
   <h1>学情数据</h1>
-  <p class="lede">每次练习的结果都存在本机浏览器里。这里逐轮列出，并把多轮合并成<b>按章节</b>和<b>按能力</b>两套掌握情况——同一批题的两个切面，某章弱不等于某能力弱。</p>
+  <p class="lede">每次练习的结果都存在本机浏览器里。这里逐轮列出，并把多轮合并成<b>按能力</b>、<b>按章节</b>、<b>按考点</b>三套掌握情况——同一批题的三种切法。某章弱不等于某能力弱，能力弱也不等于某个考点弱。</p>
 </div>
 <div id="root"></div>
 </main>

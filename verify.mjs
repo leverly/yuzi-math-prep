@@ -63,8 +63,16 @@ ok(idx.includes(`<b>${qPerPaper}</b><span>题 · 100 分钟</span>`), `首页题
 ok(idx.includes(`必做 ${qPerPaper - bonusPerPaper} + 选做 ${bonusPerPaper}`), '首页题数拆分（必做/选做）派生正确');
 ok(idx.includes(`<b>${S.FREQ.must.length}</b><span>族年年考</span>`), '首页必考族数派生正确');
 // 必考族清单必须列全，不能只列前几条
-const mustRows = (idx.match(/class="must-row"/g) || []).length;
-ok(mustRows === S.FREQ.must.length, `首页列出全部 ${S.FREQ.must.length} 个必考族`, `${mustRows} 行`);
+const mustRows = (idx.match(/class="must-tile(?:\s|")/g) || []).length;
+ok(mustRows === S.FREQ.must.length, `首页列出全部 ${S.FREQ.must.length} 个必考族`, `${mustRows} 块`);
+// 方块宽度必须与分值成正比（flex-grow = 年均分），否则「加权的方块面积」就是假的
+const widths = [...idx.matchAll(/class="must-tile(?: hot)?"[^>]*width:(\d+)px/g)].map((m) => +m[1]);
+ok(widths.length === S.FREQ.must.length, '方块数 = 必考族数', String(widths.length));
+// 宽度必须单调反映分值：分值高的块必须更宽（面积加权的核心约束）
+const byWidth = [...S.FREQ.must.map((f, i) => ({ avg: f.avgPerYear, w: widths[i] }))]
+  .sort((a, b) => b.avg - a.avg);
+ok(byWidth.every((x, i) => i === 0 || byWidth[i - 1].w >= x.w),
+  '方块宽度按分值单调递减', byWidth.map((x) => x.avg + '→' + x.w).join(' '));
 // 行动入口仍在（考情讲完后给唯一动作），且指向练习页
 ok(/class="btn primary" href="practice\.html"/.test(idx), '行动横幅主按钮指向练习页');
 ok(idx.includes('href="history.html"'), '行动横幅有学情数据入口');
@@ -609,6 +617,12 @@ if (fs.existsSync('history.html')) {
     ok(hs.includes('tier-weak') && hs.includes('fam-grp-badges'),
       '收起状态下标题行显示薄弱/不稳角标');
     ok(hs.includes('::-webkit-details-marker'), '已去掉浏览器默认三角（用自定义箭头）');
+    /* 三个知识维度的顺序：能力最先（主视角），章节次之，考点最细。
+       顺序由「块拼进 html 的顺序」决定，用源码拼装语句锁住，防止被无意改回。 */
+    ok(/html \+= blockCat \+ blockCh \+ blockFam/.test(hs),
+      '知识维度按「能力 → 章节 → 考点」拼接');
+    ok(hs.includes('按能力</b>、<b>按章节</b>、<b>按考点</b>三套'),
+      '导语写明三套切法（不是两套）');
     /* 落库：练习页必须把 fams 存进 sessions */
     const prSrc = fs.readFileSync('practice.html', 'utf8');
     ok(/fams:\s*\(diagResult\.fams/.test(prSrc), '练习页把族级结果落库到 sessions');
