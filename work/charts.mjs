@@ -11,7 +11,7 @@
 
 /* 两个页面共用的样式。用法：构建器把这段拼进自己的 CSS 变量块之后。 */
 export const CHART_CSS = `
-/* 柱状图：横轴项目、纵轴掌握度或薄弱度。
+/* 柱状图：横轴项目、纵轴掌握度。
  *
  * 为什么用 HTML/CSS 而不是 SVG：SVG 的文字会随 viewBox 等比缩放，
  * 于是「宽度」和「字号」只能二选一——
@@ -69,24 +69,21 @@ export const CHART_CSS = `
   border-top:1px solid var(--border);padding-top:9px}
 `;
 
-/* 画一张掌握度 / 薄弱度柱状图。参数：
+/* 画一张掌握度柱状图。参数：
  *   items: [{ name, rate, known, ok, total, tier }]
  *     known=false 表示这一项这轮/累计还没做到，画一段基线残条 + 「未轮到」
  *     tier: 'weak' | 'shaky' | 'solid' | 'insufficient'（决定柱色与是否空心）
- *   opts: { aria, note, metric, axis }
- *     metric='weak' 时纵轴画薄弱度（= 1 − 正确率），柱高代表「错多少」。
- *     章节图用 weak、能力图用 rate——两处结论方向不同，共用画法但不共用纵轴。
+ *   opts: { aria, note, axis }
+ *     纵轴一律是掌握度（= 正确率），柱越高越稳。
+ *     （2026-11-26 前章节图曾用「薄弱度 = 1 − 正确率」表达「先补哪章」，
+ *      与能力图方向相反；用户要求统一，两图现在同一方向。）
  * 返回：<div class="bar-wrap">…</div>
  *
  * 注意：本函数源码会被 .toString() 注入页面，不要用反引号、不要用外部依赖。
  */
 export function barBlock(items, opts) {
   opts = opts || {};
-  /* 纵轴方向：'rate' 掌握度（越高越好）| 'weak' 薄弱度（越高越该补） */
-  var weak = opts.metric === 'weak';
-  /* 柱高取的那个值：薄弱度 = 1 − 正确率 */
-  var valOf = function (it) { return weak ? 1 - it.rate : it.rate; };
-  var axisName = opts.axis || (weak ? '薄弱度' : '掌握度');
+  var axisName = opts.axis || '掌握度';
 
   var escB = function (s) {
     return String(s)
@@ -123,7 +120,7 @@ export function barBlock(items, opts) {
     /* 样本不足（不到 3 题）：画空心虚线柱，且不给百分比 */
     var short = known && it.tier === 'insufficient';
     var col = tierColor(it.tier);
-    var pctNum = Math.round(valOf(it) * 100);
+    var pctNum = Math.round(it.rate * 100);
     /* 高度至少 1%，否则 0% 的柱子完全消失，看不出这里有一项 */
     var h = Math.max(pctNum, 1);
 
@@ -154,7 +151,7 @@ export function barBlock(items, opts) {
     '<div class="bar-axis">' + escB(axisName) + '</div>' +
     '<div class="bar-scroll">' +
       '<div class="bar-chart" role="img" aria-label="' +
-        escB(opts.aria || (weak ? '各章节薄弱度柱状图' : '能力掌握度柱状图')) + '">' +
+        escB(opts.aria || '掌握度柱状图') + '">' +
         '<div class="bar-body">' +
           '<div class="bar-yaxis">' + yaxis + '</div>' +
           '<div class="bar-main">' +

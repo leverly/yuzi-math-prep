@@ -228,10 +228,12 @@ function render() {
     '<div class="sm rose"><div class="n">' + chs.filter(c => c.tier === 'weak').length + '</div><div class="l">薄弱章节</div></div>' +
     '</div>';
 
-  /* 章节薄弱度柱状图：横轴固定 CH_ORDER 章节顺序，纵轴是薄弱度（1 − 正确率）。
+  /* 章节掌握度柱状图：横轴固定 CH_ORDER 章节顺序，纵轴是掌握度（= 正确率）。
    * 原来这里是 3 列卡片网格，每张卡各自一条进度条——读得出单章数值，
    * 读不出「哪几章一起塌」；而且卡片按「薄弱优先」排序，每次刷新顺序都变，
-   * 无法跨轮比较。柱状图按固定章节顺序，同一根柱子的高度变化就是进步。 */
+   * 无法跨轮比较。柱状图按固定章节顺序，同一根柱子的高度变化就是进步。
+   * 纵轴与能力图统一用掌握度（2026-11-26 用户要求）：两图并排时方向一致，
+   * 不会出现「同一屏里一张越高越好、另一张越高越差」的认知切换。 */
   const chChartItems = CH_ORDER.map((ch) => {
     const c = chs.find((x) => x.ch === ch);
     const known = !!(c && c.total > 0);
@@ -247,17 +249,16 @@ function render() {
   const chKnown = chChartItems.filter((x) => x.known).length;
   const chShort = chChartItems.filter((x) => x.known && x.tier === 'insufficient').length;
   const chChart = barBlock(chChartItems, {
-    metric: 'weak',
-    aria: '各章节薄弱度柱状图',
+    aria: '各章节掌握度柱状图',
     note: chKnown < chChartItems.length
       ? '已练到 ' + chKnown + ' / ' + chChartItems.length + ' 章；没练到的只有一条基线，柱子缺失就是缺口。'
       : chShort > 0
         ? '六章都已练到；其中 ' + chShort + ' 章不到 3 题（虚线框），暂不给分档。'
-        : '六章都已练到。薄弱度 = 100% − 正确率，柱子越高越该先补。',
+        : '六章都已练到。掌握度 = 正确率，柱子越高越稳。',
   });
 
   blockCh += '<div class="sect"><div class="sect-head"><span class="kicker">Summary</span>' +
-    '<h2>各章累计薄弱度</h2><span class="sub">' +
+    '<h2>各章累计掌握情况</h2><span class="sub">' +
       (withChs < sess.length ? withChs + ' / ' + sess.length + ' 轮有章节明细' : '全部 ' + sess.length + ' 轮合并统计') +
       ' · 已覆盖 ' + chKnown + ' / ' + CH_ORDER.length + ' 章' +
       '</span></div>' +
@@ -599,7 +600,7 @@ const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>学情数据 · 西城初一数学</title>
-<meta name="description" content="逐轮练习记录与各章累计薄弱度，按章节汇总薄弱环节">
+<meta name="description" content="逐轮练习记录与各章累计掌握情况，按章节汇总薄弱环节">
 <style>${CSS}</style>
 ${THEME_INIT}
 </head>

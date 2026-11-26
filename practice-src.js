@@ -727,8 +727,7 @@ function next() {
 /* ============ 诊断面板 ============ */
 /* 一节图表：标题 + 柱状图。
  * 画法在 work/charts.mjs 的 barBlock（构建时内联到页面脚本）。
- * metric 必须转发：章节图画薄弱度、能力图画掌握度，两处共用同一画法但纵轴方向相反，
- * 漏传会让章节图的纵轴也标成「掌握度」，柱子越高反而越像「越好」（2026-11-26 踩到）。 */
+ * 两图的纵轴一律是掌握度，方向一致。 */
 function chartSection(o) {
   return '<div class="diag-sub">' +
     '<div class="diag-head">' +
@@ -736,7 +735,7 @@ function chartSection(o) {
       '<h2 style="font-size:19px">' + o.title + '</h2>' +
       '<span class="diag-sub-note">' + o.sub + '</span>' +
     '</div>' +
-    barBlock(o.items, { aria: o.aria, note: o.note, metric: o.metric, axis: o.axis }) +
+    barBlock(o.items, { aria: o.aria, note: o.note, axis: o.axis }) +
     '</div>';
 }
 
@@ -789,10 +788,10 @@ function showDiag() {
 
     ${d.chs && d.chs.length ? chartSection({
       kicker: 'Chapters',
-      title: '按章节看薄弱度',
-      sub: '柱子越高越该先补',
-      /* 横轴固定 CH_ORDER 章节顺序，不沿用 d.chs 的「薄弱优先」排序：
-         柱状图要跨轮比较，每轮按薄弱度重排会让「上一轮这根高、这轮那根高」
+      title: '按章节看掌握度',
+      sub: '柱子越高越稳',
+      /* 横轴固定 CH_ORDER 章节顺序，不沿用 d.chs 的诊断排序（薄弱优先）：
+         柱状图要跨轮比较，每轮按掌握度重排会让「上一轮这根高、这轮那根高」
          失去可比性；固定顺序后，同一根柱子的高度变化就是进步。 */
       items: CH_ORDER.map(ch => {
         const c = d.chs.find(x => x.ch === ch);
@@ -806,12 +805,11 @@ function showDiag() {
           tier: known ? c.tier : 'insufficient',
         };
       }),
-      /* 纵轴画薄弱度（1 − 正确率），与能力图（画掌握度）方向相反：
-         章节这块的问题是「先补哪一章」，所以柱子越高 = 越该先补。 */
-      metric: 'weak',
-      note: '薄弱度 = 100% − 正确率，柱子越高越该先补。每章 3 题，错 1 题就是 67%，'
+      /* 纵轴与能力图统一用掌握度（2026-11-26 用户要求）：
+         两图相邻，方向一致才不会出现「一张越高越好、另一张越高越差」的认知切换。 */
+      note: '掌握度 = 正确率。每章 3 题，错 1 题就是 67%，'
         + '所以这一轮的比例只代表这 3 题。多轮累计的结论在「学情数据」页。',
-      aria: '本轮各章节薄弱度柱状图',
+      aria: '本轮各章节掌握度柱状图',
     }) : ''}
 
     ${d.cats && d.cats.length ? chartSection({
