@@ -186,21 +186,32 @@ console.log('\n【四之四】考区选择页（index.html）');
   /* 单一选项的层级必须自动选中，否则用户要点三次才有反应 */
   ok(sel.includes('autoFill'), '有单选层级的自动填充逻辑');
 
-  /* ---------- 选择页各块必须等宽对齐 ----------
-   * 「上次看过」条与下方选择卡都写 max-width:760px，但只给卡片写了 width:100%。
-   * .sel-wrap 是 flex 列容器，子项默认 stretch；一旦同时写了 margin:0 auto
-   * （用来配合 max-width 居中），自动外边距会吃掉剩余空间、把子项压成内容宽度。
-   * 实测「上次看过」条只有 424px，比 760px 的卡片窄一大截（2026-11-26 用户反馈）。
-   * 判据：两条规则都必须有 width:100%，缺一就会重新变窄。 */
+  /* ---------- 选择页宽度必须与内页一致 ----------
+   * 两件事，都踩过：
+   * ① 「上次看过」条与选择卡原本都写 max-width:760px，但只给卡片写了 width:100%。
+   *    .sel-wrap 是 flex 列容器，子项默认 stretch；一旦同时写 margin:0 auto
+   *    （配合 max-width 居中），自动外边距会吃掉剩余空间、把子项压成内容宽度。
+   *    实测提示条只有 424px，比卡片窄一大截。
+   * ② 760px 本身比内页窄：home.html 等内页用 .wrap 的 --max（1140px），
+   *    选择页却停在 760px，进出站时宽度会跳变（用户反馈「有点窄，参考 home.html」）。
+   * 现在两处都改用 var(--max)，既对齐内页、也不会再各写一个数字。 */
   {
     const resumeRule = (sel.match(/\.sel-resume\{[^}]*\}/) || [''])[0];
     const cardRule = (sel.match(/\.sel-card\{[^}]*\}/) || [''])[0];
     ok(/width:100%/.test(resumeRule), '「上次看过」条写了 width:100%（否则被压成内容宽度）');
     ok(/width:100%/.test(cardRule), '选择卡写了 width:100%');
     /* 两者 max-width 必须相同，否则即便都 100% 也会一宽一窄 */
-    const mw = (r) => (r.match(/max-width:\s*(\d+)px/) || [])[1];
-    ok(mw(resumeRule) && mw(resumeRule) === mw(cardRule),
+    const mw = (r) => (r.match(/max-width:\s*([^;}]+)/) || [])[1];
+    ok(mw(resumeRule) && mw(resumeRule).trim() === mw(cardRule).trim(),
       '「上次看过」条与选择卡 max-width 相同', `${mw(resumeRule)} vs ${mw(cardRule)}`);
+    /* 必须跟全站 --max 走，不能写死像素——写死就会比内页窄（760px 那次） */
+    ok(mw(cardRule) && mw(cardRule).includes('--max'),
+      '选择卡 max-width 用 var(--max)（与 home.html 等内页同宽）', mw(cardRule));
+    ok(mw(resumeRule) && mw(resumeRule).includes('--max'),
+      '「上次看过」条 max-width 用 var(--max)', mw(resumeRule));
+    /* 反向断言：不许再出现写死的窄宽度 */
+    ok(!/\.sel-(card|resume)\{[^}]*max-width:\s*\d+px/.test(sel),
+      '选择页不得写死像素 max-width（会与内页宽度脱节）');
   }
 
   /* 每个科目都要有可达目标：本站页必须存在，外站必须是 https */

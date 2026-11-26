@@ -519,8 +519,12 @@ function buildIndex() {
 .sel-h{font-size:34px;font-weight:780;letter-spacing:-.03em;line-height:1.25}
 .sel-sub{font-size:14.5px;color:var(--text-3);margin-top:10px}
 
+/* 选择卡与提示条都跟全站内容宽度走（--max = 1140px），不写死 760px。
+ * 写死会让选择页比 home.html 等内页窄一大截（用户 2026-11-26 反馈「有点窄」），
+ * 切换页与内容页之间的宽度跳变会让「进入」这个动作看起来像换了个站。
+ * 用变量而不是再写一个数字：以后改 --max，这里自动跟随。 */
 .sel-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
-  box-shadow:var(--shadow-3);padding:8px 0;max-width:760px;margin:0 auto;width:100%}
+  box-shadow:var(--shadow-3);padding:8px 0;max-width:var(--max);margin:0 auto;width:100%}
 
 .sel-row{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:start;
   padding:18px 22px;border-bottom:1px solid var(--border)}
@@ -590,8 +594,9 @@ function buildIndex() {
 /* 上次选择提示
  * width:100% 必须写：.sel-wrap 是 flex 列容器，子项默认 stretch；
  * 一旦写了 margin:0 auto（用来配合 max-width 居中），自动外边距会吃掉
- * 剩余空间、把子项压成内容宽度——实测只剩 424px，比下方 760px 的卡片窄一大截。 */
-.sel-resume{max-width:760px;width:100%;margin:0 auto 16px;display:none;align-items:center;gap:12px;
+ * 剩余空间、把子项压成内容宽度——实测只剩 424px，比下方卡片窄一大截。
+ * max-width 与选择卡共用 var(--max)，两块才等宽。 */
+.sel-resume{max-width:var(--max);width:100%;margin:0 auto 16px;display:none;align-items:center;gap:12px;
   padding:12px 18px;border-radius:12px;background:var(--accent-soft);
   border:1px solid rgba(37,99,235,.22);font-size:13.5px;color:var(--text-2)}
 .sel-resume.on{display:flex}
