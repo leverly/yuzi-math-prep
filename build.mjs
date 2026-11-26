@@ -144,6 +144,9 @@ h3{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
 .card+.card{margin-top:14px}
 .grid{display:grid;gap:14px}
 .g2{grid-template-columns:repeat(2,1fr)}
+/* 同排卡片高度拉齐后，内容少的那张下方会空一大块；
+   align-items:start 让每张卡片只占自己内容的高度 */
+.grid.g2{align-items:start}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g4{grid-template-columns:repeat(4,1fr)}
 
@@ -250,6 +253,8 @@ tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none
 .dist-bar.gold{background:var(--gold-grad)}
 .dist-bar.ok{background:linear-gradient(135deg,#10b981,#059669)}
 .dist-bar.rose{background:linear-gradient(135deg,#f43f5e,#e11d48)}
+/* 中性/负向：不暗示"好"，只表示比往年轻 */
+.dist-bar.mute{background:var(--bg-3)}
 .dist-val{font-size:12.8px;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 
 /* ---------- 考点族卡 ---------- */
@@ -479,7 +484,7 @@ ${section('为什么先练这块', '一个判断，决定复习顺序', '不是�
     <p>五年难度分布几乎不动：基础 + 中档 <b>${BASE_MIN}–${BASE_MAX} 分</b>，较难 + 压轴只有 <b>${HARD_MIN}–${HARD_MAX} 分</b>，
     难度指数五年都在 ${DIFF_INDEX_MIN}–${DIFF_INDEX_MAX} 之间。
     <b>把「计算零失误」排在「攻压轴」前面</b>——不是因为它更难，而是因为它更值钱、更可控。</p>
-    <a class="sell-link" href="trend.html#difficulty">看难度五年分布 →</a>
+    <a class="sell-link" href="trend.html#where">看断崖在哪 →</a>
   </div>
 </div>`)}
 
@@ -528,115 +533,329 @@ ${section('一轮之后', '做完这 ' + ROUND_Q + ' 题，你会拿到五样东
 }
 
 /* ============================ 逐年拆解 ============================ */
+/* 这一页只回答「这一套跟别的年份有什么不一样」。
+ * 五年完全相同的东西（选择 16 / 填空 16 / 解答 68、24 必做 + 2 选做）
+ * 与五年均值的对比（章节均分、难度比例）属于「整体解读」，不在这里重复。
+ * 每卷只留三类本卷独有信息：
+ *   1) 解答题分值怎么分（唯一逐年都变的卷面信息）
+ *   2) 各章相对五年均值偏离多少（本卷的特点，不是均值本身）
+ *   3) 选做两道考什么、有没有答案
+ */
 function buildPapers() {
+  const W = { easy: 1, mid: 2, hard: 3, top: 4 };
+  const idxOf = (qs) => {
+    const t = sum(qs.map((q) => q.score));
+    return t ? +(sum(qs.map((q) => W[q.diff] * q.score)) / t).toFixed(2) : 0;
+  };
+
+  /* 五年恒定的事实，全页只说一次，不复制五遍 */
+  const s0 = PAPER_STATS[0];
+  const SEG_FIXED = PAPER_STATS.every((s) => JSON.stringify(s.seg) === JSON.stringify(s0.seg));
+  const CNT_FIXED = PAPER_STATS.every((s) => s.mainCount === s0.mainCount && s.bonusCount === s0.bonusCount);
+
   const body = `
 <section class="hero" style="padding:44px 0 8px">
   <div class="hero-badge"><span class="dot-live"></span>五套卷 · 逐套拆解</div>
   <h1>逐年拆解</h1>
-  <p class="lede">五套卷逐套看：每套的<b>章节分值</b>、<b>难度分布</b>与<b>本卷结构</b>。</p>
+  <p class="lede">这一页只看<b>每套卷自己的特点</b>：解答题的分值怎么分、哪一章比往年重、选做考了什么。
+    ${SEG_FIXED && CNT_FIXED ? `卷面骨架五年不变（选择 ${s0.seg['选择']} + 填空 ${s0.seg['填空']} + 解答 ${s0.seg['解答']}，${s0.mainCount} 必做 + ${s0.bonusCount} 选做），只在这里说一次。` : ''}
+    要看五年横向对比，去<a href="trend.html">整体解读</a>。</p>
 </section>
 
 ${PAPER_STATS.map((s) => {
     const bonusQs = LEDGER.filter((q) => q.p === s.id && q.bonus);
+    const main = LEDGER.filter((q) => q.p === s.id && !q.bonus);
+    const front = main.filter((q) => q.no <= 20);
+    const back = main.filter((q) => q.no > 20);
+    const solveQs = main.filter((q) => q.no >= 17);
+
+    /* 各章相对五年均值的偏离，按绝对偏离降序 */
+    const devs = CH_ORDER.map((k) => {
+      const v = s.ch[k] || 0;
+      const avg = CH_SCORE[k].avg;
+      return { name: CH_SCORE[k].name, v, avg, d: +(v - avg).toFixed(1) };
+    }).sort((a, b) => Math.abs(b.d) - Math.abs(a.d));
+    const devMax = Math.max(...devs.map((x) => Math.abs(x.d)), 1);
+
     return section(s.label, `${s.year} 学年`,
-      `${s.mainCount} 必做 + ${s.bonusCount} 选做 ｜ 必做 ${s.mainTotal} 分 ｜ 难度指数 ${s.diffIndex}`,
+      `难度指数 ${s.diffIndex} ｜ 基础 ${s.diff.easy || 0} · 中档 ${s.diff.mid || 0} · 较难 ${s.diff.hard || 0}${s.diff.top ? ' · 压轴 ' + s.diff.top : ''}`,
       `<div class="grid g2">
         <div class="card">
-          <h3>章节分值</h3>
-          ${CH_ORDER.map((k) => distBar(CH_NAME[k], s.ch[k] || 0, 30, ' 分')).join('')}
+          <h3>解答题分值怎么分</h3>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>题号</th><th>考什么</th><th class="num">分值</th><th>难度</th></tr></thead>
+            <tbody>${solveQs.map((q) => `<tr>
+              <td>第 ${q.no} 题</td>
+              <td style="white-space:normal">${esc(q.topic)}</td>
+              <td class="num cell-hi">${q.score}</td>
+              <td><span class="tag ${q.diff}">${DIFF_NAME[q.diff]}</span></td>
+            </tr>`).join('')}</tbody>
+          </table></div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
+            解答题 ${s.seg['解答']} 分。前 20 题难度指数 ${idxOf(front)}，第 21 题起 ${idxOf(back)}。
+          </div>
         </div>
         <div class="card">
-          <h3>难度分布</h3>
-          ${DIFF_ORDER.map((k) => distBar(DIFF_NAME[k], s.diff[k] || 0, 60, ' 分',
-        k === 'easy' ? 'ok' : k === 'mid' ? '' : k === 'hard' ? 'gold' : 'rose')).join('')}
-          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
-            题量：基础 ${s.diffN.easy || 0} · 中档 ${s.diffN.mid || 0} · 较难 ${s.diffN.hard || 0} · 压轴 ${s.diffN.top || 0}
+          <h3>这一卷哪一章比往年重</h3>
+          <div style="font-size:12.4px;color:var(--text-3);margin-bottom:10px">相对五年年均分的偏离 ｜ 蓝色=比往年重，灰色=比往年轻</div>
+          ${devs.map((x) => `<div class="dist-row">
+            <span class="dist-name">${esc(x.name)}</span>
+            <span class="dist-bar-wrap"><span class="dist-bar ${x.d > 0 ? '' : 'mute'}" style="width:${Math.round(Math.abs(x.d) / devMax * 100)}%"></span></span>
+            <span class="dist-val">${x.d > 0 ? '+' : ''}${x.d} 分</span>
+          </div>`).join('')}
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3);line-height:1.7">
+            本卷 <b style="color:var(--text-2)">${esc(devs[0].name)}</b> ${devs[0].d > 0 ? '比五年均值多' : '比五年均值少'}
+            <b style="color:var(--text-2)">${Math.abs(devs[0].d)} 分</b>，是偏离最大的一章。<br>
+            偏离最小的是 ${esc(devs[devs.length - 1].name)}（${devs[devs.length - 1].d > 0 ? '+' : ''}${devs[devs.length - 1].d} 分）——
+            这一章的分值五年都很稳。
           </div>
         </div>
       </div>
       <div class="card">
-        <h3>本卷结构</h3>
-        <div class="tbl-wrap"><table>
-          <thead><tr><th>大题</th><th class="num">分值</th><th>说明</th></tr></thead>
-          <tbody>
-            <tr><td>一、选择</td><td class="num">${s.seg['选择']}</td><td>8 题 × 2 分</td></tr>
-            <tr><td>二、填空</td><td class="num">${s.seg['填空']}</td><td>8 题 × 2 分</td></tr>
-            <tr><td>三、解答</td><td class="num">${s.seg['解答']}</td><td>${esc(s.solveLayout)}</td></tr>
-            <tr><td>四、选做</td><td class="num">${s.bonusTotal}</td><td>${esc(s.bonusLayout)}（计入总分，卷面封顶 100）</td></tr>
-          </tbody>
-          <tfoot><tr><td>必做合计</td><td class="num">${s.mainTotal}</td><td>卷面封顶 100 分</td></tr></tfoot>
-        </table></div>
-        <div style="margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-          <span style="font-size:12.4px;color:var(--text-3)">选做考什么：</span>
-          ${bonusQs.map((q) => `<span class="tag bonus">${esc(q.topic)}（${q.cat}）</span>`).join(' ')}
+        <h3>选做两道考什么</h3>
+        <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+          ${bonusQs.map((q) => `<span class="tag bonus">第 ${q.no} 题 · ${esc(q.topic)}（${q.score} 分）</span>`).join(' ')}
+        </div>
+        <div style="margin-top:12px;font-size:12.6px;color:var(--text-3)">
+          选做 ${s.bonusTotal} 分计入总分，卷面封顶 100。${s.hasAnswer ? '本卷有答案（' + esc(s.answerSource) + '）。' : '本卷材料只有原卷，答案由独立验算补出。'}
         </div>
       </div>`);
   }).join('')}
-
 
 `;
   return page('papers.html', '逐年拆解 · ' + SITE.short, '西城区初一上数学期末五套真题逐年拆解', body);
 }
 
 /* ============================ 整体解读 ============================ */
+/* 这一页只讲「五年合起来看，什么没变、什么在变、什么最值钱」。
+ * 逐年的数字（每卷各章多少分、每卷难度比例）属于「逐年拆解」，不在这里摆矩阵。
+ * 读者读完这一页应该能回答三个问题：
+ *   1) 这份卷子稳不稳（能不能按图施工）
+ *   2) 分堆在哪里（哪里最值钱、哪里最不值得花时间）
+ *   3) 什么在变（哪些是新增趋势，不能按旧印象准备）
+ */
 function buildTrend() {
-  const catMax = Math.max(...CAT_ORDER.map((k) => CAT_SCORE[k].max));
+  const W = { easy: 1, mid: 2, hard: 3, top: 4 };
+  const papers = PAPER_STATS.map((s) => s.id);
+
+  /* ---- 五年恒定的事实（从台账重算，不引用别处的常量）---- */
+  const mainOf = (p) => LEDGER.filter((q) => q.p === p && !q.bonus);
+  const idxOf = (qs) => {
+    const t = sum(qs.map((q) => q.score));
+    return t ? +(sum(qs.map((q) => W[q.diff] * q.score)) / t).toFixed(2) : 0;
+  };
+  /* 断崖：前 20 题 vs 第 21 题起 */
+  const cliff = PAPER_STATS.map((s) => {
+    const f = mainOf(s.id).filter((q) => q.no <= 20);
+    const b = mainOf(s.id).filter((q) => q.no > 20);
+    return { label: s.label, fs: sum(f.map((q) => q.score)), bs: sum(b.map((q) => q.score)), fi: idxOf(f), bi: idxOf(b) };
+  });
+  const FRONT_AVG = +(sum(cliff.map((c) => c.fs)) / N_PAPERS).toFixed(1);
+  const BACK_AVG = +(sum(cliff.map((c) => c.bs)) / N_PAPERS).toFixed(1);
+  const FRONT_IDX = [Math.min(...cliff.map((c) => c.fi)), Math.max(...cliff.map((c) => c.fi))];
+  const BACK_IDX = [Math.min(...cliff.map((c) => c.bi)), Math.max(...cliff.map((c) => c.bi))];
+  /* 后段 / 前段的难度倍数区间——用来支撑「难度是前一段的几倍」这句话 */
+  const BACK_RATIO = (() => {
+    const r = cliff.map((c) => c.bi / c.fi);
+    return [+Math.min(...r).toFixed(1), +Math.max(...r).toFixed(1)];
+  })();
+  /* 后段分值占前段的比例——用来支撑「不到四成」这句话 */
+  const BACK_SHARE = +(BACK_AVG / FRONT_AVG).toFixed(2);
+
+  /* 单题最高分：五年是否同一题、同一考点 */
+  const topQ = PAPER_STATS.map((s) => {
+    const qs = LEDGER.filter((q) => q.p === s.id && !q.bonus);
+    return qs.reduce((a, q) => (q.score > a.score ? q : a));
+  });
+  const TOPQ_NOS = [...new Set(topQ.map((q) => q.no))];
+  const TOPQ_TOPICS = [...new Set(topQ.map((q) => q.topic))];
+  const TOPQ_MIN = Math.min(...topQ.map((q) => q.score));
+  const TOPQ_MAX = Math.max(...topQ.map((q) => q.score));
+
+  /* 五年零例外都是基础档的题位 */
+  const byNo = new Map();
+  for (const q of LEDGER) {
+    if (!byNo.has(q.no)) byNo.set(q.no, []);
+    byNo.get(q.no).push(q);
+  }
+  const ALWAYS_EASY = [...byNo.entries()]
+    .filter(([, qs]) => qs.length === N_PAPERS && qs.every((q) => q.diff === 'easy'))
+    .map(([no, qs]) => ({ no, score: qs[0].score, topic: [...new Set(qs.map((q) => q.topic))][0] }))
+    .sort((a, b) => a.no - b.no);
+
+  /* 计算 / 概念占比 */
+  let calcSum = 0, conceptSum = 0;
+  for (const q of LEDGER) {
+    if (q.bonus) continue;
+    if (q.cat === '计算') calcSum += q.score;
+    if (q.cat === '概念') conceptSum += q.score;
+  }
+  const CALC_AVG2 = +(calcSum / N_PAPERS).toFixed(1);
+  const CONCEPT_AVG2 = +(conceptSum / N_PAPERS).toFixed(1);
+  const ACC = Math.round(CALC_AVG2 / 100 * 100) + Math.round(CONCEPT_AVG2 / 100 * 100);
+
+  /* 分类能力逐年（判断是否真在上升）*/
+  const CLASSIFY = PAPER_STATS.map((s) => sum(LEDGER.filter((q) => q.p === s.id && q.cat === '分类').map((q) => q.score)));
+
+  /* 难度指数区间 */
+  const DIMIN = Math.min(...PAPER_STATS.map((s) => s.diffIndex));
+  const DIMAX = Math.max(...PAPER_STATS.map((s) => s.diffIndex));
+
+  /* 考频分档：必考 / 偶考 / 极少考 */
+  const freqRows = [
+    { tag: 'must', label: '必考', desc: '五年年年出现', d: FREQ_SUMMARY.must },
+    { tag: 'often', label: '偶考', desc: '五年出现 3–4 次', d: FREQ_SUMMARY.often },
+    { tag: 'rare', label: '极少考', desc: '五年出现 1–2 次', d: FREQ_SUMMARY.rare },
+  ];
 
   const body = `
 <section class="hero" style="padding:44px 0 8px">
-  <div class="hero-badge"><span class="dot-live"></span>五年趋势 · 考点频次</div>
+  <div class="hero-badge"><span class="dot-live"></span>五年合起来看</div>
   <h1>整体解读</h1>
-  <p class="lede">先看什么在变（章节、能力、难度），再看各考点的年均分值——分值高的先练。</p>
+  <p class="lede">把五套卷叠在一起，只问三件事：<b>什么没变</b>（能不能按图施工）、<b>分在哪</b>（哪里最值钱）、<b>什么在变</b>（哪些不能按旧印象准备）。</p>
 </section>
 
-${section('章节', '各章分值五年走势', '极差 = 五年最高与最低之差', `
+${section('没变', '五年几乎没变的三件事', `难度指数 ${DIMIN}–${DIMAX}，结构年年相同`, `
+<div class="grid g3">
+  <div class="card">
+    <h3>难度没变</h3>
+    <div style="font-size:26px;font-weight:750;letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums">${DIFF_INDEX_MIN}–${DIFF_INDEX_MAX}</div>
+    <div style="font-size:12.6px;color:var(--text-3);margin-top:4px">五年难度指数区间</div>
+    <p style="font-size:13px;color:var(--text-2);margin-top:10px;line-height:1.65">
+      基础 + 中档 ${BASE_MIN}–${BASE_MAX} 分，较难 + 压轴 ${HARD_MIN}–${HARD_MAX} 分。
+      这套卷子不靠难题区分学生，备考可以按图施工。
+    </p>
+  </div>
+  <div class="card">
+    <h3>结构没变</h3>
+    <div style="font-size:26px;font-weight:750;letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums">16 / 16 / 68</div>
+    <div style="font-size:12.6px;color:var(--text-3);margin-top:4px">选择 / 填空 / 解答，五年一致</div>
+    <p style="font-size:13px;color:var(--text-2);margin-top:10px;line-height:1.65">
+      ${PAPER_STATS[0].mainCount} 必做 + ${PAPER_STATS[0].bonusCount} 选做，必做 100 分。
+      所以「按题型复习」这个框架成立，不用赌今年换不换。
+    </p>
+  </div>
+  <div class="card">
+    <h3>送分位置没变</h3>
+    <div style="font-size:26px;font-weight:750;letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums">${ALWAYS_EASY.length} 处</div>
+    <div style="font-size:12.6px;color:var(--text-3);margin-top:4px">五年零例外都是基础档</div>
+    <p style="font-size:13px;color:var(--text-2);margin-top:10px;line-height:1.65">
+      ${ALWAYS_EASY.map((s) => '第 ' + s.no + ' 题').join('、')}——这些位置没有「今年变难」的先例。
+    </p>
+  </div>
+</div>`, 'stable')}
+
+${section('分在哪', '分不在压轴，在会做的题上', '断崖在第 20 题之后', `
+<div class="grid g2">
+  <div class="card">
+    <h3>前 20 题 · 熟练度</h3>
+    <div style="font-size:30px;font-weight:750;letter-spacing:-.03em;color:var(--ok);font-variant-numeric:tabular-nums">${FRONT_AVG}<span style="font-size:15px;font-weight:600;color:var(--text-3);margin-left:3px">分/年</span></div>
+    <div style="font-size:12.6px;color:var(--text-3);margin-top:4px">年均占必做 ${Math.round(FRONT_AVG)}% ｜ 难度指数 ${FRONT_IDX[0]}–${FRONT_IDX[1]}</div>
+    <p style="font-size:13px;color:var(--text-2);margin-top:10px;line-height:1.65">
+      五年都在 1.4 上下。这一段考的是熟练，不是灵感——失分只可能来自算错、看错、写错。
+    </p>
+  </div>
+  <div class="card">
+    <h3>第 21 题起 · 思维</h3>
+    <div style="font-size:30px;font-weight:750;letter-spacing:-.03em;color:var(--rose);font-variant-numeric:tabular-nums">${BACK_AVG}<span style="font-size:15px;font-weight:600;color:var(--text-3);margin-left:3px">分/年</span></div>
+    <div style="font-size:12.6px;color:var(--text-3);margin-top:4px">年均占必做 ${Math.round(BACK_AVG)}% ｜ 难度指数 ${BACK_IDX[0]}–${BACK_IDX[1]}</div>
+    <p style="font-size:13px;color:var(--text-2);margin-top:10px;line-height:1.65">
+      难度指数是前一段的 ${BACK_RATIO[0]}–${BACK_RATIO[1]} 倍。这里才开始真正筛人，
+      但它的分值不到前一段的四成。
+    </p>
+  </div>
+</div>
+<div class="note" style="margin-top:14px">
+  <b>单题最值钱的一道：第 ${TOPQ_NOS.join('/')} 题</b>，${TOPQ_MIN}–${TOPQ_MAX} 分，
+  五年${TOPQ_NOS.length === 1 ? '都是同一题位' : '题位有变'}${TOPQ_TOPICS.length === 1 ? '、同一考点（' + esc(TOPQ_TOPICS[0]) + '）' : ''}，且都是基础档。
+  它一道题的分，比第 23、24 两道压轴加起来还多——在会做的题上丢分，比压轴不会做更亏。
+</div>`, 'where')}
+
+${section('最值钱的能力', '计算占四成，是唯一能练到不出错的能力', `计算 ${CALC_AVG2} 分（${Math.round(CALC_AVG2)}%）+ 概念 ${CONCEPT_AVG2} 分（${Math.round(CONCEPT_AVG2)}%）= ${ACC}%`, `
+<div class="grid g2">
+  <div class="card">
+    <h3>三块计算题，考点与难度档不变</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>考什么</th><th class="num">年均分</th><th>落在哪一题</th></tr></thead>
+      <tbody>${['f-arith', 'f-solveeq', 'f-simplify'].map((id) => {
+        const f = famById(id);
+        const noCount = new Map();
+        for (const s of f.slots) noCount.set(s.no, (noCount.get(s.no) || 0) + 1);
+        const nos = [...noCount.keys()].sort((a, b) => a - b);
+        /* 多题位的族写「主位（例外年份在第 N 题）」，避免读成两个位置都考 */
+        let slot;
+        if (nos.length === 1) {
+          slot = `第 ${nos[0]} 题`;
+        } else {
+          const mainNo = [...noCount.entries()].sort((a, b) => b[1] - a[1])[0][0];
+          const odd = f.slots.filter((s) => s.no !== mainNo);
+          slot = `第 ${mainNo} 题` + (odd.length
+            ? `<span style="color:var(--text-3);font-size:12px">（${odd.map((s) => PAPER_STATS.find((p) => p.id === s.p).label).join('、')} 在第 ${odd[0].no} 题）</span>`
+            : '');
+        }
+        return `<tr><td><b>${esc(f.name)}</b></td>
+          <td class="num cell-hi">${f.avgPerYear}</td>
+          <td>${slot}</td></tr>`;
+      }).join('')}</tbody>
+      <tfoot><tr><td>合计</td><td class="num cell-hi">${(CALC3 / N_PAPERS).toFixed(1)}</td><td>五年没换过考点</td></tr></tfoot>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>为什么它排第一</h3>
+    <p style="font-size:13.2px;color:var(--text-2);line-height:1.7">
+      计算 ${Math.round(CALC_AVG2)}% + 概念 ${Math.round(CONCEPT_AVG2)}% = <b>${ACC}%</b> 的分值靠「准确」而不是「灵感」。<br><br>
+      这三块五年合计年均 <b>${(CALC3 / N_PAPERS).toFixed(1)} 分</b>，考点、题型、难度档全都不变，位置最多在相邻两题之间挪一次。
+      全卷再没有第二处<b>投入就能换来确定性</b>的地方——它不需要聪明，只需要不出错。
+    </p>
+  </div>
+</div>`, 'accuracy')}
+
+${section('在变', '两处真在变，别按旧印象准备', '其余都是噪声，不足以改复习顺序', `
+<div class="grid g2">
+  <div class="card">
+    <h3>分类讨论在加重</h3>
+    <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+      ${PAPER_STATS.map((s, i) => `<span style="text-align:center">
+        <span style="display:block;font-size:11.5px;color:var(--text-3)">${s.label}</span>
+        <b style="font-size:17px;color:${CLASSIFY[i] >= 13 ? 'var(--rose)' : 'var(--text-2)'};font-variant-numeric:tabular-nums">${CLASSIFY[i]}</b>
+      </span>`).join('<span style="color:var(--border)">·</span>')}
+    </div>
+    <p style="font-size:13px;color:var(--text-2);line-height:1.65">
+      最近两年都是 ${CLASSIFY[CLASSIFY.length - 1]} 分，是唯一明显上升的能力。
+      载体年年换（动点、动角、线段中点），考的都是同一件事：<b>把可能的情况列全</b>。
+    </p>
+  </div>
+  <div class="card">
+    <h3>新定义已退出必做位</h3>
+    <p style="font-size:13px;color:var(--text-2);line-height:1.7">
+      2025-26 的新定义全部落在选做，2024-25 必做位只剩 2 分。
+      <b>「新定义是压轴、必考、要重点攻」这个旧印象已经过时</b>——
+      现在它是选做位的加分项，不是必做位的门槛。
+    </p>
+    <div class="note info" style="margin-top:12px">
+      难度标注说明：2025-26 卷自带官方标注，已逐题比对；其余四套为人工判定。
+      用于看<b>大致比例</b>，不宜精确到单题。
+    </div>
+  </div>
+</div>`, 'changing')}
+
+${section('考频', '按考频排，不按章节排',
+    `共 ${FAMILY_MAP.length} 族 ｜ 必考 ${FREQ_SUMMARY.must.n} 族覆盖 ${FREQ_SUMMARY.must.pct}% 分值`, `
 <div class="tbl-wrap"><table>
-  <thead><tr><th>章节</th>${YEARS.map((y) => `<th class="num">${y}</th>`).join('')}<th class="num">均分</th><th class="num">占比</th><th class="num">极差</th></tr></thead>
-  <tbody>${CH_ORDER.map((k) => {
-    const d = CH_SCORE[k];
-    return `<tr><td><b>${d.name}</b></td>${d.per.map((v) => `<td class="num">${v}</td>`).join('')}
-      <td class="num cell-hi">${d.avg}</td><td class="num">${d.pct}%</td>
-      <td class="num">${d.range >= 8 ? `<span style="color:var(--gold);font-weight:700">${d.range}</span>` : d.range}</td></tr>`;
-  }).join('')}</tbody>
-  <tfoot><tr><td>合计</td>${YEARS.map(() => '<td class="num">100</td>').join('')}<td class="num">100</td><td class="num">100%</td><td class="num">—</td></tr></tfoot>
+  <thead><tr><th>考频</th><th class="num">族数</th><th class="num">五年合计</th><th class="num">占必做</th><th>含义</th></tr></thead>
+  <tbody>${freqRows.map((r) => `<tr>
+    <td><span class="tag ${r.tag}">${r.label}</span></td>
+    <td class="num">${r.d.n}</td>
+    <td class="num cell-hi">${r.d.score} 分</td>
+    <td class="num">${r.d.pct}%</td>
+    <td style="white-space:normal;color:var(--text-3)">${r.desc}</td>
+  </tr>`).join('')}</tbody>
 </table></div>
 <div class="note" style="margin-top:14px">
-  <b>最稳的是整式的加减</b>（极差 ${CH_SCORE['ch-poly'].range} 分），<b>波动最大的是几何与运算</b>（极差 ${CH_SCORE['ch-geo'].range} 与 ${CH_SCORE['ch-op'].range} 分），
-  而且两者此消彼长——几何重的年份运算就轻。
-</div>`, 'chapters')}
-
-${section('能力', '八种能力的分值分布', '按「这道题主要卡在哪」归类，一题一类', `
-<div class="card">
-  ${CAT_ORDER.map((k) => {
-    const d = CAT_SCORE[k];
-    return `<div style="padding:9px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13.2px;margin-bottom:6px;gap:10px;flex-wrap:wrap">
-        <span><b style="font-weight:650">${d.name}</b> <span style="color:var(--text-3);font-size:12px">年均 ${d.avg} 分 · 占 ${d.pct}%</span></span>
-        <span style="color:var(--text-2);font-variant-numeric:tabular-nums;font-size:12.2px">${d.per.join(' / ')}</span>
-      </div>
-      <div class="dist-bar-wrap"><span class="dist-bar ${d.pct >= 30 ? '' : d.pct >= 10 ? 'gold' : 'ok'}" style="width:${Math.round(d.avg / catMax * 100)}%"></span></div>
-    </div>`;
-  }).join('')}
-  <div class="note" style="margin-top:16px">
-    <b>计算 ${CAT_SCORE['计算'].pct}% + 概念 ${CAT_SCORE['概念'].pct}% = ${CALC_CONCEPT}%</b>：近六成分值靠「准确」而不是「灵感」。<br>
-    <b>分类讨论连续两年 13 分</b>（2024-25、2025-26），是唯一明显上升的能力。<br>
-    <b>新定义在必做位已消失</b>：2025-26 的新定义全部落在选做，2024-25 只剩 2 分——「新定义是压轴」这个旧印象已经过时。
-  </div>
-</div>`, 'abilities')}
-
-${section('难度', '难度四级五年分布', `基础 ${DIFF_SCORE.easy.pct}% / 中档 ${DIFF_SCORE.mid.pct}% / 较难 ${DIFF_SCORE.hard.pct}% / 压轴 ${DIFF_SCORE.top.pct}%`, `
-<div class="tbl-wrap"><table>
-  <thead><tr><th>难度</th>${YEARS.map((y) => `<th class="num">${y}</th>`).join('')}<th class="num">年均</th><th class="num">占比</th></tr></thead>
-  <tbody>${DIFF_ORDER.map((k) => {
-    const d = DIFF_SCORE[k];
-    return `<tr><td><span class="tag ${k}">${d.name}</span></td>${d.per.map((v) => `<td class="num">${v}</td>`).join('')}
-      <td class="num cell-hi">${d.avg}</td><td class="num">${d.pct}%</td></tr>`;
-  }).join('')}</tbody>
-  <tfoot><tr><td>合计</td>${YEARS.map(() => '<td class="num">100</td>').join('')}<td class="num">100</td><td class="num">100%</td></tr></tfoot>
-</table></div>
-<div class="note info" style="margin-top:14px">
-  难度标注说明：2025-26 卷自带官方标注（易/较易/中档/较难），已逐题比对；其余四套为人工判定。用于看<b>大致比例</b>，不宜精确到单题。
-</div>`, 'difficulty')}
+  <b>先确认必考的 ${FREQ_SUMMARY.must.n} 族能不能独立做对</b>，再看偶考。
+  极少考的 ${FREQ_SUMMARY.rare.n} 族五年加起来只有 ${FREQ_SUMMARY.rare.score} 分（${FREQ_SUMMARY.rare.pct}%），
+  排在最后。
+</div>`, 'freq')}
 
 ${section('考点族', '各考点年均分值',
     `按章节分组 · 组内按年均分降序 · 共 ${FAMILY_MAP.length} 族`, `
@@ -649,11 +868,19 @@ ${section('考点族', '各考点年均分值',
         <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 ${g.total} 分</span>
       </td>
     </tr>
-    ${g.fams.map((f) => `<tr>
-      <td style="padding-left:26px">${esc(f.name)}</td>
+    ${g.fams.map((f) => {
+      /* 族名里带的题位（「第23题位」或「24 题位」两种写法）可能只是主位。
+         展示实际落点，避免读者把族名当成"只考这一题"。 */
+      const nos = [...new Set(f.slots.map((s) => s.no))].sort((a, b) => a - b);
+      const inName = (f.name.match(/(\d+)\s*题位/) || [])[1];
+      const mism = inName && !(nos.length === 1 && +inName === nos[0]);
+      const slots = nos.length ? `第 ${nos.join('、')} 题` : '—';
+      return `<tr>
+      <td style="padding-left:26px">${esc(f.name)}${mism ? `<span style="color:var(--text-3);font-size:11.5px;margin-left:6px">实际落点：${slots}</span>` : ''}</td>
       <td class="num cell-hi">${f.avgPerYear || '—'}</td>
       <td class="num">${f.hitYears}/${N_PAPERS}</td>
-    </tr>`).join('')}`).join('')}</tbody>
+    </tr>`;
+    }).join('')}`).join('')}</tbody>
   <tfoot><tr><td>合计</td><td class="num">${MAIN_GRAND / N_PAPERS}</td><td class="num">—</td></tr></tfoot>
 </table></div>
 <p style="margin-top:12px;font-size:12.8px;color:var(--text-3)">

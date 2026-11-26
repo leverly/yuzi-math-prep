@@ -87,18 +87,123 @@ console.log('\n【四之二】首页诊断入口');
   ok(!idx2.includes('现在就做一轮 →'), '已移除原来的纯文字弱链接');
 }
 
+console.log('\n【四之三】两页划分：逐年拆解 vs 整体解读');
+{
+  const pp = fs.readFileSync('papers.html', 'utf8');
+  const tr2 = fs.readFileSync('trend.html', 'utf8');
+  const W2 = { easy: 1, mid: 2, hard: 3, top: 4 };
+
+  /* 逐年页只能放「本卷独有」的信息。
+     五年完全相同的东西（选择16/填空16/解答68、24必做+2选做）出现 5 次就是噪声。 */
+  ok(!pp.includes('8 题 × 2 分'), '逐年页不再逐卷复制五年相同的卷面骨架');
+  ok(!pp.includes('<h3>章节分值</h3>'), '逐年页不再有「章节分值」卡（与整体页转置重复）');
+  ok(!pp.includes('<h3>难度分布</h3>'), '逐年页不再有「难度分布」卡（与整体页转置重复）');
+  /* 逐年页必须有的本卷独有内容 */
+  ok(pp.includes('解答题分值怎么分'), '逐年页有「解答题分值怎么分」（五年唯一逐卷都变的信息）');
+  ok(pp.includes('这一卷哪一章比往年重'), '逐年页有「章节相对五年均值的偏离」');
+  ok(pp.includes('选做两道考什么'), '逐年页有「选做两道考什么」');
+
+  /* 逐年页的章节偏离必须真的算对了：每卷「偏离最大那一章」的章名与方向要与重算一致。
+     只校验章名 + 方向 + 数值，不依赖具体句子结构（句子改过一次就挂）。 */
+  const CHK = ['ch-rational', 'ch-poly', 'ch-geo', 'ch-eq', 'ch-expr', 'ch-op'];
+  let devOk = 0;
+  for (const s of S.PAPER_STATS) {
+    const devs = CHK.map((k) => ({
+      name: S.CH_SCORE[k].name,
+      d: +((s.ch[k] || 0) - S.CH_SCORE[k].avg).toFixed(1),
+    })).sort((a, b) => Math.abs(b.d) - Math.abs(a.d));
+    const top = devs[0];
+    const wantName = top.name;
+    const wantDir = top.d > 0 ? '比五年均值多' : '比五年均值少';
+    const wantVal = String(Math.abs(top.d));
+    /* 该卷这一段里必须同时出现：章名、方向、绝对值。
+       锚点用「年份 + 难度指数」，不能只用难度指数——1.76 在 2023-24 与 2025-26 重复。 */
+    const start = pp.indexOf(`${s.year} 学年`);
+    const seg = pp.slice(start, start + 6000);
+    if (seg.includes(wantName) && seg.includes(wantDir) && seg.includes(wantVal)) devOk++;
+  }
+  ok(devOk === S.PAPER_STATS.length, `五卷的「偏离最大章」全部与重算一致（${devOk}/${S.PAPER_STATS.length}）`);
+
+  /* 整体页只能讲「五年合起来」的判断，不能再摆逐年矩阵 */
+  ok(!tr2.includes('各章分值五年走势'), '整体页已删逐年章节矩阵');
+  ok(!tr2.includes('难度四级五年分布'), '整体页已删逐年难度矩阵');
+  ok(!tr2.includes('八种能力的分值分布'), '整体页已删八能力逐条（与练习诊断重复）');
+  /* 整体页的三段结构必须在：没变 / 分在哪 / 在变 */
+  for (const k of ['没变', '分在哪', '在变']) {
+    ok(tr2.includes(`<span class="kicker">${k}</span>`), `整体页有「${k}」一节`);
+  }
+
+  /* 整体页引用的每个数字都要能从台账重算出来 */
+  const mainOf2 = (p) => LEDGER.filter((q) => q.p === p && !q.bonus);
+  const idxOf2 = (qs) => {
+    const t = qs.reduce((a, q) => a + q.score, 0);
+    return t ? qs.reduce((a, q) => a + W2[q.diff] * q.score, 0) / t : 0;
+  };
+  const cliff2 = S.PAPER_STATS.map((s) => {
+    const f = mainOf2(s.id).filter((q) => q.no <= 20);
+    const b = mainOf2(s.id).filter((q) => q.no > 20);
+    return { fs: f.reduce((a, q) => a + q.score, 0), bs: b.reduce((a, q) => a + q.score, 0), fi: idxOf2(f), bi: idxOf2(b) };
+  });
+  const fa2 = +(cliff2.reduce((a, c) => a + c.fs, 0) / S.N_PAPERS).toFixed(1);
+  const ba2 = +(cliff2.reduce((a, c) => a + c.bs, 0) / S.N_PAPERS).toFixed(1);
+  ok(tr2.includes(`>${fa2}<`) && tr2.includes(`>${ba2}<`), `断崖两段 ${fa2}/${ba2} 派生正确`);
+  ok(ba2 / fa2 < 0.4, `「后段不到前段四成」成立（${(ba2 / fa2).toFixed(2)}）`);
+  const ratios = cliff2.map((c) => c.bi / c.fi);
+  const rMin = +Math.min(...ratios).toFixed(1), rMax = +Math.max(...ratios).toFixed(1);
+  ok(tr2.includes(`${rMin}–${rMax} 倍`), `难度倍数区间 ${rMin}–${rMax} 派生正确`);
+
+  /* 单题最高分：五年同题位、同考点 */
+  const tops2 = S.PAPER_STATS.map((s) => {
+    const qs = LEDGER.filter((q) => q.p === s.id && !q.bonus);
+    return qs.reduce((a, q) => (q.score > a.score ? q : a));
+  });
+  ok(new Set(tops2.map((q) => q.no)).size === 1, `单题最高题位五年唯一（q${tops2[0].no}）`);
+  ok(new Set(tops2.map((q) => q.topic)).size === 1, `单题最高考点五年唯一（${tops2[0].topic}）`);
+
+  /* 分类能力：页面说「最近两年都是 N 分」，必须成立 */
+  const cls2 = S.PAPER_STATS.map((s) => LEDGER.filter((q) => q.p === s.id && q.cat === '分类').reduce((a, q) => a + q.score, 0));
+  ok(cls2[cls2.length - 1] === cls2[cls2.length - 2], `分类能力最近两年同分（${cls2.slice(-2).join(' / ')}）`);
+  ok(tr2.includes(`最近两年都是 ${cls2[cls2.length - 1]} 分`), '分类「最近两年都是 N 分」与重算一致');
+
+  /* 族名里带题位的族，如果实际落点不止一题，必须标出「实际落点」——
+     否则「分类压轴（第23题位）」会被读成"只考第 23 题"（实际还含第 24、26 题）。 */
+  const slotNamed = S.FAMILY_MAP.filter((f) => /(\d+)\s*题位/.test(f.name));
+  let slotOk = 0;
+  for (const f of slotNamed) {
+    const nos = [...new Set(f.slots.map((s) => s.no))].sort((a, b) => a - b);
+    const inName = +(f.name.match(/(\d+)\s*题位/) || [])[1];
+    const isSingle = nos.length === 1 && inName === nos[0];
+    if (isSingle) { slotOk++; continue; }
+    const want = `实际落点：第 ${nos.join('、')} 题`;
+    if (tr2.includes(want)) slotOk++;
+    else console.log(`      缺：${f.name} → ${want}`);
+  }
+  ok(slotOk === slotNamed.length,
+    `族名带题位的族都标出了实际落点（${slotOk}/${slotNamed.length}）`);
+}
+
 console.log('\n【五】死链');
 const htmls = fs.readdirSync('.').filter((f) => f.endsWith('.html'));
 let dead = 0;
 for (const h of htmls) {
   const txt = fs.readFileSync(h, 'utf8');
-  const hrefs = [...txt.matchAll(/href="([^"]+)"/g)].map((m) => m[1].split('#')[0]).filter(Boolean);
-  for (const l of new Set(hrefs)) {
-    if (/^https?:/.test(l)) continue;
-    if (!fs.existsSync(l)) { console.log(`  ✗ ${h} → ${l}`); dead++; }
+  const hrefs = [...txt.matchAll(/href="([^"]+)"/g)].map((m) => m[1]).filter(Boolean);
+  for (const raw of new Set(hrefs)) {
+    if (/^https?:/.test(raw)) continue;
+    const [l, frag] = raw.split('#');
+    if (l && !fs.existsSync(l)) { console.log(`  ✗ ${h} → ${l}`); dead++; continue; }
+    /* 锚点也要校验：改了 section id 之后，别的页面指向旧锚点会静默失效 */
+    if (frag) {
+      const target = l || h;
+      const targetTxt = l ? fs.readFileSync(target, 'utf8') : txt;
+      if (!targetTxt.includes(`id="${frag}"`)) {
+        console.log(`  ✗ ${h} → ${raw}（锚点不存在）`);
+        dead++;
+      }
+    }
   }
 }
-ok(dead === 0, '所有内部链接可达', dead + ' 个死链');
+ok(dead === 0, '所有内部链接与锚点可达', dead + ' 个死链');
 
 // 【六】幻灯片已于 2026-11-25 下线：12 页里 10 页与 index/trend/plan/papers 重复，
 // 唯一独有的「六周冲刺节奏」与 plan 页「不给具体时间和动作」的立场矛盾。

@@ -178,6 +178,9 @@ h3{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
 .card+.card{margin-top:14px}
 .grid{display:grid;gap:14px}
 .g2{grid-template-columns:repeat(2,1fr)}
+/* 同排卡片高度拉齐后，内容少的那张下方会空一大块；
+   align-items:start 让每张卡片只占自己内容的高度 */
+.grid.g2{align-items:start}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g4{grid-template-columns:repeat(4,1fr)}
 
@@ -284,6 +287,8 @@ tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none
 .dist-bar.gold{background:var(--gold-grad)}
 .dist-bar.ok{background:linear-gradient(135deg,#10b981,#059669)}
 .dist-bar.rose{background:linear-gradient(135deg,#f43f5e,#e11d48)}
+/* 中性/负向：不暗示"好"，只表示比往年轻 */
+.dist-bar.mute{background:var(--bg-3)}
 .dist-val{font-size:12.8px;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 
 /* ---------- 考点族卡 ---------- */
@@ -400,127 +405,200 @@ footer b{color:var(--text-2)}
 <main class="wrap">
 
 <section class="hero" style="padding:44px 0 8px">
-  <div class="hero-badge"><span class="dot-live"></span>五年趋势 · 考点频次</div>
+  <div class="hero-badge"><span class="dot-live"></span>五年合起来看</div>
   <h1>整体解读</h1>
-  <p class="lede">先看什么在变（章节、能力、难度），再看各考点的年均分值——分值高的先练。</p>
+  <p class="lede">把五套卷叠在一起，只问三件事：<b>什么没变</b>（能不能按图施工）、<b>分在哪</b>（哪里最值钱）、<b>什么在变</b>（哪些不能按旧印象准备）。</p>
 </section>
 
 
-<section class="section" id="chapters">
+<section class="section" id="stable">
   <div class="section-head"><div class="section-head-left">
-    <span class="kicker">章节</span>
-    <h2>各章分值五年走势</h2>
-    <span class="sub">极差 = 五年最高与最低之差</span>
+    <span class="kicker">没变</span>
+    <h2>五年几乎没变的三件事</h2>
+    <span class="sub">难度指数 1.69–1.76，结构年年相同</span>
   </div></div>
   
-<div class="tbl-wrap"><table>
-  <thead><tr><th>章节</th><th class="num">2021-22</th><th class="num">2022-23</th><th class="num">2023-24</th><th class="num">2024-25</th><th class="num">2025-26</th><th class="num">均分</th><th class="num">占比</th><th class="num">极差</th></tr></thead>
-  <tbody><tr><td><b>有理数</b></td><td class="num">24</td><td class="num">19</td><td class="num">23</td><td class="num">16</td><td class="num">20</td>
-      <td class="num cell-hi">20.4</td><td class="num">20%</td>
-      <td class="num"><span style="color:var(--gold);font-weight:700">8</span></td></tr><tr><td><b>有理数的运算</b></td><td class="num">18</td><td class="num">18</td><td class="num">17</td><td class="num">21</td><td class="num">27</td>
-      <td class="num cell-hi">20.2</td><td class="num">20%</td>
-      <td class="num"><span style="color:var(--gold);font-weight:700">10</span></td></tr><tr><td><b>代数式</b></td><td class="num">2</td><td class="num">6</td><td class="num">2</td><td class="num">9</td><td class="num">4</td>
-      <td class="num cell-hi">4.6</td><td class="num">5%</td>
-      <td class="num">7</td></tr><tr><td><b>整式的加减</b></td><td class="num">12</td><td class="num">10</td><td class="num">10</td><td class="num">10</td><td class="num">10</td>
-      <td class="num cell-hi">10.4</td><td class="num">10%</td>
-      <td class="num">2</td></tr><tr><td><b>一元一次方程</b></td><td class="num">23</td><td class="num">20</td><td class="num">25</td><td class="num">23</td><td class="num">23</td>
-      <td class="num cell-hi">22.8</td><td class="num">23%</td>
-      <td class="num">5</td></tr><tr><td><b>几何图形初步</b></td><td class="num">21</td><td class="num">27</td><td class="num">23</td><td class="num">21</td><td class="num">16</td>
-      <td class="num cell-hi">21.6</td><td class="num">22%</td>
-      <td class="num"><span style="color:var(--gold);font-weight:700">11</span></td></tr></tbody>
-  <tfoot><tr><td>合计</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">100%</td><td class="num">—</td></tr></tfoot>
-</table></div>
-<div class="note" style="margin-top:14px">
-  <b>最稳的是整式的加减</b>（极差 2 分），<b>波动最大的是几何与运算</b>（极差 11 与 10 分），
-  而且两者此消彼长——几何重的年份运算就轻。
-</div>
-</section>
-
-
-<section class="section" id="abilities">
-  <div class="section-head"><div class="section-head-left">
-    <span class="kicker">能力</span>
-    <h2>八种能力的分值分布</h2>
-    <span class="sub">按「这道题主要卡在哪」归类，一题一类</span>
-  </div></div>
-  
-<div class="card">
-  <div style="padding:9px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13.2px;margin-bottom:6px;gap:10px;flex-wrap:wrap">
-        <span><b style="font-weight:650">计算求解</b> <span style="color:var(--text-3);font-size:12px">年均 39.6 分 · 占 40%</span></span>
-        <span style="color:var(--text-2);font-variant-numeric:tabular-nums;font-size:12.2px">39 / 43 / 37 / 39 / 40</span>
-      </div>
-      <div class="dist-bar-wrap"><span class="dist-bar " style="width:92%"></span></div>
-    </div><div style="padding:9px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13.2px;margin-bottom:6px;gap:10px;flex-wrap:wrap">
-        <span><b style="font-weight:650">概念辨析</b> <span style="color:var(--text-3);font-size:12px">年均 17.2 分 · 占 17%</span></span>
-        <span style="color:var(--text-2);font-variant-numeric:tabular-nums;font-size:12.2px">16 / 14 / 20 / 18 / 18</span>
-      </div>
-      <div class="dist-bar-wrap"><span class="dist-bar gold" style="width:40%"></span></div>
-    </div><div style="padding:9px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13.2px;margin-bottom:6px;gap:10px;flex-wrap:wrap">
-        <span><b style="font-weight:650">建模应用</b> <span style="color:var(--text-3);font-size:12px">年均 11.4 分 · 占 11%</span></span>
-        <span style="color:var(--text-2);font-variant-numeric:tabular-nums;font-size:12.2px">10 / 11 / 11 / 16 / 9</span>
-      </div>
-      <div class="dist-bar-wrap"><span class="dist-bar gold" style="width:27%"></span></div>
-    </div><div style="padding:9px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13.2px;margin-bottom:6px;gap:10px;flex-wrap:wrap">
-        <span><b style="font-weight:650">推理说理</b> <span style="color:var(--text-3);font-size:12px">年均 11.2 分 · 占 11%</span></span>
-        <span style="color:var(--text-2);font-variant-numeric:tabular-nums;font-size:12.2px">19 / 10 / 10 / 4 / 13</span>
-      </div>
-      <div class="dist-bar-wrap"><span class="dist-bar gold" style="width:26%"></span></div>
-    </div><div style="padding:9px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13.2px;margin-bottom:6px;gap:10px;flex-wrap:wrap">
-        <span><b style="font-weight:650">分类讨论</b> <span style="color:var(--text-3);font-size:12px">年均 9.6 分 · 占 10%</span></span>
-        <span style="color:var(--text-2);font-variant-numeric:tabular-nums;font-size:12.2px">8 / 7 / 7 / 13 / 13</span>
-      </div>
-      <div class="dist-bar-wrap"><span class="dist-bar gold" style="width:22%"></span></div>
-    </div><div style="padding:9px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13.2px;margin-bottom:6px;gap:10px;flex-wrap:wrap">
-        <span><b style="font-weight:650">作图操作</b> <span style="color:var(--text-3);font-size:12px">年均 5.8 分 · 占 6%</span></span>
-        <span style="color:var(--text-2);font-variant-numeric:tabular-nums;font-size:12.2px">6 / 6 / 6 / 6 / 5</span>
-      </div>
-      <div class="dist-bar-wrap"><span class="dist-bar ok" style="width:13%"></span></div>
-    </div><div style="padding:9px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13.2px;margin-bottom:6px;gap:10px;flex-wrap:wrap">
-        <span><b style="font-weight:650">空间想象</b> <span style="color:var(--text-3);font-size:12px">年均 2 分 · 占 2%</span></span>
-        <span style="color:var(--text-2);font-variant-numeric:tabular-nums;font-size:12.2px">2 / 2 / 2 / 2 / 2</span>
-      </div>
-      <div class="dist-bar-wrap"><span class="dist-bar ok" style="width:5%"></span></div>
-    </div><div style="padding:9px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13.2px;margin-bottom:6px;gap:10px;flex-wrap:wrap">
-        <span><b style="font-weight:650">新定义迁移</b> <span style="color:var(--text-3);font-size:12px">年均 3.2 分 · 占 3%</span></span>
-        <span style="color:var(--text-2);font-variant-numeric:tabular-nums;font-size:12.2px">0 / 7 / 7 / 2 / 0</span>
-      </div>
-      <div class="dist-bar-wrap"><span class="dist-bar ok" style="width:7%"></span></div>
-    </div>
-  <div class="note" style="margin-top:16px">
-    <b>计算 40% + 概念 17% = 57%</b>：近六成分值靠「准确」而不是「灵感」。<br>
-    <b>分类讨论连续两年 13 分</b>（2024-25、2025-26），是唯一明显上升的能力。<br>
-    <b>新定义在必做位已消失</b>：2025-26 的新定义全部落在选做，2024-25 只剩 2 分——「新定义是压轴」这个旧印象已经过时。
+<div class="grid g3">
+  <div class="card">
+    <h3>难度没变</h3>
+    <div style="font-size:26px;font-weight:750;letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums">1.69–1.76</div>
+    <div style="font-size:12.6px;color:var(--text-3);margin-top:4px">五年难度指数区间</div>
+    <p style="font-size:13px;color:var(--text-2);margin-top:10px;line-height:1.65">
+      基础 + 中档 80–83 分，较难 + 压轴 17–20 分。
+      这套卷子不靠难题区分学生，备考可以按图施工。
+    </p>
+  </div>
+  <div class="card">
+    <h3>结构没变</h3>
+    <div style="font-size:26px;font-weight:750;letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums">16 / 16 / 68</div>
+    <div style="font-size:12.6px;color:var(--text-3);margin-top:4px">选择 / 填空 / 解答，五年一致</div>
+    <p style="font-size:13px;color:var(--text-2);margin-top:10px;line-height:1.65">
+      24 必做 + 2 选做，必做 100 分。
+      所以「按题型复习」这个框架成立，不用赌今年换不换。
+    </p>
+  </div>
+  <div class="card">
+    <h3>送分位置没变</h3>
+    <div style="font-size:26px;font-weight:750;letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums">5 处</div>
+    <div style="font-size:12.6px;color:var(--text-3);margin-top:4px">五年零例外都是基础档</div>
+    <p style="font-size:13px;color:var(--text-2);margin-top:10px;line-height:1.65">
+      第 1 题、第 2 题、第 9 题、第 10 题、第 17 题——这些位置没有「今年变难」的先例。
+    </p>
   </div>
 </div>
 </section>
 
 
-<section class="section" id="difficulty">
+<section class="section" id="where">
   <div class="section-head"><div class="section-head-left">
-    <span class="kicker">难度</span>
-    <h2>难度四级五年分布</h2>
-    <span class="sub">基础 51% / 中档 31% / 较难 13% / 压轴 6%</span>
+    <span class="kicker">分在哪</span>
+    <h2>分不在压轴，在会做的题上</h2>
+    <span class="sub">断崖在第 20 题之后</span>
+  </div></div>
+  
+<div class="grid g2">
+  <div class="card">
+    <h3>前 20 题 · 熟练度</h3>
+    <div style="font-size:30px;font-weight:750;letter-spacing:-.03em;color:var(--ok);font-variant-numeric:tabular-nums">73.8<span style="font-size:15px;font-weight:600;color:var(--text-3);margin-left:3px">分/年</span></div>
+    <div style="font-size:12.6px;color:var(--text-3);margin-top:4px">年均占必做 74% ｜ 难度指数 1.35–1.41</div>
+    <p style="font-size:13px;color:var(--text-2);margin-top:10px;line-height:1.65">
+      五年都在 1.4 上下。这一段考的是熟练，不是灵感——失分只可能来自算错、看错、写错。
+    </p>
+  </div>
+  <div class="card">
+    <h3>第 21 题起 · 思维</h3>
+    <div style="font-size:30px;font-weight:750;letter-spacing:-.03em;color:var(--rose);font-variant-numeric:tabular-nums">26.2<span style="font-size:15px;font-weight:600;color:var(--text-3);margin-left:3px">分/年</span></div>
+    <div style="font-size:12.6px;color:var(--text-3);margin-top:4px">年均占必做 26% ｜ 难度指数 2.44–2.8</div>
+    <p style="font-size:13px;color:var(--text-2);margin-top:10px;line-height:1.65">
+      难度指数是前一段的 1.7–2.1 倍。这里才开始真正筛人，
+      但它的分值不到前一段的四成。
+    </p>
+  </div>
+</div>
+<div class="note" style="margin-top:14px">
+  <b>单题最值钱的一道：第 17 题</b>，17–20 分，
+  五年都是同一题位、同一考点（有理数混合运算），且都是基础档。
+  它一道题的分，比第 23、24 两道压轴加起来还多——在会做的题上丢分，比压轴不会做更亏。
+</div>
+</section>
+
+
+<section class="section" id="accuracy">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">最值钱的能力</span>
+    <h2>计算占四成，是唯一能练到不出错的能力</h2>
+    <span class="sub">计算 39.6 分（40%）+ 概念 17.2 分（17%）= 57%</span>
+  </div></div>
+  
+<div class="grid g2">
+  <div class="card">
+    <h3>三块计算题，考点与难度档不变</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>考什么</th><th class="num">年均分</th><th>落在哪一题</th></tr></thead>
+      <tbody><tr><td><b>有理数四则混合运算</b></td>
+          <td class="num cell-hi">18.4</td>
+          <td>第 17 题</td></tr><tr><td><b>解一元一次方程</b></td>
+          <td class="num cell-hi">11.6</td>
+          <td>第 20 题<span style="color:var(--text-3);font-size:12px">（2025-26 在第 19 题）</span></td></tr><tr><td><b>整式化简求值</b></td>
+          <td class="num cell-hi">6</td>
+          <td>第 18 题<span style="color:var(--text-3);font-size:12px">（2022-23 在第 19 题）</span></td></tr></tbody>
+      <tfoot><tr><td>合计</td><td class="num cell-hi">36.0</td><td>五年没换过考点</td></tr></tfoot>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>为什么它排第一</h3>
+    <p style="font-size:13.2px;color:var(--text-2);line-height:1.7">
+      计算 40% + 概念 17% = <b>57%</b> 的分值靠「准确」而不是「灵感」。<br><br>
+      这三块五年合计年均 <b>36.0 分</b>，考点、题型、难度档全都不变，位置最多在相邻两题之间挪一次。
+      全卷再没有第二处<b>投入就能换来确定性</b>的地方——它不需要聪明，只需要不出错。
+    </p>
+  </div>
+</div>
+</section>
+
+
+<section class="section" id="changing">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">在变</span>
+    <h2>两处真在变，别按旧印象准备</h2>
+    <span class="sub">其余都是噪声，不足以改复习顺序</span>
+  </div></div>
+  
+<div class="grid g2">
+  <div class="card">
+    <h3>分类讨论在加重</h3>
+    <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+      <span style="text-align:center">
+        <span style="display:block;font-size:11.5px;color:var(--text-3)">2021-22</span>
+        <b style="font-size:17px;color:var(--text-2);font-variant-numeric:tabular-nums">8</b>
+      </span><span style="color:var(--border)">·</span><span style="text-align:center">
+        <span style="display:block;font-size:11.5px;color:var(--text-3)">2022-23</span>
+        <b style="font-size:17px;color:var(--rose);font-variant-numeric:tabular-nums">13</b>
+      </span><span style="color:var(--border)">·</span><span style="text-align:center">
+        <span style="display:block;font-size:11.5px;color:var(--text-3)">2023-24</span>
+        <b style="font-size:17px;color:var(--text-2);font-variant-numeric:tabular-nums">7</b>
+      </span><span style="color:var(--border)">·</span><span style="text-align:center">
+        <span style="display:block;font-size:11.5px;color:var(--text-3)">2024-25</span>
+        <b style="font-size:17px;color:var(--rose);font-variant-numeric:tabular-nums">13</b>
+      </span><span style="color:var(--border)">·</span><span style="text-align:center">
+        <span style="display:block;font-size:11.5px;color:var(--text-3)">2025-26</span>
+        <b style="font-size:17px;color:var(--rose);font-variant-numeric:tabular-nums">13</b>
+      </span>
+    </div>
+    <p style="font-size:13px;color:var(--text-2);line-height:1.65">
+      最近两年都是 13 分，是唯一明显上升的能力。
+      载体年年换（动点、动角、线段中点），考的都是同一件事：<b>把可能的情况列全</b>。
+    </p>
+  </div>
+  <div class="card">
+    <h3>新定义已退出必做位</h3>
+    <p style="font-size:13px;color:var(--text-2);line-height:1.7">
+      2025-26 的新定义全部落在选做，2024-25 必做位只剩 2 分。
+      <b>「新定义是压轴、必考、要重点攻」这个旧印象已经过时</b>——
+      现在它是选做位的加分项，不是必做位的门槛。
+    </p>
+    <div class="note info" style="margin-top:12px">
+      难度标注说明：2025-26 卷自带官方标注，已逐题比对；其余四套为人工判定。
+      用于看<b>大致比例</b>，不宜精确到单题。
+    </div>
+  </div>
+</div>
+</section>
+
+
+<section class="section" id="freq">
+  <div class="section-head"><div class="section-head-left">
+    <span class="kicker">考频</span>
+    <h2>按考频排，不按章节排</h2>
+    <span class="sub">共 24 族 ｜ 必考 12 族覆盖 82% 分值</span>
   </div></div>
   
 <div class="tbl-wrap"><table>
-  <thead><tr><th>难度</th><th class="num">2021-22</th><th class="num">2022-23</th><th class="num">2023-24</th><th class="num">2024-25</th><th class="num">2025-26</th><th class="num">年均</th><th class="num">占比</th></tr></thead>
-  <tbody><tr><td><span class="tag easy">基础</span></td><td class="num">51</td><td class="num">51</td><td class="num">49</td><td class="num">53</td><td class="num">50</td>
-      <td class="num cell-hi">50.8</td><td class="num">51%</td></tr><tr><td><span class="tag mid">中档</span></td><td class="num">29</td><td class="num">31</td><td class="num">33</td><td class="num">30</td><td class="num">31</td>
-      <td class="num cell-hi">30.8</td><td class="num">31%</td></tr><tr><td><span class="tag hard">较难</span></td><td class="num">20</td><td class="num">11</td><td class="num">11</td><td class="num">10</td><td class="num">12</td>
-      <td class="num cell-hi">12.8</td><td class="num">13%</td></tr><tr><td><span class="tag top">压轴</span></td><td class="num">0</td><td class="num">7</td><td class="num">7</td><td class="num">7</td><td class="num">7</td>
-      <td class="num cell-hi">5.6</td><td class="num">6%</td></tr></tbody>
-  <tfoot><tr><td>合计</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">100%</td></tr></tfoot>
+  <thead><tr><th>考频</th><th class="num">族数</th><th class="num">五年合计</th><th class="num">占必做</th><th>含义</th></tr></thead>
+  <tbody><tr>
+    <td><span class="tag must">必考</span></td>
+    <td class="num">12</td>
+    <td class="num cell-hi">409 分</td>
+    <td class="num">82%</td>
+    <td style="white-space:normal;color:var(--text-3)">五年年年出现</td>
+  </tr><tr>
+    <td><span class="tag often">偶考</span></td>
+    <td class="num">1</td>
+    <td class="num cell-hi">8 分</td>
+    <td class="num">2%</td>
+    <td style="white-space:normal;color:var(--text-3)">五年出现 3–4 次</td>
+  </tr><tr>
+    <td><span class="tag rare">极少考</span></td>
+    <td class="num">11</td>
+    <td class="num cell-hi">83 分</td>
+    <td class="num">17%</td>
+    <td style="white-space:normal;color:var(--text-3)">五年出现 1–2 次</td>
+  </tr></tbody>
 </table></div>
-<div class="note info" style="margin-top:14px">
-  难度标注说明：2025-26 卷自带官方标注（易/较易/中档/较难），已逐题比对；其余四套为人工判定。用于看<b>大致比例</b>，不宜精确到单题。
+<div class="note" style="margin-top:14px">
+  <b>先确认必考的 12 族能不能独立做对</b>，再看偶考。
+  极少考的 11 族五年加起来只有 83 分（17%），
+  排在最后。
 </div>
 </section>
 
@@ -542,7 +620,7 @@ footer b{color:var(--text-2)}
       </td>
     </tr>
     <tr>
-      <td style="padding-left:26px">分类压轴（第23题位）</td>
+      <td style="padding-left:26px">分类压轴（第23题位）<span style="color:var(--text-3);font-size:11.5px;margin-left:6px">实际落点：第 23、24、26 题</span></td>
       <td class="num cell-hi">9.2</td>
       <td class="num">5/5</td>
     </tr><tr>
@@ -550,7 +628,7 @@ footer b{color:var(--text-2)}
       <td class="num cell-hi">8.8</td>
       <td class="num">5/5</td>
     </tr><tr>
-      <td style="padding-left:26px">新定义（选做 / 24 题位）</td>
+      <td style="padding-left:26px">新定义（选做 / 24 题位）<span style="color:var(--text-3);font-size:11.5px;margin-left:6px">实际落点：第 8、24、25、26 题</span></td>
       <td class="num cell-hi">3.2</td>
       <td class="num">3/5</td>
     </tr><tr>

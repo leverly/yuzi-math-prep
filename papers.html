@@ -178,6 +178,9 @@ h3{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
 .card+.card{margin-top:14px}
 .grid{display:grid;gap:14px}
 .g2{grid-template-columns:repeat(2,1fr)}
+/* 同排卡片高度拉齐后，内容少的那张下方会空一大块；
+   align-items:start 让每张卡片只占自己内容的高度 */
+.grid.g2{align-items:start}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g4{grid-template-columns:repeat(4,1fr)}
 
@@ -284,6 +287,8 @@ tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none
 .dist-bar.gold{background:var(--gold-grad)}
 .dist-bar.ok{background:linear-gradient(135deg,#10b981,#059669)}
 .dist-bar.rose{background:linear-gradient(135deg,#f43f5e,#e11d48)}
+/* 中性/负向：不暗示"好"，只表示比往年轻 */
+.dist-bar.mute{background:var(--bg-3)}
 .dist-val{font-size:12.8px;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 
 /* ---------- 考点族卡 ---------- */
@@ -402,7 +407,9 @@ footer b{color:var(--text-2)}
 <section class="hero" style="padding:44px 0 8px">
   <div class="hero-badge"><span class="dot-live"></span>五套卷 · 逐套拆解</div>
   <h1>逐年拆解</h1>
-  <p class="lede">五套卷逐套看：每套的<b>章节分值</b>、<b>难度分布</b>与<b>本卷结构</b>。</p>
+  <p class="lede">这一页只看<b>每套卷自己的特点</b>：解答题的分值怎么分、哪一章比往年重、选做考了什么。
+    卷面骨架五年不变（选择 16 + 填空 16 + 解答 68，24 必做 + 2 选做），只在这里说一次。
+    要看五年横向对比，去<a href="trend.html">整体解读</a>。</p>
 </section>
 
 
@@ -410,76 +417,102 @@ footer b{color:var(--text-2)}
   <div class="section-head"><div class="section-head-left">
     <span class="kicker">2021-22</span>
     <h2>2021—2022 学年</h2>
-    <span class="sub">24 必做 + 2 选做 ｜ 必做 100 分 ｜ 难度指数 1.69</span>
+    <span class="sub">难度指数 1.69 ｜ 基础 51 · 中档 29 · 较难 20</span>
   </div></div>
   <div class="grid g2">
         <div class="card">
-          <h3>章节分值</h3>
-          <div class="dist-row">
-    <span class="dist-name">有理数</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:80%"></span></span>
-    <span class="dist-val">24 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">有理数的运算</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:60%"></span></span>
-    <span class="dist-val">18 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">代数式</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:7%"></span></span>
-    <span class="dist-val">2 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">整式的加减</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:40%"></span></span>
-    <span class="dist-val">12 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">一元一次方程</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:77%"></span></span>
-    <span class="dist-val">23 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">几何图形初步</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:70%"></span></span>
-    <span class="dist-val">21 分</span>
-  </div>
+          <h3>解答题分值怎么分</h3>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>题号</th><th>考什么</th><th class="num">分值</th><th>难度</th></tr></thead>
+            <tbody><tr>
+              <td>第 17 题</td>
+              <td style="white-space:normal">有理数混合运算</td>
+              <td class="num cell-hi">18</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 18 题</td>
+              <td style="white-space:normal">整式化简求值</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 19 题</td>
+              <td style="white-space:normal">尺规作图与说理</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 20 题</td>
+              <td style="white-space:normal">解一元一次方程</td>
+              <td class="num cell-hi">11</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 21 题</td>
+              <td style="white-space:normal">角度推理与说理</td>
+              <td class="num cell-hi">7</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 22 题</td>
+              <td style="white-space:normal">方程应用（配套/分配）</td>
+              <td class="num cell-hi">8</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 23 题</td>
+              <td style="white-space:normal">数轴动点与分类</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag hard">较难</span></td>
+            </tr><tr>
+              <td>第 24 题</td>
+              <td style="white-space:normal">阅读理解型</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag hard">较难</span></td>
+            </tr></tbody>
+          </table></div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
+            解答题 68 分。前 20 题难度指数 1.41，第 21 题起 2.44。
+          </div>
         </div>
         <div class="card">
-          <h3>难度分布</h3>
+          <h3>这一卷哪一章比往年重</h3>
+          <div style="font-size:12.4px;color:var(--text-3);margin-bottom:10px">相对五年年均分的偏离 ｜ 蓝色=比往年重，灰色=比往年轻</div>
           <div class="dist-row">
-    <span class="dist-name">基础</span>
-    <span class="dist-bar-wrap"><span class="dist-bar ok" style="width:85%"></span></span>
-    <span class="dist-val">51 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">中档</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:48%"></span></span>
-    <span class="dist-val">29 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">较难</span>
-    <span class="dist-bar-wrap"><span class="dist-bar gold" style="width:33%"></span></span>
-    <span class="dist-val">20 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">压轴</span>
-    <span class="dist-bar-wrap"><span class="dist-bar rose" style="width:0%"></span></span>
-    <span class="dist-val">0 分</span>
-  </div>
-          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
-            题量：基础 11 · 中档 7 · 较难 6 · 压轴 0
+            <span class="dist-name">有理数</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:100%"></span></span>
+            <span class="dist-val">+3.6 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">代数式</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:72%"></span></span>
+            <span class="dist-val">-2.6 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">有理数的运算</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:61%"></span></span>
+            <span class="dist-val">-2.2 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">整式的加减</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:44%"></span></span>
+            <span class="dist-val">+1.6 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">几何图形初步</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:17%"></span></span>
+            <span class="dist-val">-0.6 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">一元一次方程</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:6%"></span></span>
+            <span class="dist-val">+0.2 分</span>
+          </div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3);line-height:1.7">
+            本卷 <b style="color:var(--text-2)">有理数</b> 比五年均值多
+            <b style="color:var(--text-2)">3.6 分</b>，是偏离最大的一章。<br>
+            偏离最小的是 一元一次方程（+0.2 分）——
+            这一章的分值五年都很稳。
           </div>
         </div>
       </div>
       <div class="card">
-        <h3>本卷结构</h3>
-        <div class="tbl-wrap"><table>
-          <thead><tr><th>大题</th><th class="num">分值</th><th>说明</th></tr></thead>
-          <tbody>
-            <tr><td>一、选择</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
-            <tr><td>二、填空</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
-            <tr><td>三、解答</td><td class="num">68</td><td>第17题18分；第18、19题各6分；第20题11分；第21题7分；第22题8分；第23、24题各6分</td></tr>
-            <tr><td>四、选做</td><td class="num">10</td><td>第25、26题各5分（计入总分，卷面封顶 100）</td></tr>
-          </tbody>
-          <tfoot><tr><td>必做合计</td><td class="num">100</td><td>卷面封顶 100 分</td></tr></tfoot>
-        </table></div>
-        <div style="margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-          <span style="font-size:12.4px;color:var(--text-3)">选做考什么：</span>
-          <span class="tag bonus">三角尺拼角（作图）</span> <span class="tag bonus">新定义（数轴类）（新定义）</span>
+        <h3>选做两道考什么</h3>
+        <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+          <span class="tag bonus">第 25 题 · 三角尺拼角（5 分）</span> <span class="tag bonus">第 26 题 · 新定义（数轴类）（5 分）</span>
+        </div>
+        <div style="margin-top:12px;font-size:12.6px;color:var(--text-3)">
+          选做 10 分计入总分，卷面封顶 100。本卷有答案（精品解析（解析版））。
         </div>
       </div>
 </section>
@@ -487,76 +520,102 @@ footer b{color:var(--text-2)}
   <div class="section-head"><div class="section-head-left">
     <span class="kicker">2022-23</span>
     <h2>2022—2023 学年</h2>
-    <span class="sub">24 必做 + 2 选做 ｜ 必做 100 分 ｜ 难度指数 1.74</span>
+    <span class="sub">难度指数 1.74 ｜ 基础 51 · 中档 31 · 较难 11 · 压轴 7</span>
   </div></div>
   <div class="grid g2">
         <div class="card">
-          <h3>章节分值</h3>
-          <div class="dist-row">
-    <span class="dist-name">有理数</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:63%"></span></span>
-    <span class="dist-val">19 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">有理数的运算</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:60%"></span></span>
-    <span class="dist-val">18 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">代数式</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:20%"></span></span>
-    <span class="dist-val">6 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">整式的加减</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:33%"></span></span>
-    <span class="dist-val">10 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">一元一次方程</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:67%"></span></span>
-    <span class="dist-val">20 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">几何图形初步</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:90%"></span></span>
-    <span class="dist-val">27 分</span>
-  </div>
+          <h3>解答题分值怎么分</h3>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>题号</th><th>考什么</th><th class="num">分值</th><th>难度</th></tr></thead>
+            <tbody><tr>
+              <td>第 17 题</td>
+              <td style="white-space:normal">有理数混合运算</td>
+              <td class="num cell-hi">18</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 18 题</td>
+              <td style="white-space:normal">尺规作图与说理</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 19 题</td>
+              <td style="white-space:normal">整式化简求值</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 20 题</td>
+              <td style="white-space:normal">解一元一次方程</td>
+              <td class="num cell-hi">11</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 21 题</td>
+              <td style="white-space:normal">角度推理与说理</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 22 题</td>
+              <td style="white-space:normal">方程应用（配套/分配）</td>
+              <td class="num cell-hi">7</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 23 题</td>
+              <td style="white-space:normal">动角（旋转）</td>
+              <td class="num cell-hi">7</td>
+              <td><span class="tag hard">较难</span></td>
+            </tr><tr>
+              <td>第 24 题</td>
+              <td style="white-space:normal">新定义（数轴类）</td>
+              <td class="num cell-hi">7</td>
+              <td><span class="tag top">压轴</span></td>
+            </tr></tbody>
+          </table></div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
+            解答题 68 分。前 20 题难度指数 1.36，第 21 题起 2.78。
+          </div>
         </div>
         <div class="card">
-          <h3>难度分布</h3>
+          <h3>这一卷哪一章比往年重</h3>
+          <div style="font-size:12.4px;color:var(--text-3);margin-bottom:10px">相对五年年均分的偏离 ｜ 蓝色=比往年重，灰色=比往年轻</div>
           <div class="dist-row">
-    <span class="dist-name">基础</span>
-    <span class="dist-bar-wrap"><span class="dist-bar ok" style="width:85%"></span></span>
-    <span class="dist-val">51 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">中档</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:52%"></span></span>
-    <span class="dist-val">31 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">较难</span>
-    <span class="dist-bar-wrap"><span class="dist-bar gold" style="width:18%"></span></span>
-    <span class="dist-val">11 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">压轴</span>
-    <span class="dist-bar-wrap"><span class="dist-bar rose" style="width:12%"></span></span>
-    <span class="dist-val">7 分</span>
-  </div>
-          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
-            题量：基础 11 · 中档 9 · 较难 3 · 压轴 1
+            <span class="dist-name">几何图形初步</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:100%"></span></span>
+            <span class="dist-val">+5.4 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">一元一次方程</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:52%"></span></span>
+            <span class="dist-val">-2.8 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">有理数的运算</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:41%"></span></span>
+            <span class="dist-val">-2.2 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">有理数</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:26%"></span></span>
+            <span class="dist-val">-1.4 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">代数式</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:26%"></span></span>
+            <span class="dist-val">+1.4 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">整式的加减</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:7%"></span></span>
+            <span class="dist-val">-0.4 分</span>
+          </div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3);line-height:1.7">
+            本卷 <b style="color:var(--text-2)">几何图形初步</b> 比五年均值多
+            <b style="color:var(--text-2)">5.4 分</b>，是偏离最大的一章。<br>
+            偏离最小的是 整式的加减（-0.4 分）——
+            这一章的分值五年都很稳。
           </div>
         </div>
       </div>
       <div class="card">
-        <h3>本卷结构</h3>
-        <div class="tbl-wrap"><table>
-          <thead><tr><th>大题</th><th class="num">分值</th><th>说明</th></tr></thead>
-          <tbody>
-            <tr><td>一、选择</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
-            <tr><td>二、填空</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
-            <tr><td>三、解答</td><td class="num">68</td><td>第17题18分；第18、19题各6分；第20题11分；第21题6分；第22-24题各7分</td></tr>
-            <tr><td>四、选做</td><td class="num">10</td><td>第25题4分，第26题6分（计入总分，卷面封顶 100）</td></tr>
-          </tbody>
-          <tfoot><tr><td>必做合计</td><td class="num">100</td><td>卷面封顶 100 分</td></tr></tfoot>
-        </table></div>
-        <div style="margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-          <span style="font-size:12.4px;color:var(--text-3)">选做考什么：</span>
-          <span class="tag bonus">新定义（运算类）（新定义）</span> <span class="tag bonus">数轴动点与分类（分类）</span>
+        <h3>选做两道考什么</h3>
+        <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+          <span class="tag bonus">第 25 题 · 新定义（运算类）（4 分）</span> <span class="tag bonus">第 26 题 · 数轴动点与分类（6 分）</span>
+        </div>
+        <div style="margin-top:12px;font-size:12.6px;color:var(--text-3)">
+          选做 10 分计入总分，卷面封顶 100。本卷材料只有原卷，答案由独立验算补出。
         </div>
       </div>
 </section>
@@ -564,76 +623,102 @@ footer b{color:var(--text-2)}
   <div class="section-head"><div class="section-head-left">
     <span class="kicker">2023-24</span>
     <h2>2023—2024 学年</h2>
-    <span class="sub">24 必做 + 2 选做 ｜ 必做 100 分 ｜ 难度指数 1.76</span>
+    <span class="sub">难度指数 1.76 ｜ 基础 49 · 中档 33 · 较难 11 · 压轴 7</span>
   </div></div>
   <div class="grid g2">
         <div class="card">
-          <h3>章节分值</h3>
-          <div class="dist-row">
-    <span class="dist-name">有理数</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:77%"></span></span>
-    <span class="dist-val">23 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">有理数的运算</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:57%"></span></span>
-    <span class="dist-val">17 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">代数式</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:7%"></span></span>
-    <span class="dist-val">2 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">整式的加减</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:33%"></span></span>
-    <span class="dist-val">10 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">一元一次方程</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:83%"></span></span>
-    <span class="dist-val">25 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">几何图形初步</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:77%"></span></span>
-    <span class="dist-val">23 分</span>
-  </div>
+          <h3>解答题分值怎么分</h3>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>题号</th><th>考什么</th><th class="num">分值</th><th>难度</th></tr></thead>
+            <tbody><tr>
+              <td>第 17 题</td>
+              <td style="white-space:normal">有理数混合运算</td>
+              <td class="num cell-hi">17</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 18 题</td>
+              <td style="white-space:normal">整式化简求值</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 19 题</td>
+              <td style="white-space:normal">尺规作图与说理</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 20 题</td>
+              <td style="white-space:normal">解一元一次方程</td>
+              <td class="num cell-hi">12</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 21 题</td>
+              <td style="white-space:normal">角度推理与说理</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 22 题</td>
+              <td style="white-space:normal">方程应用（工程）</td>
+              <td class="num cell-hi">7</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 23 题</td>
+              <td style="white-space:normal">线段中点压轴（含参）</td>
+              <td class="num cell-hi">7</td>
+              <td><span class="tag hard">较难</span></td>
+            </tr><tr>
+              <td>第 24 题</td>
+              <td style="white-space:normal">新定义（变速点）</td>
+              <td class="num cell-hi">7</td>
+              <td><span class="tag top">压轴</span></td>
+            </tr></tbody>
+          </table></div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
+            解答题 68 分。前 20 题难度指数 1.38，第 21 题起 2.78。
+          </div>
         </div>
         <div class="card">
-          <h3>难度分布</h3>
+          <h3>这一卷哪一章比往年重</h3>
+          <div style="font-size:12.4px;color:var(--text-3);margin-bottom:10px">相对五年年均分的偏离 ｜ 蓝色=比往年重，灰色=比往年轻</div>
           <div class="dist-row">
-    <span class="dist-name">基础</span>
-    <span class="dist-bar-wrap"><span class="dist-bar ok" style="width:82%"></span></span>
-    <span class="dist-val">49 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">中档</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:55%"></span></span>
-    <span class="dist-val">33 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">较难</span>
-    <span class="dist-bar-wrap"><span class="dist-bar gold" style="width:18%"></span></span>
-    <span class="dist-val">11 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">压轴</span>
-    <span class="dist-bar-wrap"><span class="dist-bar rose" style="width:12%"></span></span>
-    <span class="dist-val">7 分</span>
-  </div>
-          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
-            题量：基础 10 · 中档 10 · 较难 3 · 压轴 1
+            <span class="dist-name">有理数的运算</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:100%"></span></span>
+            <span class="dist-val">-3.2 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">有理数</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:81%"></span></span>
+            <span class="dist-val">+2.6 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">代数式</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:81%"></span></span>
+            <span class="dist-val">-2.6 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">一元一次方程</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:69%"></span></span>
+            <span class="dist-val">+2.2 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">几何图形初步</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:44%"></span></span>
+            <span class="dist-val">+1.4 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">整式的加减</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:13%"></span></span>
+            <span class="dist-val">-0.4 分</span>
+          </div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3);line-height:1.7">
+            本卷 <b style="color:var(--text-2)">有理数的运算</b> 比五年均值少
+            <b style="color:var(--text-2)">3.2 分</b>，是偏离最大的一章。<br>
+            偏离最小的是 整式的加减（-0.4 分）——
+            这一章的分值五年都很稳。
           </div>
         </div>
       </div>
       <div class="card">
-        <h3>本卷结构</h3>
-        <div class="tbl-wrap"><table>
-          <thead><tr><th>大题</th><th class="num">分值</th><th>说明</th></tr></thead>
-          <tbody>
-            <tr><td>一、选择</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
-            <tr><td>二、填空</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
-            <tr><td>三、解答</td><td class="num">68</td><td>第17题17分；第18、19题各6分；第20题12分；第21题6分；第22-24题各7分</td></tr>
-            <tr><td>四、选做</td><td class="num">10</td><td>第25题4分，第26题6分（计入总分，卷面封顶 100）</td></tr>
-          </tbody>
-          <tfoot><tr><td>必做合计</td><td class="num">100</td><td>卷面封顶 100 分</td></tr></tfoot>
-        </table></div>
-        <div style="margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-          <span style="font-size:12.4px;color:var(--text-3)">选做考什么：</span>
-          <span class="tag bonus">规律探究（迭代运算）（推理）</span> <span class="tag bonus">新定义（角·特征值）（新定义）</span>
+        <h3>选做两道考什么</h3>
+        <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+          <span class="tag bonus">第 25 题 · 规律探究（迭代运算）（4 分）</span> <span class="tag bonus">第 26 题 · 新定义（角·特征值）（6 分）</span>
+        </div>
+        <div style="margin-top:12px;font-size:12.6px;color:var(--text-3)">
+          选做 10 分计入总分，卷面封顶 100。本卷有答案（教师版（含答案解析））。
         </div>
       </div>
 </section>
@@ -641,76 +726,102 @@ footer b{color:var(--text-2)}
   <div class="section-head"><div class="section-head-left">
     <span class="kicker">2024-25</span>
     <h2>2024—2025 学年</h2>
-    <span class="sub">24 必做 + 2 选做 ｜ 必做 100 分 ｜ 难度指数 1.71</span>
+    <span class="sub">难度指数 1.71 ｜ 基础 53 · 中档 30 · 较难 10 · 压轴 7</span>
   </div></div>
   <div class="grid g2">
         <div class="card">
-          <h3>章节分值</h3>
-          <div class="dist-row">
-    <span class="dist-name">有理数</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:53%"></span></span>
-    <span class="dist-val">16 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">有理数的运算</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:70%"></span></span>
-    <span class="dist-val">21 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">代数式</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:30%"></span></span>
-    <span class="dist-val">9 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">整式的加减</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:33%"></span></span>
-    <span class="dist-val">10 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">一元一次方程</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:77%"></span></span>
-    <span class="dist-val">23 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">几何图形初步</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:70%"></span></span>
-    <span class="dist-val">21 分</span>
-  </div>
+          <h3>解答题分值怎么分</h3>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>题号</th><th>考什么</th><th class="num">分值</th><th>难度</th></tr></thead>
+            <tbody><tr>
+              <td>第 17 题</td>
+              <td style="white-space:normal">有理数混合运算</td>
+              <td class="num cell-hi">19</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 18 题</td>
+              <td style="white-space:normal">整式化简求值</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 19 题</td>
+              <td style="white-space:normal">尺规作图与说理</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 20 题</td>
+              <td style="white-space:normal">解一元一次方程</td>
+              <td class="num cell-hi">12</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 21 题</td>
+              <td style="white-space:normal">方程应用（表格数据）</td>
+              <td class="num cell-hi">7</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 22 题</td>
+              <td style="white-space:normal">列代数式（几何建模）</td>
+              <td class="num cell-hi">5</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 23 题</td>
+              <td style="white-space:normal">数轴动点与分类</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag hard">较难</span></td>
+            </tr><tr>
+              <td>第 24 题</td>
+              <td style="white-space:normal">动角（旋转）</td>
+              <td class="num cell-hi">7</td>
+              <td><span class="tag top">压轴</span></td>
+            </tr></tbody>
+          </table></div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
+            解答题 68 分。前 20 题难度指数 1.35，第 21 题起 2.8。
+          </div>
         </div>
         <div class="card">
-          <h3>难度分布</h3>
+          <h3>这一卷哪一章比往年重</h3>
+          <div style="font-size:12.4px;color:var(--text-3);margin-bottom:10px">相对五年年均分的偏离 ｜ 蓝色=比往年重，灰色=比往年轻</div>
           <div class="dist-row">
-    <span class="dist-name">基础</span>
-    <span class="dist-bar-wrap"><span class="dist-bar ok" style="width:88%"></span></span>
-    <span class="dist-val">53 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">中档</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:50%"></span></span>
-    <span class="dist-val">30 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">较难</span>
-    <span class="dist-bar-wrap"><span class="dist-bar gold" style="width:17%"></span></span>
-    <span class="dist-val">10 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">压轴</span>
-    <span class="dist-bar-wrap"><span class="dist-bar rose" style="width:12%"></span></span>
-    <span class="dist-val">7 分</span>
-  </div>
-          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
-            题量：基础 11 · 中档 9 · 较难 3 · 压轴 1
+            <span class="dist-name">有理数</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:100%"></span></span>
+            <span class="dist-val">-4.4 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">代数式</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:100%"></span></span>
+            <span class="dist-val">+4.4 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">有理数的运算</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:18%"></span></span>
+            <span class="dist-val">+0.8 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">几何图形初步</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:14%"></span></span>
+            <span class="dist-val">-0.6 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">整式的加减</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:9%"></span></span>
+            <span class="dist-val">-0.4 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">一元一次方程</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:5%"></span></span>
+            <span class="dist-val">+0.2 分</span>
+          </div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3);line-height:1.7">
+            本卷 <b style="color:var(--text-2)">有理数</b> 比五年均值少
+            <b style="color:var(--text-2)">4.4 分</b>，是偏离最大的一章。<br>
+            偏离最小的是 一元一次方程（+0.2 分）——
+            这一章的分值五年都很稳。
           </div>
         </div>
       </div>
       <div class="card">
-        <h3>本卷结构</h3>
-        <div class="tbl-wrap"><table>
-          <thead><tr><th>大题</th><th class="num">分值</th><th>说明</th></tr></thead>
-          <tbody>
-            <tr><td>一、选择</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
-            <tr><td>二、填空</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
-            <tr><td>三、解答</td><td class="num">68</td><td>第17题19分；第18、19题各6分；第20题12分；第21题7分；第22题5分；第23题6分；第24题7分</td></tr>
-            <tr><td>四、选做</td><td class="num">10</td><td>第25题4分，第26题6分（计入总分，卷面封顶 100）</td></tr>
-          </tbody>
-          <tfoot><tr><td>必做合计</td><td class="num">100</td><td>卷面封顶 100 分</td></tr></tfoot>
-        </table></div>
-        <div style="margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-          <span style="font-size:12.4px;color:var(--text-3)">选做考什么：</span>
-          <span class="tag bonus">进位制（综合与实践）（推理）</span> <span class="tag bonus">新定义（平衡点）（新定义）</span>
+        <h3>选做两道考什么</h3>
+        <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+          <span class="tag bonus">第 25 题 · 进位制（综合与实践）（4 分）</span> <span class="tag bonus">第 26 题 · 新定义（平衡点）（6 分）</span>
+        </div>
+        <div style="margin-top:12px;font-size:12.6px;color:var(--text-3)">
+          选做 10 分计入总分，卷面封顶 100。本卷有答案（精品解析（解析版））。
         </div>
       </div>
 </section>
@@ -718,80 +829,105 @@ footer b{color:var(--text-2)}
   <div class="section-head"><div class="section-head-left">
     <span class="kicker">2025-26</span>
     <h2>2025—2026 学年</h2>
-    <span class="sub">24 必做 + 2 选做 ｜ 必做 100 分 ｜ 难度指数 1.76</span>
+    <span class="sub">难度指数 1.76 ｜ 基础 50 · 中档 31 · 较难 12 · 压轴 7</span>
   </div></div>
   <div class="grid g2">
         <div class="card">
-          <h3>章节分值</h3>
-          <div class="dist-row">
-    <span class="dist-name">有理数</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:67%"></span></span>
-    <span class="dist-val">20 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">有理数的运算</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:90%"></span></span>
-    <span class="dist-val">27 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">代数式</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:13%"></span></span>
-    <span class="dist-val">4 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">整式的加减</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:33%"></span></span>
-    <span class="dist-val">10 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">一元一次方程</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:77%"></span></span>
-    <span class="dist-val">23 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">几何图形初步</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:53%"></span></span>
-    <span class="dist-val">16 分</span>
-  </div>
+          <h3>解答题分值怎么分</h3>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>题号</th><th>考什么</th><th class="num">分值</th><th>难度</th></tr></thead>
+            <tbody><tr>
+              <td>第 17 题</td>
+              <td style="white-space:normal">有理数混合运算</td>
+              <td class="num cell-hi">20</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 18 题</td>
+              <td style="white-space:normal">整式化简求值</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 19 题</td>
+              <td style="white-space:normal">解一元一次方程</td>
+              <td class="num cell-hi">12</td>
+              <td><span class="tag easy">基础</span></td>
+            </tr><tr>
+              <td>第 20 题</td>
+              <td style="white-space:normal">尺规作图与说理</td>
+              <td class="num cell-hi">5</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 21 题</td>
+              <td style="white-space:normal">方程应用（配套/分配）</td>
+              <td class="num cell-hi">7</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 22 题</td>
+              <td style="white-space:normal">进位制（综合与实践）</td>
+              <td class="num cell-hi">5</td>
+              <td><span class="tag mid">中档</span></td>
+            </tr><tr>
+              <td>第 23 题</td>
+              <td style="white-space:normal">数轴动点与分类</td>
+              <td class="num cell-hi">6</td>
+              <td><span class="tag hard">较难</span></td>
+            </tr><tr>
+              <td>第 24 题</td>
+              <td style="white-space:normal">动角（旋转）</td>
+              <td class="num cell-hi">7</td>
+              <td><span class="tag top">压轴</span></td>
+            </tr></tbody>
+          </table></div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
+            解答题 68 分。前 20 题难度指数 1.41，第 21 题起 2.8。
+          </div>
         </div>
         <div class="card">
-          <h3>难度分布</h3>
+          <h3>这一卷哪一章比往年重</h3>
+          <div style="font-size:12.4px;color:var(--text-3);margin-bottom:10px">相对五年年均分的偏离 ｜ 蓝色=比往年重，灰色=比往年轻</div>
           <div class="dist-row">
-    <span class="dist-name">基础</span>
-    <span class="dist-bar-wrap"><span class="dist-bar ok" style="width:83%"></span></span>
-    <span class="dist-val">50 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">中档</span>
-    <span class="dist-bar-wrap"><span class="dist-bar " style="width:52%"></span></span>
-    <span class="dist-val">31 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">较难</span>
-    <span class="dist-bar-wrap"><span class="dist-bar gold" style="width:20%"></span></span>
-    <span class="dist-val">12 分</span>
-  </div><div class="dist-row">
-    <span class="dist-name">压轴</span>
-    <span class="dist-bar-wrap"><span class="dist-bar rose" style="width:12%"></span></span>
-    <span class="dist-val">7 分</span>
-  </div>
-          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3)">
-            题量：基础 9 · 中档 10 · 较难 4 · 压轴 1
+            <span class="dist-name">有理数的运算</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:100%"></span></span>
+            <span class="dist-val">+6.8 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">几何图形初步</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:82%"></span></span>
+            <span class="dist-val">-5.6 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">代数式</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:9%"></span></span>
+            <span class="dist-val">-0.6 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">有理数</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:6%"></span></span>
+            <span class="dist-val">-0.4 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">整式的加减</span>
+            <span class="dist-bar-wrap"><span class="dist-bar mute" style="width:6%"></span></span>
+            <span class="dist-val">-0.4 分</span>
+          </div><div class="dist-row">
+            <span class="dist-name">一元一次方程</span>
+            <span class="dist-bar-wrap"><span class="dist-bar " style="width:3%"></span></span>
+            <span class="dist-val">+0.2 分</span>
+          </div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3);line-height:1.7">
+            本卷 <b style="color:var(--text-2)">有理数的运算</b> 比五年均值多
+            <b style="color:var(--text-2)">6.8 分</b>，是偏离最大的一章。<br>
+            偏离最小的是 一元一次方程（+0.2 分）——
+            这一章的分值五年都很稳。
           </div>
         </div>
       </div>
       <div class="card">
-        <h3>本卷结构</h3>
-        <div class="tbl-wrap"><table>
-          <thead><tr><th>大题</th><th class="num">分值</th><th>说明</th></tr></thead>
-          <tbody>
-            <tr><td>一、选择</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
-            <tr><td>二、填空</td><td class="num">16</td><td>8 题 × 2 分</td></tr>
-            <tr><td>三、解答</td><td class="num">68</td><td>第17题20分；第18题6分；第19题12分；第20题5分；第21题7分；第22题5分；第23题6分；第24题7分</td></tr>
-            <tr><td>四、选做</td><td class="num">10</td><td>第25题4分，第26题6分（计入总分，卷面封顶 100）</td></tr>
-          </tbody>
-          <tfoot><tr><td>必做合计</td><td class="num">100</td><td>卷面封顶 100 分</td></tr></tfoot>
-        </table></div>
-        <div style="margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-          <span style="font-size:12.4px;color:var(--text-3)">选做考什么：</span>
-          <span class="tag bonus">新定义运算（新定义）</span> <span class="tag bonus">新定义（传送距离）（新定义）</span>
+        <h3>选做两道考什么</h3>
+        <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+          <span class="tag bonus">第 25 题 · 新定义运算（4 分）</span> <span class="tag bonus">第 26 题 · 新定义（传送距离）（6 分）</span>
+        </div>
+        <div style="margin-top:12px;font-size:12.6px;color:var(--text-3)">
+          选做 10 分计入总分，卷面封顶 100。本卷有答案（原卷含参考答案与解析（自带难度标注））。
         </div>
       </div>
 </section>
-
 
 
 </main>
