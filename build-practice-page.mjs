@@ -6,7 +6,7 @@ import { writeFileSync, readFileSync } from 'node:fs';
 import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';
 import { FAMILY_MAP } from './work/papers/stats.mjs';
 import { CH_NAME } from './work/papers/ledger.mjs';
-import { TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml, ROUND_SIZE } from './work/site-shell.mjs';
+import { TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml, ROUND_SIZE, THEME_INIT, THEME_SCRIPT } from './work/site-shell.mjs';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -79,7 +79,7 @@ body{padding-bottom:80px}
 
 /* 进度 */
 .progress{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:13px;color:var(--text-3)}
-.pbar{flex:1;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden}
+.pbar{flex:1;height:6px;background:var(--track);border-radius:3px;overflow:hidden}
 .pbar i{display:block;height:100%;background:var(--accent-grad);border-radius:3px;transition:width .3s}
 
 /* 题目卡 */
@@ -91,7 +91,7 @@ body{padding-bottom:80px}
 .tag.easy{background:var(--ok-soft);color:var(--ok)}
 .tag.mid{background:var(--accent-soft);color:var(--accent)}
 .tag.hard{background:var(--gold-soft);color:var(--gold)}
-.tag.seg{background:#eef3f8;color:#3a5a78}
+.tag.seg{background:var(--seg-bg);color:var(--seg-fg)}
 .q-no{font-family:var(--mono);font-size:12px;color:var(--text-3);margin-left:auto}
 .q-stem{font-size:16.5px;line-height:1.85;margin-bottom:20px;font-weight:500}
 
@@ -212,7 +212,7 @@ body{padding-bottom:80px}
 .tier-weak{background:var(--rose-soft);color:var(--rose)}
 .tier-shaky{background:var(--gold-soft);color:var(--gold)}
 .tier-solid{background:var(--ok-soft);color:var(--ok)}
-.tier-insufficient{background:#e2e8f0;color:var(--text-3)}
+.tier-insufficient{background:var(--track);color:var(--text-3)}
 .rate-weak{color:var(--rose)}
 .rate-shaky{color:var(--gold)}
 .rate-solid{color:var(--ok)}
@@ -269,6 +269,7 @@ const html = `<!DOCTYPE html>
 <title>备考诊断 · 西城初一数学</title>
 <meta name="description" content="对标西城期末真题的选择题与计算题诊断，自动判分并按考点族定位薄弱环节">
 <style>${CSS}</style>
+${THEME_INIT}
 </head>
 <body>
 ${headerHtml('practice.html')}
@@ -321,6 +322,7 @@ ${headerHtml('practice.html')}
 </main>
 
 <script type="module">${SCRIPT}</script>
+${THEME_SCRIPT}
 </body>
 </html>`;
 

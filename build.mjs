@@ -11,7 +11,7 @@ import {
   SCORE_TIERS, MAIN_GRAND, N_PAPERS,
 } from './work/papers/stats.mjs';
 import { CH_NAME, CH_ORDER, CAT_NAME, CAT_ORDER, DIFF_NAME, DIFF_ORDER, LEDGER } from './work/papers/ledger.mjs';
-import { SITE, NAV, CATALOG, CHOICE_KEY, TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml, ROUND_SIZE } from './work/site-shell.mjs';
+import { SITE, NAV, CATALOG, CHOICE_KEY, TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml, ROUND_SIZE, THEME_INIT, THEME_SCRIPT } from './work/site-shell.mjs';
 import { BANK as PRACTICE_BANK } from './practice-data.mjs';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -112,21 +112,33 @@ const CSS = TOKENS + HEAD_CSS + PAGEHEAD_CSS + `
 .ch-bar-row:first-of-type .ch-bar-track i{background:var(--gold-grad)}
 .ch-bar-val{font-size:12.5px;font-weight:700;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums}
 
-/* 必考族清单：12 行紧凑排列，条形长度按年均分降序 */
-.must-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
-  padding:6px 20px;box-shadow:var(--shadow-1)}
-.must-row{display:grid;grid-template-columns:26px 1fr 88px 62px;align-items:center;gap:10px;
-  padding:9px 0;border-bottom:1px solid var(--border)}
-.must-grid>.must-row:nth-last-child(-n+2){border-bottom:none}
-.must-no{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text-3);opacity:.7}
-.must-name{font-size:13.2px;font-weight:600;color:var(--text);min-width:0;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.must-bar{display:block;height:6px;background:var(--bg-3);border-radius:var(--r-pill);overflow:hidden}
-.must-bar i{display:block;height:100%;background:var(--accent-grad);border-radius:var(--r-pill)}
-.must-val{font-size:13px;font-weight:700;color:var(--accent);text-align:right;
-  font-variant-numeric:tabular-nums;white-space:nowrap}
-.must-val small{font-size:10.5px;font-weight:600;color:var(--text-3);margin-left:1px}
+/* 必考族：按分值分主次的方块阵列。
+ * 原来的等宽条形让「18.4 分」和「2 分」只差在长度，读不出量级；
+ * 这 12 族的分值差 9 倍，所以改成「前 3 名占满左栏、其余 9 族铺右栏」——
+ * 主次靠块的大小与深浅，不靠读者比长度。 */
+.must-wrap{display:grid;grid-template-columns:1.35fr 1fr;gap:10px;align-items:stretch}
+.must-hero{display:flex;flex-direction:column;gap:8px}
+.must-hero .must-tile{flex:1}
+.must-rest{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.must-tile{min-width:0;border-radius:9px;padding:9px 11px;
+  background:var(--accent-soft);border:1px solid rgba(37,99,235,.16);
+  display:flex;flex-direction:column;gap:2px;min-height:56px;justify-content:space-between}
+/* 分值最高的三块加深，形成主次 */
+.must-tile.hot{background:var(--accent-grad);border-color:transparent}
+.must-tile.hot .mt-name{color:#fff}
+.must-tile.hot .mt-val{color:#fff}
+.must-tile.hot .mt-val small{color:rgba(255,255,255,.75)}
+.mt-name{font-size:12px;font-weight:650;color:var(--text);line-height:1.35;
+  overflow:hidden;text-overflow:ellipsis;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical}
+.mt-val{font-size:15px;font-weight:800;color:var(--accent);line-height:1.1;
+  font-variant-numeric:tabular-nums}
+.mt-val small{font-size:10px;font-weight:600;color:var(--text-3);margin-left:1px}
+.must-hero .mt-name{font-size:12.5px}
+.must-hero .mt-val{font-size:19px}
+.must-rest .must-tile{min-height:0;padding:8px 10px}
+.must-rest .mt-name{font-size:11.5px}
+.must-rest .mt-val{font-size:14px}
 
 /* 行动横幅：考情讲完后给唯一动作 */
 .cta-band{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;
@@ -170,6 +182,10 @@ h3{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
 .card+.card{margin-top:14px}
 .grid{display:grid;gap:14px}
 .g2{grid-template-columns:repeat(2,1fr)}
+/* 网格子项默认 min-width:auto，会被内部 white-space:nowrap 的表格顶宽，
+   把整页撑出横向滚动（390px 视口下 docScrollWidth 到 441）。
+   允许子项收缩到 0，表格自己用 .tbl-wrap 的横向滚动兜住。 */
+.grid>*{min-width:0}
 /* 同排卡片高度拉齐后，内容少的那张下方会空一大块；
    align-items:start 让每张卡片只占自己内容的高度 */
 .grid.g2{align-items:start}
@@ -417,10 +433,16 @@ footer b{color:var(--text-2)}
   .hero-stats{grid-template-columns:repeat(2,1fr);gap:12px 0}
   .hero-stats b{font-size:22px}
   .g2,.g3,.g4,.tier-grid{grid-template-columns:1fr}
-  /* 必考族：窄屏改单列，条形收窄给名称让位 */
-  .must-grid{grid-template-columns:1fr;padding:4px 16px}
-  .must-grid>.must-row:nth-last-child(2){border-bottom:1px solid var(--border)}
-  .must-row{grid-template-columns:22px 1fr 60px 56px;gap:8px}
+  /* 必考族方块：窄屏两栏挤不下（右栏每块只剩 ~75px，族名被压成竖条），
+     改成上下堆叠——前三名整行排，其余九族两列。 */
+  .must-wrap{grid-template-columns:1fr;gap:8px}
+  .must-hero{gap:6px}
+  .must-rest{grid-template-columns:repeat(2,1fr);gap:6px}
+  .must-tile{min-height:46px;padding:8px 10px}
+  .must-hero .mt-name{font-size:12px}
+  .must-hero .mt-val{font-size:17px}
+  .mt-name{font-size:11.2px}
+  .mt-val{font-size:13.5px}
   .cta-band{padding:20px 20px;gap:16px}
   .cta-band-act{width:100%}
   .cta-band-act .btn{flex:1;justify-content:center}
@@ -447,6 +469,7 @@ function page(active, title, desc, body) {
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <style>${CSS}</style>
+${THEME_INIT}
 </head>
 <body>
 ${headerHtml(active)}
@@ -456,6 +479,7 @@ ${body}
 <footer class="wrap">
   <p><b>${esc(SITE.full)}</b> · 样本：西城区 ${YEARS.join(' / ')} 五套期末真题，共 ${LEDGER.length} 题逐题标注</p>
 </footer>
+${THEME_SCRIPT}
 </body>
 </html>`;
 }
@@ -891,10 +915,12 @@ function buildIndex() {
 <title>${esc(SITE.siteName)} · 期末真题考情与备考</title>
 <meta name="description" content="按省份、地区、年级、学期、科目选择，进入对应地区的期末考情分析与备考建议">
 <style>${TOKENS}${HEAD_CSS}${css}</style>
+${THEME_INIT}
 </head>
 <body>
 ${headerHtml('')}
 ${body}
+${THEME_SCRIPT}
 </body>
 </html>`;
 }
@@ -975,14 +1001,22 @@ function buildHome() {
 </section>
 
 ${section('必考族', `五年年年考的 ${FREQ.must.length} 个考点族`, `覆盖必做分 ${FREQ_SUMMARY.must.pct}%（${FREQ_SUMMARY.must.score}/${MAIN_GRAND} 分）——这 ${FREQ.must.length} 族五年没有一年缺席`, `
-<div class="must-grid">
-  ${FREQ.must.map((f, i) => `
-    <div class="must-row">
-      <span class="must-no">${String(i + 1).padStart(2, '0')}</span>
-      <span class="must-name">${esc(f.name)}</span>
-      <span class="must-bar"><i style="width:${Math.round((f.avgPerYear / FREQ.must[0].avgPerYear) * 100)}%"></i></span>
-      <span class="must-val">${f.avgPerYear}<small>分/年</small></span>
-    </div>`).join('')}
+<div class="must-wrap" style="background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:16px;box-shadow:var(--shadow-1)">
+  <div class="must-hero">
+    ${FREQ.must.slice(0, 3).map((f) => `
+      <div class="must-tile hot">
+        <span class="mt-name">${esc(f.name)}</span>
+        <span class="mt-val">${f.avgPerYear}<small>分/年</small></span>
+      </div>`).join('')}
+  </div>
+  <div class="must-rest">
+    ${FREQ.must.slice(3).map((f) => `
+      <div class="must-tile">
+        <span class="mt-name">${esc(f.name)}</span>
+        <span class="mt-val">${f.avgPerYear}<small>分/年</small></span>
+      </div>`).join('')}
+  </div>
 </div>
 <p style="margin-top:14px"><a href="trend.html#freq" style="color:var(--accent);font-weight:650;text-decoration:none;font-size:13.5px">看全部 ${FAMILY_MAP.length} 个考点族的五年频次 →</a></p>`)}
 
@@ -1002,7 +1036,7 @@ ${section('一个判断', '先练哪块，有唯一答案', '论证在整体解�
 
 <div class="cta-band">
   <div class="cta-band-main">
-    <b>想知道自己在这 ${FREQ.must.length} 族里，哪几族在丢分？</b>
+    <b>想知道自己在哪些章节、知识点、能力方面会丢分？</b>
     <span>做一轮 ${ROUND_Q} 题 · 约 12 分钟 · 覆盖 ${CH_COUNT} 章 · 不用注册，记录只存本机</span>
   </div>
   <div class="cta-band-act">
@@ -1258,6 +1292,57 @@ function buildTrend() {
     { tag: 'rare', label: '极少考', desc: '五年出现 1–2 次', d: FREQ_SUMMARY.rare },
   ];
 
+  /* ---------- 两张「卷 × 维度」热力矩阵 ----------
+   * 已有的是「族 × 学年」，回答「哪一族年年考」。
+   * 同一批数据的另外两个切面缺着：
+   *   卷 × 难度 → 验证「难度分布五年不动」到底多稳
+   *   卷 × 能力 → 看「分类讨论在加重、新定义退出必做」的逐卷证据
+   * 复用同一套 .heat 样式与色阶，读者不必学第二套视觉语言。 */
+  const heatMatrix = (opts) => {
+    const { rowKeys, rowName, rows, cellOf, corner } = opts;
+    const colMax = Math.max(...rowKeys.map((r) => Math.max(...rows.map((p) => cellOf(p, r) || 0))), 1);
+    const tbody = rows.map((p) => `<tr>
+      <td class="hc-fam-cell"><span class="fam-nm">${esc(p.label)}</span>
+        <span class="fam-sub">合计 ${opts.rowTotal(p)} 分</span></td>
+      ${rowKeys.map((r) => {
+        const v = cellOf(p, r) || 0;
+        const lv = Math.min(5, Math.max(1, Math.round((v / colMax) * 5)));
+        return `<td class="hc-cell" title="${esc(p.label)}｜${esc(rowName(r))}｜${v} 分">
+          <span class="cellbox ${v > 0 ? '' : 'zero'}" ${v > 0 ? `data-hl style="background:${HEAT_BG[lv]};color:${HEAT_FG[lv]}"` : ''}>${v > 0 ? v : '—'}</span>
+        </td>`;
+      }).join('')}
+    </tr>`).join('');
+    return `<div class="heat-wrap">
+<table class="heat" style="min-width:620px">
+<thead><tr>
+  <th class="hc-fam">${esc(corner)}</th>
+  ${rowKeys.map((r) => `<th>${esc(rowName(r))}</th>`).join('')}
+</tr></thead>
+<tbody>${tbody}</tbody>
+</table>
+</div>`;
+  };
+
+  /* 卷 × 难度：五年分布是否真的一样 */
+  const diffMatrix = heatMatrix({
+    corner: '学年',
+    rowKeys: DIFF_ORDER,
+    rowName: (k) => DIFF_NAME[k],
+    rows: PAPER_STATS,
+    cellOf: (p, k) => (p.diff && p.diff[k]) || 0,
+    rowTotal: (p) => sum(DIFF_ORDER.map((k) => (p.diff && p.diff[k]) || 0)),
+  });
+
+  /* 卷 × 能力：哪几项在变 */
+  const catMatrix = heatMatrix({
+    corner: '学年',
+    rowKeys: CAT_ORDER,
+    rowName: (k) => CAT_NAME[k],
+    rows: PAPER_STATS,
+    cellOf: (p, k) => (p.cat && p.cat[k]) || 0,
+    rowTotal: (p) => sum(CAT_ORDER.map((k) => (p.cat && p.cat[k]) || 0)),
+  });
+
   const body = `
 <section class="hero" style="padding:44px 0 8px">
   <div class="hero-badge"><span class="dot-live"></span>五年合起来看</div>
@@ -1383,6 +1468,34 @@ ${section('在变', '两处真在变，别按旧印象准备', '其余都是噪�
     </div>
   </div>
 </div>`, 'changing')}
+
+${section('逐卷切片', '把「没变」和「在变」摊成两张矩阵', '同一批数字的另外两个切面：行 = 学年，列 = 难度 / 能力', `
+<div style="display:flex;flex-direction:column;gap:22px">
+  <div>
+    <h3 style="margin-bottom:10px">卷 × 难度 <span style="font-size:12px;font-weight:600;color:var(--text-3)">每行合计 100 分</span></h3>
+    ${diffMatrix}
+    <div class="note" style="margin-top:12px">
+      <b>这一张证明「难度没变」不是四舍五入的错觉。</b>
+      四列五年各自加起来都在 100 分附近，没有哪一年把压轴挪成基础——
+      所以复习顺序可以按「哪块分值大」定，不必担心明年命题口味突变。
+    </div>
+  </div>
+  <div>
+    <h3 style="margin-bottom:10px">卷 × 能力 <span style="font-size:12px;font-weight:600;color:var(--text-3)">每行合计 100 分</span></h3>
+    ${catMatrix}
+    <div class="note" style="margin-top:12px">
+      <b>这一张是「在变」的逐卷证据。</b>
+      横看「分类」一行：前三年 8 / 7 / 7，后两年 13 / 13——加重是真的，不是均值巧合。
+      横看「新定义」一行：2022-23 起才冒出来，2025-26 归零（全部落到选做）。
+    </div>
+  </div>
+</div>
+<div class="heat-legend" style="margin-top:6px">
+  <span class="lg-note"><span class="lg-scale">
+    ${[1, 2, 3, 4, 5].map((lv) => `<i style="background:${HEAT_BG[lv]}"></i>`).join('')}
+  </span>相对该列最大值：浅 = 少，深 = 多</span>
+  <span class="lg-note"><span class="lg-zero"></span>该年未考</span>
+</div>`, 'slices')}
 
 ${section('考频', '按考频排，不按章节排',
     `共 ${FAMILY_MAP.length} 族 ｜ 必考 ${FREQ_SUMMARY.must.n} 族覆盖 ${FREQ_SUMMARY.must.pct}% 分值`, `

@@ -5,7 +5,7 @@ import { writeFileSync, readFileSync } from 'node:fs';
 
 import { BANK, FAM_META } from './practice-data.mjs';
 import { CH_NAME } from './work/papers/ledger.mjs';
-import { TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml } from './work/site-shell.mjs';
+import { TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml, THEME_INIT, THEME_SCRIPT } from './work/site-shell.mjs';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -66,7 +66,7 @@ body{padding-bottom:80px}
 .bar-weak{background:linear-gradient(135deg,#f43f5e,#e11d48)}
 .bar-shaky{background:linear-gradient(135deg,#f59e0b,#d97706)}
 .bar-solid{background:linear-gradient(135deg,#10b981,#059669)}
-.bar-insufficient{background:#cbd5e1}
+.bar-insufficient{background:var(--mute)}
 .ch-row{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px}
 .ch-rate{font-family:var(--mono);font-weight:700;font-variant-numeric:tabular-nums}
 .rate-weak{color:var(--rose)}.rate-shaky{color:var(--gold)}
@@ -75,7 +75,26 @@ body{padding-bottom:80px}
 .tier-weak{background:var(--rose-soft);color:var(--rose)}
 .tier-shaky{background:var(--gold-soft);color:var(--gold)}
 .tier-solid{background:var(--ok-soft);color:var(--ok)}
-.tier-insufficient{background:#e2e8f0;color:var(--text-3)}
+.tier-insufficient{background:var(--track);color:var(--text-3)}
+
+/* 能力雷达：8 项正确率的闭合轮廓。
+ * 8 张卡片各自一条进度条，读得出单项数值，读不出「哪几项齐、哪项凹进去」——
+ * 那正是能力切面的用处。所以这里换成雷达：形状给缺口，右侧图例给数值与样本量。 */
+/* 通栏（与上方汇总卡、下方章节卡同宽），但图例限宽：
+   不限的话 1fr 名字列会被拉到半个屏，百分比飘到最右边，读不出「名字—数值」的对应。 */
+.radar-wrap{display:flex;gap:26px;align-items:center;flex-wrap:wrap;
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:16px 20px}
+.radar{flex:none;display:block;max-width:100%;height:auto}
+.radar-legend{display:flex;flex-direction:column;gap:2px;flex:1 1 260px;max-width:320px;
+  min-width:196px}
+.radar-leg{display:grid;grid-template-columns:8px minmax(0,1fr) 42px 42px;align-items:center;
+  gap:8px;font-size:12.5px;color:var(--text-2);padding:1.5px 0}
+.radar-leg i{width:8px;height:8px;border-radius:2px;flex:none}
+.radar-leg b{font-variant-numeric:tabular-nums;font-weight:700;color:var(--text);text-align:right}
+.radar-leg span{font-size:11px;color:var(--text-3);font-variant-numeric:tabular-nums;text-align:right}
+.radar-note{font-size:12px;color:var(--text-3);line-height:1.65;margin-top:7px;
+  border-top:1px solid var(--border);padding-top:8px}
 
 /* 逐轮列表 */
 .round-list{display:flex;flex-direction:column;gap:10px}
@@ -268,6 +287,111 @@ function render() {
     return ord[a.tier] - ord[b.tier] || a.rate - b.rate;
   });
 
+  /* 能力雷达：把 8 项正确率画成闭合轮廓。
+   * 卡片网格能读单项数值，但读不出「哪几项齐、哪项明显凹进去」——
+   * 那正是「同一批题的两个切面」里能力切面的用处。
+   * 手写 SVG：站点零依赖，产物要能 file:// 直开。 */
+  /* 能力雷达：8 项正确率画成闭合轮廓。
+   * 卡片网格读得出单项数值，读不出「哪几项齐、哪项凹进去」——那正是能力切面的用处。
+   * 手写 SVG：站点零依赖，产物要能 file:// 直开。
+   * 注意：这段整体位于 SCRIPT 模板字符串内，只能用单引号拼接，
+   * 不能出现反引号或美元花括号插值，否则会把外层模板串断掉（上一版就是这样弄坏构建器的）。 */
+  const radarSvg = (() => {
+    const items = CAT_ORDER_UI.map((c) => {
+      const hit = cats.find((x) => x.cat === c);
+      const known = !!(hit && hit.total > 0);
+      return {
+        name: c,
+        rate: known ? hit.rate : 0,
+        known,
+        ok: known ? hit.ok : 0,
+        total: known ? hit.total : 0,
+        tier: known ? hit.tier : 'insufficient',
+      };
+    });
+    const knownN = items.filter((i) => i.known).length;
+    const S = 300, C = S / 2, R = 104;
+    const n = items.length;
+    const f = (x) => x.toFixed(1);
+    /* 从正上方开始顺时针。8 个轴均分 360°，标签在轴外侧 20px 处。 */
+    const pt = (i, r) => {
+      const a = (Math.PI * 2 * i) / n - Math.PI / 2;
+      return [C + Math.cos(a) * r, C + Math.sin(a) * r];
+    };
+    /* 网格：4 圈（25/50/75/100%）+ 8 根辐条。圈用 0.25 的整数倍，
+       这样「凹到哪一圈」可以直接读成刻度，不用另画刻度尺。 */
+    const rings = [0.25, 0.5, 0.75, 1].map((k) => {
+      const d = items.map((_, i) => pt(i, R * k))
+        .map((p, i) => (i ? 'L' : 'M') + f(p[0]) + ' ' + f(p[1])).join(' ') + ' Z';
+      return '<path d="' + d + '" fill="none" stroke="var(--border)" stroke-width="1"/>';
+    }).join('');
+    /* 圈刻度数字只标 50% 与 100%，标满四圈会挡住轮廓 */
+    const ticks = [0.5, 1].map((k) =>
+      '<text x="' + f(C - 5) + '" y="' + f(C - R * k + 11) + '" text-anchor="end" font-size="9.5" ' +
+      'fill="var(--text-3)" style="font-variant-numeric:tabular-nums">' +
+      Math.round(k * 100) + '%</text>').join('');
+    const spokes = items.map((_, i) => {
+      const p = pt(i, R);
+      return '<line x1="' + C + '" y1="' + C + '" x2="' + f(p[0]) + '" y2="' + f(p[1]) +
+        '" stroke="var(--border)" stroke-width="1"/>';
+    }).join('');
+    /* 数据多边形：没练到的按 0 画（轮廓凹到圆心，正是「缺口」的形状）。
+       但半径 0 会让相邻两点连成一条过圆心的线，看不出是轴上的点，
+       所以给一个 2% 的最小半径，让「未练」的点仍落在轴线上。 */
+    const dataPts = items.map((it, i) => pt(i, R * Math.max(it.rate, 0.02)));
+    const dataPath = dataPts.map((p, i) => (i ? 'L' : 'M') + f(p[0]) + ' ' + f(p[1])).join(' ') + ' Z';
+    const tierColor = (t) => t === 'weak' ? 'var(--rose)'
+      : t === 'shaky' ? 'var(--gold)' : t === 'solid' ? 'var(--ok)' : 'var(--text-3)';
+    /* 样本不足的点画成空心：1 题做对就是 100%，实心点会让轮廓看起来「这项满了」，
+       而实际还下不了结论。空心 + 图例的「—」是同一个信号。 */
+    const dots = dataPts.map((p, i) => {
+      const it = items[i];
+      if (!it.known) {
+        return '<circle cx="' + f(p[0]) + '" cy="' + f(p[1]) + '" r="2.4" fill="var(--text-3)"/>';
+      }
+      const hollow = it.tier === 'insufficient';
+      return '<circle cx="' + f(p[0]) + '" cy="' + f(p[1]) + '" r="' + (hollow ? 3.2 : 3.6) +
+        '" fill="' + (hollow ? 'var(--surface)' : tierColor(it.tier)) +
+        '" stroke="' + (hollow ? 'var(--text-3)' : 'var(--surface)') + '" stroke-width="1.6"/>';
+    }).join('');
+    /* 轴标签：只放能力名，数值在图例里——两处都写会挤，也会重复 */
+    const labels = items.map((it, i) => {
+      const p = pt(i, R + 22);
+      const anchor = Math.abs(p[0] - C) < 8 ? 'middle' : (p[0] > C ? 'start' : 'end');
+      return '<text x="' + f(p[0]) + '" y="' + f(p[1] + 4) + '" text-anchor="' + anchor + '" ' +
+        'font-size="11.5" font-weight="650" fill="' +
+        (it.known ? 'var(--text)' : 'var(--text-3)') + '">' + esc(it.name) + '</text>';
+    }).join('');
+    const svg = '<svg class="radar" viewBox="0 0 ' + S + ' ' + S + '" width="' + S +
+      '" height="' + S + '" role="img" aria-label="八种能力正确率雷达图">' +
+      rings + spokes + ticks +
+      '<path d="' + dataPath + '" fill="var(--accent-soft-2)" stroke="var(--accent)" ' +
+      'stroke-width="1.8" stroke-linejoin="round"/>' + dots + labels + '</svg>';
+    /* 图例：按正确率升序，凹的地方排前面；同时给样本量，
+       因为 1/1 和 9/10 都是 100%，不给样本量会误读。 */
+    const legend = items.slice().sort((a, b) => {
+      if (a.known !== b.known) return a.known ? -1 : 1;
+      return a.rate - b.rate;
+    }).map((it) => {
+      /* 样本不足（不到 3 题）不给百分比：1 题错 1 题就是 0%，
+         写成 0% 会被读成「这项全错」，而实际只是还没做到能下结论的量。 */
+      const short = it.known && it.tier === 'insufficient';
+      const pct = !it.known ? '—' : short ? '—' : Math.round(it.rate * 100) + '%';
+      const n = it.known ? it.ok + '/' + it.total : '未练到';
+      return '<div class="radar-leg"><i style="background:' + tierColor(it.tier) + '"></i>' +
+        esc(it.name) + '<b>' + pct + '</b><span>' + n + '</span></div>';
+    }).join('');
+    const shortN = items.filter((i) => i.known && i.tier === 'insufficient').length;
+    const note = knownN < n
+      ? '已练到 ' + knownN + ' / ' + n + ' 种；没练到的画在圆心，凹陷就是缺口。'
+      : shortN > 0
+        ? '八种能力都已练到；其中 ' + shortN + ' 种不到 3 题，暂不给分档。'
+        : '八种能力都已练到，看哪个方向凹进去。';
+    return '<div class="radar-wrap">' + svg +
+      '<div class="radar-legend">' + legend +
+      '<div class="radar-note">' + note + '</div></div></div>';
+  })();
+
   /* 能力区始终渲染。
    * 老版本记录没有 cats 字段时，原来是把整块跳掉——用户只看到章节，
    * 会以为站点根本不诊断能力。现在改为展示 8 个空槽并说明原因，
@@ -289,21 +413,8 @@ function render() {
           '所以这里还看不出能力分布。<b>再练一轮就会补上</b>——练习页每道题都标了所属能力，' +
           '新记录会按能力再切一次。</div>'
         : '') +
-      '<div class="ch-grid">' +
-      cats.map((c) => {
-        const pct = Math.round(c.rate * 100);
-        const known = c.total > 0;
-        return '<div class="ch-card">' +
-          '<div class="ch-name">' + esc(c.name) + '</div>' +
-          '<div class="ch-meta">' + (known
-            ? '累计 ' + c.ok + '/' + c.total + ' 题 · 覆盖 ' + c.times + ' 轮'
-            : '还没做到 · 下一轮会优先安排') + '</div>' +
-          '<div class="ch-bar"><i class="bar-' + c.tier + '" style="width:' + (known ? pct : 0) + '%"></i></div>' +
-          '<div class="ch-row"><span class="ch-rate rate-' + c.tier + '">' + (known ? pct + '%' : '—') + '</span>' +
-          '<span class="ch-tier tier-' + c.tier + '">' + (known ? TIER[c.tier] : '未轮到') + '</span></div>' +
-          '</div>';
-      }).join('') +
-      '</div></div>';
+      (noCatDetail ? '' : radarSvg) +
+      '</div>';
   }
 
   /* ---- 汇总：按考点族累计 ----
@@ -559,6 +670,7 @@ const html = `<!DOCTYPE html>
 <title>学情数据 · 西城初一数学</title>
 <meta name="description" content="逐轮练习记录与各章累计掌握情况，按章节汇总薄弱环节">
 <style>${CSS}</style>
+${THEME_INIT}
 </head>
 <body>
 ${headerHtml('history.html')}
@@ -573,6 +685,7 @@ ${headerHtml('history.html')}
 <script type="module">
 ${SCRIPT}
 </script>
+${THEME_SCRIPT}
 </body>
 </html>`;
 

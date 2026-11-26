@@ -110,13 +110,56 @@ export const TOKENS = `
   --shadow-3:0 16px 36px -10px rgba(15,23,42,.11),0 4px 12px -2px rgba(15,23,42,.05);
   --shadow-accent:0 10px 26px -8px rgba(37,99,235,.36);
   --hero-glow:radial-gradient(ellipse 80% 55% at 50% -10%,rgba(37,99,235,.11),transparent 70%);
+
+  /* 中性块（进度条底槽、灰色标签、「样本不足」档）：必须走变量，
+     否则暗色下留下一块浅灰。 */
+  --track:#e2e8f0; --mute:#cbd5e1;
+  --seg-bg:#eef3f8; --seg-fg:#3a5a78;
+  /* 顶栏半透明底色：原来是硬编码的浅色 rgba，暗色下会糊成一块亮条 */
+  --head-bg:rgba(246,248,252,.86);
+
+  color-scheme:light;
+}
+
+/* ---------- 暗色（2026-11-26 恢复） ----------
+ * 「重做站点」整站重写时把这套变量连同切换按钮一起丢了，用户反馈「白天黑夜
+ * 切换怎么没了」。现在放在全站唯一来源里，五个构建器都从 TOKENS 取，不会再各写一份。
+ * 只覆盖颜色类变量；圆角、字体、缓动这些与明暗无关的不动。 */
+[data-theme="dark"]{
+  --bg:#0b1120; --bg-2:#111827; --bg-3:#182234;
+  --surface:#111a2c; --surface-2:#162136;
+  --border:rgba(148,163,184,.12); --border-2:rgba(148,163,184,.22);
+  --text:#f1f5f9; --text-2:#94a3b8; --text-3:#64748b;
+
+  --accent:#60a5fa; --accent-h:#93c5fd;
+  --accent-soft:rgba(96,165,250,.13); --accent-soft-2:rgba(96,165,250,.20);
+  --accent-grad:linear-gradient(135deg,#3b82f6 0%,#6366f1 100%);
+
+  --purple:#a78bfa; --purple-soft:rgba(167,139,250,.14);
+  --gold:#fbbf24; --gold-soft:rgba(251,191,36,.14);
+  --gold-grad:linear-gradient(135deg,#f59e0b 0%,#eab308 100%);
+  --ok:#34d399; --ok-soft:rgba(52,211,153,.13);
+  --rose:#fb7185; --rose-soft:rgba(251,113,133,.14);
+
+  --shadow-1:0 1px 2px rgba(0,0,0,.35);
+  --shadow-2:0 6px 16px -4px rgba(0,0,0,.45);
+  --shadow-3:0 20px 40px -12px rgba(0,0,0,.60);
+  --shadow-accent:0 10px 28px -8px rgba(59,130,246,.45);
+  --hero-glow:radial-gradient(ellipse 80% 55% at 50% -10%,rgba(59,130,246,.18),transparent 70%);
+
+  --track:rgba(148,163,184,.22); --mute:rgba(148,163,184,.32);
+  --seg-bg:rgba(148,163,184,.14); --seg-fg:#94a3b8;
+  --head-bg:rgba(11,17,32,.82);
+
+  color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;background:var(--bg)}
 body{
   font-family:var(--sans); background:var(--bg); color:var(--text);
   line-height:1.68; font-size:15px; overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
+  transition:background .25s var(--ease),color .25s var(--ease);
 }
 a{color:inherit}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
@@ -127,7 +170,7 @@ export const HEAD_CSS = `
 /* ---------- 顶栏 ---------- */
 .site-head{
   position:sticky;top:0;z-index:60;
-  background:rgba(246,248,252,.86);
+  background:var(--head-bg);
   backdrop-filter:saturate(180%) blur(14px);
   border-bottom:1px solid var(--border);
 }
@@ -160,6 +203,20 @@ export const HEAD_CSS = `
 .hdr-nav a.nav-switch:hover{color:var(--accent);background:var(--accent-soft)}
 /* 选择页顶栏右侧的说明文字（不是链接） */
 .hdr-note{font-size:12.8px;color:var(--text-3);font-weight:500;padding:7px 0}
+
+/* ---------- 白天/黑夜切换 ----------
+ * 位置：导航最右，与「⇄ 切换」隔一条竖线，两者都是工具而非内容。
+ * 用原生 button 而不是 a：它不导航，只是切换本机偏好。 */
+.theme-btn{
+  flex:none;display:grid;place-items:center;
+  width:32px;height:32px;margin-left:4px;
+  border:1px solid var(--border);border-radius:50%;
+  background:var(--surface);color:var(--text-2);
+  font-size:15px;line-height:1;cursor:pointer;
+  transition:.16s var(--ease);
+}
+.theme-btn:hover{background:var(--accent-soft);border-color:var(--border-2);color:var(--accent)}
+.theme-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* 导航收缩：7 项 + 「切换」，标签变长后（「考情精简版」5 字）在中窄屏会被截断，
    用户看不到最后两项。这里逐级收紧内边距与字号，保证 768px 以上完整显示。
@@ -209,9 +266,72 @@ export const SHELL_MQ = `
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+/* ---------- 白天/黑夜切换：全站唯一来源 ----------
+ * 三件事必须同源，否则切换会失效或闪屏：
+ *   1. THEME_KEY      —— localStorage 键
+ *   2. THEME_INIT     —— 放在 <head> 里、样式之后立刻执行的内联脚本
+ *   3. themeBtn()     —— 顶栏按钮，点击后切一次并记住
+ *
+ * 为什么初始化脚本要内联在 <head>：如果等 DOMContentLoaded 再设 data-theme，
+ * 浏览器会先按浅色把整页画一遍，暗色用户每次进页面都闪一下白。
+ * 所以这段必须在 <body> 解析前同步跑完。
+ *
+ * 首次访问跟随时间（19:00–6:00 为夜间），之后以用户手动选择为准——
+ * 手动选过一次就再也不自动改，否则用户在白天切到夜间，第二天早上又被打回去。 */
+export const THEME_KEY = 'xz-theme-v1';
+
+export const THEME_INIT = `<script>
+(function(){
+  var KEY='${THEME_KEY}';
+  function auto(){var h=new Date().getHours();return (h>=19||h<6)?'dark':'light';}
+  var t=null;
+  try{ t=localStorage.getItem(KEY); }catch(e){}
+  if(t!=='light'&&t!=='dark') t=auto();
+  document.documentElement.setAttribute('data-theme',t);
+})();
+</script>`;
+
+/* 顶栏按钮：图标表示「点下去会变成什么」，不是「当前是什么」。
+ * 浅色时显示 ☾（点了进夜间），夜间显示 ☀（点了回白天）——
+ * 图标与结果一致，用户不用先想「现在是哪个」。 */
+export function themeBtnHtml() {
+  return `<button class="theme-btn" type="button" data-theme-toggle aria-label="切换白天/黑夜模式" title="切换白天/黑夜模式"><span data-theme-icon>☾</span></button>`;
+}
+
+/* 切换逻辑：与 THEME_INIT 共用同一个 KEY，放在页尾执行。
+ * 用事件委托挂在 document 上，选择页与内页的按钮都能命中，
+ * 不依赖某个具体的 id。 */
+export const THEME_SCRIPT = `<script>
+(function(){
+  var KEY='${THEME_KEY}';
+  var root=document.documentElement;
+  function icon(){
+    var dark=root.getAttribute('data-theme')==='dark';
+    document.querySelectorAll('[data-theme-icon]').forEach(function(el){ el.textContent = dark?'☀':'☾'; });
+    document.querySelectorAll('[data-theme-toggle]').forEach(function(b){
+      b.setAttribute('aria-label', dark?'切换到白天模式':'切换到黑夜模式');
+      b.title = dark?'切换到白天模式':'切换到黑夜模式';
+    });
+  }
+  document.addEventListener('click',function(e){
+    var btn=e.target.closest('[data-theme-toggle]');
+    if(!btn) return;
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{ localStorage.setItem(KEY,next); }catch(err){}
+    icon();
+  });
+  icon();
+})();
+</script>`;
+
 /* 顶栏标记：全站唯一来源。active 是高亮项 href
  * active 为空串时是选择页（index.html）：此时还没确定科目，
- * 不能显示数学站的内部导航（逐年拆解/备考建议…），只留站点名。 */
+ * 不能显示数学站的内部导航（逐年拆解/备考建议…），只留站点名。
+ *
+ * 切换按钮放在 <nav> 之外：nav 在窄屏是可横向滚动的条带，
+ * 按钮若在条带里就会被推到屏外（390px 视口下右边缘在 612px），
+ * 用户得先横滑导航才点得到——而它本该一直可见。 */
 export function headerHtml(active) {
   if (!active) {
     return `<header class="site-head"><div class="hdr-in">
@@ -222,6 +342,7 @@ export function headerHtml(active) {
   <nav class="hdr-nav">
     <span class="hdr-note">按地区与科目组织期末考情</span>
   </nav>
+  ${themeBtnHtml()}
 </div></header>`;
   }
   return `<header class="site-head"><div class="hdr-in">
@@ -233,5 +354,6 @@ export function headerHtml(active) {
     ${NAV.map(([h, t, cls]) => `<a href="${h}"${cls ? ` class="${cls}"` : (h === active ? ' class="on"' : '')}>${t}</a>`).join('')}
     <a href="index.html" class="nav-switch" title="切换地区 / 年级 / 科目">⇄ 切换</a>
   </nav>
+  ${themeBtnHtml()}
 </div></header>`;
 }

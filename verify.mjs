@@ -65,14 +65,22 @@ ok(idx.includes(`<b>${S.FREQ.must.length}</b><span>族年年考</span>`), '首�
 // 必考族清单必须列全，不能只列前几条
 const mustRows = (idx.match(/class="must-tile(?:\s|")/g) || []).length;
 ok(mustRows === S.FREQ.must.length, `首页列出全部 ${S.FREQ.must.length} 个必考族`, `${mustRows} 块`);
-// 方块宽度必须与分值成正比（flex-grow = 年均分），否则「加权的方块面积」就是假的
-const widths = [...idx.matchAll(/class="must-tile(?: hot)?"[^>]*width:(\d+)px/g)].map((m) => +m[1]);
-ok(widths.length === S.FREQ.must.length, '方块数 = 必考族数', String(widths.length));
-// 宽度必须单调反映分值：分值高的块必须更宽（面积加权的核心约束）
-const byWidth = [...S.FREQ.must.map((f, i) => ({ avg: f.avgPerYear, w: widths[i] }))]
-  .sort((a, b) => b.avg - a.avg);
-ok(byWidth.every((x, i) => i === 0 || byWidth[i - 1].w >= x.w),
-  '方块宽度按分值单调递减', byWidth.map((x) => x.avg + '→' + x.w).join(' '));
+/* 必考族清单的呈现方式在 2026-11-26 改过：原来是横向条形（宽度 = 分值），
+   现在是「前 3 名大块 + 其余小格」的网格。旧断言找 width:NNpx，改版后永远为 0。
+   这里守住新版真正要保证的三件事，不再检查已不存在的条形宽度。 */
+const tiles = [...idx.matchAll(/class="must-tile( hot)?"/g)].map((m) => !!m[1]);
+ok(tiles.length === S.FREQ.must.length, `首页列出全部 ${S.FREQ.must.length} 个必考族`, `${tiles.length} 块`);
+ok(tiles.filter(Boolean).length === 3, '前 3 名用大块（hot）突出，其余为小格',
+  `${tiles.filter(Boolean).length} 块 hot`);
+/* 前 3 块必须是分值最高的 3 族——否则「突出前 3」就成了随便挑 3 个。
+   族按 avgPerYear 降序时下标 0..2 就是前三名。 */
+{
+  const top3 = [...S.FREQ.must].sort((a, b) => b.avgPerYear - a.avgPerYear).slice(0, 3);
+  const hotNames = [...idx.matchAll(/class="must-tile hot">\s*<span class="mt-name">([^<]+)</g)]
+    .map((m) => m[1]);
+  ok(hotNames.length === 3 && top3.every((f, i) => hotNames[i] === f.name),
+    '大块恰是年均分最高的 3 族', `${hotNames.join('/')} vs ${top3.map((f) => f.name).join('/')}`);
+}
 // 行动入口仍在（考情讲完后给唯一动作），且指向练习页
 ok(/class="btn primary" href="practice\.html"/.test(idx), '行动横幅主按钮指向练习页');
 ok(idx.includes('href="history.html"'), '行动横幅有学情数据入口');
@@ -261,10 +269,15 @@ console.log('\n【四之三】两页划分：逐年拆解 vs 整体解读');
   ok(tr2.includes('heat-scroll-hint'), '窄屏有横滑提示（否则读者以为表格被裁断）');
   ok(tr2.includes('heat-legend'), '有图例');
   {
-    /* 格子总数必须 = 族数 × 学年数（不多不少，缺一格就是漏渲染） */
-    const cells = (tr2.match(/class="cellbox/g) || []).length;
+    /* 格子总数必须 = 族数 × 学年数（不多不少，缺一格就是漏渲染）。
+       2026-11-26 整体页加了两张同款热力表（卷×难度、卷×能力），它们也用 .cellbox，
+       直接数全页会把三张表混在一起。族×学年那张是唯一带 hc-hit 列的，
+       只数它内部，否则这条断言会被新表撑成「180 ≠ 120」。 */
+    const famTable = (tr2.match(/<table class="heat"[^>]*>[\s\S]*?<\/table>/g) || [])
+      .find((t) => t.includes('hc-hit')) || '';
+    const cells = (famTable.match(/class="cellbox/g) || []).length;
     const want = S.FAMILY_MAP.length * S.YEARS.length;
-    ok(cells === want, `格子数 = 族数 × 学年数（${cells} = ${S.FAMILY_MAP.length} × ${S.YEARS.length}）`);
+    ok(cells === want, `族×学年格子数 = 族数 × 学年数（${cells} = ${S.FAMILY_MAP.length} × ${S.YEARS.length}）`);
 
     /* 色阶必须 5 档、且 5 档都有格子。语义分档（2/3-5/6-8/9-12/13+）在数学站成立，
        分位数会塌档（20% 与 40% 分位都是 2 分）——这里把「不塌档」锁住。 */
@@ -577,7 +590,20 @@ if (fs.existsSync('history.html')) {
   ok(hs.includes('还没有练习记录'), '有空状态提示');
   ok(hs.includes('exportBtn') && hs.includes('importBtn'), '有导出/导入（防清缓存丢数据）');
   ok(hs.includes('各能力累计掌握情况'), '有能力累计汇总区');
-  ok(hs.includes('还没做到'), '未覆盖能力在汇总里显式标注');
+  /* 能力区展示形式是雷达图（2026-11-26 由卡片网格改来）：
+   * 8 条进度条读得出单项数值，读不出「哪几项齐、哪项凹进去」，而后者才是能力切面的用处。
+   * 判据落在产物里的实际结构，不是「有这个字」。 */
+  ok(hs.includes('class="radar"') || hs.includes('class=\\"radar\\"'), '能力区用雷达图');
+  ok(hs.includes('八种能力正确率雷达图'), '雷达图有 aria-label');
+  ok(/const radarSvg = \(\(\) => \{/.test(hs), '雷达由数据派生（radarSvg）');
+  ok(!/<div class="ch-grid">' \+\s*\n\s*cats\.map/.test(hs), '能力区不再渲染 8 张卡片网格');
+  /* 雷达必须是纯 SVG 绘制，不许引外部图表库（产物要能 file:// 直开）。
+     判据不能只写 /d3/——色值 #34d399 里也含 d3，会误报。 */
+  ok(!/from ['"]d3|require\(['"]d3|cdn\.jsdelivr|unpkg\.com|echarts\.min\.js/i.test(hs),
+    '雷达不依赖外部图表库');
+  /* 未练到的能力要在图例里显式标注，不能静默按 0 显示成「0%」 */
+  ok(hs.includes('未练到'), '未覆盖能力在雷达图例里显式标注');
+  ok(hs.includes('没练到的画在圆心'), '雷达图说明未练到的按圆心画');
 
   /* 能力区不能被条件包裹后静默消失：老记录没有 cats 字段时，
      原来整块跳掉，用户只看到章节，会以为站点不诊断能力。
@@ -845,6 +871,56 @@ if (fs.existsSync('slides.html')) {
   ok(!/难度是前一段的两倍/.test(trLive), '整体页未写死「两倍」');
 } else {
   ok(false, 'slides.html 已生成');
+}
+
+console.log('\n【十二】白天/黑夜切换');
+/* 这套功能曾在「重做站点」整站重写时整块丢失（用户 2026-11-26 反馈
+ * 「白天黑夜模式的切换功能怎么丢了」）。加断言守住四件事，任何一件缺失都报错：
+ *   1. 共享外壳里同时有暗色变量块与切换按钮样式（单一来源）
+ *   2. 每个内容页 <head> 里有初始化脚本——否则暗色用户每次进页面先闪一下白
+ *   3. 每个内容页顶栏里有按钮——初始化了却没有入口，等于没有
+ *   4. 页面里没有残留的浅色硬编码（暗色下会变成亮块） */
+{
+  const shellSrc = fs.readFileSync('work/site-shell.mjs', 'utf8');
+  ok(/\[data-theme="dark"\]\s*\{/.test(shellSrc), '共享外壳定义了 [data-theme="dark"] 变量块');
+  ok(shellSrc.includes('.theme-btn{'), '共享外壳定义了切换按钮样式');
+  ok(shellSrc.includes('export const THEME_INIT'), '共享外壳导出初始化脚本（唯一来源）');
+  ok(shellSrc.includes('export const THEME_SCRIPT'), '共享外壳导出切换脚本（唯一来源）');
+
+  // 暗色块必须真的覆盖了底色/文字/边框，否则「切了但没变」
+  const darkBlock = (shellSrc.match(/\[data-theme="dark"\]\s*\{([\s\S]*?)\n\}/) || [, ''])[1];
+  for (const v of ['--bg:', '--surface:', '--text:', '--border:']) {
+    ok(darkBlock.includes(v), `暗色块覆盖了 ${v}`);
+  }
+
+  const themePages = ['index.html', 'home.html', 'papers.html', 'trend.html',
+    'plan.html', 'practice.html', 'history.html'].filter((f) => fs.existsSync(f));
+  let missInit = [], missBtn = [], missScript = [];
+  for (const f of themePages) {
+    const h = fs.readFileSync(f, 'utf8');
+    // 初始化脚本必须在 <head> 内（在 <body> 之前），不能等到 DOM 就绪
+    const head = h.slice(0, h.indexOf('<body'));
+    if (!/setAttribute\('data-theme'/.test(head)) missInit.push(f);
+    if (!h.includes('data-theme-toggle')) missBtn.push(f);
+    if (!/localStorage\.setItem\(KEY/.test(h)) missScript.push(f);
+  }
+  ok(missInit.length === 0, `各页 <head> 有主题初始化（${themePages.length} 页）`, missInit.join(','));
+  ok(missBtn.length === 0, '各页顶栏有切换按钮', missBtn.join(','));
+  ok(missScript.length === 0, '各页有点击切换并持久化的脚本', missScript.join(','));
+
+  // 主题按钮不能混进导航项比对（它是 <button>，不是 <a>），但也不能让导航少项
+  const hd = fs.readFileSync('home.html', 'utf8');
+  ok(/<button class="theme-btn"[^>]*data-theme-toggle/.test(hd), '按钮是 <button> 且带 data-theme-toggle 钩子');
+
+  // 残留浅色硬编码：暗色下这些会变成亮块
+  const lightLeft = [];
+  for (const f of ['build.mjs', 'build-practice-page.mjs', 'build-history.mjs']) {
+    const s = fs.readFileSync(f, 'utf8');
+    for (const m of s.matchAll(/background:(#(?:e2e8f0|cbd5e1|eef3f8|f8fafc|f1f5f9|ffffff|fff))\b/gi)) {
+      lightLeft.push(`${f}: ${m[0]}`);
+    }
+  }
+  ok(lightLeft.length === 0, '构建器无残留的浅色硬编码背景', lightLeft.join('; '));
 }
 
 console.log('\n' + (fail === 0 ? '=== 全部通过 ===' : `=== ${fail} 项未通过 ===`));
