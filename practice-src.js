@@ -823,7 +823,7 @@ function showDiag() {
       <button class="btn primary" id="againBtn">再练一轮</button>
       <a class="btn ghost" href="history.html">查看学情数据</a>
       <button class="btn ghost" id="clearHist">清空历史</button>
-      <a class="btn ghost" href="plan.html">看备考计划</a>
+      <a class="btn ghost" href="plan.html">看备考建议</a>
     </div>
   `;
 

@@ -863,7 +863,7 @@ function buildIndex() {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(SITE.siteName)} · 期末真题考情与备考</title>
-<meta name="description" content="按省份、地区、年级、学期、科目选择，进入对应地区的期末考情分析与备考计划">
+<meta name="description" content="按省份、地区、年级、学期、科目选择，进入对应地区的期末考情分析与备考建议">
 <style>${TOKENS}${HEAD_CSS}${css}</style>
 </head>
 <body>
@@ -940,7 +940,7 @@ function buildHome() {
         </a>
         <a class="mission-item" href="plan.html">
           <span class="mi-ico gold">🎯</span>
-          <span class="mi-main"><b>备考计划</b><small>五级优先级，先练什么后练什么</small></span>
+          <span class="mi-main"><b>备考建议</b><small>五级优先级，先练什么后练什么</small></span>
           <span class="mi-go">去看 →</span>
         </a>
       </div>
@@ -1399,7 +1399,7 @@ ${g.fams.map((f) => {
   return page('trend.html', '整体解读 · ' + SITE.short, '西城区初一上数学期末五年考情整体解读', body);
 }
 
-/* ============================ 备考计划 ============================ */
+/* ============================ 备考建议 ============================ */
 function buildPlan() {
   const pri = [
     {
@@ -1440,7 +1440,7 @@ function buildPlan() {
   const body = `
 <section class="hero" style="padding:44px 0 8px">
   <div class="hero-badge"><span class="dot-live"></span>五级优先级</div>
-  <h1>备考计划</h1>
+  <h1>备考建议</h1>
   <p class="lede">按「先练什么、后练什么」排顺序。顺序不是凭感觉定的——它由五年真题的考法分布决定。</p>
 </section>
 
@@ -1505,7 +1505,7 @@ ${section('自检', '一份可以打印的考前清单', '按题位检查，不�
   </tbody>
 </table></div>`, 'checklist')}
 `;
-  return page('plan.html', '备考计划 · ' + SITE.short, '西城区初一上数学期末备考计划：五级优先级', body);
+  return page('plan.html', '备考建议 · ' + SITE.short, '西城区初一上数学期末备考建议：五级优先级', body);
 }
 
 /* ============================ 输出 ============================ */

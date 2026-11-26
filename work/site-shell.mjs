@@ -11,7 +11,7 @@ export const SITE = {
   /* 导航站名（用户 2026-11-26 指定）：第一屏是地区/年级/科目选择器 */
   siteName: '期末考情导航站',
   short: '西城初一数学',
-  name: '西城区初一(上)数学期末 · 五年考情与备考计划',  full: '西城区初一(上)数学期末考情分析站',
+  name: '西城区初一(上)数学期末 · 五年考情与备考建议',  full: '西城区初一(上)数学期末考情分析站',
   exam: '西城区初一(上)期末',
 };
 
@@ -68,7 +68,7 @@ export const NAV = [
   ['home.html', '考情总览'],
   ['papers.html', '逐年拆解'],
   ['trend.html', '整体解读'],
-  ['plan.html', '备考计划'],
+  ['plan.html', '备考建议'],
   ['practice.html', '备考诊断'],
   ['history.html', '学情数据'],
   ['slides.html', '考情精简版', 'nav-slides'],
@@ -211,7 +211,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 /* 顶栏标记：全站唯一来源。active 是高亮项 href
  * active 为空串时是选择页（index.html）：此时还没确定科目，
- * 不能显示数学站的内部导航（逐年拆解/备考计划…），只留站点名。 */
+ * 不能显示数学站的内部导航（逐年拆解/备考建议…），只留站点名。 */
 export function headerHtml(active) {
   if (!active) {
     return `<header class="site-head"><div class="hdr-in">
