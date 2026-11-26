@@ -5,7 +5,7 @@ import { writeFileSync, readFileSync } from 'node:fs';
 
 import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';
 import { FAMILY_MAP } from './work/papers/stats.mjs';
-import { CH_NAME, CAT_ORDER } from './work/papers/ledger.mjs';
+import { CH_NAME, CAT_ORDER, CH_ORDER } from './work/papers/ledger.mjs';
 import { TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml, ROUND_SIZE, THEME_INIT, THEME_SCRIPT } from './work/site-shell.mjs';
 import { CHART_CSS, barBlock } from './work/charts.mjs';
 
@@ -264,6 +264,7 @@ SCRIPT = SCRIPT.replace(
   'const CH_NAME = ' + JSON.stringify(CH_NAME) + ';\n' +
   'const FAM_CAT_SCORE = ' + JSON.stringify(FAM_CAT_SCORE) + ';\n' +
   'const CAT_ORDER = ' + JSON.stringify(CAT_ORDER) + ';\n' +
+  'const CH_ORDER = ' + JSON.stringify(CH_ORDER) + ';\n' +
   /* 柱状图画法与学情数据页共用同一份（work/charts.mjs），构建时内联进单文件页面 */
   barBlock.toString()
 );

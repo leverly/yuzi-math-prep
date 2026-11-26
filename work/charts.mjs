@@ -24,11 +24,13 @@ export const CHART_CSS = `
   border-top:1px solid var(--border);padding-top:9px}
 `;
 
-/* 画一张能力掌握度柱状图。参数：
+/* 画一张掌握度 / 薄弱度柱状图。参数：
  *   items: [{ name, rate, known, ok, total, tier }]
  *     known=false 表示这一项这轮/累计还没做到，画一段基线残条 + 「未轮到」
  *     tier: 'weak' | 'shaky' | 'solid' | 'insufficient'（决定柱色与是否空心）
- *   opts: { aria, note, width, height }
+ *   opts: { aria, note, width, height, metric, axis }
+ *     metric='weak' 时纵轴画薄弱度（= 1 − 正确率），柱高代表「错多少」。
+ *     章节图用 weak、能力图用 rate——两处结论方向不同，共用画法但不共用纵轴。
  * 返回：<div class="bar-wrap">…</div>
  *
  * 注意：本函数源码会被 .toString() 注入页面，不要用反引号、不要用外部依赖。
@@ -37,7 +39,12 @@ export function barBlock(items, opts) {
   opts = opts || {};
   var W = opts.width || 660;
   var H = opts.height || 262;
-  /* mT 留 36：纵轴名「掌握度」放最上面一行，与 100% 刻度错开 */
+  /* 纵轴方向：'rate' 掌握度（越高越好）| 'weak' 薄弱度（越高越该补） */
+  var weak = opts.metric === 'weak';
+  /* 柱高取的那个值：薄弱度 = 1 − 正确率 */
+  var valOf = function (it) { return weak ? 1 - it.rate : it.rate; };
+  var axisName = opts.axis || (weak ? '薄弱度' : '掌握度');
+  /* mT 留 36：纵轴名放最上面一行，与 100% 刻度错开 */
   /* mL 留 40：纵轴刻度「100%」加左侧留白，太窄会被滚动容器边缘裁掉 */
   var mL = 40, mR = 12, mT = 36, mB = 50;
   var plotW = W - mL - mR;
@@ -82,7 +89,7 @@ export function barBlock(items, opts) {
   /* 纵轴名左对齐绘图区起点，不用 end 锚点——
      end 锚点会让 3 个字的起点落在负坐标上，滚动容器一裁就缺首字（实测踩到）。 */
   grid += '<text x="' + num(mL - 33) + '" y="' + num(mT - 20) +
-    '" font-size="10" fill="var(--text-3)">掌握度</text>';
+    '" font-size="10" fill="var(--text-3)">' + escB(axisName) + '</text>';
 
   var bars = '';
   for (i = 0; i < n; i++) {
@@ -94,13 +101,14 @@ export function barBlock(items, opts) {
        实心柱会被读成「这项满了」，而实际还下不了结论。 */
     var short = known && it.tier === 'insufficient';
     var col = tierColor(it.tier);
+    var v = valOf(it);
 
     if (!known) {
       /* 未做到：基线上留一段残条，让人看出「这里有一项、只是没数据」 */
       bars += '<rect x="' + num(x) + '" y="' + num(mT + plotH - 2.5) + '" width="' +
         num(barW) + '" height="2.5" rx="1.2" fill="var(--border-2)"/>';
     } else {
-      var h = Math.max(plotH * it.rate, 2);
+      var h = Math.max(plotH * v, 2);
       var by = mT + plotH - h;
       if (short) {
         bars += '<rect x="' + num(x) + '" y="' + num(by) + '" width="' + num(barW) +
@@ -112,10 +120,11 @@ export function barBlock(items, opts) {
       }
     }
 
-    /* 柱顶数值：样本不足与未做到都写「—」，不给假结论 */
-    var pct = !known || short ? '—' : Math.round(it.rate * 100) + '%';
+    /* 柱顶数值：样本不足与未做到都写「—」，不给假结论。
+       薄弱度模式下写的是「错多少」，所以标签也跟着换算。 */
+    var pct = !known || short ? '—' : Math.round(v * 100) + '%';
     var pctY = known && !short
-      ? mT + plotH - Math.max(plotH * it.rate, 2) - 7
+      ? mT + plotH - Math.max(plotH * v, 2) - 7
       : mT + plotH - 9;
     bars += '<text x="' + num(cx) + '" y="' + num(pctY) + '" text-anchor="middle" ' +
       'font-size="11.5" font-weight="700" fill="' +
@@ -135,7 +144,8 @@ export function barBlock(items, opts) {
      直接缩放 viewBox 会让字号一起缩小，8 项挤在 360px 里完全读不出。 */
   var svg = '<svg class="bar-chart" viewBox="0 0 ' + W + ' ' + H +
     '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' +
-    escB(opts.aria || '能力掌握度柱状图') + '">' + grid + bars + '</svg>';
+    escB(opts.aria || (weak ? '各章节薄弱度柱状图' : '能力掌握度柱状图')) + '">' +
+    grid + bars + '</svg>';
 
   return '<div class="bar-wrap"><div class="bar-scroll">' + svg + '</div>' +
     (opts.note ? '<div class="bar-note">' + escB(opts.note) + '</div>' : '') +

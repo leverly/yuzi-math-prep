@@ -397,16 +397,24 @@ if (fs.existsSync('practice.html')) {
   ok(pr.includes('catUsed') && pr.includes('已够样本的能力降级'), '出题按能力去重');
   // 能力「未轮到」必须显式说明，不能静默不显示
   ok(pr.includes('这轮没做到'), '未覆盖的能力有显式说明');
-  /* 本轮诊断的能力切面用柱状图（2026-11-26 由列表行 → 雷达 → 柱状图）。
-   * 章节仍是列表——横轴是能力项，混进 6 个章节会读不出对应。 */
+  /* 本轮诊断的两个切面都出柱状图（2026-11-26：能力由列表行 → 雷达 → 柱状图；
+   * 章节由列表行 → 柱状图）。两张图纵轴方向相反，是刻意的：
+   *   章节图画「薄弱度」（1 − 正确率），柱子越高越该先补；
+   *   能力图画「掌握度」，柱子越高越好。
+   * 用同一套 barBlock，靠 metric 参数切换纵轴。 */
   ok(pr.includes('function barBlock('), '本轮诊断内联了共享柱状图画法');
-  ok(/chartSection\(\{/.test(pr), '本轮诊断按能力出柱状图');
-  ok(pr.includes('本轮各能力掌握度柱状图'), '本轮柱状图有 aria-label');
-  ok(!pr.includes('本轮各章节') && !pr.includes('radarSection') && !pr.includes('radarBlock'),
-    '章节不画图（只保留能力一张），雷达已移除');
+  ok(/chartSection\(\{/.test(pr), '本轮诊断出柱状图');
+  ok(pr.includes('本轮各能力掌握度柱状图'), '能力柱状图有 aria-label');
+  ok(pr.includes('本轮各章节薄弱度柱状图'), '章节柱状图有 aria-label');
+  ok(/metric: 'weak'/.test(pr), '章节图纵轴是薄弱度（1 − 正确率）');
+  ok(!pr.includes('radarSection') && !pr.includes('radarBlock'), '雷达已移除，不留两套图表');
   /* 横轴顺序必须固定：柱状图要跨轮比较，按「薄弱优先」重排会失去可比性 */
-  ok(/items: CAT_ORDER\.map/.test(pr), '柱状图横轴用固定顺序 CAT_ORDER');
+  ok(/items: CAT_ORDER\.map/.test(pr), '能力图横轴用固定顺序 CAT_ORDER');
+  ok(/items: CH_ORDER\.map/.test(pr), '章节图横轴用固定顺序 CH_ORDER（按章节顺序排）');
   ok(pr.includes('const CAT_ORDER = '), 'CAT_ORDER 已内联');
+  ok(pr.includes('const CH_ORDER = '), 'CH_ORDER 已内联');
+  /* 章节图必须真的按章节顺序排，不能沿用 d.chs 的薄弱优先排序 */
+  ok(!/items: d\.chs\.map/.test(pr), '章节图不沿用诊断的薄弱优先排序');
   /* 分档名必须提到模块级：chartSection 在 showDiag 之外，用局部变量会 ReferenceError，
      整块诊断面板会变空白（2026-11-26 实际踩到，产物构建成功但页面空） */
   ok(/^const TIER_NAME = \{/m.test(pr), '分档名提到模块级（雷达兜底列表要用）');
@@ -597,7 +605,11 @@ if (fs.existsSync('history.html')) {
   const hs = fs.readFileSync('history.html', 'utf8');
   ok(hs.includes('<title>学情数据'), '页面标题为「学情数据」');
   ok(hs.includes('<h1>学情数据</h1>'), '页面主标题为「学情数据」');
-  ok(hs.includes('各章累计掌握情况'), '有章节汇总区');
+  /* 章节区 2026-11-26 由卡片网格改成柱状图，标题也从「掌握情况」改为「薄弱度」。
+     判据落在 <h2> 上而不是全页 includes——meta description 里也含这几个字，
+     用全页匹配会让「标题没改」也通过（改标题时实际踩到过这条假通过）。 */
+  ok(/<h2>各章累计薄弱度<\/h2>/.test(hs), '有章节薄弱度区');
+  ok(/<h2>各能力累计掌握情况<\/h2>/.test(hs), '有能力累计区');
   ok(hs.includes('逐轮记录'), '有逐轮记录区');
   ok(hs.includes('const BANK = '), '题库已内联');
   ok(hs.includes('xz-practice-v1'), '与练习页共用同一存储键');

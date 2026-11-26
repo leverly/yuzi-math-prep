@@ -728,7 +728,9 @@ function next() {
 
 /* ============ 诊断面板 ============ */
 /* 一节图表：标题 + 柱状图。
- * 画法在 work/charts.mjs 的 barBlock（构建时内联到页面脚本）。 */
+ * 画法在 work/charts.mjs 的 barBlock（构建时内联到页面脚本）。
+ * metric 必须转发：章节图画薄弱度、能力图画掌握度，两处共用同一画法但纵轴方向相反，
+ * 漏传会让章节图的纵轴也标成「掌握度」，柱子越高反而越像「越好」（2026-11-26 踩到）。 */
 function chartSection(o) {
   return '<div class="diag-sub">' +
     '<div class="diag-head">' +
@@ -736,7 +738,7 @@ function chartSection(o) {
       '<h2 style="font-size:19px">' + o.title + '</h2>' +
       '<span class="diag-sub-note">' + o.sub + '</span>' +
     '</div>' +
-    barBlock(o.items, { aria: o.aria, note: o.note }) +
+    barBlock(o.items, { aria: o.aria, note: o.note, metric: o.metric, axis: o.axis }) +
     '</div>';
 }
 
@@ -786,17 +788,32 @@ function showDiag() {
       <div class="sm solid"><div class="n">${d.chs.filter(c=>c.tier==='solid').length}</div><div class="l">已掌握</div></div>
     </div>
 
-    <div class="fam-rows" style="margin-bottom:4px">
-      ${d.chs.map(c => `
-        <div class="fam-row">
-          <div>
-            <div class="fam-name">${esc(c.name)}</div>
-            <div class="fam-sub">${c.ok}/${c.total} 题正确${c.topErr ? ' · 主错因：' + esc(c.topErr.cat) : ''}</div>
-          </div>
-          <div class="fam-rate ${rateCls(c.tier)}">${Math.round(c.rate * 100)}%</div>
-          <div class="fam-tier tier-${c.tier}">${TIER_NAME[c.tier]}</div>
-        </div>`).join('')}
-    </div>
+    ${d.chs && d.chs.length ? chartSection({
+      kicker: 'Chapters',
+      title: '按章节看薄弱度',
+      sub: '柱子越高越该先补',
+      /* 横轴固定 CH_ORDER 章节顺序，不沿用 d.chs 的「薄弱优先」排序：
+         柱状图要跨轮比较，每轮按薄弱度重排会让「上一轮这根高、这轮那根高」
+         失去可比性；固定顺序后，同一根柱子的高度变化就是进步。 */
+      items: CH_ORDER.map(ch => {
+        const c = d.chs.find(x => x.ch === ch);
+        const known = !!(c && c.total > 0);
+        return {
+          name: CH_NAME[ch] || ch,
+          rate: known ? c.rate : 0,
+          known,
+          ok: known ? c.ok : 0,
+          total: known ? c.total : 0,
+          tier: known ? c.tier : 'insufficient',
+        };
+      }),
+      /* 纵轴画薄弱度（1 − 正确率），与能力图（画掌握度）方向相反：
+         章节这块的问题是「先补哪一章」，所以柱子越高 = 越该先补。 */
+      metric: 'weak',
+      note: '薄弱度 = 100% − 正确率，柱子越高越该先补。每章 3 题，错 1 题就是 67%。'
+        + '每轮都会自动累加，练两三轮后这个比例才稳。',
+      aria: '本轮各章节薄弱度柱状图',
+    }) : ''}
 
     ${d.cats && d.cats.length ? chartSection({
       kicker: 'Abilities',
