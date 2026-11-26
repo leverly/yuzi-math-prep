@@ -42,7 +42,7 @@ export const CATALOG = {
   subjects: {
     'beijing/xicheng/g7/t1': [
       /* 本站自有：数学（唯一可点的科目） */
-      { id: 'math', name: '数学', desc: '5 套区统考真题 · 130 题逐题标注', href: 'home.html', papers: 5, own: true },
+      { id: 'math', name: '数学', desc: '近五年真题逐题标注', href: 'home.html', papers: 5, own: true },
       /* 建设中：英语站已存在，但先不放出入口；语文尚未开工。
        * 这类项没有 href，选择器渲染为不可点 + 「建设中」标记。
        * 上线时补上 href 并去掉 building 即可。 */
