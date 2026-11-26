@@ -337,18 +337,103 @@ ok(shell.includes('.hero-badge{'), 'badge 样式定义在共享外壳');
 console.log('\n【十一】演示幻灯片（slides.html）');
 if (fs.existsSync('slides.html')) {
   const sl = fs.readFileSync('slides.html', 'utf8');
+
+  /* ---- 11.1 逐题台账重算演示里出现的每个数字，不信任构建脚本 ---- */
+  const W = { easy: 1, mid: 2, hard: 3, top: 4 };
+  const sumScore = (arr) => arr.reduce((a, q) => a + q.score, 0);
+  const mainOf = (p) => LEDGER.filter((q) => q.p === p && !q.bonus);
+  const papers = S.PAPER_STATS.map((s) => s.id);
+
+  // 第 17 题：单题最高、同考点、全基础档
+  const q17 = papers.map((p) => LEDGER.find((q) => q.p === p && q.no === 17));
+  const q17Scores = q17.map((q) => q.score);
+  ok(q17.every(Boolean), '五套卷都有第 17 题');
+  ok(Math.max(...q17Scores) === Math.max(...LEDGER.filter((q) => !q.bonus).map((q) => q.score)),
+    `第 17 题是全卷单题最高分（${Math.max(...q17Scores)} 分）`);
+  ok(new Set(q17.map((q) => q.topic)).size === 1 && q17.every((q) => q.diff === 'easy'),
+    '第 17 题五年同考点且同为基础档');
+
+  // 第 17 题 > 第 23+24 题之和（逐年）
+  const tail = papers.map((p) => {
+    const a = LEDGER.find((q) => q.p === p && q.no === 23);
+    const b = LEDGER.find((q) => q.p === p && q.no === 24);
+    return (a ? a.score : 0) + (b ? b.score : 0);
+  });
+  ok(q17Scores.every((s, i) => s > tail[i]),
+    `第 17 题逐年都超过第 23+24 题之和（${q17Scores.join(',')} vs ${tail.join(',')}）`);
+
+  // 断崖：前 20 题难度指数必须明显低于第 21 题之后（逐年都成立）
+  const cliffGaps = papers.map((p) => {
+    const front = mainOf(p).filter((q) => q.no <= 20);
+    const back = mainOf(p).filter((q) => q.no > 20);
+    const idx = (arr) => sumScore(arr.map((q) => ({ score: W[q.diff] * q.score }))) / sumScore(arr);
+    return idx(back) / idx(front);
+  });
+  ok(cliffGaps.every((g) => g > 1.5),
+    `每套卷「第 21 题之后」难度指数都超过「前 20 题」的 1.5 倍（${cliffGaps.map((g) => g.toFixed(2)).join(' ')}）`);
+
+  // 稳定题位：五个五年零例外基础档的位置
+  const byNo = new Map();
+  for (const q of LEDGER) {
+    if (!byNo.has(q.no)) byNo.set(q.no, []);
+    byNo.get(q.no).push(q);
+  }
+  const stable = [...byNo.entries()]
+    .filter(([, qs]) => qs.length === S.N_PAPERS && qs.every((q) => q.diff === 'easy'))
+    .map(([no]) => no)
+    .sort((a, b) => a - b);
+  ok(stable.length > 0 && stable.every((n) => sl.includes('第 ' + n + ' 题')),
+    `稳定题位 ${stable.map((n) => 'q' + n).join(' ')} 全部出现在页面上`);
+
+  // 计算 / 概念占比
+  let calc = 0, concept = 0;
+  for (const q of LEDGER) {
+    if (q.bonus) continue;
+    if (q.cat === '计算') calc += q.score;
+    if (q.cat === '概念') concept += q.score;
+  }
+  const calcAvg = calc / S.N_PAPERS, conceptAvg = concept / S.N_PAPERS;
+  ok(sl.includes(calcAvg.toFixed(1)) && sl.includes(conceptAvg.toFixed(1)),
+    `计算 ${calcAvg.toFixed(1)} 分 / 概念 ${conceptAvg.toFixed(1)} 分 与台账一致`);
+
+  // 计算三块（有理数 / 解方程 / 整式化简）
+  const calc3 = ['f-arith', 'f-solveeq', 'f-simplify'].map((id) => S.FAMILY_MAP.find((f) => f.id === id));
+  ok(calc3.every(Boolean), '计算三族均存在于 FAMILY_MAP');
+  ok(calc3.every((f) => sl.includes(String(f.avgPerYear))),
+    `计算三族年均分 ${calc3.map((f) => f.avgPerYear).join(' / ')} 都在页面上`);
+  ok(calc3.every((f) => f.slots.every((s) => s.diff === 'easy')),
+    '计算三族逐年落点全是基础档（"位置与难度都不变"这句话成立）');
+
+  // 第 23 题：五年全是分类能力
+  const q23 = papers.map((p) => LEDGER.find((q) => q.p === p && q.no === 23));
+  ok(q23.every((q) => q && q.cat === '分类'), '第 23 题五年全是「分类」能力');
+
+  // 必考族清单必须全部列出，且数量与 FREQ.must 一致
+  const mustNames = S.FREQ.must.map((f) => f.name);
+  ok(mustNames.every((n) => sl.includes(n)), `${mustNames.length} 个必考族全部列出`);
+  ok(sl.includes(`>${S.FREQ.must.length}</b><span>个必考族`), `必考族计数 ${S.FREQ.must.length} 派生正确`);
+
+  // 基础+中档占比
+  const baseMid = +(S.DIFF_SCORE.easy.avg + S.DIFF_SCORE.mid.avg).toFixed(1);
+  ok(sl.includes(String(baseMid)), `基础+中档年均 ${baseMid} 分 派生正确`);
+
+  /* ---- 11.2 结构与交互 ---- */
   ok(sl.includes(`${LEDGER.length}</b><span>题逐题标注`), `题数 ${LEDGER.length} 派生正确`);
   ok(sl.includes(`${S.FAMILY_MAP.length}</b><span>个考点族`), `族数 ${S.FAMILY_MAP.length} 派生正确`);
-  ok(sl.includes(`${S.FREQ.must.length}</b><span>个必考族`), `必考族 ${S.FREQ.must.length} 派生正确`);
-  ok(sl.includes(`基础+中档占`), '有基础+中档占比论断');
   const slideN = (sl.match(/class="slide/g) || []).length;
   ok(slideN >= 9, `页数 ${slideN}`);
-  // 交互必须齐备
   ok(sl.includes('ArrowRight') && sl.includes('requestFullscreen') && sl.includes('data-go'),
     '键盘翻页 / 全屏 / 总览交互齐备');
-  ok(sl.includes('/^([0-9]+)$/') || sl.includes('p=(\\d+)'), '支持 ?p=N 定位');
-  // 与英语站同一套舞台尺寸
+  ok(sl.includes('p=(\\d+)'), '支持 ?p=N 定位');
   ok(sl.includes('window.innerWidth/1280') && sl.includes('window.innerHeight/720'), '16:9 舞台按窗口缩放');
+
+  // 已删除的审计型页面不得回流
+  for (const gone of ['六章分值分布', '八种能力的分值分布', '题位骨架']) {
+    ok(!sl.includes(gone), `已删除的「${gone}」未回流`);
+  }
+
+  // 页码不得超出实际页数
+  ok(!sl.includes(`/ ${slideN + 1}<`), '页码与页数一致');
 } else {
   ok(false, 'slides.html 已生成');
 }
