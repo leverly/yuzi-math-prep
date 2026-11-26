@@ -418,6 +418,14 @@ function persistSession(records, diagResult) {
       cat: c.cat, name: c.name, total: c.total, ok: c.ok, tier: c.tier,
       topErr: c.topErr ? c.topErr.cat : null,
     })),
+    /* 考点族级明细：诊断每轮都算了 fams（23 族），原来用完就扔，
+       导致历史页只能在「章」和「能力」两个层级累计。
+       存下来后历史页才能给出「尺规作图与说理 3/3 对」这种具体结论。 */
+    fams: (diagResult.fams || []).map((f) => ({
+      fam: f.fam, name: f.name, ch: (FAM_META[f.fam] || {}).ch || 'unknown', cat: f.cat,
+      total: f.total, ok: f.ok, tier: f.tier,
+      topErr: f.topErr ? f.topErr.cat : null,
+    })),
   });
   // 累计记录：用于「历史累计诊断」
   for (const r of records) {

@@ -137,6 +137,13 @@ body{padding-bottom:80px}
 .sect-head .sub{font-size:12.5px;color:var(--text-3)}
 
 .ch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+/* 考点族按章分组：每章一个小组，带「几个考点有样本」的计数 */
+.fam-grp{margin-bottom:18px}
+.fam-grp:last-child{margin-bottom:0}
+.fam-grp-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  font-size:13px;font-weight:700;color:var(--text-2);margin-bottom:9px;
+  padding-bottom:6px;border-bottom:1px solid var(--border)}
+.fam-grp-h span{font-size:11.5px;font-weight:600;color:var(--text-3)}
 .ch-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:15px 17px}
 .ch-name{font-size:14.5px;font-weight:700;margin-bottom:3px}
 .ch-meta{font-size:12px;color:var(--text-3);margin-bottom:10px}
@@ -401,6 +408,94 @@ function render() {
           '</div>';
       }).join('') +
       '</div></div>';
+  }
+
+  /* ---- 汇总：按考点族累计 ----
+   * 这是三层里最细的一层（章 6 / 能力 8 / 族 23）。
+   * 一轮 18 题只碰 6 个族（每章 1 个），所以 23 个族要靠 4 轮以上才陆续有样本。
+   * 页面上必须把这件事说清，否则大量「还没做到」看起来像坏了。 */
+  const famAgg = new Map();
+  /* 以「题库里全部考点族」为全集初始化，不只纳入做过的。
+     否则没做到的族整块不出现，读者看不出还有多少没轮到（能力区踩过同一个坑）。 */
+  for (const [fid, meta] of Object.entries(FAM_META)) {
+    famAgg.set(fid, {
+      fam: fid, name: meta.name || fid, ch: meta.ch || 'unknown', cat: meta.cat,
+      total: 0, ok: 0, times: 0, errMix: {},
+    });
+  }
+  /* 旧记录里可能出现题库已下线的族 id（改名或合并）。
+     不新建卡片——否则同一个考点会以两个名字出现两次（实测踩过）。
+     但也不能静默丢弃，计数后在页面下方说明。 */
+  let retiredQ = 0;
+  for (const s of sess) {
+    for (const f of (s.fams || [])) {
+      if (!famAgg.has(f.fam)) { retiredQ += (f.total || 0); continue; }
+      const a = famAgg.get(f.fam);
+      a.total += f.total;
+      a.ok += f.ok;
+      if (f.total > 0) a.times += 1;
+      if (f.topErr) a.errMix[f.topErr] = (a.errMix[f.topErr] || 0) + 1;
+    }
+  }
+  for (const a of famAgg.values()) {
+    a.rate = a.total ? a.ok / a.total : 0;
+    a.tier = tierOf(a.total, a.ok);
+    const top = Object.entries(a.errMix).sort((x, y) => y[1] - x[1])[0];
+    a.topErr = top ? top[0] : null;
+  }
+  const withFams = sess.filter((s) => Array.isArray(s.fams) && s.fams.length).length;
+  const famList = [...famAgg.values()];
+  const famDone = famList.filter((f) => f.total > 0);
+
+  if (sess.length > 0) {
+    const noFamDetail = withFams === 0;
+    /* 按章节分组，组内「薄弱 → 不稳 → 样本不足 → 掌握」，同档按正确率升序 */
+    const ORD = { weak: 0, shaky: 1, insufficient: 2, solid: 3 };
+    const groups = CH_ORDER.map((ch) => {
+      const items = famList.filter((f) => f.ch === ch)
+        .sort((a, b) => ORD[a.tier] - ORD[b.tier] || a.rate - b.rate);
+      return { ch, name: CH_NAME[ch] || ch, items };
+    }).filter((g) => g.items.length);
+
+    html += '<div class="sect"><div class="sect-head"><span class="kicker">Families</span>' +
+      '<h2>各考点累计掌握情况</h2><span class="sub">' +
+        (noFamDetail
+          ? '暂无考点明细'
+          : (withFams < sess.length ? withFams + ' / ' + sess.length + ' 轮有考点明细' : '全部 ' + sess.length + ' 轮合并统计') +
+            ' · 已覆盖 ' + famDone.length + ' / ' + famList.length + ' 个考点') +
+        '</span></div>' +
+      (noFamDetail
+        ? '<div class="note-cap">已有的 ' + sess.length + ' 轮记录是老版本保存的，没有存考点明细。' +
+          '<b>再练一轮就会补上</b>——练习页每道题都归到一个考点族，新记录会保留这一层。</div>'
+        : '<div class="note-cap">一轮 18 题只覆盖 <b>6 个考点</b>（每章 1 个），所以这里的考点要练几轮才会陆续出现。' +
+          '没出现的不是不重要，是还没轮到。</div>') +
+      groups.map((g) => {
+        const gDone = g.items.filter((f) => f.total > 0);
+        const gTot = g.items.length;
+        return '<div class="fam-grp"><div class="fam-grp-h">' + esc(g.name) +
+          '<span>' + gDone.length + ' / ' + gTot + ' 个考点有样本</span></div>' +
+          '<div class="ch-grid">' +
+          g.items.map((f) => {
+            const known = f.total > 0;
+            const pct = Math.round(f.rate * 100);
+            return '<div class="ch-card">' +
+              '<div class="ch-name">' + esc(f.name) + '</div>' +
+              '<div class="ch-meta">' + (known
+                ? '累计 ' + f.ok + '/' + f.total + ' 题 · 覆盖 ' + f.times + ' 轮' +
+                  (f.topErr ? ' · 主错因：' + esc(f.topErr) : '')
+                : '还没做到') + '</div>' +
+              '<div class="ch-bar"><i class="bar-' + f.tier + '" style="width:' + (known ? pct : 0) + '%"></i></div>' +
+              '<div class="ch-row"><span class="ch-rate rate-' + f.tier + '">' + (known ? pct + '%' : '—') + '</span>' +
+              '<span class="ch-tier tier-' + f.tier + '">' + TIER[f.tier] + '</span></div>' +
+              '</div>';
+          }).join('') +
+          '</div></div>';
+      }).join('') +
+      (retiredQ > 0
+        ? '<p style="margin-top:10px;font-size:12.6px;color:var(--text-3)">另有 ' + retiredQ +
+          ' 题属于题库已调整下线的考点，未计入上表。</p>'
+        : '') +
+      '</div>';
   }
 
   html += '<div class="sect"><div class="sect-head"><span class="kicker">Rounds</span>' +

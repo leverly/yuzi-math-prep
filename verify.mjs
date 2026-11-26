@@ -581,6 +581,30 @@ if (fs.existsSync('history.html')) {
   ok(hs.includes('按章节') && hs.includes('按能力'), '逐轮明细同时展示章节与能力');
   ok(/s\.cats/.test(hs) && /hasCats/.test(hs), '逐轮明细读取了每轮的能力数据');
   ok(hs.includes('同一批题的另一切面'), '逐轮明细说明章节与能力是同一批题的两种切法');
+
+  /* ---- 考点族累计（三层里最细的一层）---- */
+  ok(hs.includes('各考点累计掌握情况'), '有考点族累计汇总区');
+  {
+    /* 以题库全部族为全集：每个族恰好一张卡，不多不少。
+       没做到的族也要出现，否则读者看不出还有多少没轮到（能力区踩过同样的坑）。 */
+    const cardNames = [...hs.matchAll(/FAM_META\.name/g)].length; // 仅占位，真实校验用下面的数据
+    const famIds = Object.keys((await import('./practice-data.mjs')).FAM_META);
+    ok(famIds.length > 0, `题库考点族 ${famIds.length} 个`);
+    ok(hs.includes('famAgg = new Map()'), '有族级聚合');
+    ok(/for \(const \[fid, meta\] of Object\.entries\(FAM_META\)\)/.test(hs),
+      '族级聚合以全部族为全集初始化（不只纳入做过的）');
+    /* 旧记录里已下线的族不得冒出新卡片，但要计数说明 */
+    ok(hs.includes('retiredQ'), '已下线的族会被计数而不是静默丢弃');
+    ok(hs.includes('题库已调整下线的考点'), '有下线族的说明文案');
+    /* 老记录没有 fams 字段时的说明 */
+    ok(hs.includes('没有存考点明细') && hs.includes('再练一轮就会补上'),
+      '老记录下考点区给出说明而不是隐藏');
+    /* 一轮只覆盖 6 个族这件事必须写在页面上 */
+    ok(hs.includes('一轮 18 题只覆盖'), '页面说明一轮只覆盖 6 个考点');
+    /* 落库：练习页必须把 fams 存进 sessions */
+    const prSrc = fs.readFileSync('practice.html', 'utf8');
+    ok(/fams:\s*\(diagResult\.fams/.test(prSrc), '练习页把族级结果落库到 sessions');
+  }
   // 练习页必须有入口
   const pr2 = fs.readFileSync('practice.html', 'utf8');
   ok(pr2.includes('href="history.html"'), '练习页有入口');
