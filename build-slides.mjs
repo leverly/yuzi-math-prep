@@ -53,8 +53,11 @@ const CLIFF = PAPER_STATS.map((s) => {
 const FRONT_AVG = +(sum(CLIFF.map((c) => c.f)) / N_PAPERS).toFixed(1);
 const BACK_AVG = +(sum(CLIFF.map((c) => c.b)) / N_PAPERS).toFixed(1);
 const FRONT_RANGE = [Math.min(...CLIFF.map((c) => c.f)), Math.max(...CLIFF.map((c) => c.f))];
+const BACK_RANGE = [Math.min(...CLIFF.map((c) => c.b)), Math.max(...CLIFF.map((c) => c.b))];
 const FRONT_IDX_RANGE = [Math.min(...CLIFF.map((c) => c.fi)), Math.max(...CLIFF.map((c) => c.fi))];
 const BACK_IDX_RANGE = [Math.min(...CLIFF.map((c) => c.bi)), Math.max(...CLIFF.map((c) => c.bi))];
+/* 区间格式化：上下限相等时只写一个数，不写「8–8」 */
+const rng = (a, b) => (a === b ? String(a) : a + '–' + b);
 
 /* 五个「五年零例外都是基础档」的题位 —— 程序判定，不手写 */
 const byNo = new Map();
@@ -71,8 +74,20 @@ const STABLE_EASY = [...byNo.entries()]
     scoreMax: Math.max(...qs.map((q) => q.score)),
     topics: [...new Set(qs.map((q) => q.topic))],
   }));
-const STABLE_SUM_MIN = STABLE_EASY.reduce((a, s) => a + s.score, 0);
-const STABLE_SUM_MAX = STABLE_EASY.reduce((a, s) => a + s.scoreMax, 0);
+/* 第 5 页只讲客观题位：第 17 题单独占一页，不在这里重复列 */
+const STABLE_OBJ = STABLE_EASY.filter((s) => s.no <= 16);
+const STABLE_OBJ_SUM_MIN = STABLE_OBJ.reduce((a, s) => a + s.score, 0);
+const STABLE_OBJ_SUM_MAX = STABLE_OBJ.reduce((a, s) => a + s.scoreMax, 0);
+
+/* 反向证据：五年里唯一一个难度真跳过的题位。有它，「稳」才不是空话。 */
+const JUMP = [...byNo.entries()]
+  .filter(([, qs]) => qs.length === N_PAPERS)
+  .map(([no, qs]) => {
+    const w = qs.map((q) => W[q.diff]);
+    return { no, span: Math.max(...w) - Math.min(...w), qs: PAPER_STATS.map((s) => qs.find((q) => q.p === s.id)) };
+  })
+  .filter((j) => j.span >= 2)
+  .sort((a, b) => b.span - a.span);
 
 /* 第 17 题：全卷单题分值最高，五年同一考点同一档 */
 const Q17 = PAPER_STATS.map((s) => {
@@ -259,26 +274,26 @@ push('断崖', `
   <div class="s-head">
     <span class="s-kicker">The Cliff</span>
     <h2 class="s-title">断崖在第 20 题之后</h2>
-    <p class="s-sub">前 20 题 ${FRONT_RANGE[0]}–${FRONT_RANGE[1]} 分、难度指数 ${FRONT_IDX_RANGE[0]}–${FRONT_IDX_RANGE[1]}；第 21 题起 ${Math.min(...CLIFF.map((c) => c.b))}–${Math.max(...CLIFF.map((c) => c.b))} 分、指数 ${BACK_IDX_RANGE[0]}–${BACK_IDX_RANGE[1]}</p>
+    <p class="s-sub">前 20 题 ${rng(...FRONT_RANGE)} 分、难度指数 ${rng(...FRONT_IDX_RANGE)}；第 21 题起 ${rng(...BACK_RANGE)} 分、指数 ${rng(...BACK_IDX_RANGE)}</p>
   </div>
   <div class="s-body">
     <div class="cliff">
       <div class="cliff-card hot">
         <div class="cliff-tag">第 1–20 题 · 熟练度</div>
         <div class="cliff-n">${FRONT_AVG}<small style="font-size:16px;font-weight:650;color:var(--text-3)"> 分</small></div>
-        <div class="cliff-d">年均占必做 ${Math.round(FRONT_AVG)}%。难度指数 ${FRONT_IDX_RANGE[0]}–${FRONT_IDX_RANGE[1]}，
-          ${SPAN}年都在 1.4 上下——这部分考的是熟练，不是灵感。</div>
+        <div class="cliff-d">年均占必做 ${Math.round(FRONT_AVG)}%。难度指数 ${rng(...FRONT_IDX_RANGE)}，
+          ${SPAN}年都在 1.4 上下——这一段考的是熟练，不是灵感。</div>
       </div>
       <div class="cliff-card">
         <div class="cliff-tag">第 21–24 题 · 思维</div>
         <div class="cliff-n">${BACK_AVG}<small style="font-size:16px;font-weight:650;color:var(--text-3)"> 分</small></div>
-        <div class="cliff-d">年均占必做 ${Math.round(BACK_AVG)}%。难度指数 ${BACK_IDX_RANGE[0]}–${BACK_IDX_RANGE[1]}，
+        <div class="cliff-d">年均占必做 ${Math.round(BACK_AVG)}%。难度指数 ${rng(...BACK_IDX_RANGE)}，
           是前一段的两倍——这里才开始真正筛人。</div>
       </div>
     </div>
     <div class="split">
       <i class="seg-easy" style="width:${FRONT_AVG}%">前 20 题 ${FRONT_AVG} 分</i>
-      <i class="seg-top" style="width:${BACK_AVG}%">${BACK_AVG}</i>
+      <i class="seg-top" style="width:${BACK_AVG}%">${BACK_AVG} 分</i>
     </div>
     <div class="callout" style="margin-top:20px">
       两段的练法不一样：<b>前 20 题练"不出错"</b>（限时、验算、错题重做），
@@ -288,27 +303,32 @@ push('断崖', `
   </div>
 </div>`);
 
-/* 5. 五个稳定题位 */
+/* 5. 四个稳定客观题位 */
 push('稳定题位', `
 <div class="slide">
   <div class="s-head">
     <span class="s-kicker">No Surprise</span>
-    <h2 class="s-title">${STABLE_EASY.length} 个题位，${SPAN}年零例外都是基础档</h2>
-    <p class="s-sub">合计 ${STABLE_SUM_MIN}–${STABLE_SUM_MAX} 分——这些位置没有「今年变难」的先例</p>
+    <h2 class="s-title">${STABLE_OBJ.length} 个选择题位，${SPAN}年零例外都是基础档</h2>
+    <p class="s-sub">合计 ${rng(STABLE_OBJ_SUM_MIN, STABLE_OBJ_SUM_MAX)} 分——这些位置没有「今年变难」的先例</p>
   </div>
   <div class="s-body">
     <table class="tbl">
       <thead><tr><th>题号</th><th class="num">分值</th><th>${SPAN}年考过什么</th></tr></thead>
-      <tbody>${STABLE_EASY.map((s) => `<tr>
+      <tbody>${STABLE_OBJ.map((s) => `<tr>
         <td><b>第 ${s.no} 题</b></td>
         <td class="num hi">${s.score === s.scoreMax ? s.score : s.score + '–' + s.scoreMax}</td>
         <td style="white-space:normal">${s.topics.map(esc).join(' · ')}</td>
       </tr>`).join('')}</tbody>
     </table>
-    <div class="callout" style="margin-top:20px">
-      这 ${STABLE_EASY.length} 处失分<b>只可能来自熟练度，不来自难度</b>。
-      考前把它们逐题过一遍、限时做对，是确定性最高的一件事。
+    <div class="callout" style="margin-top:18px">
+      这 ${STABLE_OBJ.length} 处失分<b>只可能来自熟练度，不来自难度</b>。
+      考前一题一题过、限时做对，是确定性最高的一件事。
     </div>
+    ${JUMP.length ? `<div class="callout rose" style="margin-top:12px">
+      <b>唯一的例外是第 ${JUMP[0].no} 题</b>（2 分）：${JUMP[0].qs.map((q) => DIFF_NAME[q.diff]).join(' → ')}，
+      载体从${esc(JUMP[0].qs[0].topic)}换到${esc(JUMP[0].qs[JUMP[0].qs.length - 1].topic)}。
+      全卷只有这一处难度真的跳，其余位置都可以按"年年一样"来准备。
+    </div>` : ''}
   </div>
 </div>`);
 
@@ -537,6 +557,6 @@ console.log('  派生核对：');
 console.log('    Q17         ', Q17_MIN + '–' + Q17_MAX + ' 分', Q17_SAME_TOPIC ? '同考点' : '考点变', Q17_ALL_EASY ? '全基础档' : '');
 console.log('    Q23+Q24 之和 ', Math.min(...TAIL2) + '–' + TAIL2_MAX, '| Q17 每年更大:', Q17_BEATS_TAIL);
 console.log('    断崖        ', '前 ' + FRONT_AVG + '（' + FRONT_IDX_RANGE.join('–') + '）', '后 ' + BACK_AVG + '（' + BACK_IDX_RANGE.join('–') + '）');
-console.log('    稳定题位     ', STABLE_EASY.map((s) => 'q' + s.no).join(' '), '合计 ' + STABLE_SUM_MIN + '–' + STABLE_SUM_MAX + ' 分');
+console.log('    稳定题位     ', STABLE_OBJ.map((s) => 'q' + s.no).join(' '), '合计 ' + rng(STABLE_OBJ_SUM_MIN, STABLE_OBJ_SUM_MAX) + ' 分', '（q17 单列一页，不重复）');
 console.log('    计算/概念    ', CALC_AVG + ' / ' + CONCEPT_AVG, '= ' + ACC_PCT + '%');
 console.log('    计算三块     ', CALC3.map((f) => f.avgPerYear).join(' + ') + ' = ' + CALC3_AVG);

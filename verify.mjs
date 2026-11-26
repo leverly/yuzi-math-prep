@@ -385,6 +385,17 @@ if (fs.existsSync('slides.html')) {
   ok(stable.length > 0 && stable.every((n) => sl.includes('第 ' + n + ' 题')),
     `稳定题位 ${stable.map((n) => 'q' + n).join(' ')} 全部出现在页面上`);
 
+  /* 页面上说"唯一的例外是第 N 题"——这句必须真的只有一个，否则就是谎报 */
+  const jumps = [...byNo.entries()]
+    .filter(([, qs]) => qs.length === S.N_PAPERS)
+    .map(([no, qs]) => ({ no, span: Math.max(...qs.map((q) => W[q.diff])) - Math.min(...qs.map((q) => W[q.diff])) }))
+    .filter((j) => j.span >= 2);
+  ok(jumps.length === 1, `难度跨 2 档以上的题位只有 1 个（实际 ${jumps.length}：${jumps.map((j) => 'q' + j.no).join(',')}）`);
+  if (jumps.length === 1) {
+    ok(sl.includes('唯一的例外是第 ' + jumps[0].no + ' 题'),
+      `页面标注的例外（第 ${jumps[0].no} 题）与台账一致`);
+  }
+
   // 计算 / 概念占比
   let calc = 0, concept = 0;
   for (const q of LEDGER) {
