@@ -567,6 +567,48 @@ if (fs.existsSync('slides.html')) {
 
   // 页码不得超出实际页数
   ok(!sl.includes(`/ ${slideN + 1}<`), '页码与页数一致');
+
+  /* ---- 11.3 演示必须与「整体解读」的最新结论同源 ----
+     演示是演讲版，结论要和网页版一致；网页版改了结论、演示没跟，就是两套说法。 */
+  const trLive = fs.readFileSync('trend.html', 'utf8');
+
+  // 「在变」两处结论：整体页有的，演示也必须有
+  ok(trLive.includes('新定义已退出必做位'), '整体页有「新定义退出必做位」结论');
+  ok(sl.includes('新定义已退出必做位'), '演示跟上了「新定义退出必做位」');
+  ok(trLive.includes('分类讨论在加重'), '整体页有「分类讨论在加重」结论');
+  ok(sl.includes('分类讨论在加重'), '演示跟上了「分类讨论在加重」');
+
+  // 分类逐年分值：两页必须一致
+  const clsS = S.PAPER_STATS.map((s) => LEDGER.filter((q) => q.p === s.id && q.cat === '分类').reduce((a, q) => a + q.score, 0));
+  const clsSeries = clsS.join('/');
+  ok(trLive.includes(clsS.join(' ')) || clsS.every((v) => trLive.includes(`>${v}<`)),
+    `整体页分类逐年 ${clsSeries} 与台账一致`);
+  ok(clsS.every((v) => sl.includes(`>${v}<`)), `演示分类逐年 ${clsSeries} 与台账一致`);
+
+  // 新定义逐年必做分值：演示表格里的数字必须能从台账复算
+  const ndMain = S.PAPER_STATS.map((s) => LEDGER.filter((q) => q.p === s.id && q.cat === '新定义' && !q.bonus).reduce((a, q) => a + q.score, 0));
+  ok(ndMain[ndMain.length - 1] === 0, `最新一年新定义必做 0 分（${ndMain.join('/')}）`);
+  ok(sl.includes('新定义已退出必做位') && sl.includes('旧印象已经过时'),
+    '演示的新定义结论与台账一致（必做归零）');
+
+  // 考频三档：演示不得再把「极少考」写成「偶考」
+  ok(sl.includes(`极少考 ${S.FREQ_SUMMARY.rare.n} 族`),
+    `演示用「极少考 ${S.FREQ_SUMMARY.rare.n} 族」正确标注`);
+  ok(!sl.includes(`${S.FREQ.rare.length} 个偶考族`),
+    '演示不再把极少考的族写成「偶考」（曾错标 11 族 83 分）');
+
+  // 断崖倍数：网页版与演示都不能写死「两倍」
+  const r2 = S.PAPER_STATS.map((s) => {
+    const qs = LEDGER.filter((q) => q.p === s.id && !q.bonus);
+    const idx = (arr) => {
+      const t = arr.reduce((a, q) => a + q.score, 0);
+      return t ? arr.reduce((a, q) => a + W[q.diff] * q.score, 0) / t : 0;
+    };
+    return idx(qs.filter((q) => q.no > 20)) / idx(qs.filter((q) => q.no <= 20));
+  });
+  ok(Math.min(...r2) < 2, `后段/前段倍数最小值 ${Math.min(...r2).toFixed(2)} < 2，不能写「两倍」`);
+  ok(!/是前一段的两倍/.test(sl), '演示未写死「两倍」');
+  ok(!/难度是前一段的两倍/.test(trLive), '整体页未写死「两倍」');
 } else {
   ok(false, 'slides.html 已生成');
 }

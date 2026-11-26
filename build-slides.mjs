@@ -56,8 +56,20 @@ const FRONT_RANGE = [Math.min(...CLIFF.map((c) => c.f)), Math.max(...CLIFF.map((
 const BACK_RANGE = [Math.min(...CLIFF.map((c) => c.b)), Math.max(...CLIFF.map((c) => c.b))];
 const FRONT_IDX_RANGE = [Math.min(...CLIFF.map((c) => c.fi)), Math.max(...CLIFF.map((c) => c.fi))];
 const BACK_IDX_RANGE = [Math.min(...CLIFF.map((c) => c.bi)), Math.max(...CLIFF.map((c) => c.bi))];
+/* 后段 / 前段的难度倍数区间：2021-22 只有 1.73 倍，写「两倍」是虚报 */
+const BACK_RATIO = (() => {
+  const r = CLIFF.map((c) => c.bi / c.fi);
+  return [+Math.min(...r).toFixed(1), +Math.max(...r).toFixed(1)];
+})();
 /* 区间格式化：上下限相等时只写一个数，不写「8–8」 */
 const rng = (a, b) => (a === b ? String(a) : a + '–' + b);
+
+/* 卷面结构：五年是否真的没变（决定第 2 页能不能说「结构没变」） */
+const SEG_LABEL = (() => {
+  const s0 = PAPER_STATS[0];
+  const fixed = PAPER_STATS.every((s) => JSON.stringify(s.seg) === JSON.stringify(s0.seg));
+  return fixed ? `${s0.seg['选择']} / ${s0.seg['填空']} / ${s0.seg['解答']}` : '逐年有调整';
+})();
 
 /* 五个「五年零例外都是基础档」的题位 —— 程序判定，不手写 */
 const byNo = new Map();
@@ -161,6 +173,35 @@ const Q23 = PAPER_STATS.map((s) => {
 });
 const Q23_ALL_CLASSIFY = Q23.every((q) => q.cat === '分类');
 
+/* ---- 在变：演示必须跟上「整体解读」的最新结论 ---- */
+/* 分类能力逐年分值 */
+const CLASSIFY = PAPER_STATS.map((s) => sum(LEDGER.filter((q) => q.p === s.id && q.cat === '分类').map((q) => q.score)));
+const CLS_LAST2 = CLASSIFY.slice(-2);
+const CLS_SAME_LAST2 = CLS_LAST2[0] === CLS_LAST2[1];
+const CLS_MIN = Math.min(...CLASSIFY);
+const CLS_MAX = Math.max(...CLASSIFY);
+
+/* 新定义逐年：必做 / 选做 分开算——「退出必做位」这句话要能站住 */
+const NEWDEF = PAPER_STATS.map((s) => {
+  const qs = LEDGER.filter((q) => q.p === s.id && q.cat === '新定义');
+  return {
+    label: s.label,
+    main: sum(qs.filter((q) => !q.bonus).map((q) => q.score)),
+    bonus: sum(qs.filter((q) => q.bonus).map((q) => q.score)),
+  };
+});
+const ND_LAST_MAIN = NEWDEF[NEWDEF.length - 1].main;
+const ND_LAST_BONUS = NEWDEF[NEWDEF.length - 1].bonus;
+const ND_PREV_MAIN = NEWDEF[NEWDEF.length - 2].main;
+const ND_EXITED = ND_LAST_MAIN === 0 && NEWDEF.slice(0, 2).every((d) => d.main > 0);
+
+/* 考频三档 */
+const FREQ_TIERS = [
+  { tag: 'must', label: '必考', desc: '五年年年出现', d: FREQ_SUMMARY.must },
+  { tag: 'often', label: '偶考', desc: '五年出现 3–4 次', d: FREQ_SUMMARY.often },
+  { tag: 'rare', label: '极少考', desc: '五年出现 1–2 次', d: FREQ_SUMMARY.rare },
+];
+
 /* ============================ 样式（复用英语站） ============================ */
 const BASE_CSS = readFileSync('work/slides-css.txt', 'utf8');
 const CSS = BASE_CSS + `
@@ -173,7 +214,8 @@ const CSS = BASE_CSS + `
 .slide.s-end{padding-bottom:52px}
 
 /* 断崖对比：两栏卡片 + 一条比例尺 */
-.cliff{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+/* align-items:start —— 两栏内容不等长时，短的那栏不要被拉高留出空白 */
+.cliff{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
 .cliff-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 22px}
 .cliff-card.hot{border-color:rgba(37,99,235,.34);background:rgba(37,99,235,.045)}
 .cliff-tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--text-3);text-transform:uppercase}
@@ -264,7 +306,9 @@ push('卷子很稳', `
     <div class="callout" style="margin-top:20px">
       这张卷子<b>不靠难题区分学生</b>。基础 + 中档${SPAN}年从没低过
       ${Math.min(...SCORE_TIERS.map((t) => t.base))} 分，也从未高过
-      ${Math.max(...SCORE_TIERS.map((t) => t.base))} 分——所以备考可以按图施工，不用赌今年变不变。
+      ${Math.max(...SCORE_TIERS.map((t) => t.base))} 分——所以备考可以按图施工，不用赌今年变不变。<br>
+      另外两件也五年没动：<b>卷面结构 ${SEG_LABEL}</b>（${PAPER_STATS[0].mainCount} 必做 + ${PAPER_STATS[0].bonusCount} 选做），
+      <b>${STABLE_EASY.length} 个题位零例外都是基础档</b>（第 ${STABLE_EASY.map((s) => s.no).join('、')} 题）。
     </div>
   </div>
 </div>`);
@@ -316,7 +360,7 @@ push('断崖', `
         <div class="cliff-tag">第 21–24 题 · 思维</div>
         <div class="cliff-n">${BACK_AVG}<small style="font-size:16px;font-weight:650;color:var(--text-3)"> 分</small></div>
         <div class="cliff-d">年均占必做 ${Math.round(BACK_AVG)}%。难度指数 ${rng(...BACK_IDX_RANGE)}，
-          是前一段的两倍——这里才开始真正筛人。</div>
+          是前一段的 ${rng(...BACK_RATIO)} 倍——这里才开始真正筛人。</div>
       </div>
     </div>
     <div class="split">
@@ -415,7 +459,51 @@ push('第 23 题', `
   </div>
 </div>`);
 
-/* 8. 必考族 */
+/* 8. 在变（与「整体解读」的「在变」一节同源） */
+push('在变', `
+<div class="slide">
+  <div class="s-head">
+    <span class="s-kicker">Changing</span>
+    <h2 class="s-title">两处真在变，别按旧印象准备</h2>
+    <p class="s-sub">其余都是噪声，不足以改复习顺序</p>
+  </div>
+  <div class="s-body">
+    <div class="cliff">
+      <div class="cliff-card hot">
+        <div class="cliff-tag">分类讨论在加重</div>
+        <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin:10px 0 8px">
+          ${PAPER_STATS.map((s, i) => `<span style="text-align:center">
+            <span style="display:block;font-size:11px;color:var(--text-3)">${s.label}</span>
+            <b style="font-size:19px;color:${CLASSIFY[i] >= 13 ? 'var(--rose)' : 'var(--text-2)'};font-variant-numeric:tabular-nums">${CLASSIFY[i]}</b>
+          </span>`).join('<span style="color:var(--border)">·</span>')}
+        </div>
+        <div class="cliff-d">
+          ${CLS_SAME_LAST2 ? `最近两年都是 <b>${CLS_LAST2[1]} 分</b>，` : ''}是唯一明显上升的能力。
+          载体年年换（动点、动角、线段中点），考的都是同一件事：<b>把可能的情况列全</b>。
+        </div>
+      </div>
+      <div class="cliff-card">
+        <div class="cliff-tag">新定义已退出必做位</div>
+        <table class="tbl compact" style="margin:10px 0 8px">
+          <thead><tr><th>年份</th><th class="num">必做</th><th class="num">选做</th></tr></thead>
+          <tbody>${NEWDEF.map((d) => `<tr><td>${d.label}</td>
+            <td class="num ${d.main === 0 ? '' : 'hi'}">${d.main}</td>
+            <td class="num">${d.bonus}</td></tr>`).join('')}</tbody>
+        </table>
+        <div class="cliff-d">
+          ${ND_EXITED ? `最新一年必做 <b>${ND_LAST_MAIN} 分</b>、选做 ${ND_LAST_BONUS} 分；上一年必做还有 ${ND_PREV_MAIN} 分。` : ''}
+          <b>「新定义是压轴、必考、要重点攻」这个旧印象已经过时</b>——现在是选做位的加分项，不是必做位的门槛。
+        </div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:18px">
+      这两处之外，${SPAN}年的章节分值、难度比例、题型位置都在噪声范围内摆动，
+      <b>不足以改变复习顺序</b>——按「没变」那几页准备，比追每一年的小波动更划算。
+    </div>
+  </div>
+</div>`);
+
+/* 9. 必考族 */
 push('必考清单', `
 <div class="slide">
   <div class="s-head">
@@ -432,10 +520,11 @@ push('必考清单', `
         <div class="fam-bar"><i style="width:${Math.round(f.avgPerYear / FREQ.must[0].avgPerYear * 100)}%"></i></div>
       </div>`).join('')}
     </div>
-    <div class="callout" style="margin-top:20px">
+    <div class="callout" style="margin-top:18px">
       与其从教辅目录第一页开始，不如<b>先确认这 ${FREQ.must.length} 个族能不能独立做对</b>。
-      剩下的 ${FREQ.rare.length} 个偶考族加起来只有 ${FREQ_SUMMARY.rare.score} 分（${FREQ_SUMMARY.rare.pct}%），
-      排在它们后面。
+      按考频分三档：必考 ${FREQ_SUMMARY.must.n} 族 ${FREQ_SUMMARY.must.pct}%、
+      偶考 ${FREQ_SUMMARY.often.n} 族 ${FREQ_SUMMARY.often.pct}%、
+      极少考 ${FREQ_SUMMARY.rare.n} 族 ${FREQ_SUMMARY.rare.pct}%（${FREQ_SUMMARY.rare.score} 分）——极少考的那些排在最后。
     </div>
   </div>
 </div>`);

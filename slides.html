@@ -190,7 +190,8 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
 .slide.s-end{padding-bottom:52px}
 
 /* 断崖对比：两栏卡片 + 一条比例尺 */
-.cliff{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+/* align-items:start —— 两栏内容不等长时，短的那栏不要被拉高留出空白 */
+.cliff{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
 .cliff-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 22px}
 .cliff-card.hot{border-color:rgba(37,99,235,.34);background:rgba(37,99,235,.045)}
 .cliff-tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--text-3);text-transform:uppercase}
@@ -288,7 +289,9 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
     <div class="callout" style="margin-top:20px">
       这张卷子<b>不靠难题区分学生</b>。基础 + 中档五年从没低过
       80 分，也从未高过
-      83 分——所以备考可以按图施工，不用赌今年变不变。
+      83 分——所以备考可以按图施工，不用赌今年变不变。<br>
+      另外两件也五年没动：<b>卷面结构 16 / 16 / 68</b>（24 必做 + 2 选做），
+      <b>5 个题位零例外都是基础档</b>（第 1、2、9、10、17 题）。
     </div>
   </div>
 </div>
@@ -340,7 +343,7 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
         <div class="cliff-tag">第 21–24 题 · 思维</div>
         <div class="cliff-n">26.2<small style="font-size:16px;font-weight:650;color:var(--text-3)"> 分</small></div>
         <div class="cliff-d">年均占必做 26%。难度指数 2.44–2.8，
-          是前一段的两倍——这里才开始真正筛人。</div>
+          是前一段的 1.7–2.1 倍——这里才开始真正筛人。</div>
       </div>
     </div>
     <div class="split">
@@ -469,6 +472,68 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
 
 <div class="slide">
   <div class="s-head">
+    <span class="s-kicker">Changing</span>
+    <h2 class="s-title">两处真在变，别按旧印象准备</h2>
+    <p class="s-sub">其余都是噪声，不足以改复习顺序</p>
+  </div>
+  <div class="s-body">
+    <div class="cliff">
+      <div class="cliff-card hot">
+        <div class="cliff-tag">分类讨论在加重</div>
+        <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin:10px 0 8px">
+          <span style="text-align:center">
+            <span style="display:block;font-size:11px;color:var(--text-3)">2021-22</span>
+            <b style="font-size:19px;color:var(--text-2);font-variant-numeric:tabular-nums">8</b>
+          </span><span style="color:var(--border)">·</span><span style="text-align:center">
+            <span style="display:block;font-size:11px;color:var(--text-3)">2022-23</span>
+            <b style="font-size:19px;color:var(--rose);font-variant-numeric:tabular-nums">13</b>
+          </span><span style="color:var(--border)">·</span><span style="text-align:center">
+            <span style="display:block;font-size:11px;color:var(--text-3)">2023-24</span>
+            <b style="font-size:19px;color:var(--text-2);font-variant-numeric:tabular-nums">7</b>
+          </span><span style="color:var(--border)">·</span><span style="text-align:center">
+            <span style="display:block;font-size:11px;color:var(--text-3)">2024-25</span>
+            <b style="font-size:19px;color:var(--rose);font-variant-numeric:tabular-nums">13</b>
+          </span><span style="color:var(--border)">·</span><span style="text-align:center">
+            <span style="display:block;font-size:11px;color:var(--text-3)">2025-26</span>
+            <b style="font-size:19px;color:var(--rose);font-variant-numeric:tabular-nums">13</b>
+          </span>
+        </div>
+        <div class="cliff-d">
+          最近两年都是 <b>13 分</b>，是唯一明显上升的能力。
+          载体年年换（动点、动角、线段中点），考的都是同一件事：<b>把可能的情况列全</b>。
+        </div>
+      </div>
+      <div class="cliff-card">
+        <div class="cliff-tag">新定义已退出必做位</div>
+        <table class="tbl compact" style="margin:10px 0 8px">
+          <thead><tr><th>年份</th><th class="num">必做</th><th class="num">选做</th></tr></thead>
+          <tbody><tr><td>2021-22</td>
+            <td class="num ">0</td>
+            <td class="num">5</td></tr><tr><td>2022-23</td>
+            <td class="num hi">7</td>
+            <td class="num">4</td></tr><tr><td>2023-24</td>
+            <td class="num hi">7</td>
+            <td class="num">6</td></tr><tr><td>2024-25</td>
+            <td class="num hi">2</td>
+            <td class="num">6</td></tr><tr><td>2025-26</td>
+            <td class="num ">0</td>
+            <td class="num">10</td></tr></tbody>
+        </table>
+        <div class="cliff-d">
+          
+          <b>「新定义是压轴、必考、要重点攻」这个旧印象已经过时</b>——现在是选做位的加分项，不是必做位的门槛。
+        </div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:18px">
+      这两处之外，五年的章节分值、难度比例、题型位置都在噪声范围内摆动，
+      <b>不足以改变复习顺序</b>——按「没变」那几页准备，比追每一年的小波动更划算。
+    </div>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="s-head">
     <span class="s-kicker">Checklist</span>
     <h2 class="s-title">12 个必考族，覆盖 82% 分值</h2>
     <p class="s-sub">五年年年出现，合计 409/500 分——复习清单可以从这里开始</p>
@@ -537,10 +602,11 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
         <div class="fam-bar"><i style="width:11%"></i></div>
       </div>
     </div>
-    <div class="callout" style="margin-top:20px">
+    <div class="callout" style="margin-top:18px">
       与其从教辅目录第一页开始，不如<b>先确认这 12 个族能不能独立做对</b>。
-      剩下的 11 个偶考族加起来只有 83 分（17%），
-      排在它们后面。
+      按考频分三档：必考 12 族 82%、
+      偶考 1 族 2%、
+      极少考 11 族 17%（83 分）——极少考的那些排在最后。
     </div>
   </div>
 </div>
@@ -580,7 +646,7 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
   padding:8px 14px;border-radius:999px;color:var(--text-2);font-size:13px;font-family:var(--mono);
   border:1px solid var(--border);box-shadow:0 6px 20px rgba(15,23,42,.08)">
   <button id="prev" aria-label="上一页" style="background:none;border:none;color:var(--text-3);font-size:16px;cursor:pointer;padding:2px 6px">‹</button>
-  <span><b id="cur">1</b> / 9</span>
+  <span><b id="cur">1</b> / 10</span>
   <button id="next" aria-label="下一页" style="background:none;border:none;color:var(--text-3);font-size:16px;cursor:pointer;padding:2px 6px">›</button>
   <button id="ov" aria-label="总览" style="margin-left:6px;background:none;border:none;color:var(--text-3);font-size:14px;cursor:pointer">⊞</button>
   <button id="fs" aria-label="全屏" style="background:none;border:none;color:var(--text-3);font-size:14px;cursor:pointer">⛶</button>
@@ -598,7 +664,7 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
 <div id="overview">
   <h3>总览 · 点击跳转</h3>
   <div class="ov-grid">
-    <div class="ov-card" data-go="0"><div class="n">01</div><div class="t">封面</div></div><div class="ov-card" data-go="1"><div class="n">02</div><div class="t">卷子很稳</div></div><div class="ov-card" data-go="2"><div class="n">03</div><div class="t">第 17 题</div></div><div class="ov-card" data-go="3"><div class="n">04</div><div class="t">断崖</div></div><div class="ov-card" data-go="4"><div class="n">05</div><div class="t">稳定题位</div></div><div class="ov-card" data-go="5"><div class="n">06</div><div class="t">计算</div></div><div class="ov-card" data-go="6"><div class="n">07</div><div class="t">第 23 题</div></div><div class="ov-card" data-go="7"><div class="n">08</div><div class="t">必考清单</div></div><div class="ov-card" data-go="8"><div class="n">09</div><div class="t">结论</div></div>
+    <div class="ov-card" data-go="0"><div class="n">01</div><div class="t">封面</div></div><div class="ov-card" data-go="1"><div class="n">02</div><div class="t">卷子很稳</div></div><div class="ov-card" data-go="2"><div class="n">03</div><div class="t">第 17 题</div></div><div class="ov-card" data-go="3"><div class="n">04</div><div class="t">断崖</div></div><div class="ov-card" data-go="4"><div class="n">05</div><div class="t">稳定题位</div></div><div class="ov-card" data-go="5"><div class="n">06</div><div class="t">计算</div></div><div class="ov-card" data-go="6"><div class="n">07</div><div class="t">第 23 题</div></div><div class="ov-card" data-go="7"><div class="n">08</div><div class="t">在变</div></div><div class="ov-card" data-go="8"><div class="n">09</div><div class="t">必考清单</div></div><div class="ov-card" data-go="9"><div class="n">10</div><div class="t">结论</div></div>
   </div>
 </div>
 
