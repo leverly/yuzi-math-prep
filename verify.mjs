@@ -78,9 +78,12 @@ ok(pl.includes('<h1>备考计划</h1>'), '计划页标题为「备考计划」')
 ok(pl.includes('练得稳') && pl.includes('要想一想') && pl.includes('尽力就好'), '计划页三类题结构存在');
 ok(!/先保约\s*\d+\s*分|总分\s*≥\s*\d+|目标正确率\s*100%/.test(pl), '计划页不含分数目标（无施压量化）');
 /* 改名必须全站同步：导航来自 site-shell，任一页面残留旧标签都是漏改。
-   这里是历次改名留下的旧词清单——以后改名把旧词加进来，自动获得全站保护。 */
+   这里是历次改名留下的旧词清单——以后改名把旧词加进来，自动获得全站保护。
+   注意：清单里只放「不会作为其他正确文案子串出现」的词。
+   「总览」不能放进来——它被「考情总览」包含，子串匹配会误伤正确文案
+   （这正是之前踩过的「校验规则误伤正确文字」）。导航项改名改用下面的精确检查。 */
 {
-  const RETIRED = ['冲刺计划', '练习与诊断', '学情诊断'];
+  const RETIRED = ['冲刺计划', '练习与诊断', '学情诊断', '演示'];
   for (const word of RETIRED) {
     const stale = [];
     for (const h of fs.readdirSync('.').filter((f) => f.endsWith('.html'))) {
@@ -88,6 +91,26 @@ ok(!/先保约\s*\d+\s*分|总分\s*≥\s*\d+|目标正确率\s*100%/.test(pl), 
     }
     ok(stale.length === 0, `全站 HTML 均无旧标签「${word}」`, stale.join(','));
   }
+
+  // 导航项必须逐字等于 site-shell 的 NAV（防止只改了一部分页面）。
+  // 顶栏还有一个 .nav-switch「⇄ 切换」返回考区选择器，它不属于 NAV，比对时排除。
+  const { NAV } = await import('./work/site-shell.mjs');
+  const wantNav = NAV.map(([, t]) => t);
+  let navBad = [];
+  for (const h of ['home.html', 'papers.html', 'trend.html', 'plan.html', 'practice.html', 'history.html']) {
+    if (!fs.existsSync(h)) continue;
+    const m = fs.readFileSync(h, 'utf8').match(/<nav class="hdr-nav">([\s\S]*?)<\/nav>/);
+    if (!m) { navBad.push(h + '(无导航)'); continue; }
+    const got = [...m[1].matchAll(/<a href="[^"]+"([^>]*)>([^<]+)<\/a>/g)]
+      .filter((x) => !/nav-switch/.test(x[1]))
+      .map((x) => x[2]);
+    if (got.join('|') !== wantNav.join('|')) {
+      navBad.push(`${h}: ${got.join('/')} ≠ ${wantNav.join('/')}`);
+    }
+  }
+  ok(navBad.length === 0, '各页导航项与 NAV 单一来源逐字一致', navBad.join('; '));
+  // 曾经的「总览」不得作为独立导航项回归
+  ok(!wantNav.includes('总览'), '导航不再有裸「总览」（应为「考情总览」）');
 }
 
 console.log('\n【四之二】首页诊断入口');
@@ -111,10 +134,10 @@ console.log('\n【四之四】考区选择页（index.html）');
   const selHdr = (sel.match(/<header class="site-head">[\s\S]*?<\/header>/) || [''])[0];
   ok(selHdr.length > 0, '选择页有顶栏');
   for (const [, t] of NAV) {
-    if (['演示'].includes(t)) continue;
+    if (['考情精简版'].includes(t)) continue;
     ok(!selHdr.includes(`>${t}<`), `选择页顶栏不含科目站导航项「${t}」`);
   }
-  ok(!selHdr.includes('nav-slides'), '选择页顶栏不含「演示」入口');
+  ok(!selHdr.includes('nav-slides'), '选择页顶栏不含「考情精简版」入口');
 
   /* 四级选择器齐全 */
   for (const [id, label] of [['optProvince', '省份'], ['optRegion', '地区'], ['optGrade', '年级'], ['optSubject', '科目']]) {
@@ -377,8 +400,23 @@ console.log('\n【八】外壳一致性（跨页共用部分不得漂移）');
      单独在【四之四】校验；这里只比对科目站的五个内容页。 */
   const PAGE_FILES = ['home.html', 'papers.html', 'trend.html', 'plan.html', 'practice.html'];
 
-  // 8.1 顶栏标记一致：品牌 + 导航项（href/文字/高亮/演示样式）必须与共享来源同构
+  // 8.1 顶栏标记一致：品牌 + 导航项（href/文字/高亮/精简版样式）必须与共享来源同构
   const { headerHtml } = await import('./work/site-shell.mjs');
+
+  /* 导航标签变长会挤掉最后几项（「考情精简版」比「演示」长 3 字，
+     曾把「切换」挤出 820px 视口）。这里按字符宽度估算是否还放得下，
+     并要求 HEAD_CSS 里有对应的收缩断点。 */
+  {
+    const { NAV: NAV2, HEAD_CSS } = await import('./work/site-shell.mjs');
+    /* 中文字按 1em、拉丁按 .55em 粗估；导航项 padding 与间距按最宽断点算 */
+    const labelEm = (s) => [...s].reduce((w, c) => w + (/[\u4e00-\u9fa5]/.test(c) ? 1 : 0.55), 0);
+    const totalEm = NAV2.reduce((w, [, t]) => w + labelEm(t), 0) + labelEm('⇄ 切换');
+    /* 14px 字号 + 每项 26px 内边距 + 间隔，粗估总宽 */
+    const estPx = totalEm * 14 + NAV2.length * 26 + 60;
+    ok(estPx < 900, `导航总宽粗估 ${Math.round(estPx)}px，760px 视口内可容纳（含收缩）`);
+    ok(/@media\(max-width:1100px\)\{[\s\S]*?\.hdr-nav a\{/.test(HEAD_CSS),
+      'HEAD_CSS 里有导航中窄屏收缩断点');
+  }
   const shellPages = PAGE_FILES.filter((f) => fs.existsSync(f));
   // 把顶栏解析成结构化签名，避免被空格/换行/属性顺序影响
   const hdrSig = (html) => {
@@ -634,6 +672,15 @@ if (fs.existsSync('slides.html')) {
     '键盘翻页 / 全屏 / 总览交互齐备');
   ok(sl.includes('p=(\\d+)'), '支持 ?p=N 定位');
   ok(sl.includes('window.innerWidth/1280') && sl.includes('window.innerHeight/720'), '16:9 舞台按窗口缩放');
+
+  /* 页面标题必须与导航标签一致——导航叫「考情精简版」而标题叫「考情解读」，
+     用户从导航点进来会以为自己走错了。 */
+  {
+    const { NAV: NAV3 } = await import('./work/site-shell.mjs');
+    const navLabel = (NAV3.find(([h]) => h === 'slides.html') || [])[1];
+    ok(navLabel === '考情精简版', `导航标签为「考情精简版」（实际「${navLabel}」）`);
+    ok(sl.includes(`<title>${navLabel}`), `页面标题与导航标签同为「${navLabel}」`);
+  }
 
   // 已删除的审计型页面不得回流
   for (const gone of ['六章分值分布', '八种能力的分值分布', '题位骨架']) {

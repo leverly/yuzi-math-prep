@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 演示用的 Web PPT：面向家长与学生的考情讲解
+// 考情精简版（slides.html）：面向家长与学生的考情讲解
 //
 // 设计系统与交互复用英语期末站（~/Desktop/thinking/english/build-slides.mjs）：
 // 16:9 舞台按窗口等比缩放、← → / 空格翻页、F 全屏、O 总览、?p=N 定位、打印分页。
@@ -8,7 +8,7 @@
 // 内容取舍：这是给家长和学生讲的，不是审计报告。
 // 只留三类东西——卷子稳不稳（能不能按图施工）、分在哪（哪里最值钱）、
 // 难的部分是否可预测（能不能提前练）。章节分值、八能力条形图这类"看板"
-// 全部不进演示：家长听完不会因为它改变任何动作。
+// 全部不进这里：家长听完不会因为它改变任何动作。
 import { writeFileSync, readFileSync } from 'node:fs';
 
 import {
@@ -86,7 +86,7 @@ const STABLE_EASY = [...byNo.entries()]
     scoreMax: Math.max(...qs.map((q) => q.score)),
     topics: [...new Set(qs.map((q) => q.topic))],
   }));
-/* 必考族卡片：族名是 stats.mjs 的原始定义，但演示里第 23 题已有专页，
+/* 必考族卡片：族名是 stats.mjs 的原始定义，但精简版里第 23 题已有专页，
    这里把「分类压轴」的构成（第 23/24/26 题）显式标出来，避免与那一页串味 */
 const FAM_CARDS = FREQ.must.map((f) => {
   let note = '';
@@ -173,7 +173,7 @@ const Q23 = PAPER_STATS.map((s) => {
 });
 const Q23_ALL_CLASSIFY = Q23.every((q) => q.cat === '分类');
 
-/* ---- 在变：演示必须跟上「整体解读」的最新结论 ---- */
+/* ---- 在变：精简版必须跟上「整体解读」的最新结论 ---- */
 /* 分类能力逐年分值 */
 const CLASSIFY = PAPER_STATS.map((s) => sum(LEDGER.filter((q) => q.p === s.id && q.cat === '分类').map((q) => q.score)));
 const CLS_LAST2 = CLASSIFY.slice(-2);
@@ -565,7 +565,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>考情解读 · 西城区初一（上）数学期末</title>
+<title>考情精简版 · 西城区初一（上）数学期末</title>
 <style>${CSS}</style>
 </head>
 <body>

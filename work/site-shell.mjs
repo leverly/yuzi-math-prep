@@ -46,16 +46,20 @@ export const CHOICE_KEY = 'xq-nav-choice-v1';
 /* 全站导航：单一来源，顺序与样式都在这里定
  * 2026-11-25 移除「演示」（slides.html）——12 页里 10 页与其余页重复，
  * 且唯一独有的「六周冲刺节奏」与 plan 页「不给具体时间和动作」的立场矛盾。
- * 2026-11-26 恢复「演示」：已重做成 10 页面向家长的考情讲解，删掉冲刺节奏。
- * 2026-11-26 index.html 改为选择器页，原首页移至 home.html，「总览」指向 home.html。 */
+ * 2026-11-26 恢复：已重做成 10 页面向家长的考情讲解，删掉冲刺节奏。
+ * 2026-11-26 index.html 改为选择器页，原首页移至 home.html，「总览」指向 home.html。
+ * 2026-11-26 「演示」改名「考情精简版」——「演示」说的是使用场景，
+ *             学生/家长看不出点进去是什么；「考情精简版」说的是内容。
+ * 2026-11-26 「总览」改名「考情总览」——单独一个「总览」看不出总览什么，
+ *             与旁边「逐年拆解/整体解读」的颗粒度不一致。 */
 export const NAV = [
-  ['home.html', '总览'],
+  ['home.html', '考情总览'],
   ['papers.html', '逐年拆解'],
   ['trend.html', '整体解读'],
   ['plan.html', '备考计划'],
   ['practice.html', '备考诊断'],
   ['history.html', '学情数据'],
-  ['slides.html', '演示', 'nav-slides'],
+  ['slides.html', '考情精简版', 'nav-slides'],
 ];
 
 /* 练习轮次：全站唯一来源
@@ -131,7 +135,7 @@ export const HEAD_CSS = `
 }
 .hdr-nav a:hover{background:var(--accent-soft);color:var(--accent)}
 .hdr-nav a.on{background:var(--accent);color:#fff;font-weight:650;box-shadow:var(--shadow-accent)}
-/* 「演示」入口：紫色，与内容页区分开 */
+/* 「考情精简版」入口：紫色，与内容页区分开 */
 .hdr-nav a.nav-slides{background:var(--purple-soft,#f3e8ff);color:var(--purple,#7c3aed);font-weight:650;
   display:inline-flex;align-items:center;gap:5px}
 .hdr-nav a.nav-slides::before{content:"▶";font-size:8px}
@@ -144,6 +148,26 @@ export const HEAD_CSS = `
 .hdr-nav a.nav-switch:hover{color:var(--accent);background:var(--accent-soft)}
 /* 选择页顶栏右侧的说明文字（不是链接） */
 .hdr-note{font-size:12.8px;color:var(--text-3);font-weight:500;padding:7px 0}
+
+/* 导航收缩：7 项 + 「切换」，标签变长后（「考情精简版」5 字）在中窄屏会被截断，
+   用户看不到最后两项。这里逐级收紧内边距与字号，保证 768px 以上完整显示。
+   放在 HEAD_CSS 里而不是各页的媒体查询里——导航是全站共用的。 */
+@media(max-width:1100px){
+  .hdr-nav a{padding:6px 9px;font-size:13.2px}
+  .hdr-nav a.nav-switch{margin-left:2px;padding-left:11px}
+  .hdr-in{gap:10px}
+}
+@media(max-width:900px){
+  .hdr-nav a{padding:5px 7px;font-size:12.6px}
+  .hdr-nav a.nav-slides::before{display:none}
+  .brand{font-size:14px}
+}
+@media(max-width:760px){
+  /* 再窄就把品牌文字与「切换」文字收掉，只留图标，导航仍然可用 */
+  .brand span:not(.brand-mark){display:none}
+  .hdr-nav a.nav-switch{font-size:0;padding:5px 8px}
+  .hdr-nav a.nav-switch::before{content:"⇄";font-size:15px}
+}
 `;
 
 /* 页头排版：各页共用（.head 容器与 .crumb 由调用页按需叠加） */

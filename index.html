@@ -67,7 +67,7 @@ a{color:inherit}
 }
 .hdr-nav a:hover{background:var(--accent-soft);color:var(--accent)}
 .hdr-nav a.on{background:var(--accent);color:#fff;font-weight:650;box-shadow:var(--shadow-accent)}
-/* 「演示」入口：紫色，与内容页区分开 */
+/* 「考情精简版」入口：紫色，与内容页区分开 */
 .hdr-nav a.nav-slides{background:var(--purple-soft,#f3e8ff);color:var(--purple,#7c3aed);font-weight:650;
   display:inline-flex;align-items:center;gap:5px}
 .hdr-nav a.nav-slides::before{content:"▶";font-size:8px}
@@ -80,6 +80,26 @@ a{color:inherit}
 .hdr-nav a.nav-switch:hover{color:var(--accent);background:var(--accent-soft)}
 /* 选择页顶栏右侧的说明文字（不是链接） */
 .hdr-note{font-size:12.8px;color:var(--text-3);font-weight:500;padding:7px 0}
+
+/* 导航收缩：7 项 + 「切换」，标签变长后（「考情精简版」5 字）在中窄屏会被截断，
+   用户看不到最后两项。这里逐级收紧内边距与字号，保证 768px 以上完整显示。
+   放在 HEAD_CSS 里而不是各页的媒体查询里——导航是全站共用的。 */
+@media(max-width:1100px){
+  .hdr-nav a{padding:6px 9px;font-size:13.2px}
+  .hdr-nav a.nav-switch{margin-left:2px;padding-left:11px}
+  .hdr-in{gap:10px}
+}
+@media(max-width:900px){
+  .hdr-nav a{padding:5px 7px;font-size:12.6px}
+  .hdr-nav a.nav-slides::before{display:none}
+  .brand{font-size:14px}
+}
+@media(max-width:760px){
+  /* 再窄就把品牌文字与「切换」文字收掉，只留图标，导航仍然可用 */
+  .brand span:not(.brand-mark){display:none}
+  .hdr-nav a.nav-switch{font-size:0;padding:5px 8px}
+  .hdr-nav a.nav-switch::before{content:"⇄";font-size:15px}
+}
 
 .sel-wrap{min-height:calc(100vh - 64px);display:flex;flex-direction:column;
   justify-content:center;padding:56px 0 72px}
