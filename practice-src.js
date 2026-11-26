@@ -3,10 +3,8 @@ import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';
 
 /* ============ 诊断逻辑（内联以便单文件运行，file:// 可直开） ============ */
 const TIER_RULE = { minSample: 3, weak: 0.6, solid: 0.85 };
-/* 分档名与配色类名提到模块级：诊断面板的雷达兜底列表在 showDiag 之外生成，
-   用局部变量会 ReferenceError，整块诊断变空白（已踩过一次）。 */
-const TIER_NAME = { weak: '薄弱', shaky: '不稳', solid: '掌握', insufficient: '样本不足' };
-const rateCls = (t) => 'rate-' + t;
+/* 分档名与配色在 work/charts.mjs 的 barBlock 内部，这里不再保留副本。
+ * 累计面板已从单轮诊断移走（见 showDiag 注释），TIER_NAME / rateCls 一并删掉。 */
 
 
 const CALC_HINTS = {
@@ -744,9 +742,10 @@ function chartSection(o) {
 
 function showDiag() {
   const d = diagnose(state.records);
-  // 落盘：本轮 + 累计
-  const store = persistSession(state.records, d);
-  const hist = diagnose(store.allRecords.map((r) => ({ id: r.id, ok: r.ok, picked: r.picked })));
+  /* 落盘：本轮 + 累计。
+   * 这里只负责写，不负责显示——累计口径只出现在「学情数据」页，
+   * 单轮诊断结果里一律不出现累计数字（用户 2026-11-26 明确要求）。 */
+  persistSession(state.records, d);
   $('#quiz').style.display = 'none';
   const host = $('#diag');
   host.style.display = 'block';
@@ -810,8 +809,8 @@ function showDiag() {
       /* 纵轴画薄弱度（1 − 正确率），与能力图（画掌握度）方向相反：
          章节这块的问题是「先补哪一章」，所以柱子越高 = 越该先补。 */
       metric: 'weak',
-      note: '薄弱度 = 100% − 正确率，柱子越高越该先补。每章 3 题，错 1 题就是 67%。'
-        + '每轮都会自动累加，练两三轮后这个比例才稳。',
+      note: '薄弱度 = 100% − 正确率，柱子越高越该先补。每章 3 题，错 1 题就是 67%，'
+        + '所以这一轮的比例只代表这 3 题。多轮累计的结论在「学情数据」页。',
       aria: '本轮各章节薄弱度柱状图',
     }) : ''}
 
@@ -834,7 +833,7 @@ function showDiag() {
         };
       }),
       note: '能力题库不均衡：计算与概念的题多，分类 / 作图 / 空间 / 新定义每轮只出得到 1–2 题。'
-        + '这些能力要累计 2–3 轮才有结论——每轮的结果会自动累加。',
+        + '所以这一轮里 1–2 题的能力只反映这两题。多轮累计的结论在「学情数据」页。',
       aria: '本轮各能力掌握度柱状图',
     }) : ''}
 
@@ -851,23 +850,12 @@ function showDiag() {
 
     ${renderWrong(d.wrongList)}
 
-    ${renderHistory(hist, store)}
-
     <div class="actions" style="margin-top:26px">
       <button class="btn primary" id="againBtn">再练一轮</button>
       <a class="btn ghost" href="history.html">查看学情数据</a>
-      <button class="btn ghost" id="clearHist">清空历史</button>
       <a class="btn ghost" href="plan.html">看备考建议</a>
     </div>
   `;
-
-  const ch = $('#clearHist');
-  if (ch) ch.onclick = () => {
-    if (!confirm('清空全部练习记录？这不会影响题库。')) return;
-    try { localStorage.removeItem('xz-practice-v1'); } catch (e) {}
-    alert('已清空。');
-    reset();
-  };
 
   $('#againBtn').onclick = () => reset();
   bindRedo(d.wrongList);
@@ -920,51 +908,6 @@ function bindRedo(wrongList) {
     renderQuestion();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-}
-
-/* 历史累计面板：把全部历史作答聚合后的诊断 */
-function renderHistory(hist, store) {
-  const sess = store.sessions.length;
-  if (sess <= 1) {
-    return `
-      <div style="margin-top:26px">
-        <div class="diag-head"><span class="kicker">History</span><h2 style="font-size:19px">累计记录</h2></div>
-        <div class="act need-more">
-          这是第 1 轮练习。之后的每一轮都会自动保存在本机，累计诊断会在这里显示——
-          练得越多，对薄弱考点的判断越准。
-        </div>
-      </div>`;
-  }
-  const rows = hist.fams.filter((f) => f.total > 0).slice(0, 10);
-  return `
-    <div style="margin-top:30px">
-      <div class="diag-head">
-        <span class="kicker">History</span>
-        <h2 style="font-size:19px">累计记录与诊断</h2>
-        <span style="font-size:12.5px;color:var(--text-3)">已练 ${sess} 轮 · 累计 ${hist.totalQ} 题</span>
-      </div>
-      <div class="summary">
-        <div class="sm total"><div class="n">${Math.round(hist.rate * 100)}%</div><div class="l">累计正确率</div></div>
-        <div class="sm weak"><div class="n">${hist.weak}</div><div class="l">薄弱考点</div></div>
-        <div class="sm shaky"><div class="n">${hist.shaky}</div><div class="l">不够稳</div></div>
-        <div class="sm solid"><div class="n">${hist.solid}</div><div class="l">已掌握</div></div>
-      </div>
-      <div class="fam-rows">
-        ${rows.map((f) => `
-          <div class="fam-row">
-            <div>
-              <div class="fam-name">${esc(f.name)}</div>
-              <div class="fam-sub">累计 ${f.ok}/${f.total} 题正确${f.topErr ? ' · 主错因：' + esc(f.topErr.cat) : ''}</div>
-            </div>
-            <div class="fam-rate rate-${f.tier}">${Math.round(f.rate * 100)}%</div>
-            <div class="fam-tier tier-${f.tier}">${TIER_NAME[f.tier]}</div>
-          </div>`).join('')}
-      </div>
-      ${hist.actions.length ? `
-      <div class="act-list" style="margin-top:14px">
-        ${hist.actions.slice(0, 3).map((a) => `<div class="act ${a.kind}">${a.text}</div>`).join('')}
-      </div>` : ''}
-    </div>`;
 }
 
 function reset() {
@@ -1026,23 +969,14 @@ if (startBtn) startBtn.onclick = startRound;
 
 renderPlanPreview();
 
-/* 入口页提示：本机已有多少轮记录 */
-(function showHistNote() {
-  const note = $('#histNote');
+/* 入口只放入口，不放累计数字：
+ * 轮次 / 累计题数 / 正确率合计属于「学情数据」页的口径，
+ * 单轮诊断这条链上一律不出现（2026-11-26 用户要求）。 */
+(function showHistLink() {
   const link = $('#histLink');
-  if (!note) return;
-  const store = loadStore();
-  const n = (store.sessions || []).length;
-  if (!n) {
-    if (link) link.style.display = 'none';   // 没有记录就不显示入口
-    return;
-  }
-  const totalQ = store.sessions.reduce((a, s) => a + (s.n || 0), 0);
-  const totalOk = store.sessions.reduce((a, s) => a + (s.ok || 0), 0);
-  note.style.display = 'block';
-  note.innerHTML = '本机已有 <b style="color:var(--text)">' + n + '</b> 轮记录，累计 ' +
-    totalQ + ' 题、正确率 <b style="color:var(--text)">' +
-    (totalQ ? Math.round(totalOk / totalQ * 100) : 0) + '%</b>。';
+  if (!link) return;
+  const n = (loadStore().sessions || []).length;
+  if (!n) link.style.display = 'none';   // 没有记录就不显示入口
 })();
 
 $('#quitBtn').onclick = () => {

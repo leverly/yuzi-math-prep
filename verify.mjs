@@ -415,10 +415,28 @@ if (fs.existsSync('practice.html')) {
   ok(pr.includes('const CH_ORDER = '), 'CH_ORDER 已内联');
   /* 章节图必须真的按章节顺序排，不能沿用 d.chs 的薄弱优先排序 */
   ok(!/items: d\.chs\.map/.test(pr), '章节图不沿用诊断的薄弱优先排序');
-  /* 分档名必须提到模块级：chartSection 在 showDiag 之外，用局部变量会 ReferenceError，
-     整块诊断面板会变空白（2026-11-26 实际踩到，产物构建成功但页面空） */
-  ok(/^const TIER_NAME = \{/m.test(pr), '分档名提到模块级（雷达兜底列表要用）');
-  ok(!/^  const tierName = \{/m.test(pr), 'showDiag 内不再有局部分档名（会遮蔽模块级）');
+  /* 单次诊断与累计诊断共用同一份图表 CSS/画法，字号体系也必须是同一套 */
+  ok(/\.bar-chart\{[^}]*width:900px/.test(pr), '单次诊断的图表宽度写死 900px（字号不随容器缩放）');
+  ok(/font-size="12\.9"/.test(pr), '单次诊断项名字号 12.9（与站内图表同号）');
+  /* 单轮诊断里不许出现任何累计口径（2026-11-26 用户要求）：
+   * 轮次 / 累计题数 / 累计正确率 / 各考点累计 / 「清空历史」都只属于「学情数据」页。
+   * 判据成对写——单轮页必须为 0，学情页必须还在（见【九】），
+   * 否则「删干净了」和「功能整块丢了」看起来一样。 */
+  ok(!pr.includes('累计记录与诊断'), '单轮诊断页不出现「累计记录与诊断」区块');
+  ok(!pr.includes('累计正确率'), '单轮诊断页不出现累计正确率');
+  ok(!pr.includes('本机已有') && !pr.includes('已练'), '入口不显示轮次/累计题数');
+  ok(!pr.includes('function renderHistory('), 'renderHistory 已从单轮页移除');
+  ok(!pr.includes('id="clearHist"'), '「清空历史」只留在学情数据页，单轮页没有');
+  ok(!pr.includes('id="histNote"'), '入口的累计提示块已移除');
+  /* 累计口径必须仍在学情数据页（删单轮页时不能顺手删掉真正该有它的地方） */
+  {
+    const hs2 = fs.existsSync('history.html') ? fs.readFileSync('history.html', 'utf8') : '';
+    ok(hs2.includes('累计正确率'), '学情数据页保留累计正确率');
+    ok(hs2.includes('已完成轮次'), '学情数据页保留轮次统计');
+    ok(hs2.includes('id="clearAll"'), '学情数据页保留清空记录入口');
+  }
+  /* 单轮页仍要给出「去哪里看累计」的去处，不能只说没有 */
+  ok(pr.includes('多轮累计的结论在「学情数据」页'), '图表注指向学情数据页');
   ok(pr.includes('这一轮最该补的') && pr.includes('class="verdict'), '诊断有一句话结论条');
   ok(pr.includes('const BANK = ['), '题库已内联（file:// 可直开）');
   // 构建器用字符串 replace 注入数据：import 行一改，replace 静默失配，
@@ -632,6 +650,23 @@ if (fs.existsSync('history.html')) {
   /* 未练到的能力要在图上显式标注，不能静默按 0 显示成「0%」 */
   ok(hs.includes('未轮到'), '未覆盖能力在柱状图上显式标注');
   ok(hs.includes('柱子缺失就是缺口'), '柱状图说明未练到的只有基线');
+
+  /* ---------- 图表字号必须落在全站字号体系内 ----------
+   * 2026-11-26 用户两次反馈「字体太大」「要和全站协调」。
+   * 根因不是字号写得大，而是 SVG 文字会随 viewBox 等比缩放：
+   * viewBox 宽 660、CSS 让它铺满 1050px 卡片 → 缩放 1.59 倍，
+   * 声明的 11.5px 实际渲染成 18.3px（比正文 15px 还大）。
+   * 修法是把渲染宽度写死、与 viewBox 相等（scale=1），
+   * 再让字号对齐站内既有图表的语义层：
+   *   项名 12.9（= .heat .fam-nm）· 数值 12.5（= .ch-bar-val）
+   *   副标签 11（= .heat .fam-sub）· 图注 12.2（= .heat-legend）
+   * 这两条都要锁：宽度写死（否则字又会被放大），字号对齐（否则一大一小）。 */
+  ok(/\.bar-chart\{[^}]*width:900px/.test(hs), '柱状图渲染宽度写死 900px（与 viewBox 相等，scale=1）');
+  ok(!/\.bar-chart\{[^}]*width:100%/.test(hs), '柱状图不用 width:100%（会让字号随容器缩放）');
+  ok(/var W = opts\.width \|\| 900/.test(hs), 'barBlock 默认宽度 900，与 CSS 的 900px 一致');
+  ok(/font-size="12\.9"/.test(hs), '项名字号 12.9（与热力矩阵族名同号）');
+  ok(/font-size="12\.5"/.test(hs), '数值字号 12.5（与首页条形图数值同号）');
+  ok(/\.bar-note\{font-size:12\.2px/.test(hs), '图注字号 12.2（与热力矩阵图例同号）');
 
   /* 能力区不能被条件包裹后静默消失：老记录没有 cats 字段时，
      原来整块跳掉，用户只看到章节，会以为站点不诊断能力。

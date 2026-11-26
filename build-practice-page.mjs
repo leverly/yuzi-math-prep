@@ -207,22 +207,6 @@ body{padding-bottom:80px}
 .sm.solid .n{color:var(--ok)}
 .sm.total .n{color:var(--accent)}
 
-.fam-rows{display:flex;flex-direction:column;gap:8px}
-.fam-row{background:var(--surface);border:1px solid var(--border);border-radius:12px;
-  padding:13px 16px;display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center}
-.fam-name{font-size:14.5px;font-weight:650}
-.fam-sub{font-size:12px;color:var(--text-3);margin-top:2px}
-.fam-rate{font-family:var(--mono);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
-.fam-tier{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:var(--r-pill);white-space:nowrap}
-.tier-weak{background:var(--rose-soft);color:var(--rose)}
-.tier-shaky{background:var(--gold-soft);color:var(--gold)}
-.tier-solid{background:var(--ok-soft);color:var(--ok)}
-.tier-insufficient{background:var(--track);color:var(--text-3)}
-.rate-weak{color:var(--rose)}
-.rate-shaky{color:var(--gold)}
-.rate-solid{color:var(--ok)}
-.rate-insufficient{color:var(--text-3)}
-
 .act-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
 /* 错题清单：本轮做错的题逐条列出，可一键重做 */
 .wrong-list{display:flex;flex-direction:column;gap:8px}
@@ -248,8 +232,6 @@ body{padding-bottom:80px}
   .brand small{display:none}
   .q-card{padding:18px}
   .summary{grid-template-columns:repeat(2,1fr)}
-  .fam-row{grid-template-columns:1fr auto;gap:8px}
-  .fam-tier{grid-column:2}
 }
 `;
 
@@ -309,7 +291,6 @@ ${headerHtml('practice.html')}
       <span class="intro-hint">约 12 分钟 · 做完自动出诊断</span>
       <a class="btn ghost" href="history.html" id="histLink" style="margin-left:auto">学情数据</a>
     </div>
-    <div id="histNote" style="display:none;margin-top:12px;font-size:13px;color:var(--text-3)"></div>
   </div>
 </div>
 

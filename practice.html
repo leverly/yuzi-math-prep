@@ -172,16 +172,24 @@ h1{font-size:clamp(28px,3.6vw,42px);line-height:1.22;font-weight:800;letter-spac
 .dot-live{width:6px;height:6px;border-radius:50%;background:var(--accent);
   box-shadow:0 0 0 3px rgba(37,99,235,.16)}
 
-/* 能力掌握度柱状图：横轴能力项、纵轴掌握度。
+/* 掌握度 / 薄弱度柱状图：横轴项目、纵轴掌握度或薄弱度。
  * 选柱状而不是雷达：雷达读的是「形状」，但 8 项里常有 5–6 项这轮没做到，
  * 轮廓会退化成一条线；柱状图每根柱子各自可比，没做到的项也看得出是「缺一根」。 */
+/* 卡片按内容收缩并居中：图表渲染宽度是固定的 660px（见下），
+   若卡片铺满 1050px 的内容区，右侧会空一大片，看起来像没画完。 */
 .bar-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;
-  padding:16px 20px 12px}
-/* 8 个能力项在窄屏会被压到柱子细如线、标签糊成一团。
- * 不压缩，改成横向滚动：柱子宽度与字号保持可读，超出部分滑动看。 */
-.bar-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
-.bar-chart{display:block;height:auto;min-width:560px}
-.bar-note{font-size:12px;color:var(--text-3);line-height:1.65;margin-top:10px;
+  padding:16px 20px 12px;width:fit-content;max-width:100%;margin:0 auto}
+/* 渲染宽度必须固定，不能写 width:100%。
+ * SVG 的文字会随 viewBox 等比缩放：viewBox 宽 660，若铺满 1050px 的卡片，
+ * 缩放 1.59 倍 → 声明的 11.5px 标签实际渲染成 18.3px，比正文 15px 还大；
+ * 窄屏又反向缩到 9.8px。固定宽度后「声明的字号 = 实际字号」，各视口一致。
+ * 窄屏装不下时由 .bar-scroll 横向滚动，不压缩字号。 */
+.bar-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;max-width:100%}
+.bar-chart{display:block;width:900px;max-width:none;height:auto;
+  font-family:var(--sans)}
+/* 图注 12.2px 与站内热力矩阵的图例（.heat-legend）同号：
+   两者都是「图表下方的说明」，同一屏出现时不该一大一小。 */
+.bar-note{font-size:12.2px;color:var(--text-3);line-height:1.7;margin-top:10px;
   border-top:1px solid var(--border);padding-top:9px}
 
 /* 练习页局部：沿用旧变量名，避免改一堆组件 */
@@ -358,22 +366,6 @@ body{padding-bottom:80px}
 .sm.solid .n{color:var(--ok)}
 .sm.total .n{color:var(--accent)}
 
-.fam-rows{display:flex;flex-direction:column;gap:8px}
-.fam-row{background:var(--surface);border:1px solid var(--border);border-radius:12px;
-  padding:13px 16px;display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center}
-.fam-name{font-size:14.5px;font-weight:650}
-.fam-sub{font-size:12px;color:var(--text-3);margin-top:2px}
-.fam-rate{font-family:var(--mono);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
-.fam-tier{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:var(--r-pill);white-space:nowrap}
-.tier-weak{background:var(--rose-soft);color:var(--rose)}
-.tier-shaky{background:var(--gold-soft);color:var(--gold)}
-.tier-solid{background:var(--ok-soft);color:var(--ok)}
-.tier-insufficient{background:var(--track);color:var(--text-3)}
-.rate-weak{color:var(--rose)}
-.rate-shaky{color:var(--gold)}
-.rate-solid{color:var(--ok)}
-.rate-insufficient{color:var(--text-3)}
-
 .act-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
 /* 错题清单：本轮做错的题逐条列出，可一键重做 */
 .wrong-list{display:flex;flex-direction:column;gap:8px}
@@ -399,8 +391,6 @@ body{padding-bottom:80px}
   .brand small{display:none}
   .q-card{padding:18px}
   .summary{grid-template-columns:repeat(2,1fr)}
-  .fam-row{grid-template-columns:1fr auto;gap:8px}
-  .fam-tier{grid-column:2}
 }
 </style>
 <script>
@@ -453,7 +443,6 @@ body{padding-bottom:80px}
       <span class="intro-hint">约 12 分钟 · 做完自动出诊断</span>
       <a class="btn ghost" href="history.html" id="histLink" style="margin-left:auto">学情数据</a>
     </div>
-    <div id="histNote" style="display:none;margin-top:12px;font-size:13px;color:var(--text-3)"></div>
   </div>
 </div>
 
@@ -484,7 +473,9 @@ const CAT_ORDER = ["计算","概念","建模","推理","分类","作图","空间
 const CH_ORDER = ["ch-rational","ch-op","ch-expr","ch-poly","ch-eq","ch-geo"];
 function barBlock(items, opts) {
   opts = opts || {};
-  var W = opts.width || 660;
+  /* W 必须与 CHART_CSS 里的 .bar-chart width 一致——
+     两者不等就会重新引入「字号随容器缩放」的问题。 */
+  var W = opts.width || 900;
   var H = opts.height || 262;
   /* 纵轴方向：'rate' 掌握度（越高越好）| 'weak' 薄弱度（越高越该补） */
   var weak = opts.metric === 'weak';
@@ -492,8 +483,9 @@ function barBlock(items, opts) {
   var valOf = function (it) { return weak ? 1 - it.rate : it.rate; };
   var axisName = opts.axis || (weak ? '薄弱度' : '掌握度');
   /* mT 留 36：纵轴名放最上面一行，与 100% 刻度错开 */
-  /* mL 留 40：纵轴刻度「100%」加左侧留白，太窄会被滚动容器边缘裁掉 */
-  var mL = 40, mR = 12, mT = 36, mB = 50;
+  /* mL 留 44：纵轴刻度「100%」11.5px 加左侧留白，太窄会被滚动容器边缘裁掉 */
+  /* mB 留 54：项名 12.9 + 样本量 11 两行，字号按站内体系调大后要留够 */
+  var mL = 44, mR = 12, mT = 36, mB = 54;
   var plotW = W - mL - mR;
   var plotH = H - mT - mB;
   var n = items.length;
@@ -527,8 +519,8 @@ function barBlock(items, opts) {
       '" y2="' + num(y) + '" stroke="var(--border)" stroke-width="1"' +
       (gv[i] === 0 ? '' : ' stroke-dasharray="3 4"') + '/>';
     if (gv[i] === 0 || gv[i] === 0.5 || gv[i] === 1) {
-      grid += '<text x="' + num(mL - 7) + '" y="' + num(y + 3.5) +
-        '" text-anchor="end" font-size="9.5" fill="var(--text-3)" ' +
+      grid += '<text x="' + num(mL - 7) + '" y="' + num(y + 4) +
+        '" text-anchor="end" font-size="11.5" fill="var(--text-3)" ' +
         'style="font-variant-numeric:tabular-nums">' + Math.round(gv[i] * 100) + '%</text>';
     }
   }
@@ -536,7 +528,7 @@ function barBlock(items, opts) {
   /* 纵轴名左对齐绘图区起点，不用 end 锚点——
      end 锚点会让 3 个字的起点落在负坐标上，滚动容器一裁就缺首字（实测踩到）。 */
   grid += '<text x="' + num(mL - 33) + '" y="' + num(mT - 20) +
-    '" font-size="10" fill="var(--text-3)">' + escB(axisName) + '</text>';
+    '" font-size="11.5" fill="var(--text-3)">' + escB(axisName) + '</text>';
 
   var bars = '';
   for (i = 0; i < n; i++) {
@@ -571,24 +563,27 @@ function barBlock(items, opts) {
        薄弱度模式下写的是「错多少」，所以标签也跟着换算。 */
     var pct = !known || short ? '—' : Math.round(v * 100) + '%';
     var pctY = known && !short
-      ? mT + plotH - Math.max(plotH * v, 2) - 7
-      : mT + plotH - 9;
+      ? mT + plotH - Math.max(plotH * v, 2) - 6
+      : mT + plotH - 8;
     bars += '<text x="' + num(cx) + '" y="' + num(pctY) + '" text-anchor="middle" ' +
-      'font-size="11.5" font-weight="700" fill="' +
+      'font-size="12.5" font-weight="700" fill="' +
       (known && !short ? col : 'var(--text-3)') + '">' + pct + '</text>';
 
-    /* 横轴项名 */
+    /* 横轴项名：12.9/600 与站内热力矩阵的族名（.heat .fam-nm）同号，
+       两处图表在同一屏里出现时不会一大一小。 */
     bars += '<text x="' + num(cx) + '" y="' + num(mT + plotH + 17) + '" text-anchor="middle" ' +
-      'font-size="11.5" font-weight="650" fill="' + (known ? 'var(--text)' : 'var(--text-3)') +
+      'font-size="12.9" font-weight="600" fill="' + (known ? 'var(--text)' : 'var(--text-3)') +
       '">' + escB(it.name) + '</text>';
-    /* 项名下补样本量：1/1 和 9/10 都是 100%，不给样本量会误读 */
-    bars += '<text x="' + num(cx) + '" y="' + num(mT + plotH + 30) + '" text-anchor="middle" ' +
-      'font-size="9.5" fill="var(--text-3)" style="font-variant-numeric:tabular-nums">' +
+    /* 项名下补样本量：1/1 和 9/10 都是 100%，不给样本量会误读。
+       11px 与 .heat .fam-sub 同号（副标签层）。 */
+    bars += '<text x="' + num(cx) + '" y="' + num(mT + plotH + 32) + '" text-anchor="middle" ' +
+      'font-size="11" fill="var(--text-3)" style="font-variant-numeric:tabular-nums">' +
       (known ? it.ok + '/' + it.total : '未轮到') + '</text>';
   }
 
-  /* 宽度用 100% 但由 CSS 给 min-width，窄屏时容器横向滚动——
-     直接缩放 viewBox 会让字号一起缩小，8 项挤在 360px 里完全读不出。 */
+  /* 渲染宽度固定（见 CHART_CSS）：字号与容器宽度解绑后，
+     声明的 10–11px 就是实际渲染的 10–11px，与正文 15px 的比例才协调。
+     窄屏装不下时由 .bar-scroll 横向滚动，不压缩字号。 */
   var svg = '<svg class="bar-chart" viewBox="0 0 ' + W + ' ' + H +
     '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' +
     escB(opts.aria || (weak ? '各章节薄弱度柱状图' : '能力掌握度柱状图')) + '">' +
@@ -601,10 +596,8 @@ function barBlock(items, opts) {
 
 /* ============ 诊断逻辑（内联以便单文件运行，file:// 可直开） ============ */
 const TIER_RULE = { minSample: 3, weak: 0.6, solid: 0.85 };
-/* 分档名与配色类名提到模块级：诊断面板的雷达兜底列表在 showDiag 之外生成，
-   用局部变量会 ReferenceError，整块诊断变空白（已踩过一次）。 */
-const TIER_NAME = { weak: '薄弱', shaky: '不稳', solid: '掌握', insufficient: '样本不足' };
-const rateCls = (t) => 'rate-' + t;
+/* 分档名与配色在 work/charts.mjs 的 barBlock 内部，这里不再保留副本。
+ * 累计面板已从单轮诊断移走（见 showDiag 注释），TIER_NAME / rateCls 一并删掉。 */
 
 
 const CALC_HINTS = {
@@ -1342,9 +1335,10 @@ function chartSection(o) {
 
 function showDiag() {
   const d = diagnose(state.records);
-  // 落盘：本轮 + 累计
-  const store = persistSession(state.records, d);
-  const hist = diagnose(store.allRecords.map((r) => ({ id: r.id, ok: r.ok, picked: r.picked })));
+  /* 落盘：本轮 + 累计。
+   * 这里只负责写，不负责显示——累计口径只出现在「学情数据」页，
+   * 单轮诊断结果里一律不出现累计数字（用户 2026-11-26 明确要求）。 */
+  persistSession(state.records, d);
   $('#quiz').style.display = 'none';
   const host = $('#diag');
   host.style.display = 'block';
@@ -1408,8 +1402,8 @@ function showDiag() {
       /* 纵轴画薄弱度（1 − 正确率），与能力图（画掌握度）方向相反：
          章节这块的问题是「先补哪一章」，所以柱子越高 = 越该先补。 */
       metric: 'weak',
-      note: '薄弱度 = 100% − 正确率，柱子越高越该先补。每章 3 题，错 1 题就是 67%。'
-        + '每轮都会自动累加，练两三轮后这个比例才稳。',
+      note: '薄弱度 = 100% − 正确率，柱子越高越该先补。每章 3 题，错 1 题就是 67%，'
+        + '所以这一轮的比例只代表这 3 题。多轮累计的结论在「学情数据」页。',
       aria: '本轮各章节薄弱度柱状图',
     }) : ''}
 
@@ -1432,7 +1426,7 @@ function showDiag() {
         };
       }),
       note: '能力题库不均衡：计算与概念的题多，分类 / 作图 / 空间 / 新定义每轮只出得到 1–2 题。'
-        + '这些能力要累计 2–3 轮才有结论——每轮的结果会自动累加。',
+        + '所以这一轮里 1–2 题的能力只反映这两题。多轮累计的结论在「学情数据」页。',
       aria: '本轮各能力掌握度柱状图',
     }) : ''}
 
@@ -1449,23 +1443,12 @@ function showDiag() {
 
     ${renderWrong(d.wrongList)}
 
-    ${renderHistory(hist, store)}
-
     <div class="actions" style="margin-top:26px">
       <button class="btn primary" id="againBtn">再练一轮</button>
       <a class="btn ghost" href="history.html">查看学情数据</a>
-      <button class="btn ghost" id="clearHist">清空历史</button>
       <a class="btn ghost" href="plan.html">看备考建议</a>
     </div>
   `;
-
-  const ch = $('#clearHist');
-  if (ch) ch.onclick = () => {
-    if (!confirm('清空全部练习记录？这不会影响题库。')) return;
-    try { localStorage.removeItem('xz-practice-v1'); } catch (e) {}
-    alert('已清空。');
-    reset();
-  };
 
   $('#againBtn').onclick = () => reset();
   bindRedo(d.wrongList);
@@ -1518,51 +1501,6 @@ function bindRedo(wrongList) {
     renderQuestion();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-}
-
-/* 历史累计面板：把全部历史作答聚合后的诊断 */
-function renderHistory(hist, store) {
-  const sess = store.sessions.length;
-  if (sess <= 1) {
-    return `
-      <div style="margin-top:26px">
-        <div class="diag-head"><span class="kicker">History</span><h2 style="font-size:19px">累计记录</h2></div>
-        <div class="act need-more">
-          这是第 1 轮练习。之后的每一轮都会自动保存在本机，累计诊断会在这里显示——
-          练得越多，对薄弱考点的判断越准。
-        </div>
-      </div>`;
-  }
-  const rows = hist.fams.filter((f) => f.total > 0).slice(0, 10);
-  return `
-    <div style="margin-top:30px">
-      <div class="diag-head">
-        <span class="kicker">History</span>
-        <h2 style="font-size:19px">累计记录与诊断</h2>
-        <span style="font-size:12.5px;color:var(--text-3)">已练 ${sess} 轮 · 累计 ${hist.totalQ} 题</span>
-      </div>
-      <div class="summary">
-        <div class="sm total"><div class="n">${Math.round(hist.rate * 100)}%</div><div class="l">累计正确率</div></div>
-        <div class="sm weak"><div class="n">${hist.weak}</div><div class="l">薄弱考点</div></div>
-        <div class="sm shaky"><div class="n">${hist.shaky}</div><div class="l">不够稳</div></div>
-        <div class="sm solid"><div class="n">${hist.solid}</div><div class="l">已掌握</div></div>
-      </div>
-      <div class="fam-rows">
-        ${rows.map((f) => `
-          <div class="fam-row">
-            <div>
-              <div class="fam-name">${esc(f.name)}</div>
-              <div class="fam-sub">累计 ${f.ok}/${f.total} 题正确${f.topErr ? ' · 主错因：' + esc(f.topErr.cat) : ''}</div>
-            </div>
-            <div class="fam-rate rate-${f.tier}">${Math.round(f.rate * 100)}%</div>
-            <div class="fam-tier tier-${f.tier}">${TIER_NAME[f.tier]}</div>
-          </div>`).join('')}
-      </div>
-      ${hist.actions.length ? `
-      <div class="act-list" style="margin-top:14px">
-        ${hist.actions.slice(0, 3).map((a) => `<div class="act ${a.kind}">${a.text}</div>`).join('')}
-      </div>` : ''}
-    </div>`;
 }
 
 function reset() {
@@ -1624,23 +1562,14 @@ if (startBtn) startBtn.onclick = startRound;
 
 renderPlanPreview();
 
-/* 入口页提示：本机已有多少轮记录 */
-(function showHistNote() {
-  const note = $('#histNote');
+/* 入口只放入口，不放累计数字：
+ * 轮次 / 累计题数 / 正确率合计属于「学情数据」页的口径，
+ * 单轮诊断这条链上一律不出现（2026-11-26 用户要求）。 */
+(function showHistLink() {
   const link = $('#histLink');
-  if (!note) return;
-  const store = loadStore();
-  const n = (store.sessions || []).length;
-  if (!n) {
-    if (link) link.style.display = 'none';   // 没有记录就不显示入口
-    return;
-  }
-  const totalQ = store.sessions.reduce((a, s) => a + (s.n || 0), 0);
-  const totalOk = store.sessions.reduce((a, s) => a + (s.ok || 0), 0);
-  note.style.display = 'block';
-  note.innerHTML = '本机已有 <b style="color:var(--text)">' + n + '</b> 轮记录，累计 ' +
-    totalQ + ' 题、正确率 <b style="color:var(--text)">' +
-    (totalQ ? Math.round(totalOk / totalQ * 100) : 0) + '%</b>。';
+  if (!link) return;
+  const n = (loadStore().sessions || []).length;
+  if (!n) link.style.display = 'none';   // 没有记录就不显示入口
 })();
 
 $('#quitBtn').onclick = () => {
