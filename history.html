@@ -250,21 +250,6 @@ body{padding-bottom:80px}
  * 轮廓会退化成一条线；柱状图每根柱子各自可比，没做到的项也看得出是「缺一根」。 */
 .bar-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;
   padding:16px 20px 12px}
-/* 紧凑版：嵌在答题区顶部（进度条下方）时用。
- * 它紧贴题目卡片，再画一圈边框+白底会变成「两张卡叠在一起」；
- * 所以去掉底色与边框，只留内容。
- * 高度 96 而不是更矮：64px 时 33% 的柱子只有 21px，几乎看不出高低，
- * 而「柱子升高」正是这块要传达的唯一信息。 */
-.bar-wrap.compact{background:none;border:none;border-radius:0;padding:0 0 4px}
-.bar-wrap.compact .bar-plot{height:96px;margin-top:22px}
-.bar-wrap.compact .bar-yaxis{height:96px;margin-top:22px}
-.bar-wrap.compact .bar-lab b{font-size:11.5px}
-.bar-wrap.compact .bar-lab span{font-size:10px;margin-top:1px}
-.bar-wrap.compact .bar-val{font-size:11px}
-.bar-wrap.compact .bar-axis{font-size:10.5px}
-.bar-wrap.compact .bar-labels{margin-top:5px}
-/* 纵轴刻度在紧凑版里只留 0 / 100，中间那条会挤在 96px 高度里糊成一团 */
-.bar-wrap.compact .bar-yaxis span.mid{display:none}
 /* 纵轴名一行，与图表左边缘对齐 */
 .bar-axis{font-size:11.5px;color:var(--text-3);line-height:1.4}
 /* 窄屏才出现横向滚动：8 项挤在 360px 里会把项名压成省略号，读不出是哪一项。
@@ -426,9 +411,7 @@ function barBlock(items, opts) {
     grid += '<i class="' + (gv[i] === 0 ? 'base' : '') +
       '" style="bottom:' + gv[i] + '%"></i>';
     if (gv[i] === 0 || gv[i] === 50 || gv[i] === 100) {
-      /* 50% 那条标 mid，紧凑版会隐藏它（高度只有 64px，三个刻度会糊在一起） */
-      yaxis += '<span class="' + (gv[i] === 50 ? 'mid' : '') +
-        '" style="bottom:' + gv[i] + '%">' + gv[i] + '%</span>';
+      yaxis += '<span style="bottom:' + gv[i] + '%">' + gv[i] + '%</span>';
     }
   }
 
@@ -461,15 +444,12 @@ function barBlock(items, opts) {
       lblCol + '">' + lbl + '</div>';
 
     cols += '<div class="bar-col">' + inner + '</div>';
-    /* 紧凑版把「未轮到」缩成「—」：6 个章节横排时，三四个「未轮到」
-       并排会把每列挤满、盖住相邻的项名。完整版仍写全，那里空间够。 */
-    var sub = known ? it.ok + '/' + it.total : (opts.compact ? '—' : '未轮到');
     labels += '<div class="bar-lab' + (known ? '' : ' off') + '">' +
       '<b>' + escB(it.name) + '</b>' +
-      '<span>' + sub + '</span></div>';
+      '<span>' + (known ? it.ok + '/' + it.total : '未轮到') + '</span></div>';
   }
 
-  return '<div class="bar-wrap' + (opts.compact ? ' compact' : '') + '">' +
+  return '<div class="bar-wrap">' +
     '<div class="bar-axis">' + escB(axisName) + '</div>' +
     '<div class="bar-scroll">' +
       '<div class="bar-chart" role="img" aria-label="' +

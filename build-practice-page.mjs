@@ -82,9 +82,6 @@ body{padding-bottom:80px}
 .progress{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:13px;color:var(--text-3)}
 .pbar{flex:1;height:6px;background:var(--track);border-radius:3px;overflow:hidden}
 .pbar i{display:block;height:100%;background:var(--accent-grad);border-radius:3px;transition:width .3s}
-/* 实时章节掌握度：贴在进度条下方、题目卡片上方。
-   不套卡片边框（barBlock 的 compact 版已经去掉），否则与题目卡叠成两块重框。 */
-.live-chart{margin:0 0 14px}
 
 /* 题目卡 */
 .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
@@ -304,9 +301,6 @@ ${headerHtml('practice.html')}
     <span class="pbar"><i id="pBar" style="width:0%"></i></span>
     <span id="pScore">已对 0</span>
   </div>
-  <!-- 实时章节掌握度：每答完一题就重画，答对则柱子升高。
-       放在题目上方，让「做题 → 这根柱子动了」的因果在同一屏里可见。 -->
-  <div id="liveChart" class="live-chart"></div>
   <div id="qHost"></div>
   <div class="actions">
     <button class="btn ghost" id="quitBtn">结束本轮</button>

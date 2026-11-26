@@ -62,24 +62,42 @@ const bonusPerPaper = LEDGER.filter((q) => q.bonus).length / S.PAPER_STATS.lengt
 ok(idx.includes(`<b>${qPerPaper}</b><span>题 · 100 分钟</span>`), `首页题数 ${qPerPaper} 派生正确（含选做）`);
 ok(idx.includes(`必做 ${qPerPaper - bonusPerPaper} + 选做 ${bonusPerPaper}`), '首页题数拆分（必做/选做）派生正确');
 ok(idx.includes(`<b>${S.FREQ.must.length}</b><span>族年年考</span>`), '首页必考族数派生正确');
-// 必考族清单必须列全，不能只列前几条
-const mustRows = (idx.match(/class="must-tile(?:\s|")/g) || []).length;
-ok(mustRows === S.FREQ.must.length, `首页列出全部 ${S.FREQ.must.length} 个必考族`, `${mustRows} 块`);
-/* 必考族清单的呈现方式在 2026-11-26 改过：原来是横向条形（宽度 = 分值），
-   现在是「前 3 名大块 + 其余小格」的网格。旧断言找 width:NNpx，改版后永远为 0。
-   这里守住新版真正要保证的三件事，不再检查已不存在的条形宽度。 */
-const tiles = [...idx.matchAll(/class="must-tile( hot)?"/g)].map((m) => !!m[1]);
-ok(tiles.length === S.FREQ.must.length, `首页列出全部 ${S.FREQ.must.length} 个必考族`, `${tiles.length} 块`);
-ok(tiles.filter(Boolean).length === 3, '前 3 名用大块（hot）突出，其余为小格',
-  `${tiles.filter(Boolean).length} 块 hot`);
-/* 前 3 块必须是分值最高的 3 族——否则「突出前 3」就成了随便挑 3 个。
-   族按 avgPerYear 降序时下标 0..2 就是前三名。 */
+/* 必考族清单的呈现方式两次改版：横向条形（宽度 = 分值）→「前 3 名大块 + 其余小格」
+   →（2026-11-26）五年点阵（行 = 族，列 = 学年，点面积 ∝ 该年分值）。
+   旧断言找 width:NNpx / must-tile.hot，改版后永远为 0，等于失效而不是失败，
+   所以断言按新版真正的语义重写：这块要证明「五年没有一年缺席」，
+   那就必须逐格验证 12 族 × N 学年的点，而不是只数 12 个块。 */
 {
-  const top3 = [...S.FREQ.must].sort((a, b) => b.avgPerYear - a.avgPerYear).slice(0, 3);
-  const hotNames = [...idx.matchAll(/class="must-tile hot">\s*<span class="mt-name">([^<]+)</g)]
+  const dmRows = [...idx.matchAll(/<div class="dm-row">([\s\S]*?)<\/div>/g)].map((m) => m[1]);
+  ok(dmRows.length === S.FREQ.must.length,
+    `首页点阵列出全部 ${S.FREQ.must.length} 个必考族`, `${dmRows.length} 行`);
+
+  // 每行必须恰有「学年数」个格子，且一个空缺都没有——这是「年年考」的唯一证据。
+  const nY = S.YEARS.length;
+  const cellsPerRow = dmRows.map((r) => (r.match(/class="dm-cell"/g) || []).length);
+  ok(cellsPerRow.every((c) => c === nY),
+    `每族一行 ${nY} 格（一年一格）`, `各行为 ${[...new Set(cellsPerRow)].join('/')}`);
+  const missAll = (idx.match(/class="dm-miss"/g) || []).length;
+  ok(missAll === 0, `必考族没有任何一年空缺（缺口 ${missAll} 处）`);
+
+  // 行的顺序必须按年均分降序，且年均值就是 stats 里的数，不能是手写常量。
+  const sorted = [...S.FREQ.must].sort((a, b) => b.avgPerYear - a.avgPerYear);
+  const rowHead = [...idx.matchAll(/<span class="dm-name" title="([^"]+)">[^<]+<\/span>/g)]
     .map((m) => m[1]);
-  ok(hotNames.length === 3 && top3.every((f, i) => hotNames[i] === f.name),
-    '大块恰是年均分最高的 3 族', `${hotNames.join('/')} vs ${top3.map((f) => f.name).join('/')}`);
+  ok(rowHead.length === sorted.length && sorted.every((f, i) => rowHead[i] === f.name),
+    '点阵行序为年均分降序', `${rowHead.slice(0, 3).join('/')} …`);
+
+  /* 点径必须 ∝ √分值：面积才与分值成正比。
+     抽查两处——最高分那族的点应是最大，最低分那族的点应明显更小；
+     若有人误改成直径线性映射，这里不报错但视觉会撒谎，所以顺带校验比值。 */
+  const dotPx = (s) => Math.round(7 + 20 * Math.sqrt(s / 20)); // 与构建器同一公式
+  const diam = [...idx.matchAll(/class="dm-cell">\s*<i style="--d:(\d+)px"/g)].map((m) => +m[1]);
+  ok(diam.length === S.FREQ.must.length * nY, '每个格子都写入了点径', `${diam.length} 点`);
+  const allScores = S.FREQ.must.flatMap((f) => S.YEARS.map((y) => f.perYear[y] || 0));
+  const maxS = Math.max(...allScores);
+  const minS = Math.min(...allScores);
+  ok(Math.max(...diam) === dotPx(maxS) && Math.min(...diam) === dotPx(minS),
+    `点径上下界按 √分值派生（${dotPx(minS)}–${dotPx(maxS)}px）`);
 }
 // 行动入口仍在（考情讲完后给唯一动作），且指向练习页
 ok(/class="btn primary" href="practice\.html"/.test(idx), '行动横幅主按钮指向练习页');
@@ -437,24 +455,12 @@ if (fs.existsSync('practice.html')) {
   ok(!pr.includes('薄弱度'), '章节图不用「薄弱度」口径（与能力图统一为掌握度）');
   ok(!/metric: 'weak'/.test(pr), 'barBlock 不再有薄弱度分支');
   ok(!pr.includes('radarSection') && !pr.includes('radarBlock'), '雷达已移除，不留两套图表');
-  /* ---------- 答题中的实时章节图 ----------
-   * 用户要求「在题目前面增加一个柱状图，每次做完题实时更新本轮章节的掌握度」。
-   * 三个必须保证的点：
-   *   1. 容器在 #quiz 里、#qHost 之前（在题目前面）
-   *   2. 答完一题后重画（renderLiveChart 要在 submit 之后被调用）
-   *   3. 分档口径与结果页共用 chTierOf()，否则会出现
-   *      「进行中显示薄弱、结果页显示不稳」这种自相矛盾 */
-  ok(/<div id="liveChart"[^>]*><\/div>\s*<div id="qHost">/.test(pr),
-    '实时章节图容器在题目之前');
-  ok(/function renderLiveChart\(\)/.test(pr), '有实时重画函数');
-  ok(/renderLiveChart\(\)/.test(pr) && (pr.match(/renderLiveChart\(\)/g) || []).length >= 2,
-    '实时图在切题与答题后都会重画');
-  ok(pr.includes('compact: true'), '实时图用紧凑版（不套卡片边框）');
-  ok(/function chTierOf\(/.test(pr), '章节分档口径提到模块级');
-  ok(!/const chTier = \(/.test(pr), '不再有局部 chTier 副本（会与实时图漂移）');
-  /* 结果页必须清掉实时图：否则 DOM 里同时存在三张图（实时+章节+能力），
-     看着像重复渲染，实际是隐藏节点。 */
-  ok(/live\.innerHTML = ''/.test(pr), '进结果页时清空实时图节点');
+  /* 答题中的实时章节图已回滚（2026-11-26）：它每题重画整块 DOM，
+     练习过程中页面会跳动、不稳定，用户要求去掉。
+     反向断言：不许再出现这套东西，防止将来有人「顺手加回来」。 */
+  ok(!pr.includes('liveChart') && !pr.includes('renderLiveChart'),
+    '不再有答题中的实时图表（会致页面跳动）');
+  ok(!/function chTierOf\(/.test(pr), 'chTierOf 已随实时图一起移除');
   /* 横轴顺序必须固定：柱状图要跨轮比较，按「薄弱优先」重排会失去可比性 */
   ok(/items: CAT_ORDER\.map/.test(pr), '能力图横轴用固定顺序 CAT_ORDER');
   ok(/items: CH_ORDER\.map/.test(pr), '章节图横轴用固定顺序 CH_ORDER（按章节顺序排）');

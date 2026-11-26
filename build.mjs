@@ -112,33 +112,40 @@ const CSS = TOKENS + HEAD_CSS + PAGEHEAD_CSS + `
 .ch-bar-row:first-of-type .ch-bar-track i{background:var(--gold-grad)}
 .ch-bar-val{font-size:12.5px;font-weight:700;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums}
 
-/* 必考族：按分值分主次的方块阵列。
- * 原来的等宽条形让「18.4 分」和「2 分」只差在长度，读不出量级；
- * 这 12 族的分值差 9 倍，所以改成「前 3 名占满左栏、其余 9 族铺右栏」——
- * 主次靠块的大小与深浅，不靠读者比长度。 */
-.must-wrap{display:grid;grid-template-columns:1.35fr 1fr;gap:10px;align-items:stretch}
-.must-hero{display:flex;flex-direction:column;gap:8px}
-.must-hero .must-tile{flex:1}
-.must-rest{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.must-tile{min-width:0;border-radius:9px;padding:9px 11px;
-  background:var(--accent-soft);border:1px solid rgba(37,99,235,.16);
-  display:flex;flex-direction:column;gap:2px;min-height:56px;justify-content:space-between}
-/* 分值最高的三块加深，形成主次 */
-.must-tile.hot{background:var(--accent-grad);border-color:transparent}
-.must-tile.hot .mt-name{color:#fff}
-.must-tile.hot .mt-val{color:#fff}
-.must-tile.hot .mt-val small{color:rgba(255,255,255,.75)}
-.mt-name{font-size:12px;font-weight:650;color:var(--text);line-height:1.35;
-  overflow:hidden;text-overflow:ellipsis;display:-webkit-box;
-  -webkit-line-clamp:2;-webkit-box-orient:vertical}
-.mt-val{font-size:15px;font-weight:800;color:var(--accent);line-height:1.1;
-  font-variant-numeric:tabular-nums}
-.mt-val small{font-size:10px;font-weight:600;color:var(--text-3);margin-left:1px}
-.must-hero .mt-name{font-size:12.5px}
-.must-hero .mt-val{font-size:19px}
-.must-rest .must-tile{min-height:0;padding:8px 10px}
-.must-rest .mt-name{font-size:11.5px}
-.must-rest .mt-val{font-size:14px}
+/* 必考族：五年点阵（行 = 族，列 = 学年，点面积 = 该年分值）。
+ * 这块要证明的是标题那句「五年没有一年缺席」，所以证据必须逐年在场——
+ * 年均分给了 12 个数字，但读者无从验证「年年考」，也看不到年度波动
+ * （分类压轴 6→13 分、绝对值与数轴在 23-24 冒到 12 分）。
+ * 面积编码而不是直径：分值翻 10 倍（2→20）时直径只翻 √10≈3.2 倍，
+ * 直接按面积读才不失真，所以直径 ∝ √分值。 */
+.dm{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px 22px 18px;box-shadow:var(--shadow-1)}
+/* 列宽 --dm-cols 由渲染处按 YEARS.length 现算注入，避免学年数变化时列数写死。 */
+.dm-head{display:grid;grid-template-columns:var(--dm-cols);align-items:center;
+  padding-bottom:9px;margin-bottom:2px;border-bottom:1px solid var(--border)}
+.dm-yr{font-family:var(--mono);font-size:10.5px;color:var(--text-3);text-align:center;font-weight:600;
+  white-space:nowrap}
+/* 宽屏显示完整学年（21-22），窄屏列宽只有 28px 装不下，换成两位年份（21）。
+   两个 span 同时存在，靠媒体查询切换——不用 JS 改文本。 */
+.dm-yr .yr-short{display:none}
+.dm-yr-v{font-size:10.5px;color:var(--text-3);text-align:right;font-weight:600}
+.dm-row{display:grid;grid-template-columns:var(--dm-cols);align-items:center;
+  padding:1px 0;border-radius:8px}
+.dm-row:hover{background:var(--surface-2)}
+.dm-name{font-size:12.4px;font-weight:620;color:var(--text);line-height:1.3;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:10px;min-width:0}
+.dm-cell{display:grid;place-items:center;height:30px}
+/* 尺寸由渲染处按分值现算后写进 --d（直径 ∝ √分值）；
+   --dm-scale 让窄屏等比收点径，而不必改公式或重算每个点。 */
+.dm-cell i{display:block;width:calc(var(--d) * var(--dm-scale,1));
+  height:calc(var(--d) * var(--dm-scale,1));border-radius:50%;
+  background:var(--accent);opacity:.9}
+/* 该年没考：小灰点。这 12 族实际上一族都没有，留作兜底——
+   万一数据变了（某族掉出必考）图形要如实显示缺口，而不是靠 CSS 假装没有。 */
+.dm-miss{width:5px;height:5px;border-radius:50%;background:var(--border-2)}
+.dm-val{font-size:13px;font-weight:800;color:var(--accent);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.dm-note{font-size:11.5px;color:var(--text-3);margin-top:11px;line-height:1.5}
 
 /* 行动横幅：考情讲完后给唯一动作 */
 .cta-band{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;
@@ -433,16 +440,19 @@ footer b{color:var(--text-2)}
   .hero-stats{grid-template-columns:repeat(2,1fr);gap:12px 0}
   .hero-stats b{font-size:22px}
   .g2,.g3,.g4,.tier-grid{grid-template-columns:1fr}
-  /* 必考族方块：窄屏两栏挤不下（右栏每块只剩 ~75px，族名被压成竖条），
-     改成上下堆叠——前三名整行排，其余九族两列。 */
-  .must-wrap{grid-template-columns:1fr;gap:8px}
-  .must-hero{gap:6px}
-  .must-rest{grid-template-columns:repeat(2,1fr);gap:6px}
-  .must-tile{min-height:46px;padding:8px 10px}
-  .must-hero .mt-name{font-size:12px}
-  .must-hero .mt-val{font-size:17px}
-  .mt-name{font-size:11.2px}
-  .mt-val{font-size:13.5px}
+  /* 必考族点阵：窄屏下名字列会被 5 个学年列挤到只剩几十像素，
+     列宽换成更紧的一套（学年列 30px、年均 30px），点径整体缩到 0.82
+     （--dm-scale 等比缩放，保持面积比例不变），否则 27px 的圆会顶住相邻列。 */
+  .dm{padding:12px 12px 14px;--dm-scale:.82}
+  .dm-head,.dm-row{grid-template-columns:var(--dm-cols-sm)}
+  .dm-cell{height:25px}
+  .dm-name{font-size:10.8px;padding-right:6px}
+  .dm-yr{font-size:9.5px}
+  .dm-yr .yr-full{display:none}
+  .dm-yr .yr-short{display:inline}
+  .dm-yr-v{font-size:9.5px}
+  .dm-val{font-size:11.5px}
+  .dm-note{font-size:10.8px;margin-top:8px}
   .cta-band{padding:20px 20px;gap:16px}
   .cta-band-act{width:100%}
   .cta-band-act .btn{flex:1;justify-content:center}
@@ -493,6 +503,64 @@ const section = (kicker, title, sub, content, id = '') => `
   </div></div>
   ${content}
 </section>`;
+
+/* 必考族五年点阵：行 = 族（按年均分降序），列 = 学年，点面积 ∝ 该年分值。
+ * 直径 ∝ √分值 —— 面积才和分值成正比；若直径直接按分值线性缩放，
+ * 20 分会画成 2 分的 10 倍宽，视觉上夸大 3 倍多。
+ * 列宽与点径都从 YEARS 现算，学年数一变整块跟着走，不写死 5 列。 */
+function mustDotMatrix() {
+  const fams = [...FREQ.must].sort((a, b) => b.avgPerYear - a.avgPerYear);
+  const years = YEARS;
+  const allScores = fams.flatMap((f) => years.map((y) => f.perYear[y] || 0));
+  const maxScore = Math.max(...allScores);
+  // 最小分也保底能看见：7px 底径 + 20px 增量 → 2 分 ≈ 13px，20 分 = 27px
+  const dot = (s) => (s ? Math.round(7 + 20 * Math.sqrt(s / maxScore)) : 0);
+  const cols = (nameW, yr, valW) =>
+    `${nameW} repeat(${years.length}, ${yr}) ${valW}`;
+
+  const head = `<div class="dm-head">
+      <span class="dm-name"></span>
+      ${years
+        .map(
+          (y) => `<span class="dm-yr" title="${esc(y)}">
+          <span class="yr-full">${esc(y)}</span><span class="yr-short">${esc(
+            y.replace(/^20/, '').slice(0, 2)
+          )}</span></span>`
+        )
+        .join('')}
+      <span class="dm-yr-v">年均</span>
+    </div>`;
+
+  const rows = fams
+    .map(
+      (f) => `<div class="dm-row">
+      <span class="dm-name" title="${esc(f.name)}">${esc(f.name)}</span>
+      ${years
+        .map((y) => {
+          const s = f.perYear[y] || 0;
+          return `<span class="dm-cell">${
+            s
+              ? `<i style="--d:${dot(s)}px" title="${esc(y)} · ${s} 分"></i>`
+              : '<i class="dm-miss" title="' + esc(y) + ' · 未考"></i>'
+          }</span>`;
+        })
+        .join('')}
+      <span class="dm-val">${f.avgPerYear}</span>
+    </div>`
+    )
+    .join('');
+
+  return `<div class="dm" style="--dm-cols:${cols('168px', '1fr', '44px')};--dm-cols-sm:${cols(
+    '118px',
+    '26px',
+    '30px'
+  )}">
+    ${head}${rows}
+    <p class="dm-note">每列一个学年，圆的大小 = 该族当年的分值（最小 ${Math.min(
+      ...allScores
+    )} 分，最大 ${maxScore} 分）；一行五个学年都有点，就是「年年考」。年均分在最右列。</p>
+  </div>`;
+}
 
 const distBar = (name, val, max, unit, cls = '') => {
   const w = max > 0 ? Math.round((val / max) * 100) : 0;
@@ -1009,23 +1077,7 @@ function buildHome() {
 </section>
 
 ${section('必考族', `五年年年考的 ${FREQ.must.length} 个考点族`, `覆盖必做分 ${FREQ_SUMMARY.must.pct}%（${FREQ_SUMMARY.must.score}/${MAIN_GRAND} 分）——这 ${FREQ.must.length} 族五年没有一年缺席`, `
-<div class="must-wrap" style="background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r);padding:16px;box-shadow:var(--shadow-1)">
-  <div class="must-hero">
-    ${FREQ.must.slice(0, 3).map((f) => `
-      <div class="must-tile hot">
-        <span class="mt-name">${esc(f.name)}</span>
-        <span class="mt-val">${f.avgPerYear}<small>分/年</small></span>
-      </div>`).join('')}
-  </div>
-  <div class="must-rest">
-    ${FREQ.must.slice(3).map((f) => `
-      <div class="must-tile">
-        <span class="mt-name">${esc(f.name)}</span>
-        <span class="mt-val">${f.avgPerYear}<small>分/年</small></span>
-      </div>`).join('')}
-  </div>
-</div>
+${mustDotMatrix()}
 <p style="margin-top:14px"><a href="trend.html#freq" style="color:var(--accent);font-weight:650;text-decoration:none;font-size:13.5px">看全部 ${FAMILY_MAP.length} 个考点族的五年频次 →</a></p>`)}
 
 ${section('一个判断', '先练哪块，有唯一答案', '论证在整体解读，这里只给结论', `
