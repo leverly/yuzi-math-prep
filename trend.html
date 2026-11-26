@@ -174,6 +174,32 @@ h1{font-size:clamp(28px,3.6vw,42px);line-height:1.22;font-weight:800;letter-spac
 .ch-bar-row:first-of-type .ch-bar-track i{background:var(--gold-grad)}
 .ch-bar-val{font-size:12.5px;font-weight:700;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums}
 
+/* 必考族清单：12 行紧凑排列，条形长度按年均分降序 */
+.must-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:6px 20px;box-shadow:var(--shadow-1)}
+.must-row{display:grid;grid-template-columns:26px 1fr 88px 62px;align-items:center;gap:10px;
+  padding:9px 0;border-bottom:1px solid var(--border)}
+.must-grid>.must-row:nth-last-child(-n+2){border-bottom:none}
+.must-no{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text-3);opacity:.7}
+.must-name{font-size:13.2px;font-weight:600;color:var(--text);min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.must-bar{display:block;height:6px;background:var(--bg-3);border-radius:var(--r-pill);overflow:hidden}
+.must-bar i{display:block;height:100%;background:var(--accent-grad);border-radius:var(--r-pill)}
+.must-val{font-size:13px;font-weight:700;color:var(--accent);text-align:right;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.must-val small{font-size:10.5px;font-weight:600;color:var(--text-3);margin-left:1px}
+
+/* 行动横幅：考情讲完后给唯一动作 */
+.cta-band{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;
+  margin:44px 0 8px;padding:24px 28px;border-radius:var(--r-lg);
+  background:var(--surface);border:1px solid rgba(37,99,235,.24);
+  box-shadow:0 14px 34px -14px rgba(37,99,235,.24)}
+.cta-band-main{min-width:0}
+.cta-band-main b{display:block;font-size:17px;font-weight:750;letter-spacing:-.02em;margin-bottom:5px}
+.cta-band-main span{font-size:13.2px;color:var(--text-3)}
+.cta-band-act{display:flex;gap:10px;flex-wrap:wrap}
+
 .mission-list{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px}
 .mission-item{
   display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:11px;
@@ -234,34 +260,6 @@ h3{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
 .sell-link{font-size:13px;font-weight:650;color:var(--accent);text-decoration:none;margin-top:auto}
 .sell-link:hover{text-decoration:underline}
 
-/* ---------- 诊断产出卡 + 行动条 ---------- */
-.out-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-.out-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
-  padding:18px 18px 20px;box-shadow:var(--shadow-1);position:relative;overflow:hidden;
-  transition:.18s var(--ease);display:flex;flex-direction:column}
-.out-card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--accent-grad)}
-.out-card:hover{box-shadow:var(--shadow-2);transform:translateY(-2px)}
-.out-no{font-family:var(--mono);font-size:11px;font-weight:800;color:var(--accent);
-  letter-spacing:.08em;margin-bottom:7px}
-.out-title{font-size:15px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em}
-.out-see{font-size:12.8px;color:var(--text-2);line-height:1.65}
-.out-ask{margin-top:auto;padding-top:10px;border-top:1px dashed var(--border);
-  font-size:12.2px;color:var(--text-3);line-height:1.6}
-.out-ask b{color:var(--text);font-weight:650}
-
-/* 行动条：沿用主站浅色基调（accent-soft 底 + 主色描边 + 主色按钮） */
-.cta-bar{margin-top:24px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;
-  background:linear-gradient(135deg,rgba(37,99,235,.055),rgba(79,70,229,.055)),var(--surface);
-  border:1px solid rgba(37,99,235,.2);border-radius:var(--r);
-  padding:24px 28px;box-shadow:0 10px 30px -14px rgba(37,99,235,.22)}
-.cta-main{flex:1;min-width:240px}
-.cta-title{font-size:20px;font-weight:780;color:var(--text);letter-spacing:-.02em}
-.cta-sub{font-size:13px;color:var(--text-3);margin-top:5px;line-height:1.6}
-.cta-sub b{color:var(--text-2);font-weight:600}
-.cta-bar .btn{background:var(--accent-grad);color:#fff;border-color:transparent;font-weight:700;
-  padding:13px 26px;box-shadow:var(--shadow-accent);font-size:15px}
-.cta-bar .btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px -8px rgba(37,99,235,.46)}
-
 /* ---------- 三色分值卡 ---------- */
 .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .tier-card{
@@ -318,6 +316,60 @@ tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none
 /* 中性/负向：不暗示"好"，只表示比往年轻 */
 .dist-bar.mute{background:var(--bg-3)}
 .dist-val{font-size:12.8px;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+
+/* ---------- 考点族热力矩阵 ----------
+ * 行 = 族（按章节分组），列 = 学年，格子深浅 = 该年分值，右侧 = 年均分与出现年数。
+ * 取经自英语期末站：同一套「族 × 学年」矩阵，一眼分出「年年考且分高」与「只考过一次」。
+ * 差异在色阶：用**语义分档**而非分位数——数学分值本身有含义（2 分是一道选择/填空，
+ * 6–8 分是一道解答，13 分以上是整块大题）。分位数在这里会塌档：
+ * 87 个非零格里 36 个恰好是 2 分，20% 与 40% 分位都是 2，第 2 档会空掉。 */
+.heat-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--border);border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow-1)}
+.heat{border-collapse:separate;border-spacing:0;width:100%;font-size:13px;min-width:760px}
+.heat th,.heat td{padding:0;border:none;white-space:nowrap}
+.heat thead th{
+  position:sticky;top:0;z-index:2;background:var(--surface-2);
+  font-size:11px;font-weight:700;color:var(--text-3);letter-spacing:.03em;
+  padding:9px 8px;border-bottom:1px solid var(--border-2);text-align:center;
+}
+.heat thead th.hc-fam{text-align:left;padding-left:14px;min-width:190px}
+.heat thead th.hc-avg{text-align:right;padding-right:14px;min-width:104px}
+.heat thead th.hc-hit{min-width:52px}
+.heat tbody tr:hover td{background:var(--surface-2)}
+.heat .ch-row-h td{
+  background:var(--bg-3);font-size:11.5px;font-weight:700;color:var(--text-2);
+  padding:7px 14px;letter-spacing:.02em;
+}
+.heat .ch-row-h td .ch-sum{float:right;font-weight:600;color:var(--text-3);font-size:11px}
+.heat .hc-fam-cell{padding:6px 8px 6px 14px;border-bottom:1px solid var(--border)}
+.heat .fam-nm{font-size:12.9px;font-weight:600;color:var(--text);display:block;line-height:1.35}
+.heat .fam-sub{font-size:11px;color:var(--text-3);font-variant-numeric:tabular-nums}
+.heat .hc-cell{padding:4px 5px;border-bottom:1px solid var(--border);text-align:center}
+.heat .cellbox{
+  display:grid;place-items:center;height:30px;border-radius:6px;
+  font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;
+  transition:.14s var(--ease);
+}
+.heat .cellbox.zero{background:transparent;color:var(--text-3);font-weight:500;font-size:11px;opacity:.55}
+.heat .cellbox[data-hl]{color:#fff}
+.heat tbody tr:hover .cellbox:not(.zero){outline:1px solid rgba(37,99,235,.4);outline-offset:-1px}
+.heat .hc-avg-cell{padding:6px 14px 6px 8px;border-bottom:1px solid var(--border);text-align:right}
+.heat .avg-bar{display:flex;align-items:center;gap:7px;justify-content:flex-end}
+.heat .avg-bar i{display:block;height:6px;border-radius:var(--r-pill);background:var(--accent-grad)}
+.heat .avg-bar b{font-size:12.3px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+.heat .hc-hit-cell{padding:6px 10px;border-bottom:1px solid var(--border);text-align:center;
+  font-size:11.5px;color:var(--text-3);font-variant-numeric:tabular-nums}
+.heat .hc-hit-cell.full{color:var(--ok);font-weight:700}
+.heat tbody tr:last-child td{border-bottom:none}
+
+.heat-legend{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:12.2px;color:var(--text-3)}
+.heat-legend .lg-scale{display:flex;align-items:center;gap:3px}
+.heat-legend .lg-scale i{display:block;width:24px;height:11px;border-radius:3px}
+.heat-legend .lg-note{display:inline-flex;align-items:center;gap:5px}
+.heat-legend .lg-zero{display:inline-block;width:24px;height:11px;border-radius:3px;border:1px dashed var(--border-2)}
+.heat-scroll-hint{display:none;font-size:11.8px;color:var(--text-3);margin-top:8px;align-items:center;gap:5px}
+.heat-scroll-hint b{color:var(--accent);font-weight:650}
+@media(max-width:820px){.heat-scroll-hint{display:flex}}
 
 /* ---------- 考点族卡 ---------- */
 .fam-tbl{table-layout:fixed;width:100%}
@@ -387,13 +439,10 @@ footer b{color:var(--text-2)}
 
 /* ---------- 响应式 ---------- */
 @media(max-width:1100px){
-  .out-cards{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:960px){
   .hero-split{grid-template-columns:1fr;gap:26px}
   .g3,.g4,.tier-grid{grid-template-columns:repeat(2,1fr)}
-  .cta-bar{padding:20px 22px}
-  .cta-bar .btn{width:100%;justify-content:center}
 }
 @media(max-width:680px){
   body{font-size:14.5px}
@@ -404,11 +453,13 @@ footer b{color:var(--text-2)}
   .hero-stats{grid-template-columns:repeat(2,1fr);gap:12px 0}
   .hero-stats b{font-size:22px}
   .g2,.g3,.g4,.tier-grid{grid-template-columns:1fr}
-  .out-cards{grid-template-columns:repeat(2,1fr);gap:10px}
-  .out-card{padding:15px 15px 17px}
-  .out-title{font-size:14px}
-  .out-see{font-size:12.4px}
-  .cta-title{font-size:17px}
+  /* 必考族：窄屏改单列，条形收窄给名称让位 */
+  .must-grid{grid-template-columns:1fr;padding:4px 16px}
+  .must-grid>.must-row:nth-last-child(2){border-bottom:1px solid var(--border)}
+  .must-row{grid-template-columns:22px 1fr 60px 56px;gap:8px}
+  .cta-band{padding:20px 20px;gap:16px}
+  .cta-band-act{width:100%}
+  .cta-band-act .btn{flex:1;justify-content:center}
   .sell-row{grid-template-columns:1fr}
   .section{margin:38px 0}
   .card{padding:17px}
@@ -635,154 +686,535 @@ footer b{color:var(--text-2)}
 <section class="section" id="families">
   <div class="section-head"><div class="section-head-left">
     <span class="kicker">考点族</span>
-    <h2>各考点年均分值</h2>
-    <span class="sub">按章节分组 · 组内按年均分降序 · 共 24 族</span>
+    <h2>各考点分值分布与重要性</h2>
+    <span class="sub">按章节分组 · 行 = 考点族，列 = 学年 · 格子深浅 = 该年分值 · 右侧 = 年均分与出现年数 · 共 24 族</span>
   </div></div>
   
-<div class="tbl-wrap"><table class="fam-tbl">
-  <thead><tr><th>考点</th><th class="num">年均分</th><th class="num">出现年数</th></tr></thead>
-  <tbody>
-    <tr style="background:var(--bg-3)">
-      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
-        有理数
-        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 126 分</span>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding-left:26px">分类压轴（第23题位）<span style="color:var(--text-3);font-size:11.5px;margin-left:6px">实际落点：第 23、24、26 题</span></td>
-      <td class="num cell-hi">9.2</td>
-      <td class="num">5/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">绝对值与数轴</td>
-      <td class="num cell-hi">8.8</td>
-      <td class="num">5/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">新定义（选做 / 24 题位）<span style="color:var(--text-3);font-size:11.5px;margin-left:6px">实际落点：第 8、24、25、26 题</span></td>
-      <td class="num cell-hi">3.2</td>
-      <td class="num">3/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">科学记数法与近似数</td>
-      <td class="num cell-hi">2</td>
-      <td class="num">5/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">数字填图 / 幻方</td>
-      <td class="num cell-hi">2</td>
-      <td class="num">5/5</td>
-    </tr>
-    <tr style="background:var(--bg-3)">
-      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
-        一元一次方程
-        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 114 分</span>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding-left:26px">解一元一次方程</td>
-      <td class="num cell-hi">11.6</td>
-      <td class="num">5/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">方程应用题</td>
-      <td class="num cell-hi">8.4</td>
-      <td class="num">5/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">方程概念辨析</td>
-      <td class="num cell-hi">2.8</td>
-      <td class="num">5/5</td>
-    </tr>
-    <tr style="background:var(--bg-3)">
-      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
-        有理数的运算
-        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 105 分</span>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding-left:26px">有理数四则混合运算</td>
-      <td class="num cell-hi">18.4</td>
-      <td class="num">5/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">进位制 / 综合与实践</td>
-      <td class="num cell-hi">1.4</td>
-      <td class="num">1/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">阅读理解 / 规律探究</td>
-      <td class="num cell-hi">1.2</td>
-      <td class="num">1/5</td>
-    </tr>
-    <tr style="background:var(--bg-3)">
-      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
-        几何图形初步
-        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 80 分</span>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding-left:26px">尺规作图与说理</td>
-      <td class="num cell-hi">5.8</td>
-      <td class="num">5/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">角度推理填空（几何说理）</td>
-      <td class="num cell-hi">3.8</td>
-      <td class="num">3/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">展开图 / 三视图 / 面动成体</td>
-      <td class="num cell-hi">2.4</td>
-      <td class="num">5/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">余角 / 补角列方程</td>
-      <td class="num cell-hi">1.6</td>
-      <td class="num">4/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">角度换算（度分秒）</td>
-      <td class="num cell-hi">0.8</td>
-      <td class="num">2/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">线段中点</td>
-      <td class="num cell-hi">0.8</td>
-      <td class="num">2/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">角的和差</td>
-      <td class="num cell-hi">0.8</td>
-      <td class="num">2/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">三角尺拼角</td>
-      <td class="num cell-hi">—</td>
-      <td class="num">0/5</td>
-    </tr>
-    <tr style="background:var(--bg-3)">
-      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
-        整式的加减
-        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 52 分</span>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding-left:26px">整式化简求值</td>
-      <td class="num cell-hi">6</td>
-      <td class="num">5/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">整式加减辨析</td>
-      <td class="num cell-hi">4.4</td>
-      <td class="num">5/5</td>
-    </tr>
-    <tr style="background:var(--bg-3)">
-      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
-        代数式
-        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 23 分</span>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding-left:26px">列代数式建模</td>
-      <td class="num cell-hi">2.2</td>
-      <td class="num">3/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">代数式求值（整体代入）</td>
-      <td class="num cell-hi">1.2</td>
-      <td class="num">3/5</td>
-    </tr><tr>
-      <td style="padding-left:26px">图形规律（用含 n 式子表示）</td>
-      <td class="num cell-hi">1.2</td>
-      <td class="num">3/5</td>
-    </tr></tbody>
-  <tfoot><tr><td>合计</td><td class="num">100</td><td class="num">—</td></tr></tfoot>
-</table></div>
-<p style="margin-top:12px;font-size:12.8px;color:var(--text-3)">
+<div class="heat-wrap">
+<table class="heat">
+<thead><tr>
+  <th class="hc-fam">考点族</th>
+  <th>2021-22</th><th>2022-23</th><th>2023-24</th><th>2024-25</th><th>2025-26</th>
+  <th class="hc-avg">年均</th>
+  <th class="hc-hit">出现</th>
+</tr></thead>
+<tbody>
+
+<tr class="ch-row-h"><td colspan="8">有理数<span class="ch-sum">5 族 · 五年合计 126 分</span></td></tr>
+<tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">分类压轴（第23题位）<span style="color:var(--text-3);font-size:11px;margin-left:5px">实际落点：第 23、24、26 题</span></span>
+    <span class="fam-sub">必做 5/5 年 · 选做 1 年</span>
+  </td>
+  <td class="hc-cell" title="分类压轴（第23题位）｜2021-22｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="分类压轴（第23题位）｜2022-23｜7 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">7</span>
+    </td><td class="hc-cell" title="分类压轴（第23题位）｜2023-24｜7 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">7</span>
+    </td><td class="hc-cell" title="分类压轴（第23题位）｜2024-25｜13 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.92);color:#fff">13</span>
+    </td><td class="hc-cell" title="分类压轴（第23题位）｜2025-26｜13 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.92);color:#fff">13</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:28px"></i><b>9.2</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">绝对值与数轴</span>
+    <span class="fam-sub">必做 5/5 年</span>
+  </td>
+  <td class="hc-cell" title="绝对值与数轴｜2021-22｜8 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">8</span>
+    </td><td class="hc-cell" title="绝对值与数轴｜2022-23｜8 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">8</span>
+    </td><td class="hc-cell" title="绝对值与数轴｜2023-24｜12 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.70);color:#fff">12</span>
+    </td><td class="hc-cell" title="绝对值与数轴｜2024-25｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="绝对值与数轴｜2025-26｜10 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.70);color:#fff">10</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:27px"></i><b>8.8</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">新定义（选做 / 24 题位）<span style="color:var(--text-3);font-size:11px;margin-left:5px">实际落点：第 8、24、25、26 题</span></span>
+    <span class="fam-sub">必做 3/5 年 · 选做 5 年</span>
+  </td>
+  <td class="hc-cell" title="新定义（选做 / 24 题位）｜2021-22｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="新定义（选做 / 24 题位）｜2022-23｜7 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">7</span>
+    </td><td class="hc-cell" title="新定义（选做 / 24 题位）｜2023-24｜7 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">7</span>
+    </td><td class="hc-cell" title="新定义（选做 / 24 题位）｜2024-25｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="新定义（选做 / 24 题位）｜2025-26｜未考">
+      <span class="cellbox zero" >—</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:10px"></i><b>3.2</b></span>
+  </td>
+  <td class="hc-hit-cell ">3/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">科学记数法与近似数</span>
+    <span class="fam-sub">必做 5/5 年</span>
+  </td>
+  <td class="hc-cell" title="科学记数法与近似数｜2021-22｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="科学记数法与近似数｜2022-23｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="科学记数法与近似数｜2023-24｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="科学记数法与近似数｜2024-25｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="科学记数法与近似数｜2025-26｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:6px"></i><b>2</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">数字填图 / 幻方</span>
+    <span class="fam-sub">必做 5/5 年</span>
+  </td>
+  <td class="hc-cell" title="数字填图 / 幻方｜2021-22｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="数字填图 / 幻方｜2022-23｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="数字填图 / 幻方｜2023-24｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="数字填图 / 幻方｜2024-25｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="数字填图 / 幻方｜2025-26｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:6px"></i><b>2</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr>
+
+<tr class="ch-row-h"><td colspan="8">一元一次方程<span class="ch-sum">3 族 · 五年合计 114 分</span></td></tr>
+<tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">解一元一次方程</span>
+    <span class="fam-sub">必做 5/5 年</span>
+  </td>
+  <td class="hc-cell" title="解一元一次方程｜2021-22｜11 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.70);color:#fff">11</span>
+    </td><td class="hc-cell" title="解一元一次方程｜2022-23｜11 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.70);color:#fff">11</span>
+    </td><td class="hc-cell" title="解一元一次方程｜2023-24｜12 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.70);color:#fff">12</span>
+    </td><td class="hc-cell" title="解一元一次方程｜2024-25｜12 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.70);color:#fff">12</span>
+    </td><td class="hc-cell" title="解一元一次方程｜2025-26｜12 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.70);color:#fff">12</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:35px"></i><b>11.6</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">方程应用题</span>
+    <span class="fam-sub">必做 5/5 年</span>
+  </td>
+  <td class="hc-cell" title="方程应用题｜2021-22｜8 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">8</span>
+    </td><td class="hc-cell" title="方程应用题｜2022-23｜7 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">7</span>
+    </td><td class="hc-cell" title="方程应用题｜2023-24｜9 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.70);color:#fff">9</span>
+    </td><td class="hc-cell" title="方程应用题｜2024-25｜9 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.70);color:#fff">9</span>
+    </td><td class="hc-cell" title="方程应用题｜2025-26｜9 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.70);color:#fff">9</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:26px"></i><b>8.4</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">方程概念辨析</span>
+    <span class="fam-sub">必做 5/5 年</span>
+  </td>
+  <td class="hc-cell" title="方程概念辨析｜2021-22｜4 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.32);color:var(--accent)">4</span>
+    </td><td class="hc-cell" title="方程概念辨析｜2022-23｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="方程概念辨析｜2023-24｜4 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.32);color:var(--accent)">4</span>
+    </td><td class="hc-cell" title="方程概念辨析｜2024-25｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="方程概念辨析｜2025-26｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:9px"></i><b>2.8</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr>
+
+<tr class="ch-row-h"><td colspan="8">有理数的运算<span class="ch-sum">3 族 · 五年合计 105 分</span></td></tr>
+<tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">有理数四则混合运算</span>
+    <span class="fam-sub">必做 5/5 年</span>
+  </td>
+  <td class="hc-cell" title="有理数四则混合运算｜2021-22｜18 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.92);color:#fff">18</span>
+    </td><td class="hc-cell" title="有理数四则混合运算｜2022-23｜18 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.92);color:#fff">18</span>
+    </td><td class="hc-cell" title="有理数四则混合运算｜2023-24｜17 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.92);color:#fff">17</span>
+    </td><td class="hc-cell" title="有理数四则混合运算｜2024-25｜19 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.92);color:#fff">19</span>
+    </td><td class="hc-cell" title="有理数四则混合运算｜2025-26｜20 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.92);color:#fff">20</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:56px"></i><b>18.4</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">进位制 / 综合与实践</span>
+    <span class="fam-sub">必做 1/5 年 · 选做 1 年</span>
+  </td>
+  <td class="hc-cell" title="进位制 / 综合与实践｜2021-22｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="进位制 / 综合与实践｜2022-23｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="进位制 / 综合与实践｜2023-24｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="进位制 / 综合与实践｜2024-25｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="进位制 / 综合与实践｜2025-26｜7 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">7</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:4px"></i><b>1.4</b></span>
+  </td>
+  <td class="hc-hit-cell ">1/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">阅读理解 / 规律探究</span>
+    <span class="fam-sub">必做 1/5 年 · 选做 1 年</span>
+  </td>
+  <td class="hc-cell" title="阅读理解 / 规律探究｜2021-22｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="阅读理解 / 规律探究｜2022-23｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="阅读理解 / 规律探究｜2023-24｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="阅读理解 / 规律探究｜2024-25｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="阅读理解 / 规律探究｜2025-26｜未考">
+      <span class="cellbox zero" >—</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:4px"></i><b>1.2</b></span>
+  </td>
+  <td class="hc-hit-cell ">1/5</td>
+</tr>
+
+<tr class="ch-row-h"><td colspan="8">几何图形初步<span class="ch-sum">8 族 · 五年合计 80 分</span></td></tr>
+<tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">尺规作图与说理</span>
+    <span class="fam-sub">必做 5/5 年</span>
+  </td>
+  <td class="hc-cell" title="尺规作图与说理｜2021-22｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="尺规作图与说理｜2022-23｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="尺规作图与说理｜2023-24｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="尺规作图与说理｜2024-25｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="尺规作图与说理｜2025-26｜5 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.32);color:var(--accent)">5</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:18px"></i><b>5.8</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">角度推理填空（几何说理）</span>
+    <span class="fam-sub">必做 3/5 年</span>
+  </td>
+  <td class="hc-cell" title="角度推理填空（几何说理）｜2021-22｜7 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">7</span>
+    </td><td class="hc-cell" title="角度推理填空（几何说理）｜2022-23｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="角度推理填空（几何说理）｜2023-24｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="角度推理填空（几何说理）｜2024-25｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="角度推理填空（几何说理）｜2025-26｜未考">
+      <span class="cellbox zero" >—</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:12px"></i><b>3.8</b></span>
+  </td>
+  <td class="hc-hit-cell ">3/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">展开图 / 三视图 / 面动成体</span>
+    <span class="fam-sub">必做 5/5 年</span>
+  </td>
+  <td class="hc-cell" title="展开图 / 三视图 / 面动成体｜2021-22｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="展开图 / 三视图 / 面动成体｜2022-23｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="展开图 / 三视图 / 面动成体｜2023-24｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="展开图 / 三视图 / 面动成体｜2024-25｜4 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.32);color:var(--accent)">4</span>
+    </td><td class="hc-cell" title="展开图 / 三视图 / 面动成体｜2025-26｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:7px"></i><b>2.4</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">余角 / 补角列方程</span>
+    <span class="fam-sub">必做 4/5 年</span>
+  </td>
+  <td class="hc-cell" title="余角 / 补角列方程｜2021-22｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="余角 / 补角列方程｜2022-23｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="余角 / 补角列方程｜2023-24｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="余角 / 补角列方程｜2024-25｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="余角 / 补角列方程｜2025-26｜未考">
+      <span class="cellbox zero" >—</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:5px"></i><b>1.6</b></span>
+  </td>
+  <td class="hc-hit-cell ">4/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">角度换算（度分秒）</span>
+    <span class="fam-sub">必做 2/5 年</span>
+  </td>
+  <td class="hc-cell" title="角度换算（度分秒）｜2021-22｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="角度换算（度分秒）｜2022-23｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="角度换算（度分秒）｜2023-24｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="角度换算（度分秒）｜2024-25｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="角度换算（度分秒）｜2025-26｜未考">
+      <span class="cellbox zero" >—</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:2px"></i><b>0.8</b></span>
+  </td>
+  <td class="hc-hit-cell ">2/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">线段中点</span>
+    <span class="fam-sub">必做 2/5 年</span>
+  </td>
+  <td class="hc-cell" title="线段中点｜2021-22｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="线段中点｜2022-23｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="线段中点｜2023-24｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="线段中点｜2024-25｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="线段中点｜2025-26｜未考">
+      <span class="cellbox zero" >—</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:2px"></i><b>0.8</b></span>
+  </td>
+  <td class="hc-hit-cell ">2/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">角的和差</span>
+    <span class="fam-sub">必做 2/5 年</span>
+  </td>
+  <td class="hc-cell" title="角的和差｜2021-22｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="角的和差｜2022-23｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="角的和差｜2023-24｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="角的和差｜2024-25｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="角的和差｜2025-26｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:2px"></i><b>0.8</b></span>
+  </td>
+  <td class="hc-hit-cell ">2/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">三角尺拼角</span>
+    <span class="fam-sub">必做 0/5 年 · 选做 1 年</span>
+  </td>
+  <td class="hc-cell" title="三角尺拼角｜2021-22｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="三角尺拼角｜2022-23｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="三角尺拼角｜2023-24｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="三角尺拼角｜2024-25｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="三角尺拼角｜2025-26｜未考">
+      <span class="cellbox zero" >—</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:0px"></i><b>—</b></span>
+  </td>
+  <td class="hc-hit-cell ">0/5</td>
+</tr>
+
+<tr class="ch-row-h"><td colspan="8">整式的加减<span class="ch-sum">2 族 · 五年合计 52 分</span></td></tr>
+<tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">整式化简求值</span>
+    <span class="fam-sub">必做 5/5 年</span>
+  </td>
+  <td class="hc-cell" title="整式化简求值｜2021-22｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="整式化简求值｜2022-23｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="整式化简求值｜2023-24｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="整式化简求值｜2024-25｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="整式化简求值｜2025-26｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:18px"></i><b>6</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">整式加减辨析</span>
+    <span class="fam-sub">必做 5/5 年</span>
+  </td>
+  <td class="hc-cell" title="整式加减辨析｜2021-22｜6 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">6</span>
+    </td><td class="hc-cell" title="整式加减辨析｜2022-23｜4 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.32);color:var(--accent)">4</span>
+    </td><td class="hc-cell" title="整式加减辨析｜2023-24｜4 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.32);color:var(--accent)">4</span>
+    </td><td class="hc-cell" title="整式加减辨析｜2024-25｜4 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.32);color:var(--accent)">4</span>
+    </td><td class="hc-cell" title="整式加减辨析｜2025-26｜4 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.32);color:var(--accent)">4</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:13px"></i><b>4.4</b></span>
+  </td>
+  <td class="hc-hit-cell full">5/5</td>
+</tr>
+
+<tr class="ch-row-h"><td colspan="8">代数式<span class="ch-sum">3 族 · 五年合计 23 分</span></td></tr>
+<tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">列代数式建模</span>
+    <span class="fam-sub">必做 3/5 年</span>
+  </td>
+  <td class="hc-cell" title="列代数式建模｜2021-22｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="列代数式建模｜2022-23｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="列代数式建模｜2023-24｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="列代数式建模｜2024-25｜7 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.50);color:#fff">7</span>
+    </td><td class="hc-cell" title="列代数式建模｜2025-26｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:7px"></i><b>2.2</b></span>
+  </td>
+  <td class="hc-hit-cell ">3/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">代数式求值（整体代入）</span>
+    <span class="fam-sub">必做 3/5 年</span>
+  </td>
+  <td class="hc-cell" title="代数式求值（整体代入）｜2021-22｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="代数式求值（整体代入）｜2022-23｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="代数式求值（整体代入）｜2023-24｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="代数式求值（整体代入）｜2024-25｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="代数式求值（整体代入）｜2025-26｜未考">
+      <span class="cellbox zero" >—</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:4px"></i><b>1.2</b></span>
+  </td>
+  <td class="hc-hit-cell ">3/5</td>
+</tr><tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">图形规律（用含 n 式子表示）</span>
+    <span class="fam-sub">必做 3/5 年</span>
+  </td>
+  <td class="hc-cell" title="图形规律（用含 n 式子表示）｜2021-22｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="图形规律（用含 n 式子表示）｜2022-23｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="图形规律（用含 n 式子表示）｜2023-24｜未考">
+      <span class="cellbox zero" >—</span>
+    </td><td class="hc-cell" title="图形规律（用含 n 式子表示）｜2024-25｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td><td class="hc-cell" title="图形规律（用含 n 式子表示）｜2025-26｜2 分">
+      <span class="cellbox " data-hl style="background:rgba(37,99,235,.15);color:var(--accent)">2</span>
+    </td>
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:4px"></i><b>1.2</b></span>
+  </td>
+  <td class="hc-hit-cell ">3/5</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+<div class="heat-scroll-hint">← <b>左右滑动</b>看全部 5 个学年与年均分</div>
+<div class="heat-legend">
+  <span class="lg-note"><span class="lg-scale">
+    <i style="background:rgba(37,99,235,.15)"></i><i style="background:rgba(37,99,235,.32)"></i><i style="background:rgba(37,99,235,.50)"></i><i style="background:rgba(37,99,235,.70)"></i><i style="background:rgba(37,99,235,.92)"></i>
+  </span>该年分值：2 分 / 3–5 分 / 6–8 分 / 9–12 分 / 13 分以上</span>
+  <span class="lg-note"><span class="lg-zero"></span>该年未考</span>
+  <span class="lg-note">右侧条形 = 年均分（满格 18.4 分）</span>
+</div>
+<div class="note" style="margin-top:14px">
+  <b>怎么读：</b>横着看一行，是这一族五年考没考、分值稳不稳；竖着看一列，是那一年的分值压在哪几族。
+  <b>深浅不是难度，是分量</b>——「13 分以上」基本就是整块大题（第 17 题的有理数混合运算、第 23 题的分类压轴），
+  「2 分」只是单个选择或填空。
+</div>
+<p style="margin-top:10px;font-size:12.8px;color:var(--text-3)">
   年均分 = 五年必做分合计 ÷ 5。只出现在选做位的考点计 0 分（选做不计入必做 100 分）。
 </p>
 </section>
