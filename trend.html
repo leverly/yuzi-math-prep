@@ -72,6 +72,14 @@ a{color:inherit}
   display:inline-flex;align-items:center;gap:5px}
 .hdr-nav a.nav-slides::before{content:"▶";font-size:8px}
 .hdr-nav a.nav-slides:hover{background:var(--purple,#7c3aed);color:#fff}
+/* 「切换」入口：回到地区/年级/科目选择页。弱化处理，不与内容页争视线 */
+.hdr-nav a.nav-switch{
+  margin-left:6px;border-left:1px solid var(--border);padding-left:16px;
+  color:var(--text-3);font-weight:600;
+}
+.hdr-nav a.nav-switch:hover{color:var(--accent);background:var(--accent-soft)}
+/* 选择页顶栏右侧的说明文字（不是链接） */
+.hdr-note{font-size:12.8px;color:var(--text-3);font-weight:500;padding:7px 0}
 
 /* ---------- 页头排版 ---------- */
 h1{font-size:clamp(28px,3.6vw,42px);line-height:1.22;font-weight:800;letter-spacing:-.03em;margin-bottom:16px}
@@ -394,12 +402,13 @@ footer b{color:var(--text-2)}
 </head>
 <body>
 <header class="site-head"><div class="hdr-in">
-  <a class="brand" href="index.html">
+  <a class="brand" href="home.html">
     <span class="brand-mark">西</span>
     <span>西城初一数学<small>初一上·期末</small></span>
   </a>
   <nav class="hdr-nav">
-    <a href="index.html">总览</a><a href="papers.html">逐年拆解</a><a href="trend.html" class="on">整体解读</a><a href="plan.html">备考计划</a><a href="practice.html">备考诊断</a><a href="history.html">学情数据</a><a href="slides.html" class="nav-slides">演示</a>
+    <a href="home.html">总览</a><a href="papers.html">逐年拆解</a><a href="trend.html" class="on">整体解读</a><a href="plan.html">备考计划</a><a href="practice.html">备考诊断</a><a href="history.html">学情数据</a><a href="slides.html" class="nav-slides">演示</a>
+    <a href="index.html" class="nav-switch" title="切换地区 / 年级 / 科目">⇄ 切换</a>
   </nav>
 </div></header>
 <main class="wrap">

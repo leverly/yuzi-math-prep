@@ -46,10 +46,12 @@ for (const c of S.CROSS_CHECK) {
 }
 
 console.log('\n【四】页面产物与数据一致');
-const pages = ['index.html', 'papers.html', 'trend.html', 'plan.html'];
+const pages = ['index.html', 'home.html', 'papers.html', 'trend.html', 'plan.html'];
 for (const p of pages) ok(fs.existsSync(p), `${p} 已生成`);
 
-const idx = fs.readFileSync('index.html', 'utf8');
+/* index.html 现在是考区选择页，科目首页是 home.html */
+const sel = fs.readFileSync('index.html', 'utf8');
+const idx = fs.readFileSync('home.html', 'utf8');
 const tr = fs.readFileSync('trend.html', 'utf8');
 const pl = fs.readFileSync('plan.html', 'utf8');
 // 首页已改为行动入口：首屏说「做一轮多少题、覆盖几章、题库多大」，
@@ -90,13 +92,72 @@ ok(!/先保约\s*\d+\s*分|总分\s*≥\s*\d+|目标正确率\s*100%/.test(pl), 
 
 console.log('\n【四之二】首页诊断入口');
 {
-  const idx2 = fs.readFileSync('index.html', 'utf8');
+  const idx2 = fs.readFileSync('home.html', 'utf8');
   const cards = (idx2.match(/class="out-card"/g) || []).length;
   ok(cards === 5, '诊断产出讲清五样东西', cards + ' 张');
   ok(idx2.includes('class="cta-bar"'), '有醒目行动条（不是纯文字链接）');
   ok(idx2.includes('开始诊断'), '行动条有明确按钮');
   ok(idx2.includes('各能力分档'), '能力维度已写进入口说明');
   ok(!idx2.includes('现在就做一轮 →'), '已移除原来的纯文字弱链接');
+}
+
+console.log('\n【四之四】考区选择页（index.html）');
+{
+  const { CATALOG, CHOICE_KEY, NAV } = await import('./work/site-shell.mjs');
+
+  ok(sel.includes(`<title>期末考情导航站`), '选择页标题为「期末考情导航站」');
+  ok(sel.includes('期末考情导航站'), '选择页展示站点名');
+  /* 选择页顶栏不能出现科目站导航——此时还没选科目 */
+  const selHdr = (sel.match(/<header class="site-head">[\s\S]*?<\/header>/) || [''])[0];
+  ok(selHdr.length > 0, '选择页有顶栏');
+  for (const [, t] of NAV) {
+    if (['演示'].includes(t)) continue;
+    ok(!selHdr.includes(`>${t}<`), `选择页顶栏不含科目站导航项「${t}」`);
+  }
+  ok(!selHdr.includes('nav-slides'), '选择页顶栏不含「演示」入口');
+
+  /* 四级选择器齐全 */
+  for (const [id, label] of [['optProvince', '省份'], ['optRegion', '地区'], ['optGrade', '年级'], ['optSubject', '科目']]) {
+    ok(sel.includes(`id="${id}"`), `选择页有「${label}」一级（${id}）`);
+  }
+  ok(sel.includes('id="goBtn"'), '选择页有「进入」按钮');
+
+  /* 目录数据必须内联，且与 CATALOG 同源（file:// 下不能 import） */
+  ok(sel.includes(JSON.stringify(CATALOG)), '目录数据与 CATALOG 同源内联');
+  ok(!/^\s*import\s/m.test(sel.replace(/<script>[\s\S]*?<\/script>/g, '')), '选择页无外部 import');
+
+  /* 记忆选择 */
+  ok(sel.includes(CHOICE_KEY), `记住选择用统一存储键（${CHOICE_KEY}）`);
+  ok(sel.includes('localStorage.setItem') && sel.includes('localStorage.removeItem'),
+    '选择页有「记住」与「清除」两个动作');
+
+  /* 「进入」按钮的就绪态不能依赖 :disabled 伪类或 opacity 过渡——
+     这两者在 headless / 低帧率下会停在旧值，出现「已可点但看着是灰的」。
+     用 aria-disabled 显式属性 + 只过渡 transform/box-shadow。 */
+  ok(sel.includes('aria-disabled'), '就绪态用 aria-disabled 显式属性控制');
+  ok(/\.sel-go\[aria-disabled="true"\]/.test(sel), '未就绪态有对应样式规则');
+  {
+    const goRule = (sel.match(/\.sel-go\{[^}]*\}/) || [''])[0];
+    ok(!/transition:[^;]*opacity/.test(goRule), '「进入」按钮的过渡不含 opacity');
+  }
+  /* 单一选项的层级必须自动选中，否则用户要点三次才有反应 */
+  ok(sel.includes('autoFill'), '有单选层级的自动填充逻辑');
+
+  /* 每个科目都要有可达目标：本站页必须存在，外站必须是 https */
+  const allSubjects = Object.entries(CATALOG.subjects).flatMap(([k, arr]) => arr.map((s) => ({ ...s, key: k })));
+  ok(allSubjects.length > 0, '目录里至少有一个科目');
+  for (const s of allSubjects) {
+    if (s.own) {
+      ok(fs.existsSync(s.href), `科目「${s.name}」指向的 ${s.href} 存在`);
+    } else {
+      ok(/^https:\/\//.test(s.href), `科目「${s.name}」外链为 https（${s.href}）`);
+    }
+  }
+
+  /* 声明了几套卷就要真有几套——不许把空科目列进选择器 */
+  const paperDirs = fs.existsSync('真题试卷') ? fs.readdirSync('真题试卷') : [];
+  ok(!allSubjects.some((s) => s.own && !paperDirs.includes(s.name)),
+    '本站科目都在真题试卷目录下有材料');
 }
 
 console.log('\n【四之三】两页划分：逐年拆解 vs 整体解读');
@@ -312,7 +373,9 @@ if (fs.existsSync('practice.html')) {
  */
 console.log('\n【八】外壳一致性（跨页共用部分不得漂移）');
 {
-  const PAGE_FILES = ['index.html', 'papers.html', 'trend.html', 'plan.html', 'practice.html'];
+  /* index.html 是考区选择页，顶栏是「站点名 + 说明」而不是科目站导航，
+     单独在【四之四】校验；这里只比对科目站的五个内容页。 */
+  const PAGE_FILES = ['home.html', 'papers.html', 'trend.html', 'plan.html', 'practice.html'];
 
   // 8.1 顶栏标记一致：品牌 + 导航项（href/文字/高亮/演示样式）必须与共享来源同构
   const { headerHtml } = await import('./work/site-shell.mjs');

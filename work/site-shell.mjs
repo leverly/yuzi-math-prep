@@ -8,17 +8,48 @@
 // 页面各自的业务组件（题目卡、诊断面板、优先级卡…）仍留在各自构建器里。
 
 export const SITE = {
+  /* 导航站名（用户 2026-11-26 指定）：第一屏是地区/年级/科目选择器 */
+  siteName: '期末考情导航站',
   short: '西城初一数学',
   name: '西城区初一(上)数学期末 · 五年考情与备考计划',  full: '西城区初一(上)数学期末考情分析站',
   exam: '西城区初一(上)期末',
 };
 
+/* 选择器：单一来源。
+ * 只列**真实有材料**的项——空目录不列，否则点进去是空页。
+ * 新增地区/年级/科目时，先把材料放进 真题试卷/<科目>/ 并在此登记。 */
+export const CATALOG = {
+  provinces: [
+    { id: 'beijing', name: '北京市' },
+  ],
+  regions: {
+    beijing: [
+      { id: 'xicheng', name: '西城区' },
+    ],
+  },
+  grades: [
+    { id: 'g7-1', name: '初一（上）' },
+  ],
+  subjects: {
+    'beijing/xicheng/g7-1': [
+      /* 本站自有：数学 */
+      { id: 'math', name: '数学', desc: '5 套区统考真题 · 130 题逐题标注', href: 'home.html', papers: 5, own: true },
+      /* 独立站点：英语 */
+      { id: 'english', name: '英语', desc: '4 套区统考真题 · 专项分层', href: 'https://leverly.github.io/yuzi-english-prep/', papers: 4, own: false },
+    ],
+  },
+};
+
+/* 选择结果存在这里；首页读取它决定「记住选择」是否生效 */
+export const CHOICE_KEY = 'xq-nav-choice-v1';
+
 /* 全站导航：单一来源，顺序与样式都在这里定
  * 2026-11-25 移除「演示」（slides.html）——12 页里 10 页与其余页重复，
  * 且唯一独有的「六周冲刺节奏」与 plan 页「不给具体时间和动作」的立场矛盾。
- * 2026-11-26 恢复「演示」：已重做成 10 页面向家长的考情讲解，删掉冲刺节奏。 */
+ * 2026-11-26 恢复「演示」：已重做成 10 页面向家长的考情讲解，删掉冲刺节奏。
+ * 2026-11-26 index.html 改为选择器页，原首页移至 home.html，「总览」指向 home.html。 */
 export const NAV = [
-  ['index.html', '总览'],
+  ['home.html', '总览'],
   ['papers.html', '逐年拆解'],
   ['trend.html', '整体解读'],
   ['plan.html', '备考计划'],
@@ -105,6 +136,14 @@ export const HEAD_CSS = `
   display:inline-flex;align-items:center;gap:5px}
 .hdr-nav a.nav-slides::before{content:"▶";font-size:8px}
 .hdr-nav a.nav-slides:hover{background:var(--purple,#7c3aed);color:#fff}
+/* 「切换」入口：回到地区/年级/科目选择页。弱化处理，不与内容页争视线 */
+.hdr-nav a.nav-switch{
+  margin-left:6px;border-left:1px solid var(--border);padding-left:16px;
+  color:var(--text-3);font-weight:600;
+}
+.hdr-nav a.nav-switch:hover{color:var(--accent);background:var(--accent-soft)}
+/* 选择页顶栏右侧的说明文字（不是链接） */
+.hdr-note{font-size:12.8px;color:var(--text-3);font-weight:500;padding:7px 0}
 `;
 
 /* 页头排版：各页共用（.head 容器与 .crumb 由调用页按需叠加） */
@@ -134,15 +173,29 @@ export const SHELL_MQ = `
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/* 顶栏标记：全站唯一来源。active 是高亮项 href */
+/* 顶栏标记：全站唯一来源。active 是高亮项 href
+ * active 为空串时是选择页（index.html）：此时还没确定科目，
+ * 不能显示数学站的内部导航（逐年拆解/备考计划…），只留站点名。 */
 export function headerHtml(active) {
-  return `<header class="site-head"><div class="hdr-in">
+  if (!active) {
+    return `<header class="site-head"><div class="hdr-in">
   <a class="brand" href="index.html">
+    <span class="brand-mark">考</span>
+    <span>${esc(SITE.siteName)}<small>选择考区</small></span>
+  </a>
+  <nav class="hdr-nav">
+    <span class="hdr-note">按地区与科目组织期末考情</span>
+  </nav>
+</div></header>`;
+  }
+  return `<header class="site-head"><div class="hdr-in">
+  <a class="brand" href="home.html">
     <span class="brand-mark">西</span>
     <span>${esc(SITE.short)}<small>初一上·期末</small></span>
   </a>
   <nav class="hdr-nav">
     ${NAV.map(([h, t, cls]) => `<a href="${h}"${cls ? ` class="${cls}"` : (h === active ? ' class="on"' : '')}>${t}</a>`).join('')}
+    <a href="index.html" class="nav-switch" title="切换地区 / 年级 / 科目">⇄ 切换</a>
   </nav>
 </div></header>`;
 }

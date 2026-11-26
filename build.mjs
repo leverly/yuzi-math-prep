@@ -11,7 +11,7 @@ import {
   SCORE_TIERS, MAIN_GRAND, N_PAPERS,
 } from './work/papers/stats.mjs';
 import { CH_NAME, CH_ORDER, CAT_NAME, CAT_ORDER, DIFF_NAME, DIFF_ORDER, LEDGER } from './work/papers/ledger.mjs';
-import { SITE, NAV, TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml, ROUND_SIZE } from './work/site-shell.mjs';
+import { SITE, NAV, CATALOG, CHOICE_KEY, TOKENS, HEAD_CSS, PAGEHEAD_CSS, headerHtml, ROUND_SIZE } from './work/site-shell.mjs';
 import { BANK as PRACTICE_BANK } from './practice-data.mjs';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -403,7 +403,343 @@ const distBar = (name, val, max, unit, cls = '') => {
   </div>`;
 };
 
-/* ============================ 首页 ============================ */
+/* ============================ 选择页（index.html） ============================ */
+/* 站点入口：先选省份 → 地区 → 年级 → 科目，再进对应科目的首页。
+ * 只列 CATALOG 里真实有材料的项——空目录不列，点进去不能是空页。
+ * 选择结果存 localStorage；有记录时显示「继续上次」并可直接进入。 */
+function buildIndex() {
+  const css = `
+.sel-wrap{min-height:calc(100vh - 64px);display:flex;flex-direction:column;
+  justify-content:center;padding:56px 0 72px}
+.sel-head{text-align:center;margin-bottom:34px}
+.sel-badge{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
+  color:var(--accent);background:var(--accent-soft);padding:5px 13px;border-radius:var(--r-pill);margin-bottom:16px}
+.sel-badge i{width:6px;height:6px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 3px rgba(37,99,235,.16)}
+.sel-h{font-size:34px;font-weight:780;letter-spacing:-.03em;line-height:1.25}
+.sel-sub{font-size:14.5px;color:var(--text-3);margin-top:10px}
+
+.sel-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-3);padding:8px 0;max-width:760px;margin:0 auto;width:100%}
+
+.sel-row{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;
+  padding:18px 26px;border-bottom:1px solid var(--border)}
+.sel-row:last-of-type{border-bottom:none}
+.sel-lbl{font-size:13.5px;font-weight:700;color:var(--text-2);padding-top:7px}
+.sel-opts{display:flex;flex-wrap:wrap;gap:9px}
+.sel-opt{
+  appearance:none;font-family:inherit;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:11px;border:1px solid var(--border-2);
+  background:var(--surface);color:var(--text);font-size:14px;font-weight:600;
+  transition:.15s var(--ease);
+}
+.sel-opt:hover:not(:disabled){border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.sel-opt[aria-pressed="true"]{
+  background:var(--accent-grad);border-color:transparent;color:#fff;
+  box-shadow:var(--shadow-accent);
+}
+.sel-opt:disabled{opacity:.42;cursor:not-allowed}
+.sel-opt .opt-sub{font-size:11.5px;font-weight:600;opacity:.72}
+.sel-opt[aria-pressed="true"] .opt-sub{opacity:.86}
+
+.sel-foot{padding:20px 26px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  border-top:1px solid var(--border);background:var(--surface-2);
+  border-radius:0 0 var(--r-lg) var(--r-lg)}
+.sel-go{
+  appearance:none;font-family:inherit;cursor:pointer;border:none;
+  background:var(--accent-grad);color:#fff;font-size:15px;font-weight:700;
+  padding:12px 26px;border-radius:11px;box-shadow:var(--shadow-accent);
+  /* 只过渡 transform/box-shadow。opacity 若参与过渡，在部分渲染路径
+     （headless 虚拟时间、低帧率设备）会停在起始值，出现「已可点但看着是灰的」 */
+  transition:transform .16s var(--ease),box-shadow .16s var(--ease);
+}
+.sel-go:hover:not([aria-disabled="true"]){transform:translateY(-1px)}
+/* 未就绪态用显式属性控制，不依赖 :disabled 伪类——
+   伪类在部分渲染路径下重算不及时，会出现「已可点但看着是灰的」 */
+.sel-go[aria-disabled="true"]{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}
+.sel-hint{font-size:12.8px;color:var(--text-3)}
+.sel-hint b{color:var(--text-2)}
+
+/* 科目卡：比按钮大，带材料规模，让人看清点进去有什么 */
+.sel-subj{display:flex;flex-direction:column;align-items:flex-start;gap:3px;
+  padding:12px 18px;border-radius:12px;border:1px solid var(--border-2);
+  background:var(--surface);cursor:pointer;font-family:inherit;text-align:left;
+  transition:.15s var(--ease);min-width:196px}
+.sel-subj:hover{border-color:var(--accent);background:var(--accent-soft)}
+/* 选中态与上面三级按钮保持一致：实心蓝 + 投影 */
+.sel-subj[aria-pressed="true"]{border-color:transparent;background:var(--accent-grad);
+  box-shadow:var(--shadow-accent)}
+.sel-subj[aria-pressed="true"] b{color:#fff}
+.sel-subj[aria-pressed="true"] small{color:rgba(255,255,255,.82)}
+.sel-subj[aria-pressed="true"] .ext{background:rgba(255,255,255,.22);color:#fff}
+.sel-subj b{font-size:15px;font-weight:750;display:flex;align-items:center;gap:7px}
+.sel-subj small{font-size:12px;color:var(--text-3);font-weight:500}
+.sel-subj .ext{font-size:10.5px;font-weight:700;color:var(--purple);
+  background:var(--purple-soft);padding:1px 6px;border-radius:5px}
+
+/* 上次选择提示 */
+.sel-resume{max-width:760px;margin:0 auto 16px;display:none;align-items:center;gap:12px;
+  padding:12px 18px;border-radius:12px;background:var(--accent-soft);
+  border:1px solid rgba(37,99,235,.22);font-size:13.5px;color:var(--text-2)}
+.sel-resume.on{display:flex}
+.sel-resume b{color:var(--accent)}
+.sel-resume a{margin-left:auto;font-weight:700;color:var(--accent);text-decoration:none;white-space:nowrap}
+.sel-resume button{appearance:none;border:none;background:none;cursor:pointer;
+  color:var(--text-3);font-size:12.5px;font-family:inherit;text-decoration:underline}
+
+@media(max-width:640px){
+  .sel-h{font-size:26px}
+  .sel-row{grid-template-columns:1fr;gap:9px;padding:15px 18px}
+  .sel-lbl{padding-top:0}
+  .sel-card{border-radius:var(--r)}
+  .sel-foot{padding:16px 18px 20px;border-radius:0 0 var(--r) var(--r)}
+  .sel-subj{min-width:0;width:100%}
+  /* 顶栏右侧说明在窄屏会被裁切，直接收起 */
+  .hdr-note{display:none}
+}
+`;
+
+  /* 选择页的 HTML：选项由 JS 按 CATALOG 渲染，保证与单一来源一致 */
+  const catalogJson = JSON.stringify(CATALOG);
+
+  const body = `
+<main class="wrap">
+<div class="sel-wrap">
+  <div class="sel-head">
+    <div class="sel-badge"><i></i>${esc(SITE.siteName)}</div>
+    <h1 class="sel-h">先选你的考区</h1>
+    <p class="sel-sub">选好省份、地区、年级和科目，进入对应的期末考情分析</p>
+  </div>
+
+  <div class="sel-resume" id="resume">
+    <span>上次看过：<b id="resumeTxt"></b></span>
+    <a href="#" id="resumeGo">继续 →</a>
+    <button type="button" id="resumeClear">清除</button>
+  </div>
+
+  <div class="sel-card">
+    <div class="sel-row">
+      <span class="sel-lbl">省份</span>
+      <div class="sel-opts" id="optProvince"></div>
+    </div>
+    <div class="sel-row">
+      <span class="sel-lbl">地区</span>
+      <div class="sel-opts" id="optRegion"></div>
+    </div>
+    <div class="sel-row">
+      <span class="sel-lbl">年级</span>
+      <div class="sel-opts" id="optGrade"></div>
+    </div>
+    <div class="sel-row">
+      <span class="sel-lbl">科目</span>
+      <div class="sel-opts" id="optSubject"></div>
+    </div>
+    <div class="sel-foot">
+      <button class="sel-go" id="goBtn" disabled aria-disabled="true">进入</button>
+      <span class="sel-hint" id="hint">请依次选择</span>
+    </div>
+  </div>
+</div>
+</main>
+
+<script>
+(function(){
+  var CATALOG = ${catalogJson};
+  var KEY = ${JSON.stringify(CHOICE_KEY)};
+
+  var state = { province: null, region: null, grade: null, subject: null };
+
+  var el = {
+    province: document.getElementById('optProvince'),
+    region: document.getElementById('optRegion'),
+    grade: document.getElementById('optGrade'),
+    subject: document.getElementById('optSubject'),
+    go: document.getElementById('goBtn'),
+    hint: document.getElementById('hint'),
+    resume: document.getElementById('resume'),
+    resumeTxt: document.getElementById('resumeTxt'),
+    resumeGo: document.getElementById('resumeGo'),
+    resumeClear: document.getElementById('resumeClear')
+  };
+
+  function subjectsFor() {
+    if (!state.province || !state.region || !state.grade) return [];
+    return CATALOG.subjects[state.province + '/' + state.region + '/' + state.grade] || [];
+  }
+
+  /* 某一层只有一个选项时自动选中——现在省份/地区/年级都各只有一个，
+     不自动填的话用户要点三次才有反应，像是页面坏了。
+     有多个选项时不动，交给用户选。 */
+  function autoFill() {
+    if (!state.province && CATALOG.provinces.length === 1) {
+      state.province = CATALOG.provinces[0].id;
+    }
+    if (state.province && !state.region) {
+      var rs = CATALOG.regions[state.province] || [];
+      if (rs.length === 1) state.region = rs[0].id;
+    }
+    if (state.region && !state.grade && CATALOG.grades.length === 1) {
+      state.grade = CATALOG.grades[0].id;
+    }
+    if (state.grade && !state.subject) {
+      var ss = subjectsFor();
+      if (ss.length === 1) state.subject = ss[0].id;
+    }
+  }
+
+  function makeBtn(label, sub, pressed, disabled, onClick) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'sel-opt';
+    b.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+    b.disabled = !!disabled;
+    b.innerHTML = label + (sub ? ' <span class="opt-sub">' + sub + '</span>' : '');
+    if (!disabled) b.addEventListener('click', onClick);
+    return b;
+  }
+
+  function render() {
+    /* 省份 */
+    el.province.innerHTML = '';
+    CATALOG.provinces.forEach(function(p){
+      el.province.appendChild(makeBtn(p.name, '', state.province === p.id, false, function(){
+        state.province = p.id;
+        state.region = null; state.grade = null; state.subject = null;
+        autoFill();
+        render();
+      }));
+    });
+
+    /* 地区：没选省份时禁用 */
+    el.region.innerHTML = '';
+    var regions = state.province ? (CATALOG.regions[state.province] || []) : [];
+    if (!state.province) {
+      el.region.innerHTML = '<span class="sel-hint">先选省份</span>';
+    } else {
+      regions.forEach(function(r){
+        el.region.appendChild(makeBtn(r.name, '', state.region === r.id, false, function(){
+          state.region = r.id; state.grade = null; state.subject = null; autoFill(); render();
+        }));
+      });
+    }
+
+    /* 年级：没选地区时禁用 */
+    el.grade.innerHTML = '';
+    if (!state.region) {
+      el.grade.innerHTML = '<span class="sel-hint">先选地区</span>';
+    } else {
+      CATALOG.grades.forEach(function(g){
+        el.grade.appendChild(makeBtn(g.name, '', state.grade === g.id, false, function(){
+          state.grade = g.id; state.subject = null; autoFill(); render();
+        }));
+      });
+    }
+
+    /* 科目：没选年级时禁用；选中后点「进入」跳转 */
+    el.subject.innerHTML = '';
+    var subs = subjectsFor();
+    if (!state.grade) {
+      el.subject.innerHTML = '<span class="sel-hint">先选年级</span>';
+    } else if (!subs.length) {
+      el.subject.innerHTML = '<span class="sel-hint">该年级暂无材料</span>';
+    } else {
+      subs.forEach(function(s){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'sel-subj';
+        b.setAttribute('aria-pressed', state.subject === s.id ? 'true' : 'false');
+        b.innerHTML = '<b>' + s.name + (s.own ? '' : ' <span class="ext">独立站</span>') + '</b>' +
+                      '<small>' + s.desc + '</small>';
+        b.addEventListener('click', function(){ state.subject = s.id; render(); });
+        el.subject.appendChild(b);
+      });
+    }
+
+    /* 进入按钮：用 aria-disabled 控制视觉，disabled 只用于阻止点击 */
+    var ready = state.province && state.region && state.grade && state.subject;
+    el.go.disabled = !ready;
+    el.go.setAttribute('aria-disabled', ready ? 'false' : 'true');
+    if (ready) {
+      var s = subs.filter(function(x){ return x.id === state.subject; })[0];
+      el.hint.innerHTML = '将进入 <b>' + s.name + '</b> · ' + s.desc;
+    } else {
+      el.hint.textContent = '请依次选择省份、地区、年级、科目';
+    }
+  }
+
+  function currentSubject() {
+    return subjectsFor().filter(function(x){ return x.id === state.subject; })[0] || null;
+  }
+
+  function go() {
+    var s = currentSubject();
+    if (!s) return;
+    try {
+      localStorage.setItem(KEY, JSON.stringify({
+        province: state.province, region: state.region,
+        grade: state.grade, subject: state.subject,
+        name: [labelOf('provinces', state.province), labelOf('regions', state.region, state.province),
+               labelOf('grades', state.grade), s.name].filter(Boolean).join(' · ')
+      }));
+    } catch (e) {}
+    location.href = s.href;
+  }
+
+  function labelOf(kind, id, parent) {
+    var list = kind === 'regions' ? (CATALOG.regions[parent] || [])
+             : kind === 'provinces' ? CATALOG.provinces
+             : CATALOG.grades;
+    var hit = list.filter(function(x){ return x.id === id; })[0];
+    return hit ? hit.name : '';
+  }
+
+  el.go.addEventListener('click', go);
+
+  /* 上次选择 */
+  function readSaved() {
+    try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; }
+  }
+  function showResume() {
+    var saved = readSaved();
+    if (!saved || !saved.name) { el.resume.classList.remove('on'); return; }
+    el.resumeTxt.textContent = saved.name;
+    el.resume.classList.add('on');
+    el.resumeGo.onclick = function(e){
+      e.preventDefault();
+      var s = (CATALOG.subjects[saved.province + '/' + saved.region + '/' + saved.grade] || [])
+        .filter(function(x){ return x.id === saved.subject; })[0];
+      if (s) location.href = s.href; else el.resume.classList.remove('on');
+    };
+    el.resumeClear.onclick = function(){
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      el.resume.classList.remove('on');
+    };
+  }
+
+  autoFill();
+  render();
+  showResume();
+})();
+</script>`;
+
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${esc(SITE.siteName)} · 期末真题考情与备考</title>
+<meta name="description" content="按省份、地区、年级、科目选择，进入对应地区的期末考情分析与备考计划">
+<style>${TOKENS}${HEAD_CSS}${css}</style>
+</head>
+<body>
+${headerHtml('')}
+${body}
+</body>
+</html>`;
+}
+
+/* ============================ 首页（home.html） ============================ */
 function buildHome() {
   // 首页的活是「让柚子今天就去练一轮」。
   // 考情论证（82 分是主体、按考法归并、按题型认）看过一次就够，压缩成一条并列在下方，
@@ -527,7 +863,7 @@ ${section('一轮之后', '做完这 ' + ROUND_Q + ' 题，你会拿到五样东
   <a class="btn" href="practice.html">开始诊断 <span aria-hidden="true">→</span></a>
 </div>`)}
 `;
-  return page('index.html', SITE.name, '西城区初一上数学期末五年真题考情分析与备考练习', body);
+  return page('home.html', SITE.name, '西城区初一上数学期末五年真题考情分析与备考练习', body);
 }
 
 /* ============================ 逐年拆解 ============================ */
@@ -1008,7 +1344,8 @@ function emit(name, html) {
 
 const t0 = Date.now();
 const pages = [
-  ['index.html', buildHome()],
+  ['index.html', buildIndex()],
+  ['home.html', buildHome()],
   ['papers.html', buildPapers()],
   ['trend.html', buildTrend()],
   ['plan.html', buildPlan()],
