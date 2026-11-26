@@ -3,6 +3,24 @@ import { BANK, FAM_META, SOLUTIONS } from './practice-data.mjs';
 
 /* ============ 诊断逻辑（内联以便单文件运行，file:// 可直开） ============ */
 const TIER_RULE = { minSample: 3, weak: 0.6, solid: 0.85 };
+
+/* 章节级分档：单轮只有 3 题，百分比波动大（错 1 题就从 100% 掉到 67%）。
+ * 所以用比族级更宽的口径：
+ *   3–5 题：全对才算掌握，错 1 题算「不稳」，错 2 题以上算「薄弱」
+ *   ≥6 题：回到标准阈值（<60% 薄弱 / <85% 不稳 / ≥85% 掌握）
+ * 提到模块级：答题中的实时图表与结束后的完整诊断都调它，
+ * 两处若各写一份，会出现「进行中显示薄弱、结果页显示不稳」。
+ */
+function chTierOf(total, ok) {
+  if (total < 3) return 'insufficient';
+  const rate = ok / total;
+  if (total < 6) {
+    if (ok === total) return 'solid';
+    if (ok >= total - 1) return 'shaky';
+    return 'weak';
+  }
+  return rate < 0.6 ? 'weak' : rate < 0.85 ? 'shaky' : 'solid';
+}
 /* 分档名与配色在 work/charts.mjs 的 barBlock 内部，这里不再保留副本。
  * 累计面板已从单轮诊断移走（见 showDiag 注释），TIER_NAME / rateCls 一并删掉。 */
 
@@ -176,25 +194,10 @@ function diagnose(records) {
     a.totalScoreW += f.avg;
     for (const [k, v] of Object.entries(f.errMix || {})) a.errMix[k] = (a.errMix[k] || 0) + v;
   }
-  /* 章节级分档：单轮只有 3 题，百分比波动大（错 1 题就从 100% 掉到 67%）。
-   * 所以用比族级更宽的口径：
-   *   3–5 题：全对才算掌握，错 1 题算「不稳」，错 2 题以上算「薄弱」
-   *   ≥6 题：回到标准阈值（<60% 薄弱 / <85% 不稳 / ≥85% 掌握）  */
-  const chTier = (total, ok) => {
-    if (total < 3) return 'insufficient';
-    const rate = ok / total;
-    if (total < 6) {
-      if (ok === total) return 'solid';
-      if (ok >= total - 1) return 'shaky';
-      return 'weak';
-    }
-    return rate < 0.6 ? 'weak' : rate < 0.85 ? 'shaky' : 'solid';
-  };
-
   const chs = [...chAgg.values()].map((a) => {
     const rate = a.total ? a.ok / a.total : 0;
     const enough = a.total >= 3;
-    const tier = chTier(a.total, a.ok);
+    const tier = chTierOf(a.total, a.ok);
     const top = Object.entries(a.errMix).sort((x, y) => y[1] - x[1])[0];
     return {
       ch: a.ch,
@@ -230,7 +233,7 @@ function diagnose(records) {
   }
   const cats = [...catAgg.values()].map((a) => {
     const rate = a.total ? a.ok / a.total : 0;
-    const tier = chTier(a.total, a.ok);
+    const tier = chTierOf(a.total, a.ok);
     const top = Object.entries(a.errMix).sort((x, y) => y[1] - x[1])[0];
     return {
       cat: a.cat,
@@ -616,6 +619,8 @@ function renderQuestion() {
   $('#pText').textContent = '第 ' + (state.idx + 1) + ' / ' + total + ' 题';
   $('#pBar').style.width = Math.round((state.idx / total) * 100) + '%';
   $('#pScore').textContent = '已对 ' + state.records.filter(r => r.ok).length;
+  /* 切题时也重画：开新轮时要把上一轮的柱子清空 */
+  renderLiveChart();
 
   const optsHtml = q.options ? `
     <div class="opts" id="opts">
@@ -716,6 +721,9 @@ function submit(input) {
   $('#nextBtn').onclick = next;
   $('#nextBtn').focus();
   $('#pScore').textContent = '已对 ' + state.records.filter(r => r.ok).length;
+  /* 答完立刻更新：这一题的结果马上反映到上方柱子，
+     让「做题 → 柱子动了」的因果在同一屏里可见（用户要求的实时反馈） */
+  renderLiveChart();
 }
 
 function next() {
@@ -739,6 +747,51 @@ function chartSection(o) {
     '</div>';
 }
 
+/* 实时章节掌握度：答题过程中每答完一题重画一次。
+ *
+ * 只算章节一层，不调完整 diagnose()——后者还会算族、能力、行动建议，
+ * 每题跑一遍是浪费，而且它的输出这里用不上。
+ * 但分档口径必须与 diagnose 共用 chTierOf()，否则会出现
+ * 「进行中显示薄弱、结果页显示不稳」这种自相矛盾。
+ *
+ * 横轴固定 CH_ORDER，与结果页的图一致：同一根柱子前后位置不变，
+ * 高度变化才读得出来是「刚做对/做错」。 */
+function renderLiveChart() {
+  const host = $('#liveChart');
+  if (!host) return;
+
+  /* 逐题累计到章：直接看本轮队列里已答的题，不必再走 diagnose 的族聚合 */
+  const byId = new Map(BANK.map(q => [q.id, q]));
+  const agg = {};
+  for (const ch of CH_ORDER) agg[ch] = { total: 0, ok: 0 };
+  for (const r of state.records) {
+    const q = byId.get(r.id);
+    if (!q) continue;
+    const ch = (FAM_META[q.fam] || {}).ch;
+    if (!ch || !agg[ch]) continue;
+    agg[ch].total++;
+    if (r.ok) agg[ch].ok++;
+  }
+
+  const items = CH_ORDER.map(ch => {
+    const a = agg[ch];
+    const known = a.total > 0;
+    return {
+      name: CH_NAME[ch] || ch,
+      rate: known ? a.ok / a.total : 0,
+      known,
+      ok: a.ok,
+      total: a.total,
+      tier: known ? chTierOf(a.total, a.ok) : 'insufficient',
+    };
+  });
+
+  host.innerHTML = barBlock(items, {
+    compact: true,
+    aria: '本轮各章节掌握度（答题中实时更新）',
+  });
+}
+
 function showDiag() {
   const d = diagnose(state.records);
   /* 落盘：本轮 + 累计。
@@ -746,6 +799,11 @@ function showDiag() {
    * 单轮诊断结果里一律不出现累计数字（用户 2026-11-26 明确要求）。 */
   persistSession(state.records, d);
   $('#quiz').style.display = 'none';
+  /* 清掉答题中的实时图：它随 #quiz 一起隐藏了，但节点留着会让 DOM 里
+     同时存在三张图（实时 + 章节 + 能力），调试时容易误判成「重复渲染」。
+     结果页自己有完整版章节图，这张紧凑版没有保留价值。 */
+  const live = $('#liveChart');
+  if (live) live.innerHTML = '';
   const host = $('#diag');
   host.style.display = 'block';
 

@@ -437,6 +437,24 @@ if (fs.existsSync('practice.html')) {
   ok(!pr.includes('薄弱度'), '章节图不用「薄弱度」口径（与能力图统一为掌握度）');
   ok(!/metric: 'weak'/.test(pr), 'barBlock 不再有薄弱度分支');
   ok(!pr.includes('radarSection') && !pr.includes('radarBlock'), '雷达已移除，不留两套图表');
+  /* ---------- 答题中的实时章节图 ----------
+   * 用户要求「在题目前面增加一个柱状图，每次做完题实时更新本轮章节的掌握度」。
+   * 三个必须保证的点：
+   *   1. 容器在 #quiz 里、#qHost 之前（在题目前面）
+   *   2. 答完一题后重画（renderLiveChart 要在 submit 之后被调用）
+   *   3. 分档口径与结果页共用 chTierOf()，否则会出现
+   *      「进行中显示薄弱、结果页显示不稳」这种自相矛盾 */
+  ok(/<div id="liveChart"[^>]*><\/div>\s*<div id="qHost">/.test(pr),
+    '实时章节图容器在题目之前');
+  ok(/function renderLiveChart\(\)/.test(pr), '有实时重画函数');
+  ok(/renderLiveChart\(\)/.test(pr) && (pr.match(/renderLiveChart\(\)/g) || []).length >= 2,
+    '实时图在切题与答题后都会重画');
+  ok(pr.includes('compact: true'), '实时图用紧凑版（不套卡片边框）');
+  ok(/function chTierOf\(/.test(pr), '章节分档口径提到模块级');
+  ok(!/const chTier = \(/.test(pr), '不再有局部 chTier 副本（会与实时图漂移）');
+  /* 结果页必须清掉实时图：否则 DOM 里同时存在三张图（实时+章节+能力），
+     看着像重复渲染，实际是隐藏节点。 */
+  ok(/live\.innerHTML = ''/.test(pr), '进结果页时清空实时图节点');
   /* 横轴顺序必须固定：柱状图要跨轮比较，按「薄弱优先」重排会失去可比性 */
   ok(/items: CAT_ORDER\.map/.test(pr), '能力图横轴用固定顺序 CAT_ORDER');
   ok(/items: CH_ORDER\.map/.test(pr), '章节图横轴用固定顺序 CH_ORDER（按章节顺序排）');
