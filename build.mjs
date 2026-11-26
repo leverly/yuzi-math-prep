@@ -459,7 +459,7 @@ function buildHome() {
         </a>
         <a class="mission-item" href="papers.html">
           <span class="mi-ico blue">📄</span>
-          <span class="mi-main"><b>逐年真题</b><small>五套卷逐套看结构与差异</small></span>
+          <span class="mi-main"><b>逐年拆解</b><small>五套卷逐套看结构与差异</small></span>
           <span class="mi-go">去看 →</span>
         </a>
       </div>
@@ -527,13 +527,13 @@ ${section('一轮之后', '做完这 ' + ROUND_Q + ' 题，你会拿到五样东
   return page('index.html', SITE.name, '西城区初一上数学期末五年真题考情分析与冲刺练习', body);
 }
 
-/* ============================ 逐年真题 ============================ */
+/* ============================ 逐年拆解 ============================ */
 function buildPapers() {
   const body = `
 <section class="hero" style="padding:44px 0 8px">
   <div class="hero-badge"><span class="dot-live"></span>五套卷 · 逐套拆解</div>
-  <h1>逐年真题拆解</h1>
-  <p class="lede">五套卷逐套看：结构、章节、能力、难度各是什么样，以及<b>这一年跟别的年份有什么不同</b>。</p>
+  <h1>逐年拆解</h1>
+  <p class="lede">五套卷逐套看：每套的<b>章节分值</b>、<b>难度分布</b>与<b>本卷结构</b>。</p>
 </section>
 
 ${PAPER_STATS.map((s) => {
@@ -573,27 +573,9 @@ ${PAPER_STATS.map((s) => {
       </div>`);
   }).join('')}
 
-${section('横向对照', '五套卷放在一起看', '哪一年最难、哪一年几何最重', `
-<div class="tbl-wrap"><table>
-  <thead><tr><th>年份</th><th class="num">基础</th><th class="num">中档</th><th class="num">较难</th><th class="num">压轴</th><th class="num">难度指数</th><th class="num">几何</th><th class="num">方程</th><th class="num">运算</th></tr></thead>
-  <tbody>${PAPER_STATS.map((s) => `<tr>
-    <td><b>${s.label}</b></td>
-    <td class="num">${s.diff.easy || 0}</td>
-    <td class="num">${s.diff.mid || 0}</td>
-    <td class="num">${s.diff.hard || 0}</td>
-    <td class="num">${s.diff.top || 0}</td>
-    <td class="num cell-hi">${s.diffIndex}</td>
-    <td class="num">${s.ch['ch-geo'] || 0}</td>
-    <td class="num">${s.ch['ch-eq'] || 0}</td>
-    <td class="num">${s.ch['ch-op'] || 0}</td>
-  </tr>`).join('')}</tbody>
-</table></div>
-<p style="margin-top:12px;font-size:12.8px;color:var(--text-3)">
-  难度指数 = 按分值加权（基础 1 / 中档 2 / 较难 3 / 压轴 4）后归一。五年在 ${DIFF_INDEX_MIN}–${DIFF_INDEX_MAX} 之间，几乎没有变化。
-</p>`, 'compare')}
 
 `;
-  return page('papers.html', '逐年真题拆解 · ' + SITE.short, '西城区初一上数学期末五套真题逐卷结构分析', body);
+  return page('papers.html', '逐年拆解 · ' + SITE.short, '西城区初一上数学期末五套真题逐年拆解', body);
 }
 
 /* ============================ 趋势与考点 ============================ */

@@ -18,7 +18,7 @@ export const SITE = {
  * 且唯一独有的「六周冲刺节奏」与 plan 页「不给具体时间和动作」的立场矛盾。 */
 export const NAV = [
   ['index.html', '总览'],
-  ['papers.html', '逐年真题'],
+  ['papers.html', '逐年拆解'],
   ['trend.html', '趋势与考点'],
   ['plan.html', '冲刺计划'],
   ['practice.html', '练习与诊断'],
