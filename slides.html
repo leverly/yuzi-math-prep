@@ -226,6 +226,23 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
 .fam-bar{height:5px;background:var(--surface-2);border-radius:3px;margin-top:7px;overflow:hidden}
 .fam-bar i{display:block;height:100%;border-radius:3px;background:var(--accent-grad)}
 .fam-note{font-size:11px;color:var(--text-3);margin-top:1px}
+
+/* 「怎么验证」页：四条结论卡 + 一句衡量标准
+   这页信息量比其他页少（4 条 vs 12 张卡），所以卡片给足内边距、
+   行距拉开，让内容撑满 720px 舞台——否则下半屏空着，讲的时候像卡住了。 */
+.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}
+.check-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:26px 28px;box-shadow:0 2px 10px rgba(15,23,42,.05);
+  display:flex;flex-direction:column;gap:11px}
+.check-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.check-h b{font-size:17px;font-weight:780;letter-spacing:-.015em;line-height:1.3}
+.check-h span{font-size:11.5px;font-weight:650;color:var(--accent);
+  background:var(--accent-soft);padding:3px 10px;border-radius:99px;white-space:nowrap;flex:none}
+.check-d{font-size:14px;color:var(--text-2);line-height:1.8}
+.check-note{margin-top:26px;padding:20px 24px;border-radius:12px;
+  background:var(--accent-soft);border-left:4px solid var(--accent);
+  font-size:15.5px;color:var(--text-2);line-height:1.75}
+.check-note b{color:var(--text);font-weight:750}
 </style>
 </head>
 <body>
@@ -611,6 +628,35 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
   </div>
 </div>
 
+<div class="slide">
+  <div class="s-kicker">How to check</div>
+  <h2 class="s-title">练完怎么知道有没有效果</h2>
+  <div class="s-sub">做一轮 18 题、覆盖全部 6 章，做完直接给出四条结论</div>
+
+  <div class="check-grid">
+    <div class="check-card">
+      <div class="check-h"><b>哪一章在丢分</b><span>按章判档</span></div>
+      <div class="check-d">6 章分别判为「薄弱 / 不稳 / 掌握」。样本不足 3 题的章不下结论，标「样本不足」。</div>
+    </div>
+    <div class="check-card">
+      <div class="check-h"><b>是没方法还是算不准</b><span>按能力判档</span></div>
+      <div class="check-d">8 种能力分别判档——同样是错，「算错」和「没思路」补法完全不同。</div>
+    </div>
+    <div class="check-card">
+      <div class="check-h"><b>今晚先练什么</b><span>给动作</span></div>
+      <div class="check-d">按「年均分值 × 失分率」排序，第一条就是最该补的——不是给一份报告，是给下一步动作。</div>
+    </div>
+    <div class="check-card">
+      <div class="check-h"><b>错题有没有真的补上</b><span>可重做</span></div>
+      <div class="check-d">做错的逐条列出，带解题步骤，一键重做。判据不是「做过了」，是「第二次做还对」。 </div>
+    </div>
+  </div>
+
+  <div class="check-note">
+    衡量标准不是「今天做了多少题」，而是<b>同一道题第二次做是否还错</b>。
+  </div>
+</div>
+
 <div class="slide s-end" style="justify-content:center;align-items:flex-start;padding-top:78px;
   background:radial-gradient(ellipse 90% 70% at 20% 0%,rgba(37,99,235,.12),transparent 65%),var(--bg)">
   <h2 class="end-h">三个方向</h2>
@@ -646,7 +692,7 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
   padding:8px 14px;border-radius:999px;color:var(--text-2);font-size:13px;font-family:var(--mono);
   border:1px solid var(--border);box-shadow:0 6px 20px rgba(15,23,42,.08)">
   <button id="prev" aria-label="上一页" style="background:none;border:none;color:var(--text-3);font-size:16px;cursor:pointer;padding:2px 6px">‹</button>
-  <span><b id="cur">1</b> / 10</span>
+  <span><b id="cur">1</b> / 11</span>
   <button id="next" aria-label="下一页" style="background:none;border:none;color:var(--text-3);font-size:16px;cursor:pointer;padding:2px 6px">›</button>
   <button id="ov" aria-label="总览" style="margin-left:6px;background:none;border:none;color:var(--text-3);font-size:14px;cursor:pointer">⊞</button>
   <button id="fs" aria-label="全屏" style="background:none;border:none;color:var(--text-3);font-size:14px;cursor:pointer">⛶</button>
@@ -664,7 +710,7 @@ body{font-family:var(--sans);background:#0f172a;color:var(--text);-webkit-font-s
 <div id="overview">
   <h3>总览 · 点击跳转</h3>
   <div class="ov-grid">
-    <div class="ov-card" data-go="0"><div class="n">01</div><div class="t">封面</div></div><div class="ov-card" data-go="1"><div class="n">02</div><div class="t">卷子很稳</div></div><div class="ov-card" data-go="2"><div class="n">03</div><div class="t">第 17 题</div></div><div class="ov-card" data-go="3"><div class="n">04</div><div class="t">断崖</div></div><div class="ov-card" data-go="4"><div class="n">05</div><div class="t">稳定题位</div></div><div class="ov-card" data-go="5"><div class="n">06</div><div class="t">计算</div></div><div class="ov-card" data-go="6"><div class="n">07</div><div class="t">第 23 题</div></div><div class="ov-card" data-go="7"><div class="n">08</div><div class="t">在变</div></div><div class="ov-card" data-go="8"><div class="n">09</div><div class="t">必考清单</div></div><div class="ov-card" data-go="9"><div class="n">10</div><div class="t">结论</div></div>
+    <div class="ov-card" data-go="0"><div class="n">01</div><div class="t">封面</div></div><div class="ov-card" data-go="1"><div class="n">02</div><div class="t">卷子很稳</div></div><div class="ov-card" data-go="2"><div class="n">03</div><div class="t">第 17 题</div></div><div class="ov-card" data-go="3"><div class="n">04</div><div class="t">断崖</div></div><div class="ov-card" data-go="4"><div class="n">05</div><div class="t">稳定题位</div></div><div class="ov-card" data-go="5"><div class="n">06</div><div class="t">计算</div></div><div class="ov-card" data-go="6"><div class="n">07</div><div class="t">第 23 题</div></div><div class="ov-card" data-go="7"><div class="n">08</div><div class="t">在变</div></div><div class="ov-card" data-go="8"><div class="n">09</div><div class="t">必考清单</div></div><div class="ov-card" data-go="9"><div class="n">10</div><div class="t">怎么验证</div></div><div class="ov-card" data-go="10"><div class="n">11</div><div class="t">结论</div></div>
   </div>
 </div>
 

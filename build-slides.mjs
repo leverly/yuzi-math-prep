@@ -13,9 +13,10 @@ import { writeFileSync, readFileSync } from 'node:fs';
 
 import {
   PAPER_STATS, DIFF_SCORE, FAMILY_MAP,
-  FREQ, FREQ_SUMMARY, SCORE_TIERS, MAIN_GRAND, N_PAPERS,
+  FREQ, FREQ_SUMMARY, SCORE_TIERS, MAIN_GRAND, N_PAPERS, CAT_SCORE,
 } from './work/papers/stats.mjs';
-import { DIFF_NAME, LEDGER } from './work/papers/ledger.mjs';
+import { DIFF_NAME, LEDGER, CH_ORDER } from './work/papers/ledger.mjs';
+import { ROUND_SIZE, PER_CH } from './work/site-shell.mjs';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const sum = (a) => a.reduce((x, y) => x + y, 0);
@@ -250,6 +251,23 @@ const CSS = BASE_CSS + `
 .fam-bar{height:5px;background:var(--surface-2);border-radius:3px;margin-top:7px;overflow:hidden}
 .fam-bar i{display:block;height:100%;border-radius:3px;background:var(--accent-grad)}
 .fam-note{font-size:11px;color:var(--text-3);margin-top:1px}
+
+/* 「怎么验证」页：四条结论卡 + 一句衡量标准
+   这页信息量比其他页少（4 条 vs 12 张卡），所以卡片给足内边距、
+   行距拉开，让内容撑满 720px 舞台——否则下半屏空着，讲的时候像卡住了。 */
+.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}
+.check-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:26px 28px;box-shadow:0 2px 10px rgba(15,23,42,.05);
+  display:flex;flex-direction:column;gap:11px}
+.check-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.check-h b{font-size:17px;font-weight:780;letter-spacing:-.015em;line-height:1.3}
+.check-h span{font-size:11.5px;font-weight:650;color:var(--accent);
+  background:var(--accent-soft);padding:3px 10px;border-radius:99px;white-space:nowrap;flex:none}
+.check-d{font-size:14px;color:var(--text-2);line-height:1.8}
+.check-note{margin-top:26px;padding:20px 24px;border-radius:12px;
+  background:var(--accent-soft);border-left:4px solid var(--accent);
+  font-size:15.5px;color:var(--text-2);line-height:1.75}
+.check-note b{color:var(--text);font-weight:750}
 `;
 
 /* ============================ 幻灯片 ============================ */
@@ -533,7 +551,41 @@ push('必考清单', `
    f-final 族的分（9.2 分含第 24、26 题，与这句话指的不是一回事） */
 const Q23_AVG = +(sum(Q23.map((q) => q.score)) / N_PAPERS).toFixed(1);
 
-/* 9. 结论：三个方向，每个方向挂上它对应的分值 */
+/* 9. 怎么知道练没练进去
+ * 前 8 页讲「该练什么」，第 9 页回答「练了怎么验证」——家长听完会自然问这句。
+ * 只给结论，不摆诊断面板的界面；数字全部来自练习题库与分档规则，不新引数据。 */
+const CHECK_CATS = Object.keys(CAT_SCORE);
+push('怎么验证', `
+<div class="slide">
+  <div class="s-kicker">How to check</div>
+  <h2 class="s-title">练完怎么知道有没有效果</h2>
+  <div class="s-sub">做一轮 ${ROUND_SIZE} 题、覆盖全部 ${CH_ORDER.length} 章，做完直接给出四条结论</div>
+
+  <div class="check-grid">
+    <div class="check-card">
+      <div class="check-h"><b>哪一章在丢分</b><span>按章判档</span></div>
+      <div class="check-d">${CH_ORDER.length} 章分别判为「薄弱 / 不稳 / 掌握」。样本不足 ${PER_CH} 题的章不下结论，标「样本不足」。</div>
+    </div>
+    <div class="check-card">
+      <div class="check-h"><b>是没方法还是算不准</b><span>按能力判档</span></div>
+      <div class="check-d">${CHECK_CATS.length} 种能力分别判档——同样是错，「算错」和「没思路」补法完全不同。</div>
+    </div>
+    <div class="check-card">
+      <div class="check-h"><b>今晚先练什么</b><span>给动作</span></div>
+      <div class="check-d">按「年均分值 × 失分率」排序，第一条就是最该补的——不是给一份报告，是给下一步动作。</div>
+    </div>
+    <div class="check-card">
+      <div class="check-h"><b>错题有没有真的补上</b><span>可重做</span></div>
+      <div class="check-d">做错的逐条列出，带解题步骤，一键重做。判据不是「做过了」，是「第二次做还对」。 </div>
+    </div>
+  </div>
+
+  <div class="check-note">
+    衡量标准不是「今天做了多少题」，而是<b>同一道题第二次做是否还错</b>。
+  </div>
+</div>`);
+
+/* 10. 结论：三个方向，每个方向挂上它对应的分值 */
 const DIRECTIONS = [
   ['01', '第 17 题练到不出错', '一道题 ' + Q17_MIN + '–' + Q17_MAX + ' 分，比两道压轴加起来还多', Q17_MAX + ' 分'],
   ['02', '把概念题的「错法」列成清单', '概念占 ' + CONCEPT_PCT + '%，丢分靠辨析，不靠难度', CONCEPT_AVG + ' 分'],
