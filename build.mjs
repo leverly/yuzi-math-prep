@@ -199,27 +199,31 @@ h3{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g4{grid-template-columns:repeat(4,1fr)}
 
-/* ---------- 编号卡（三判断） ---------- */
-.sell-rows{display:flex;flex-direction:column;gap:12px}
-.sell-row{
-  display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:0;
-  border:1px solid var(--border);border-radius:var(--r);background:var(--surface);
-  overflow:hidden;transition:.18s var(--ease);
-}
-.sell-row:hover{border-color:rgba(37,99,235,.3);box-shadow:var(--shadow-2)}
-.sell-pain{padding:22px 24px;background:var(--bg-3);display:flex;flex-direction:column;gap:7px;position:relative}
-.sell-no{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--accent);opacity:.75}
-.sell-pain b{font-size:15px;font-weight:700;line-height:1.45;letter-spacing:-.01em}
-.sell-pain-sub{font-size:12.8px;color:var(--text-3)}
-.sell-fix{padding:22px 24px;display:flex;flex-direction:column;gap:9px}
-.sell-tag{
-  align-self:flex-start;font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:var(--r-pill);
-  background:var(--accent-soft);color:var(--accent);letter-spacing:.02em;
-}
-.sell-fix p{font-size:13.6px;color:var(--text-2);line-height:1.72}
-.sell-fix p b{color:var(--text);font-weight:650}
-.sell-link{font-size:13px;font-weight:650;color:var(--accent);text-decoration:none;margin-top:auto}
-.sell-link:hover{text-decoration:underline}
+/* ---------- 能力分布（首页） ----------
+ * 行 = 八项能力，列 = 占卷面 / 年均分 / 五年区间。
+ * 条宽用「占卷面百分比」而不是「相对最大值的比例」：
+ * 分子分母都是分数，读者能直接读成「这一项占整卷多少分」，
+ * 否则计算 39.6 会画满整条、其余全挤成短线，看不出真实占比。 */
+.cap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:8px 20px 12px;box-shadow:var(--shadow-1)}
+.cap-head,.cap-row{display:grid;grid-template-columns:88px minmax(0,1fr) 56px 74px;
+  align-items:center;gap:14px}
+.cap-head{padding:10px 0 8px;border-bottom:1px solid var(--border);
+  font-size:11.5px;font-weight:700;color:var(--text-3);letter-spacing:.04em}
+.cap-head .r{text-align:right}
+.cap-row{padding:9px 0;border-bottom:1px solid var(--border)}
+.cap-row:last-child{border-bottom:none}
+.cap-name{font-size:13.2px;font-weight:600;color:var(--text);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;min-width:0}
+.cap-track{display:block;height:8px;background:var(--bg-3);border-radius:var(--r-pill);overflow:hidden}
+.cap-track i{display:block;height:100%;background:var(--accent-grad);border-radius:var(--r-pill)}
+.cap-avg{font-size:14px;font-weight:800;color:var(--accent);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.cap-range{font-size:12.2px;color:var(--text-3);text-align:right;font-variant-numeric:tabular-nums}
+/* 年均 15 分以上的两项（计算、概念）加深：它们就是下一段结论的依据 */
+.cap-row.hot .cap-track i{background:var(--gold-grad)}
+.cap-row.hot .cap-avg{color:var(--gold)}
+.cap-row.hot .cap-name{font-weight:700}
 
 /* ---------- 三色分值卡 ---------- */
 .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -456,7 +460,11 @@ footer b{color:var(--text-2)}
   .cta-band{padding:20px 20px;gap:16px}
   .cta-band-act{width:100%}
   .cta-band-act .btn{flex:1;justify-content:center}
-  .sell-row{grid-template-columns:1fr}
+  .cap-head,.cap-row{grid-template-columns:76px minmax(0,1fr) 46px 62px;gap:9px}
+  .cap{padding:6px 12px 10px}
+  .cap-name{font-size:12.2px}
+  .cap-avg{font-size:13px}
+  .cap-range{font-size:11px}
   .section{margin:38px 0}
   .card{padding:17px}
   .cockpit{padding:18px}
@@ -1007,6 +1015,38 @@ function buildHome() {
   // 考情论证（82 分是主体、按考法归并、按题型认）看过一次就够，压缩成一条并列在下方，
   // 完整版都在 trend / papers / plan，首页不再复述。
 
+  /* 八项能力的五年统计：行 = 能力项（按年均分降序），条宽 = 占卷面百分比。
+   * 这块替代了原来那张「一个判断」卡：那张卡只给结论（压轴 18 分 / 82 分能练稳），
+   * 论证却在 trend.html——读者在这里读到一个没有依据的判断，而下一屏的 CTA
+   * 又说「章节、知识点、能力」，两块接不上。
+   * 现在把结论的算术依据直接摆出来：计算 + 概念两项加起来的分数、以及各项的五年波动，
+   * 读者在同一屏内就能自己验证「为什么先练计算」。
+   *
+   * 口径：CAT_SCORE 来自 stats.mjs（按 cat 汇总五年台账），
+   * 与 trend 页「最值钱的能力」同源，不另算一套。 */
+  const CAP_ROWS = CAT_ORDER.map((k) => ({
+    k,
+    name: CAT_NAME[k],
+    avg: CAT_SCORE[k].avg,
+    min: CAT_SCORE[k].min,
+    max: CAT_SCORE[k].max,
+    pct: CAT_SCORE[k].pct,
+    range: CAT_SCORE[k].range,
+  })).sort((a, b) => b.avg - a.avg);
+  const CAP_TOTAL = +sum(CAP_ROWS.map((r) => r.avg)).toFixed(1);
+  const CAP_CALC = CAP_ROWS.find((r) => r.k === '计算');
+  const CAP_CONCEPT = CAP_ROWS.find((r) => r.k === '概念');
+  const CAP_REASON = CAP_ROWS.find((r) => r.k === '推理');
+  const CAP_TOP2 = +(CAP_CALC.avg + CAP_CONCEPT.avg).toFixed(1);
+  /* 高亮哪几行不写死阈值：结论句只加总了「计算 + 概念」两项，
+   * 这两项就是下面那段文字的依据。写死 avg>=15 会在数据变化后
+   * 让高亮行与结论句对不上（比如概念掉到 14 分仍被高亮，但句子里算的已不是它）。 */
+  for (const r of CAP_ROWS) r.hot = (r === CAP_CALC || r === CAP_CONCEPT);
+  // 两项的五年波动取较大者：这是「这块可控」的量化依据
+  const CAP_TOP2_RANGE = Math.max(CAP_CALC.range, CAP_CONCEPT.range);
+  // 计算三块（有理数运算 / 解方程 / 化简求值）的年均分——「题位五年没换」的那部分
+  const CAP_CALC3 = +(CALC3 / N_PAPERS).toFixed(1);
+
   // 右侧卡：各章五年年均分值条。回答「先看哪一章」——
   // 比原来那三行「82/18/57%」更能导向动作：它直接对应练习页的章节维度。
   const chAvg = CH_GROUPS.map((g) => ({
@@ -1080,24 +1120,31 @@ ${section('必考族', `五年年年考的 ${FREQ.must.length} 个考点族`, `�
 ${mustDotMatrix()}
 <p style="margin-top:14px"><a href="trend.html#freq" style="color:var(--accent);font-weight:650;text-decoration:none;font-size:13.5px">看全部 ${FAMILY_MAP.length} 个考点族的五年频次 →</a></p>`)}
 
-${section('一个判断', '先练哪块，有唯一答案', '论证在整体解读，这里只给结论', `
-<div class="sell-row">
-  <div class="sell-pain">
-    <span class="sell-no">01</span>
-    <b>压轴只占 ${pct(HARD_AVG)} 分，${pct(BASE_AVG)} 分是能练稳的</b>
-    <span class="sell-pain-sub">所以顺序是先保计算零失误，再攻压轴</span>
+${section('能力分布', '整张卷子按八项能力切开', `五年年均 · 合计 ${CAP_TOTAL} 分 · 每道题标注一项能力后汇总`, `
+<div class="cap">
+  <div class="cap-head">
+    <span>能力项</span><span>占卷面</span><span class="r">年均分</span><span class="r">五年区间</span>
   </div>
-  <div class="sell-fix">
-    <span class="sell-tag">一句话</span>
-    <p><b>把「计算零失误」排在「攻压轴」前面</b>——不是因为它更难，而是因为它更值钱、更可控。</p>
-    <a class="sell-link" href="trend.html#where">为什么这么排 →</a>
-  </div>
+  ${CAP_ROWS.map((r) => `
+  <div class="cap-row${r.hot ? ' hot' : ''}">
+    <span class="cap-name">${esc(r.name)}</span>
+    <span class="cap-track"><i style="width:${r.pct}%"></i></span>
+    <span class="cap-avg">${r.avg}</span>
+    <span class="cap-range">${r.min}–${r.max}</span>
+  </div>`).join('')}
+</div>
+<div class="note" style="margin-top:14px">
+  <b>计算 ${CAP_CALC.avg} 分 + 概念 ${CAP_CONCEPT.avg} 分 = ${CAP_TOP2} 分，是唯一一块「练了就能拿到」的分。</b>
+  这两项的年均波动都在 ${CAP_TOP2_RANGE} 分以内。其中计算的三块（有理数运算、解方程、整式化简求值）考点与题位五年没换过，
+  合计年均 ${CAP_CALC3} 分，位置最多在相邻两题之间挪一次。<br>
+  同样是 ${CAP_REASON.avg} 分年均的推理说理，五年在 ${CAP_REASON.min}–${CAP_REASON.max} 分之间摆动——
+  分值相当，但明年怎么考不确定，<b>没法提前把它练成确定分</b>。
 </div>`)}
 
 <div class="cta-band">
   <div class="cta-band-main">
-    <b>想知道自己在哪些章节、知识点、能力方面会丢分？</b>
-    <span>做一轮 ${ROUND_Q} 题 · 约 12 分钟 · 覆盖 ${CH_COUNT} 章 · 不用注册，记录只存本机</span>
+    <b>卷面的分布在这里，你自己的分布得测一次才知道</b>
+    <span>做一轮 ${ROUND_Q} 题 · 约 12 分钟 · 覆盖 ${CH_COUNT} 章 · 做完按章节和能力各出一张掌握度图 · 不用注册，记录只存本机</span>
   </div>
   <div class="cta-band-act">
     <a class="btn primary" href="practice.html">开始诊断 <span aria-hidden="true">→</span></a>

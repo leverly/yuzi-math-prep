@@ -99,6 +99,44 @@ ok(idx.includes(`<b>${S.FREQ.must.length}</b><span>族年年考</span>`), '首�
   ok(Math.max(...diam) === dotPx(maxS) && Math.min(...diam) === dotPx(minS),
     `点径上下界按 √分值派生（${dotPx(minS)}–${dotPx(maxS)}px）`);
 }
+/* 能力分布块（2026-11-26 新增，替代原来那张「一个判断」卡）。
+   原卡只给结论、论证推给 trend 页，与紧随其后的 CTA（章节/知识点/能力）接不上；
+   新版把结论的算术依据直接摆在同一屏：八项能力的分值 + 五年区间 + 计算/概念的加总。
+   断言守三件事：① 八项全列且按年均分降序 ② 条宽用占卷面百分比而非相对最大值
+   ③ 结论句里的加总必须等于两行之和（防手写常量漂移）。 */
+{
+  const capRows = [...idx.matchAll(/<div class="cap-row( hot)?">\s*<span class="cap-name">([^<]+)<\/span>\s*<span class="cap-track"><i style="width:(\d+)%"><\/i><\/span>\s*<span class="cap-avg">([\d.]+)<\/span>/g)]
+    .map((m) => ({ hot: !!m[1], name: m[2], w: +m[3], avg: +m[4] }));
+  ok(capRows.length === S.CAT_STABILITY.length,
+    `首页能力分布列出全部 ${S.CAT_STABILITY.length} 项能力`, `${capRows.length} 行`);
+
+  const wantOrder = [...S.CAT_STABILITY].sort((a, b) => b.mean - a.mean).map((c) => c.name);
+  ok(capRows.every((r, i) => r.name === wantOrder[i]), '能力行按年均分降序',
+    `${capRows.slice(0, 3).map((r) => r.name).join('/')} …`);
+
+  /* 条宽必须等于占卷面百分比（CAT_SCORE.pct），不是相对最大值的比例。
+     若有人改回相对映射，计算 39.6 会画到 100%，其余全压成短线。 */
+  const pctMap = Object.fromEntries(Object.entries(S.CAT_SCORE).map(([k, v]) => [S.CAT_NAME?.[k] || v.name, v.pct]));
+  const badW = capRows.filter((r) => Math.abs(r.w - (pctMap[r.name] ?? -1)) > 0);
+  ok(badW.length === 0, '条宽 = 占卷面百分比（与 CAT_SCORE.pct 一致）',
+    badW.map((r) => `${r.name}:${r.w}`).join(','));
+
+  // 加总必须成立：结论句里的数字不能是手写常量
+  const calc = S.CAT_SCORE['计算'].avg, concept = S.CAT_SCORE['概念'].avg;
+  const top2 = +(calc + concept).toFixed(1);
+  ok(idx.includes(`计算 ${calc} 分 + 概念 ${concept} 分 = ${top2} 分`),
+    `结论句加总派生正确（${calc} + ${concept} = ${top2}）`);
+  // 合计必须正好是卷面 100 分，且与构建器同一派生写法（+toFixed 会去掉末尾 .0）
+  const capTotal = +S.CAT_STABILITY.reduce((a, c) => a + c.mean, 0).toFixed(1);
+  ok(capTotal === 100 && idx.includes(`合计 ${capTotal} 分`),
+    `八项能力合计派生正确（${capTotal} 分，应恰好等于卷面 100 分）`);
+
+  /* 旧的「一个判断」卡必须彻底消失：它把论证推给 trend 页，
+     而紧随其后的 CTA 讲的是章节/能力，两块在逻辑上接不上（用户 2026-11-26 指出）。 */
+  ok(!idx.includes('先练哪块') && !idx.includes('class="sell-row"'),
+    '不再有「一个判断」卡（结论与依据已合并为能力分布块）');
+  ok(!idx.includes('trend.html#where'), '不再有指向 trend#where 的「为什么这么排」链接');
+}
 // 行动入口仍在（考情讲完后给唯一动作），且指向练习页
 ok(/class="btn primary" href="practice\.html"/.test(idx), '行动横幅主按钮指向练习页');
 ok(idx.includes('href="history.html"'), '行动横幅有学情数据入口');

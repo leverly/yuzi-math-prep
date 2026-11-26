@@ -318,27 +318,31 @@ h3{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g4{grid-template-columns:repeat(4,1fr)}
 
-/* ---------- 编号卡（三判断） ---------- */
-.sell-rows{display:flex;flex-direction:column;gap:12px}
-.sell-row{
-  display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:0;
-  border:1px solid var(--border);border-radius:var(--r);background:var(--surface);
-  overflow:hidden;transition:.18s var(--ease);
-}
-.sell-row:hover{border-color:rgba(37,99,235,.3);box-shadow:var(--shadow-2)}
-.sell-pain{padding:22px 24px;background:var(--bg-3);display:flex;flex-direction:column;gap:7px;position:relative}
-.sell-no{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--accent);opacity:.75}
-.sell-pain b{font-size:15px;font-weight:700;line-height:1.45;letter-spacing:-.01em}
-.sell-pain-sub{font-size:12.8px;color:var(--text-3)}
-.sell-fix{padding:22px 24px;display:flex;flex-direction:column;gap:9px}
-.sell-tag{
-  align-self:flex-start;font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:var(--r-pill);
-  background:var(--accent-soft);color:var(--accent);letter-spacing:.02em;
-}
-.sell-fix p{font-size:13.6px;color:var(--text-2);line-height:1.72}
-.sell-fix p b{color:var(--text);font-weight:650}
-.sell-link{font-size:13px;font-weight:650;color:var(--accent);text-decoration:none;margin-top:auto}
-.sell-link:hover{text-decoration:underline}
+/* ---------- 能力分布（首页） ----------
+ * 行 = 八项能力，列 = 占卷面 / 年均分 / 五年区间。
+ * 条宽用「占卷面百分比」而不是「相对最大值的比例」：
+ * 分子分母都是分数，读者能直接读成「这一项占整卷多少分」，
+ * 否则计算 39.6 会画满整条、其余全挤成短线，看不出真实占比。 */
+.cap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:8px 20px 12px;box-shadow:var(--shadow-1)}
+.cap-head,.cap-row{display:grid;grid-template-columns:88px minmax(0,1fr) 56px 74px;
+  align-items:center;gap:14px}
+.cap-head{padding:10px 0 8px;border-bottom:1px solid var(--border);
+  font-size:11.5px;font-weight:700;color:var(--text-3);letter-spacing:.04em}
+.cap-head .r{text-align:right}
+.cap-row{padding:9px 0;border-bottom:1px solid var(--border)}
+.cap-row:last-child{border-bottom:none}
+.cap-name{font-size:13.2px;font-weight:600;color:var(--text);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;min-width:0}
+.cap-track{display:block;height:8px;background:var(--bg-3);border-radius:var(--r-pill);overflow:hidden}
+.cap-track i{display:block;height:100%;background:var(--accent-grad);border-radius:var(--r-pill)}
+.cap-avg{font-size:14px;font-weight:800;color:var(--accent);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.cap-range{font-size:12.2px;color:var(--text-3);text-align:right;font-variant-numeric:tabular-nums}
+/* 年均 15 分以上的两项（计算、概念）加深：它们就是下一段结论的依据 */
+.cap-row.hot .cap-track i{background:var(--gold-grad)}
+.cap-row.hot .cap-avg{color:var(--gold)}
+.cap-row.hot .cap-name{font-weight:700}
 
 /* ---------- 三色分值卡 ---------- */
 .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -575,7 +579,11 @@ footer b{color:var(--text-2)}
   .cta-band{padding:20px 20px;gap:16px}
   .cta-band-act{width:100%}
   .cta-band-act .btn{flex:1;justify-content:center}
-  .sell-row{grid-template-columns:1fr}
+  .cap-head,.cap-row{grid-template-columns:76px minmax(0,1fr) 46px 62px;gap:9px}
+  .cap{padding:6px 12px 10px}
+  .cap-name{font-size:12.2px}
+  .cap-avg{font-size:13px}
+  .cap-range{font-size:11px}
   .section{margin:38px 0}
   .card{padding:17px}
   .cockpit{padding:18px}
