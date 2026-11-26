@@ -317,6 +317,32 @@ tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none
 .dist-bar.mute{background:var(--bg-3)}
 .dist-val{font-size:12.8px;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 
+/* ---------- 零轴双向条形 ----------
+ * 用于「本卷 vs 五年均值」的偏离：正负是相反方向，不能画成同向等长的条。
+ * 零轴居中，正偏离向右、负偏离向左；两侧都用可见实色，
+ * 负向不能用 var(--bg-3)（浅底上几乎看不见，等于没画）。 */
+.dev-row{display:grid;grid-template-columns:104px 1fr 64px;align-items:center;gap:12px;padding:6px 0}
+.dev-name{font-size:13.2px;font-weight:600;color:var(--text);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;min-width:0}
+.dev-track{position:relative;display:block;height:9px;min-width:0}
+/* 零轴：一根明显的竖线，让人一眼看到中心在哪 */
+.dev-track::before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;
+  background:var(--border-2)}
+.dev-fill{position:absolute;top:0;height:100%;border-radius:3px}
+.dev-fill.pos{left:50%;background:var(--accent-grad)}
+.dev-fill.neg{right:50%;background:linear-gradient(90deg,#94a3b8,#64748b)}
+.dev-val{font-size:12.6px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dev-val.pos{color:var(--accent)}
+.dev-val.neg{color:var(--text-3)}
+.dev-val.zero{color:var(--text-3);opacity:.7}
+
+/* ---------- 时序折线 ----------
+ * 全站唯一连续时间序列（分类能力 5 年）。用折线而非横排数字：
+ * 「前三年低位 → 跳升 → 保持」这种形状只有折线能一眼看出来。 */
+.spark{margin:6px 0 10px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:10px;padding:6px 4px 2px}
+.spark svg{display:block}
+
 /* ---------- 考点族热力矩阵 ----------
  * 行 = 族（按章节分组），列 = 学年，格子深浅 = 该年分值，右侧 = 年均分与出现年数。
  * 取经自英语期末站：同一套「族 × 学年」矩阵，一眼分出「年年考且分高」与「只考过一次」。

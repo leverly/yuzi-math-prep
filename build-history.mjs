@@ -348,8 +348,17 @@ function render() {
       groups.map((g) => {
         const gDone = g.items.filter((f) => f.total > 0);
         const gTot = g.items.length;
-        return '<div class="fam-grp"><div class="fam-grp-h">' + esc(g.name) +
-          '<span>' + gDone.length + ' / ' + gTot + ' 个考点有样本</span></div>' +
+        /* 折叠标题行必须自带信息——收起后只剩这一行，
+           如果只写章名，读者得全部展开才知道哪章有货。 */
+        const gWeak = g.items.filter((f) => f.tier === 'weak').length;
+        const gShaky = g.items.filter((f) => f.tier === 'shaky').length;
+        const badges = (gWeak ? '<b class="tier-weak">薄弱 ' + gWeak + '</b>' : '') +
+          (gShaky ? '<b class="tier-shaky">不稳 ' + gShaky + '</b>' : '');
+        return '<details class="fam-grp">' +
+          '<summary class="fam-grp-h">' + esc(g.name) +
+          '<span>' + gDone.length + ' / ' + gTot + ' 个考点有样本</span>' +
+          (badges ? '<span class="fam-grp-badges">' + badges + '</span>' : '') +
+          '</summary>' +
           '<div class="ch-grid">' +
           g.items.map((f) => {
             const known = f.total > 0;
@@ -365,7 +374,7 @@ function render() {
               '<span class="ch-tier tier-' + f.tier + '">' + TIER[f.tier] + '</span></div>' +
               '</div>';
           }).join('') +
-          '</div></div>';
+          '</div></details>';
       }).join('') +
       (retiredQ > 0
         ? '<p style="margin-top:10px;font-size:12.6px;color:var(--text-3)">另有 ' + retiredQ +

@@ -255,6 +255,32 @@ tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none
 .dist-bar.mute{background:var(--bg-3)}
 .dist-val{font-size:12.8px;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 
+/* ---------- 零轴双向条形 ----------
+ * 用于「本卷 vs 五年均值」的偏离：正负是相反方向，不能画成同向等长的条。
+ * 零轴居中，正偏离向右、负偏离向左；两侧都用可见实色，
+ * 负向不能用 var(--bg-3)（浅底上几乎看不见，等于没画）。 */
+.dev-row{display:grid;grid-template-columns:104px 1fr 64px;align-items:center;gap:12px;padding:6px 0}
+.dev-name{font-size:13.2px;font-weight:600;color:var(--text);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;min-width:0}
+.dev-track{position:relative;display:block;height:9px;min-width:0}
+/* 零轴：一根明显的竖线，让人一眼看到中心在哪 */
+.dev-track::before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;
+  background:var(--border-2)}
+.dev-fill{position:absolute;top:0;height:100%;border-radius:3px}
+.dev-fill.pos{left:50%;background:var(--accent-grad)}
+.dev-fill.neg{right:50%;background:linear-gradient(90deg,#94a3b8,#64748b)}
+.dev-val{font-size:12.6px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dev-val.pos{color:var(--accent)}
+.dev-val.neg{color:var(--text-3)}
+.dev-val.zero{color:var(--text-3);opacity:.7}
+
+/* ---------- 时序折线 ----------
+ * 全站唯一连续时间序列（分类能力 5 年）。用折线而非横排数字：
+ * 「前三年低位 → 跳升 → 保持」这种形状只有折线能一眼看出来。 */
+.spark{margin:6px 0 10px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:10px;padding:6px 4px 2px}
+.spark svg{display:block}
+
 /* ---------- 考点族热力矩阵 ----------
  * 行 = 族（按章节分组），列 = 学年，格子深浅 = 该年分值，右侧 = 年均分与出现年数。
  * 取经自英语期末站：同一套「族 × 学年」矩阵，一眼分出「年年考且分高」与「只考过一次」。
@@ -1052,11 +1078,12 @@ ${PAPER_STATS.map((s) => {
         </div>
         <div class="card">
           <h3>这一卷哪一章比往年重</h3>
-          <div style="font-size:12.4px;color:var(--text-3);margin-bottom:10px">相对五年年均分的偏离 ｜ 蓝色=比往年重，灰色=比往年轻</div>
+          <div style="font-size:12.4px;color:var(--text-3);margin-bottom:10px">相对五年年均分的偏离 ｜ 中线为五年均值，向右=比往年重，向左=比往年轻</div>
           ${devs.map((x) => `<div class="dist-row">
-            <span class="dist-name">${esc(x.name)}</span>
-            <span class="dist-bar-wrap"><span class="dist-bar ${x.d > 0 ? '' : 'mute'}" style="width:${Math.round(Math.abs(x.d) / devMax * 100)}%"></span></span>
-            <span class="dist-val">${x.d > 0 ? '+' : ''}${x.d} 分</span>
+            <span class="dev-name">${esc(x.name)}</span>
+            <span class="dev-track"><span class="dev-fill ${x.d >= 0 ? 'pos' : 'neg'}"
+              style="width:${Math.round(Math.abs(x.d) / devMax * 50)}%"></span></span>
+            <span class="dev-val ${x.d > 0 ? 'pos' : (x.d < 0 ? 'neg' : 'zero')}">${x.d > 0 ? '+' : ''}${x.d} 分</span>
           </div>`).join('')}
           <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:12.6px;color:var(--text-3);line-height:1.7">
             本卷 <b style="color:var(--text-2)">${esc(devs[0].name)}</b> ${devs[0].d > 0 ? '比五年均值多' : '比五年均值少'}
@@ -1175,6 +1202,51 @@ function buildTrend() {
   /* 分类能力逐年（判断是否真在上升）*/
   const CLASSIFY = PAPER_STATS.map((s) => sum(LEDGER.filter((q) => q.p === s.id && q.cat === '分类').map((q) => q.score)));
 
+  /* 分类能力的五年时序折线。
+   * 这是全站唯一一条真正连续的时间序列，用横排数字表达等于让读者自己比大小；
+   * 折线能直接看出「前三年低位 → 2024-25 跳升 → 保持」。
+   * 手写 SVG 而不引图表库：整个站零依赖、产物要能 file:// 直开。 */
+  const sparkSvg = (() => {
+    const W = 430, H = 104, PADL = 30, PADR = 12, PADT = 14, PADB = 24;
+    const iw = W - PADL - PADR, ih = H - PADT - PADB;
+    const max = Math.max(...CLASSIFY), min = Math.min(...CLASSIFY);
+    // 纵轴不从 0 起：数据在 7–13 之间，从 0 起会把变化压成一条平线
+    const lo = Math.max(0, min - 2), hi = max + 1;
+    const x = (i) => PADL + (CLASSIFY.length === 1 ? iw / 2 : (i / (CLASSIFY.length - 1)) * iw);
+    const y = (v) => PADT + ih - ((v - lo) / (hi - lo)) * ih;
+    const pts = CLASSIFY.map((v, i) => [x(i), y(v)]);
+    const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+    // 面积填充：让「低位区」和「高位区」有视觉重量差
+    const area = line + ` L${pts[pts.length - 1][0].toFixed(1)} ${PADT + ih} L${pts[0][0].toFixed(1)} ${PADT + ih} Z`;
+    const dots = pts.map((p, i) => {
+      const hot = CLASSIFY[i] >= 13;
+      return `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${hot ? 4.5 : 3}"
+        fill="${hot ? 'var(--rose)' : 'var(--accent)'}"/>`
+        + `<text x="${p[0].toFixed(1)}" y="${(p[1] - 9).toFixed(1)}" text-anchor="middle"
+            font-size="11" font-weight="700" fill="${hot ? 'var(--rose)' : 'var(--text-2)'}"
+            style="font-variant-numeric:tabular-nums">${CLASSIFY[i]}</text>`;
+    }).join('');
+    // 横轴年份：只标首、末与跳升那一年，避免 5 个标签挤在一起
+    const xLabels = PAPER_STATS.map((s, i) => {
+      const show = i === 0 || i === PAPER_STATS.length - 1 || (i > 0 && CLASSIFY[i] - CLASSIFY[i - 1] >= 4);
+      if (!show) return '';
+      return `<text x="${x(i).toFixed(1)}" y="${H - 6}" text-anchor="middle" font-size="10.5"
+        fill="var(--text-3)">${s.label}</text>`;
+    }).join('');
+    return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img"
+      aria-label="分类能力分值五年走势：${CLASSIFY.join(' → ')} 分">
+      <path d="${area}" fill="url(#sparkFill)"/>
+      <path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
+      <line x1="${PADL}" y1="${PADT + ih}" x2="${W - PADR}" y2="${PADT + ih}"
+        stroke="var(--border)" stroke-width="1"/>
+      ${dots}${xLabels}
+      <defs><linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(37,99,235,.20)"/>
+        <stop offset="100%" stop-color="rgba(37,99,235,0)"/>
+      </linearGradient></defs>
+    </svg>`;
+  })();
+
   /* 难度指数区间 */
   const DIMIN = Math.min(...PAPER_STATS.map((s) => s.diffIndex));
   const DIMAX = Math.max(...PAPER_STATS.map((s) => s.diffIndex));
@@ -1292,12 +1364,7 @@ ${section('在变', '两处真在变，别按旧印象准备', '其余都是噪�
 <div class="grid g2">
   <div class="card">
     <h3>分类讨论在加重</h3>
-    <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px">
-      ${PAPER_STATS.map((s, i) => `<span style="text-align:center">
-        <span style="display:block;font-size:11.5px;color:var(--text-3)">${s.label}</span>
-        <b style="font-size:17px;color:${CLASSIFY[i] >= 13 ? 'var(--rose)' : 'var(--text-2)'};font-variant-numeric:tabular-nums">${CLASSIFY[i]}</b>
-      </span>`).join('<span style="color:var(--border)">·</span>')}
-    </div>
+    <div class="spark">${sparkSvg}</div>
     <p style="font-size:13px;color:var(--text-2);line-height:1.65">
       最近两年都是 ${CLASSIFY[CLASSIFY.length - 1]} 分，是唯一明显上升的能力。
       载体年年换（动点、动角、线段中点），考的都是同一件事：<b>把可能的情况列全</b>。

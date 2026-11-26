@@ -317,6 +317,32 @@ tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none
 .dist-bar.mute{background:var(--bg-3)}
 .dist-val{font-size:12.8px;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 
+/* ---------- 零轴双向条形 ----------
+ * 用于「本卷 vs 五年均值」的偏离：正负是相反方向，不能画成同向等长的条。
+ * 零轴居中，正偏离向右、负偏离向左；两侧都用可见实色，
+ * 负向不能用 var(--bg-3)（浅底上几乎看不见，等于没画）。 */
+.dev-row{display:grid;grid-template-columns:104px 1fr 64px;align-items:center;gap:12px;padding:6px 0}
+.dev-name{font-size:13.2px;font-weight:600;color:var(--text);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;min-width:0}
+.dev-track{position:relative;display:block;height:9px;min-width:0}
+/* 零轴：一根明显的竖线，让人一眼看到中心在哪 */
+.dev-track::before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;
+  background:var(--border-2)}
+.dev-fill{position:absolute;top:0;height:100%;border-radius:3px}
+.dev-fill.pos{left:50%;background:var(--accent-grad)}
+.dev-fill.neg{right:50%;background:linear-gradient(90deg,#94a3b8,#64748b)}
+.dev-val{font-size:12.6px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dev-val.pos{color:var(--accent)}
+.dev-val.neg{color:var(--text-3)}
+.dev-val.zero{color:var(--text-3);opacity:.7}
+
+/* ---------- 时序折线 ----------
+ * 全站唯一连续时间序列（分类能力 5 年）。用折线而非横排数字：
+ * 「前三年低位 → 跳升 → 保持」这种形状只有折线能一眼看出来。 */
+.spark{margin:6px 0 10px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:10px;padding:6px 4px 2px}
+.spark svg{display:block}
+
 /* ---------- 考点族热力矩阵 ----------
  * 行 = 族（按章节分组），列 = 学年，格子深浅 = 该年分值，右侧 = 年均分与出现年数。
  * 取经自英语期末站：同一套「族 × 学年」矩阵，一眼分出「年年考且分高」与「只考过一次」。
@@ -607,24 +633,37 @@ footer b{color:var(--text-2)}
 <div class="grid g2">
   <div class="card">
     <h3>分类讨论在加重</h3>
-    <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px">
-      <span style="text-align:center">
-        <span style="display:block;font-size:11.5px;color:var(--text-3)">2021-22</span>
-        <b style="font-size:17px;color:var(--text-2);font-variant-numeric:tabular-nums">8</b>
-      </span><span style="color:var(--border)">·</span><span style="text-align:center">
-        <span style="display:block;font-size:11.5px;color:var(--text-3)">2022-23</span>
-        <b style="font-size:17px;color:var(--rose);font-variant-numeric:tabular-nums">13</b>
-      </span><span style="color:var(--border)">·</span><span style="text-align:center">
-        <span style="display:block;font-size:11.5px;color:var(--text-3)">2023-24</span>
-        <b style="font-size:17px;color:var(--text-2);font-variant-numeric:tabular-nums">7</b>
-      </span><span style="color:var(--border)">·</span><span style="text-align:center">
-        <span style="display:block;font-size:11.5px;color:var(--text-3)">2024-25</span>
-        <b style="font-size:17px;color:var(--rose);font-variant-numeric:tabular-nums">13</b>
-      </span><span style="color:var(--border)">·</span><span style="text-align:center">
-        <span style="display:block;font-size:11.5px;color:var(--text-3)">2025-26</span>
-        <b style="font-size:17px;color:var(--rose);font-variant-numeric:tabular-nums">13</b>
-      </span>
-    </div>
+    <div class="spark"><svg viewBox="0 0 430 104" width="100%" height="104" role="img"
+      aria-label="分类能力分值五年走势：8 → 13 → 7 → 13 → 13 分">
+      <path d="M30.0 58.0 L127.0 21.3 L224.0 65.3 L321.0 21.3 L418.0 21.3 L418.0 80 L30.0 80 Z" fill="url(#sparkFill)"/>
+      <path d="M30.0 58.0 L127.0 21.3 L224.0 65.3 L321.0 21.3 L418.0 21.3" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
+      <line x1="30" y1="80" x2="418" y2="80"
+        stroke="var(--border)" stroke-width="1"/>
+      <circle cx="30.0" cy="58.0" r="3"
+        fill="var(--accent)"/><text x="30.0" y="49.0" text-anchor="middle"
+            font-size="11" font-weight="700" fill="var(--text-2)"
+            style="font-variant-numeric:tabular-nums">8</text><circle cx="127.0" cy="21.3" r="4.5"
+        fill="var(--rose)"/><text x="127.0" y="12.3" text-anchor="middle"
+            font-size="11" font-weight="700" fill="var(--rose)"
+            style="font-variant-numeric:tabular-nums">13</text><circle cx="224.0" cy="65.3" r="3"
+        fill="var(--accent)"/><text x="224.0" y="56.3" text-anchor="middle"
+            font-size="11" font-weight="700" fill="var(--text-2)"
+            style="font-variant-numeric:tabular-nums">7</text><circle cx="321.0" cy="21.3" r="4.5"
+        fill="var(--rose)"/><text x="321.0" y="12.3" text-anchor="middle"
+            font-size="11" font-weight="700" fill="var(--rose)"
+            style="font-variant-numeric:tabular-nums">13</text><circle cx="418.0" cy="21.3" r="4.5"
+        fill="var(--rose)"/><text x="418.0" y="12.3" text-anchor="middle"
+            font-size="11" font-weight="700" fill="var(--rose)"
+            style="font-variant-numeric:tabular-nums">13</text><text x="30.0" y="98" text-anchor="middle" font-size="10.5"
+        fill="var(--text-3)">2021-22</text><text x="127.0" y="98" text-anchor="middle" font-size="10.5"
+        fill="var(--text-3)">2022-23</text><text x="321.0" y="98" text-anchor="middle" font-size="10.5"
+        fill="var(--text-3)">2024-25</text><text x="418.0" y="98" text-anchor="middle" font-size="10.5"
+        fill="var(--text-3)">2025-26</text>
+      <defs><linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(37,99,235,.20)"/>
+        <stop offset="100%" stop-color="rgba(37,99,235,0)"/>
+      </linearGradient></defs>
+    </svg></div>
     <p style="font-size:13px;color:var(--text-2);line-height:1.65">
       最近两年都是 13 分，是唯一明显上升的能力。
       载体年年换（动点、动角、线段中点），考的都是同一件事：<b>把可能的情况列全</b>。
