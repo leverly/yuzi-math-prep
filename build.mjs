@@ -112,6 +112,32 @@ const CSS = TOKENS + HEAD_CSS + PAGEHEAD_CSS + `
 .ch-bar-row:first-of-type .ch-bar-track i{background:var(--gold-grad)}
 .ch-bar-val{font-size:12.5px;font-weight:700;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums}
 
+/* 必考族清单：12 行紧凑排列，条形长度按年均分降序 */
+.must-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:6px 20px;box-shadow:var(--shadow-1)}
+.must-row{display:grid;grid-template-columns:26px 1fr 88px 62px;align-items:center;gap:10px;
+  padding:9px 0;border-bottom:1px solid var(--border)}
+.must-grid>.must-row:nth-last-child(-n+2){border-bottom:none}
+.must-no{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text-3);opacity:.7}
+.must-name{font-size:13.2px;font-weight:600;color:var(--text);min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.must-bar{display:block;height:6px;background:var(--bg-3);border-radius:var(--r-pill);overflow:hidden}
+.must-bar i{display:block;height:100%;background:var(--accent-grad);border-radius:var(--r-pill)}
+.must-val{font-size:13px;font-weight:700;color:var(--accent);text-align:right;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.must-val small{font-size:10.5px;font-weight:600;color:var(--text-3);margin-left:1px}
+
+/* 行动横幅：考情讲完后给唯一动作 */
+.cta-band{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;
+  margin:44px 0 8px;padding:24px 28px;border-radius:var(--r-lg);
+  background:var(--surface);border:1px solid rgba(37,99,235,.24);
+  box-shadow:0 14px 34px -14px rgba(37,99,235,.24)}
+.cta-band-main{min-width:0}
+.cta-band-main b{display:block;font-size:17px;font-weight:750;letter-spacing:-.02em;margin-bottom:5px}
+.cta-band-main span{font-size:13.2px;color:var(--text-3)}
+.cta-band-act{display:flex;gap:10px;flex-wrap:wrap}
+
 .mission-list{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px}
 .mission-item{
   display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:11px;
@@ -172,34 +198,6 @@ h3{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
 .sell-link{font-size:13px;font-weight:650;color:var(--accent);text-decoration:none;margin-top:auto}
 .sell-link:hover{text-decoration:underline}
 
-/* ---------- 诊断产出卡 + 行动条 ---------- */
-.out-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-.out-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
-  padding:18px 18px 20px;box-shadow:var(--shadow-1);position:relative;overflow:hidden;
-  transition:.18s var(--ease);display:flex;flex-direction:column}
-.out-card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--accent-grad)}
-.out-card:hover{box-shadow:var(--shadow-2);transform:translateY(-2px)}
-.out-no{font-family:var(--mono);font-size:11px;font-weight:800;color:var(--accent);
-  letter-spacing:.08em;margin-bottom:7px}
-.out-title{font-size:15px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em}
-.out-see{font-size:12.8px;color:var(--text-2);line-height:1.65}
-.out-ask{margin-top:auto;padding-top:10px;border-top:1px dashed var(--border);
-  font-size:12.2px;color:var(--text-3);line-height:1.6}
-.out-ask b{color:var(--text);font-weight:650}
-
-/* 行动条：沿用主站浅色基调（accent-soft 底 + 主色描边 + 主色按钮） */
-.cta-bar{margin-top:24px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;
-  background:linear-gradient(135deg,rgba(37,99,235,.055),rgba(79,70,229,.055)),var(--surface);
-  border:1px solid rgba(37,99,235,.2);border-radius:var(--r);
-  padding:24px 28px;box-shadow:0 10px 30px -14px rgba(37,99,235,.22)}
-.cta-main{flex:1;min-width:240px}
-.cta-title{font-size:20px;font-weight:780;color:var(--text);letter-spacing:-.02em}
-.cta-sub{font-size:13px;color:var(--text-3);margin-top:5px;line-height:1.6}
-.cta-sub b{color:var(--text-2);font-weight:600}
-.cta-bar .btn{background:var(--accent-grad);color:#fff;border-color:transparent;font-weight:700;
-  padding:13px 26px;box-shadow:var(--shadow-accent);font-size:15px}
-.cta-bar .btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px -8px rgba(37,99,235,.46)}
-
 /* ---------- 三色分值卡 ---------- */
 .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .tier-card{
@@ -256,6 +254,60 @@ tfoot td{font-weight:700;border-top:2px solid var(--border-2);border-bottom:none
 /* 中性/负向：不暗示"好"，只表示比往年轻 */
 .dist-bar.mute{background:var(--bg-3)}
 .dist-val{font-size:12.8px;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+
+/* ---------- 考点族热力矩阵 ----------
+ * 行 = 族（按章节分组），列 = 学年，格子深浅 = 该年分值，右侧 = 年均分与出现年数。
+ * 取经自英语期末站：同一套「族 × 学年」矩阵，一眼分出「年年考且分高」与「只考过一次」。
+ * 差异在色阶：用**语义分档**而非分位数——数学分值本身有含义（2 分是一道选择/填空，
+ * 6–8 分是一道解答，13 分以上是整块大题）。分位数在这里会塌档：
+ * 87 个非零格里 36 个恰好是 2 分，20% 与 40% 分位都是 2，第 2 档会空掉。 */
+.heat-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--border);border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow-1)}
+.heat{border-collapse:separate;border-spacing:0;width:100%;font-size:13px;min-width:760px}
+.heat th,.heat td{padding:0;border:none;white-space:nowrap}
+.heat thead th{
+  position:sticky;top:0;z-index:2;background:var(--surface-2);
+  font-size:11px;font-weight:700;color:var(--text-3);letter-spacing:.03em;
+  padding:9px 8px;border-bottom:1px solid var(--border-2);text-align:center;
+}
+.heat thead th.hc-fam{text-align:left;padding-left:14px;min-width:190px}
+.heat thead th.hc-avg{text-align:right;padding-right:14px;min-width:104px}
+.heat thead th.hc-hit{min-width:52px}
+.heat tbody tr:hover td{background:var(--surface-2)}
+.heat .ch-row-h td{
+  background:var(--bg-3);font-size:11.5px;font-weight:700;color:var(--text-2);
+  padding:7px 14px;letter-spacing:.02em;
+}
+.heat .ch-row-h td .ch-sum{float:right;font-weight:600;color:var(--text-3);font-size:11px}
+.heat .hc-fam-cell{padding:6px 8px 6px 14px;border-bottom:1px solid var(--border)}
+.heat .fam-nm{font-size:12.9px;font-weight:600;color:var(--text);display:block;line-height:1.35}
+.heat .fam-sub{font-size:11px;color:var(--text-3);font-variant-numeric:tabular-nums}
+.heat .hc-cell{padding:4px 5px;border-bottom:1px solid var(--border);text-align:center}
+.heat .cellbox{
+  display:grid;place-items:center;height:30px;border-radius:6px;
+  font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;
+  transition:.14s var(--ease);
+}
+.heat .cellbox.zero{background:transparent;color:var(--text-3);font-weight:500;font-size:11px;opacity:.55}
+.heat .cellbox[data-hl]{color:#fff}
+.heat tbody tr:hover .cellbox:not(.zero){outline:1px solid rgba(37,99,235,.4);outline-offset:-1px}
+.heat .hc-avg-cell{padding:6px 14px 6px 8px;border-bottom:1px solid var(--border);text-align:right}
+.heat .avg-bar{display:flex;align-items:center;gap:7px;justify-content:flex-end}
+.heat .avg-bar i{display:block;height:6px;border-radius:var(--r-pill);background:var(--accent-grad)}
+.heat .avg-bar b{font-size:12.3px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+.heat .hc-hit-cell{padding:6px 10px;border-bottom:1px solid var(--border);text-align:center;
+  font-size:11.5px;color:var(--text-3);font-variant-numeric:tabular-nums}
+.heat .hc-hit-cell.full{color:var(--ok);font-weight:700}
+.heat tbody tr:last-child td{border-bottom:none}
+
+.heat-legend{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:12.2px;color:var(--text-3)}
+.heat-legend .lg-scale{display:flex;align-items:center;gap:3px}
+.heat-legend .lg-scale i{display:block;width:24px;height:11px;border-radius:3px}
+.heat-legend .lg-note{display:inline-flex;align-items:center;gap:5px}
+.heat-legend .lg-zero{display:inline-block;width:24px;height:11px;border-radius:3px;border:1px dashed var(--border-2)}
+.heat-scroll-hint{display:none;font-size:11.8px;color:var(--text-3);margin-top:8px;align-items:center;gap:5px}
+.heat-scroll-hint b{color:var(--accent);font-weight:650}
+@media(max-width:820px){.heat-scroll-hint{display:flex}}
 
 /* ---------- 考点族卡 ---------- */
 .fam-tbl{table-layout:fixed;width:100%}
@@ -325,13 +377,10 @@ footer b{color:var(--text-2)}
 
 /* ---------- 响应式 ---------- */
 @media(max-width:1100px){
-  .out-cards{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:960px){
   .hero-split{grid-template-columns:1fr;gap:26px}
   .g3,.g4,.tier-grid{grid-template-columns:repeat(2,1fr)}
-  .cta-bar{padding:20px 22px}
-  .cta-bar .btn{width:100%;justify-content:center}
 }
 @media(max-width:680px){
   body{font-size:14.5px}
@@ -342,11 +391,13 @@ footer b{color:var(--text-2)}
   .hero-stats{grid-template-columns:repeat(2,1fr);gap:12px 0}
   .hero-stats b{font-size:22px}
   .g2,.g3,.g4,.tier-grid{grid-template-columns:1fr}
-  .out-cards{grid-template-columns:repeat(2,1fr);gap:10px}
-  .out-card{padding:15px 15px 17px}
-  .out-title{font-size:14px}
-  .out-see{font-size:12.4px}
-  .cta-title{font-size:17px}
+  /* 必考族：窄屏改单列，条形收窄给名称让位 */
+  .must-grid{grid-template-columns:1fr;padding:4px 16px}
+  .must-grid>.must-row:nth-last-child(2){border-bottom:1px solid var(--border)}
+  .must-row{grid-template-columns:22px 1fr 60px 56px;gap:8px}
+  .cta-band{padding:20px 20px;gap:16px}
+  .cta-band-act{width:100%}
+  .cta-band-act .btn{flex:1;justify-content:center}
   .sell-row{grid-template-columns:1fr}
   .section{margin:38px 0}
   .card{padding:17px}
@@ -796,38 +847,44 @@ function buildHome() {
         <span class="ch-bar-val">${c.avg}</span>
       </div>`).join('');
 
+  // 卷面骨架：五年完全相同，从台账现算，不写死
+  const mainQ = LEDGER.filter((q) => !q.bonus);
+  const segScore = { 选择: 0, 填空: 0, 解答: 0 };
+  for (const q of mainQ) segScore[q.seg] = (segScore[q.seg] || 0) + q.score;
+  // 题数用「总题数」（含选做），与逐年拆解页的口径一致：每卷 26 题 = 24 必做 + 2 选做。
+  // 分值用必做分（选做计入总分但卷面封顶 100，不能与必做分相加）。
+  const paperQ = LEDGER.length / N_PAPERS;
+  const bonusQ = LEDGER.filter((q) => q.bonus).length / N_PAPERS;
+
   const body = `
 <section class="hero">
   <div class="hero-split">
     <div>
       <div class="hero-badge"><span class="dot-live"></span>西城区区统考 · 五年真题逐题拆解</div>
-      <h1>先把<span class="accent-word">会做的做对</span><br>再去攻压轴</h1>
+      <h1>这套卷子<span class="accent-word">考什么</span><br>多少分，哪里最值钱</h1>
       <p class="lede">
-        ${BASE_MIN}–${BASE_MAX} 分是可以练到零失误的——这部分的丢分几乎都是<b>会做但没做对</b>。
-        做一轮 ${ROUND_Q} 题，覆盖全部 ${CH_COUNT} 章，做完直接告诉你哪一章在丢分。
+        五套卷的卷面骨架一动没动：<b>${paperQ} 题 / 100 分钟</b>（必做 ${paperQ - bonusQ} + 选做 ${bonusQ}），
+        选择 ${pct(segScore['选择'] / N_PAPERS)} + 填空 ${pct(segScore['填空'] / N_PAPERS)} + 解答 ${pct(segScore['解答'] / N_PAPERS)}。
+        但分值不是均匀分布的——<b>${pct(BASE_AVG)} 分落在基础与中档</b>，压轴只有 ${pct(HARD_AVG)} 分。
       </p>
-      <div class="hero-cta">
-        <a class="btn primary" href="practice.html">开始诊断 <span aria-hidden="true">→</span></a>
-        <a class="btn" href="history.html">看学情数据</a>
-      </div>
       <div class="hero-stats">
-        <div><b>${ROUND_Q}</b><span>题一轮</span></div>
-        <div><b>${CH_COUNT}</b><span>章全覆盖</span></div>
-        <div><b>${PRACTICE_TOTAL}</b><span>题题库</span></div>
-        <div><b>${pct(BASE_AVG)}<span class="hs-of">分</span></b><span>可练到零失误</span></div>
+        <div><b>${paperQ}</b><span>题 · 100 分钟</span></div>
+        <div><b>${pct(BASE_AVG)}<span class="hs-of">分</span></b><span>基础 + 中档</span></div>
+        <div><b>${pct(HARD_AVG)}<span class="hs-of">分</span></b><span>较难 + 压轴</span></div>
+        <div><b>${FREQ.must.length}</b><span>族年年考</span></div>
       </div>
     </div>
 
     <aside class="cockpit">
       <div class="cockpit-top">
-        <span class="level-pill">先看哪一章</span>
-        <span style="font-size:12px;color:var(--text-3)">五年年均分值</span>
+        <span class="level-pill">各章年均分值</span>
+        <span style="font-size:12px;color:var(--text-3)">五年均值</span>
       </div>
       ${chBars}
       <div class="mission-list">
-        <a class="mission-item" href="plan.html">
-          <span class="mi-ico gold">🎯</span>
-          <span class="mi-main"><b>备考计划</b><small>五级优先级，先练什么后练什么</small></span>
+        <a class="mission-item" href="papers.html">
+          <span class="mi-ico blue">📄</span>
+          <span class="mi-main"><b>逐年拆解</b><small>五套卷逐套看结构与差异</small></span>
           <span class="mi-go">去看 →</span>
         </a>
         <a class="mission-item" href="trend.html">
@@ -835,9 +892,9 @@ function buildHome() {
           <span class="mi-main"><b>整体解读</b><small>什么在变、什么年年考</small></span>
           <span class="mi-go">去看 →</span>
         </a>
-        <a class="mission-item" href="papers.html">
-          <span class="mi-ico blue">📄</span>
-          <span class="mi-main"><b>逐年拆解</b><small>五套卷逐套看结构与差异</small></span>
+        <a class="mission-item" href="plan.html">
+          <span class="mi-ico gold">🎯</span>
+          <span class="mi-main"><b>备考计划</b><small>五级优先级，先练什么后练什么</small></span>
           <span class="mi-go">去看 →</span>
         </a>
       </div>
@@ -845,7 +902,19 @@ function buildHome() {
   </div>
 </section>
 
-${section('为什么先练这块', '一个判断，决定复习顺序', '论证在整体解读，这里只给结论', `
+${section('必考族', `五年年年考的 ${FREQ.must.length} 个考点族`, `覆盖必做分 ${FREQ_SUMMARY.must.pct}%（${FREQ_SUMMARY.must.score}/${MAIN_GRAND} 分）——这 ${FREQ.must.length} 族五年没有一年缺席`, `
+<div class="must-grid">
+  ${FREQ.must.map((f, i) => `
+    <div class="must-row">
+      <span class="must-no">${String(i + 1).padStart(2, '0')}</span>
+      <span class="must-name">${esc(f.name)}</span>
+      <span class="must-bar"><i style="width:${Math.round((f.avgPerYear / FREQ.must[0].avgPerYear) * 100)}%"></i></span>
+      <span class="must-val">${f.avgPerYear}<small>分/年</small></span>
+    </div>`).join('')}
+</div>
+<p style="margin-top:14px"><a href="trend.html#freq" style="color:var(--accent);font-weight:650;text-decoration:none;font-size:13.5px">看全部 ${FAMILY_MAP.length} 个考点族的五年频次 →</a></p>`)}
+
+${section('一个判断', '先练哪块，有唯一答案', '论证在整体解读，这里只给结论', `
 <div class="sell-row">
   <div class="sell-pain">
     <span class="sell-no">01</span>
@@ -859,47 +928,16 @@ ${section('为什么先练这块', '一个判断，决定复习顺序', '论证�
   </div>
 </div>`)}
 
-${section('个性化诊断', '做完这 ' + ROUND_Q + ' 题，你会拿到五样东西', '从「考了多少分」一路推到「下一步做什么」——中间每一步都可查', `
-<div class="out-cards">
-  <div class="out-card">
-    <div class="out-no">01</div>
-    <div class="out-title">正确率</div>
-    <div class="out-see">这一轮对了几题。</div>
-    <div class="out-ask"><b>只回答「现在什么水平」</b>。单独看说明不了该练什么——它是下面四项的起点。</div>
+<div class="cta-band">
+  <div class="cta-band-main">
+    <b>想知道自己在这 ${FREQ.must.length} 族里，哪几族在丢分？</b>
+    <span>做一轮 ${ROUND_Q} 题 · 约 12 分钟 · 覆盖 ${CH_COUNT} 章 · 不用注册，记录只存本机</span>
   </div>
-  <div class="out-card">
-    <div class="out-no">02</div>
-    <div class="out-title">各章分档</div>
-    <div class="out-see">${CH_COUNT} 章分别判为「薄弱 / 不稳 / 掌握」，样本不足 3 题标「样本不足」。</div>
-    <div class="out-ask"><b>回答「哪一章在丢分」</b>，把 100 分拆成能动手的几块。</div>
+  <div class="cta-band-act">
+    <a class="btn primary" href="practice.html">开始诊断 <span aria-hidden="true">→</span></a>
+    <a class="btn ghost" href="history.html">看学情数据</a>
   </div>
-  <div class="out-card">
-    <div class="out-no">03</div>
-    <div class="out-title">各能力分档</div>
-    <div class="out-see">计算 / 概念 / 建模 / 推理 / 分类 / 作图 / 空间 / 新定义，八种分别判档。</div>
-    <div class="out-ask"><b>回答「是没方法还是算不准」</b>——同样是错，补法完全不同。</div>
-  </div>
-  <div class="out-card">
-    <div class="out-no">04</div>
-    <div class="out-title">下一步做什么</div>
-    <div class="out-see">按「年均分值 × 失分率」排序，先补哪一章、主要错在哪类。</div>
-    <div class="out-ask"><b>回答「今晚先练什么」</b>，不是给结论，是给动作。</div>
-  </div>
-  <div class="out-card">
-    <div class="out-no">05</div>
-    <div class="out-title">错题清单</div>
-    <div class="out-see">逐题列出做错的，带解题步骤，可一键重做。</div>
-    <div class="out-ask"><b>回答「有没有真的补上」</b>——判据是同一题第二次做是否还错。</div>
-  </div>
-</div>
-<div class="cta-bar">
-  <div class="cta-main">
-    <div class="cta-title">现在就开始一轮</div>
-    <div class="cta-sub"><b>${ROUND_Q} 题</b> · 约 12 分钟 · 覆盖 <b>${CH_COUNT} 章</b> · 不用注册，记录只存本机</div>
-  </div>
-  <a class="btn" href="practice.html">开始诊断 <span aria-hidden="true">→</span></a>
-</div>`)}
-`;
+</div>`;
   return page('home.html', SITE.name, '西城区初一上数学期末五年真题考情分析与备考练习', body);
 }
 
@@ -1008,6 +1046,29 @@ ${PAPER_STATS.map((s) => {
 function buildTrend() {
   const W = { easy: 1, mid: 2, hard: 3, top: 4 };
   const papers = PAPER_STATS.map((s) => s.id);
+
+  /* ---- 考点族热力矩阵的分档与配色 ----
+   * 语义分档（不是分位数）：分值本身说明分量。2 分=一道选择/填空，
+   * 3-5=半道解答，6-8=一道解答，9-12=多题合计，13+=整块大题。
+   * 选它的理由在 CSS 注释里；这里加断言保证 5 档都有格子，
+   * 否则图例写 5 档、实际只用到 4 档，读者无法验证深浅的含义。 */
+  const HEAT_LEVEL = (v) => (v <= 0 ? 0 : v <= 2 ? 1 : v <= 5 ? 2 : v <= 8 ? 3 : v <= 12 ? 4 : 5);
+  const HEAT_BG = ['', 'rgba(37,99,235,.12)', 'rgba(37,99,235,.26)', 'rgba(37,99,235,.44)',
+    'rgba(37,99,235,.64)', 'rgba(37,99,235,.88)'];
+  const HEAT_FG = ['', 'var(--accent)', 'var(--accent)', '#fff', '#fff', '#fff'];
+  const HEAT_AVG_MAX = Math.max(...FAMILY_MAP.map((f) => f.avgPerYear || 0));
+  {
+    const seen = new Set();
+    for (const f of FAMILY_MAP) for (const y of YEARS) {
+      const v = (f.perYear && f.perYear[y]) || 0;
+      if (v > 0) seen.add(HEAT_LEVEL(v));
+    }
+    for (let lv = 1; lv <= 5; lv++) {
+      if (!seen.has(lv)) {
+        console.warn(`  ⚠ 热力矩阵第 ${lv} 档没有格子——图例与实际不符，需重新划分档位`);
+      }
+    }
+  }
 
   /* ---- 五年恒定的事实（从台账重算，不引用别处的常量）---- */
   const mainOf = (p) => LEDGER.filter((q) => q.p === p && !q.bonus);
@@ -1228,35 +1289,56 @@ ${section('考频', '按考频排，不按章节排',
   排在最后。
 </div>`, 'freq')}
 
-${section('考点族', '各考点年均分值',
-    `按章节分组 · 组内按年均分降序 · 共 ${FAMILY_MAP.length} 族`, `
-<div class="tbl-wrap"><table class="fam-tbl">
-  <thead><tr><th>考点</th><th class="num">年均分</th><th class="num">出现年数</th></tr></thead>
-  <tbody>${CH_GROUPS.map((g) => `
-    <tr style="background:var(--bg-3)">
-      <td colspan="3" style="font-weight:700;color:var(--text);white-space:normal">
-        ${esc(g.name)}
-        <span style="font-weight:500;color:var(--text-3);font-size:12.5px;margin-left:8px">五年合计 ${g.total} 分</span>
-      </td>
-    </tr>
-    ${g.fams.map((f) => {
-      /* 族名里带的题位（「第23题位」或「24 题位」两种写法）可能只是主位。
-         展示实际落点，避免读者把族名当成"只考这一题"。 */
-      const nos = [...new Set(f.slots.map((s) => s.no))].sort((a, b) => a - b);
-      const inName = (f.name.match(/(\d+)\s*题位/) || [])[1];
-      const mism = inName && !(nos.length === 1 && +inName === nos[0]);
-      const slots = nos.length ? `第 ${nos.join('、')} 题` : '—';
-      return `<tr>
-      <td style="padding-left:26px">${esc(f.name)}${mism ? `<span style="color:var(--text-3);font-size:11.5px;margin-left:6px">实际落点：${slots}</span>` : ''}</td>
-      <td class="num cell-hi">${f.avgPerYear || '—'}</td>
-      <td class="num">${f.hitYears}/${N_PAPERS}</td>
-    </tr>`;
-    }).join('')}`).join('')}</tbody>
-  <tfoot><tr><td>合计</td><td class="num">${MAIN_GRAND / N_PAPERS}</td><td class="num">—</td></tr></tfoot>
-</table></div>
-<p style="margin-top:12px;font-size:12.8px;color:var(--text-3)">
+${section('考点族', '各考点分值分布与重要性',
+    `按章节分组 · 行 = 考点族，列 = 学年 · 格子深浅 = 该年分值 · 右侧 = 年均分与出现年数 · 共 ${FAMILY_MAP.length} 族`, `
+<div class="heat-wrap">
+<table class="heat">
+<thead><tr>
+  <th class="hc-fam">考点族</th>
+  ${YEARS.map((y) => `<th>${y}</th>`).join('')}
+  <th class="hc-avg">年均</th>
+  <th class="hc-hit">出现</th>
+</tr></thead>
+<tbody>
+${CH_GROUPS.map((g) => `
+<tr class="ch-row-h"><td colspan="${YEARS.length + 3}">${esc(g.name)}<span class="ch-sum">${g.fams.length} 族 · 五年合计 ${g.total} 分</span></td></tr>
+${g.fams.map((f) => `<tr>
+  <td class="hc-fam-cell">
+    <span class="fam-nm">${esc(f.name)}</span>
+    <span class="fam-sub">${f.hitYears}/${N_PAPERS} 年${f.bonusYears ? ' · 选做 ' + f.bonusYears + ' 年' : ''}</span>
+  </td>
+  ${YEARS.map((y) => {
+    const v = (f.perYear && f.perYear[y]) || 0;
+    const lv = HEAT_LEVEL(v);
+    return `<td class="hc-cell" title="${esc(f.name)}｜${y}｜${v > 0 ? v + ' 分' : '未考'}">
+      <span class="cellbox ${v > 0 ? '' : 'zero'}" ${v > 0 ? `data-hl style="background:${HEAT_BG[lv]};color:${HEAT_FG[lv]}"` : ''}>${v > 0 ? v : '—'}</span>
+    </td>`;
+  }).join('')}
+  <td class="hc-avg-cell">
+    <span class="avg-bar"><i style="width:${Math.round((f.avgPerYear / HEAT_AVG_MAX) * 56)}px"></i><b>${f.avgPerYear || '—'}</b></span>
+  </td>
+  <td class="hc-hit-cell ${f.hitYears === N_PAPERS ? 'full' : ''}">${f.hitYears}/${N_PAPERS}</td>
+</tr>`).join('')}
+`).join('')}
+</tbody>
+</table>
+</div>
+<div class="heat-scroll-hint">← <b>左右滑动</b>看全部 ${YEARS.length} 个学年与年均分</div>
+<div class="heat-legend">
+  <span class="lg-note"><span class="lg-scale">
+    ${[1, 2, 3, 4, 5].map((lv) => `<i style="background:${HEAT_BG[lv]}"></i>`).join('')}
+  </span>该年分值：2 分 / 3–5 分 / 6–8 分 / 9–12 分 / 13 分以上</span>
+  <span class="lg-note"><span class="lg-zero"></span>该年未考</span>
+  <span class="lg-note">右侧条形 = 年均分（满格 ${HEAT_AVG_MAX} 分）</span>
+</div>
+<div class="note" style="margin-top:14px">
+  <b>怎么读：</b>横着看一行，是这一族五年考没考、分值稳不稳；竖着看一列，是那一年的分值压在哪几族。
+  <b>深浅不是难度，是分量</b>——「13 分以上」基本就是整块大题（第 17 题的有理数混合运算、第 23 题的分类压轴），
+  「2 分」只是单个选择或填空。
+</div>
+<p style="margin-top:10px;font-size:12.8px;color:var(--text-3)">
   年均分 = 五年必做分合计 ÷ ${N_PAPERS}。只出现在选做位的考点计 0 分（选做不计入必做 100 分）。
-</p>`, 'families')}
+</p>`, 'families')}}
 `;
   return page('trend.html', '整体解读 · ' + SITE.short, '西城区初一上数学期末五年考情整体解读', body);
 }

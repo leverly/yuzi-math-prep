@@ -54,24 +54,27 @@ const sel = fs.readFileSync('index.html', 'utf8');
 const idx = fs.readFileSync('home.html', 'utf8');
 const tr = fs.readFileSync('trend.html', 'utf8');
 const pl = fs.readFileSync('plan.html', 'utf8');
-// 首页已改为行动入口：首屏说「做一轮多少题、覆盖几章、题库多大」，
-// 这些数字必须与练习页/题库同源，不能是手写字面量。
+/* 首页是「考情总览」：首屏给卷面骨架与分值分布，第二屏给必考族清单。
+   这些数字必须从台账派生，不能是手写字面量。 */
 const { ROUND_SIZE } = await import('./work/site-shell.mjs');
-const { BANK: PRACTICE_BANK } = await import('./practice-data.mjs');
-const chCount = new Set(S.FAMILY_MAP.map((f) => f.ch)).size;
-ok(idx.includes(`<b>${ROUND_SIZE}</b><span>题一轮</span>`), '首页轮次题量派生正确');
-ok(idx.includes(`<b>${chCount}</b><span>章全覆盖</span>`), '首页章数派生正确');
-ok(idx.includes(`<b>${PRACTICE_BANK.length}</b><span>题题库</span>`), '首页题库题数派生正确');
-// 练习页与首页必须承诺同一个题量
+const qPerPaper = LEDGER.length / S.PAPER_STATS.length;
+const bonusPerPaper = LEDGER.filter((q) => q.bonus).length / S.PAPER_STATS.length;
+ok(idx.includes(`<b>${qPerPaper}</b><span>题 · 100 分钟</span>`), `首页题数 ${qPerPaper} 派生正确（含选做）`);
+ok(idx.includes(`必做 ${qPerPaper - bonusPerPaper} + 选做 ${bonusPerPaper}`), '首页题数拆分（必做/选做）派生正确');
+ok(idx.includes(`<b>${S.FREQ.must.length}</b><span>族年年考</span>`), '首页必考族数派生正确');
+// 必考族清单必须列全，不能只列前几条
+const mustRows = (idx.match(/class="must-row"/g) || []).length;
+ok(mustRows === S.FREQ.must.length, `首页列出全部 ${S.FREQ.must.length} 个必考族`, `${mustRows} 行`);
+// 行动入口仍在（考情讲完后给唯一动作），且指向练习页
+ok(/class="btn primary" href="practice\.html"/.test(idx), '行动横幅主按钮指向练习页');
+ok(idx.includes('href="history.html"'), '行动横幅有学情数据入口');
+// 练习页与首页必须承诺同一个轮次题量
 const pr0 = fs.readFileSync('practice.html', 'utf8');
 ok(pr0.includes(`每轮 ${ROUND_SIZE} 道题`), '练习页轮次题量与首页同源');
-// 首屏两个主按钮都应导向练习/诊断，而不是分析页
-ok(/class="btn primary" href="practice\.html"/.test(idx), '首屏主按钮指向练习页');
-ok(idx.includes('href="history.html"'), '首屏有学情诊断入口');
-// 已删掉的四处重叠内容不应回归
+// 已删掉的重叠内容不应回归
 ok(!idx.includes('三个判断'), '首页不再有「三个判断」与分值分区重复');
 ok(!idx.includes('100 分不是均匀分布的'), '首页不再有重复的分值分区屏');
-ok(!idx.includes('五年年年考的'), '首页不再复述必考清单');
+ok(!idx.includes('class="out-card"'), '首页不再复述诊断五样东西（已在备考诊断页）');
 ok(tr.includes(`共 ${S.FAMILY_MAP.length} 族`), '趋势页族数派生正确');
 // 备考计划页已去掉分数目标（避免给孩子压力），改为检查「三类题」结构与五级优先级
 ok(pl.includes('<h1>备考计划</h1>'), '计划页标题为「备考计划」');
@@ -113,15 +116,16 @@ ok(!/先保约\s*\d+\s*分|总分\s*≥\s*\d+|目标正确率\s*100%/.test(pl), 
   ok(!wantNav.includes('总览'), '导航不再有裸「总览」（应为「考情总览」）');
 }
 
-console.log('\n【四之二】首页诊断入口');
+console.log('\n【四之二】首页与「考情总览」定位一致');
 {
   const idx2 = fs.readFileSync('home.html', 'utf8');
-  const cards = (idx2.match(/class="out-card"/g) || []).length;
-  ok(cards === 5, '诊断产出讲清五样东西', cards + ' 张');
-  ok(idx2.includes('class="cta-bar"'), '有醒目行动条（不是纯文字链接）');
-  ok(idx2.includes('开始诊断'), '行动条有明确按钮');
-  ok(idx2.includes('各能力分档'), '能力维度已写进入口说明');
-  ok(!idx2.includes('现在就做一轮 →'), '已移除原来的纯文字弱链接');
+  /* 首页是考情总览：讲卷子（多少题、多少分、哪些族必考），不是讲诊断功能。
+     诊断的产出（五样东西、能力分档）属于备考诊断页，不该在首页复述。 */
+  ok(idx2.includes('class="cta-band"'), '有行动横幅（讲完考情给唯一动作）');
+  ok(idx2.includes('开始诊断'), '行动横幅有明确按钮');
+  ok(idx2.includes('五年年年考'), '首页有必考族清单');
+  ok(idx2.includes('各章年均分值'), '首页有章节分值分布');
+  ok(!idx2.includes('各能力分档'), '诊断能力维度已移出首页（属备考诊断页）');
 }
 
 console.log('\n【四之四】考区选择页（index.html）');
