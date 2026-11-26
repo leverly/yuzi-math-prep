@@ -169,6 +169,16 @@ body{padding-bottom:80px}
 .round-pct{font-size:12px;color:var(--text-3)}
 .round-body{display:none;padding:0 17px 15px;border-top:1px solid var(--border)}
 .round.open .round-body{display:block}
+/* 逐轮明细里的分组标题：一节按章节、一节按能力，是同一批题的两种切法 */
+.grp-lbl{font-size:12.5px;font-weight:700;color:var(--text-2);
+  margin:14px 0 9px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.grp-lbl:first-child{margin-top:13px}
+.grp-lbl span{font-size:11.5px;font-weight:500;color:var(--text-3)}
+/* 能力区在老记录下的说明 */
+.note-cap{background:var(--accent-soft);border:1px solid rgba(37,99,235,.2);
+  border-radius:10px;padding:12px 15px;font-size:13px;color:var(--text-2);
+  line-height:1.7;margin-bottom:13px}
+.note-cap b{color:var(--accent)}
 .round-body .ch-grid{grid-template-columns:repeat(3,1fr);margin-top:14px}
 .round-body .ch-card{background:var(--surface-2);box-shadow:none}
 
@@ -214,7 +224,7 @@ body{padding-bottom:80px}
 <div class="head">
   <div class="hero-badge"><span class="dot-live"></span>逐轮记录 · 多轮汇总</div>
   <h1>学情数据</h1>
-  <p class="lede">每次练习的结果都存在本机浏览器里。这里逐轮列出，并把多轮合并成各章的掌握情况，可以看出哪一章在进步、哪一章还欠着。</p>
+  <p class="lede">每次练习的结果都存在本机浏览器里。这里逐轮列出，并把多轮合并成<b>按章节</b>和<b>按能力</b>两套掌握情况——同一批题的两个切面，某章弱不等于某能力弱。</p>
 </div>
 <div id="root"></div>
 </main>
@@ -355,11 +365,27 @@ function render() {
     return ord[a.tier] - ord[b.tier] || a.rate - b.rate;
   });
 
-  if (catSessions > 0) {
+  /* 能力区始终渲染。
+   * 老版本记录没有 cats 字段时，原来是把整块跳掉——用户只看到章节，
+   * 会以为站点根本不诊断能力。现在改为展示 8 个空槽并说明原因，
+   * 让「有这个维度、再练一轮就会补上」这件事可见。 */
+  if (sess.length > 0) {
+    const noCatDetail = catSessions === 0;
+    const knownCats = cats.filter((c) => c.total > 0).length;
     html += '<div class="sect"><div class="sect-head"><span class="kicker">Abilities</span>' +
       '<h2>各能力累计掌握情况</h2><span class="sub">' +
-        (catSessions < sess.length ? catSessions + ' / ' + sess.length + ' 轮有能力明细' : '全部 ' + sess.length + ' 轮合并统计') +
+        (noCatDetail
+          ? '暂无能力明细'
+          : (catSessions < sess.length
+              ? catSessions + ' / ' + sess.length + ' 轮有能力明细'
+              : '全部 ' + sess.length + ' 轮合并统计') +
+            ' · 已覆盖 ' + knownCats + ' / ' + cats.length + ' 种') +
         '</span></div>' +
+      (noCatDetail
+        ? '<div class="note-cap">已有的 ' + sess.length + ' 轮记录是老版本保存的，没有存能力明细，' +
+          '所以这里还看不出能力分布。<b>再练一轮就会补上</b>——练习页每道题都标了所属能力，' +
+          '新记录会按能力再切一次。</div>'
+        : '') +
       '<div class="ch-grid">' +
       cats.map((c) => {
         const pct = Math.round(c.rate * 100);
@@ -378,7 +404,7 @@ function render() {
   }
 
   html += '<div class="sect"><div class="sect-head"><span class="kicker">Rounds</span>' +
-    '<h2>逐轮记录</h2><span class="sub">点一行展开该轮的章节明细</span></div>' +
+    '<h2>逐轮记录</h2><span class="sub">点一行展开该轮的章节与能力明细</span></div>' +
     '<div class="round-list">';
 
   // 最近的在上面
@@ -387,16 +413,38 @@ function render() {
     const idx = sess.length - i;       // 原始轮次号
     const pct = s.n ? Math.round((s.ok / s.n) * 100) : 0;
     const hasChs = Array.isArray(s.chs) && s.chs.length;
-    const inner = (hasChs ? s.chs : []).map((c) => {
-      const p = c.total ? Math.round((c.ok / c.total) * 100) : 0;
+    const hasCats = Array.isArray(s.cats) && s.cats.length;
+
+    /* 一张卡的渲染：章节与能力共用同一套外观 */
+    const card = (name, ok, total, tier, topErr) => {
+      const p = total ? Math.round((ok / total) * 100) : 0;
       return '<div class="ch-card">' +
-        '<div class="ch-name">' + esc(c.name) + '</div>' +
-        '<div class="ch-meta">' + c.ok + '/' + c.total + ' 题' + (c.topErr ? ' · 主错因：' + esc(c.topErr) : '') + '</div>' +
-        '<div class="ch-bar"><i class="bar-' + c.tier + '" style="width:' + p + '%"></i></div>' +
-        '<div class="ch-row"><span class="ch-rate rate-' + c.tier + '">' + p + '%</span>' +
-        '<span class="ch-tier tier-' + c.tier + '">' + TIER[c.tier] + '</span></div>' +
+        '<div class="ch-name">' + esc(name) + '</div>' +
+        '<div class="ch-meta">' + ok + '/' + total + ' 题' +
+          (topErr ? ' · 主错因：' + esc(topErr) : '') + '</div>' +
+        '<div class="ch-bar"><i class="bar-' + tier + '" style="width:' + p + '%"></i></div>' +
+        '<div class="ch-row"><span class="ch-rate rate-' + tier + '">' + p + '%</span>' +
+        '<span class="ch-tier tier-' + tier + '">' + TIER[tier] + '</span></div>' +
         '</div>';
-    }).join('') || '<div class="ch-meta" style="color:var(--text-3)">这一轮是旧版本记录，没有保存章节明细（只有总正确率）。</div>';
+    };
+
+    const chCards = (hasChs ? s.chs : [])
+      .map((c) => card(c.name, c.ok, c.total, c.tier, c.topErr)).join('');
+    /* 这一轮没做到的能力不列——逐轮看的是「这轮发生了什么」，
+       空槽留给上面的累计区去说 */
+    const catCards = (hasCats ? s.cats : []).filter((c) => c.total > 0)
+      .map((c) => card(c.name, c.ok, c.total, c.tier, c.topErr)).join('');
+
+    const body = '<div class="round-body">' +
+      (hasChs
+        ? '<div class="grp-lbl">按章节</div><div class="ch-grid">' + chCards + '</div>'
+        : '<div class="ch-meta" style="color:var(--text-3)">这一轮是旧版本记录，没有保存章节明细（只有总正确率）。</div>') +
+      (hasCats
+        ? '<div class="grp-lbl">按能力 <span>同一批题的另一切面——某章弱不等于某能力弱</span></div>' +
+          '<div class="ch-grid">' + catCards + '</div>'
+        : '<div class="grp-lbl">按能力</div>' +
+          '<div class="ch-meta" style="color:var(--text-3)">这一轮是旧版本记录，没有保存能力明细。</div>') +
+      '</div>';
 
     html += '<div class="round" data-i="' + i + '">' +
       '<div class="round-head">' +
@@ -405,7 +453,7 @@ function render() {
         '<span class="round-score">' + s.ok + ' / ' + s.n + '</span>' +
         '<span class="round-pct">' + pct + '%</span>' +
       '</div>' +
-      '<div class="round-body"><div class="ch-grid">' + inner + '</div></div>' +
+      body +
     '</div>';
   });
 

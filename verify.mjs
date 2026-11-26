@@ -515,6 +515,17 @@ if (fs.existsSync('history.html')) {
   ok(hs.includes('exportBtn') && hs.includes('importBtn'), '有导出/导入（防清缓存丢数据）');
   ok(hs.includes('各能力累计掌握情况'), '有能力累计汇总区');
   ok(hs.includes('还没做到'), '未覆盖能力在汇总里显式标注');
+
+  /* 能力区不能被条件包裹后静默消失：老记录没有 cats 字段时，
+     原来整块跳掉，用户只看到章节，会以为站点不诊断能力。
+     现在必须始终渲染，并给出「再练一轮就会补上」的说明。 */
+  ok(!/if \(catSessions > 0\)/.test(hs), '能力区不再被 catSessions 条件包裹');
+  ok(hs.includes('没有存能力明细') && hs.includes('再练一轮就会补上'),
+    '老记录下能力区给出明确说明而不是隐藏');
+  /* 逐轮明细必须同时含章节与能力两个切面 */
+  ok(hs.includes('按章节') && hs.includes('按能力'), '逐轮明细同时展示章节与能力');
+  ok(/s\.cats/.test(hs) && /hasCats/.test(hs), '逐轮明细读取了每轮的能力数据');
+  ok(hs.includes('同一批题的另一切面'), '逐轮明细说明章节与能力是同一批题的两种切法');
   // 练习页必须有入口
   const pr2 = fs.readFileSync('practice.html', 'utf8');
   ok(pr2.includes('href="history.html"'), '练习页有入口');
