@@ -508,7 +508,7 @@ function buildIndex() {
   <div class="sel-head">
     <div class="sel-badge"><i></i>${esc(SITE.siteName)}</div>
     <h1 class="sel-h">先选你的考区</h1>
-    <p class="sel-sub">选好省份、地区、年级和科目，进入对应的期末考情分析</p>
+    <p class="sel-sub">选好省份、地区、年级、学期和科目，进入对应的期末考情分析</p>
   </div>
 
   <div class="sel-resume" id="resume">
@@ -531,6 +531,10 @@ function buildIndex() {
       <div class="sel-opts" id="optGrade"></div>
     </div>
     <div class="sel-row">
+      <span class="sel-lbl">学期</span>
+      <div class="sel-opts" id="optTerm"></div>
+    </div>
+    <div class="sel-row">
       <span class="sel-lbl">科目</span>
       <div class="sel-opts" id="optSubject"></div>
     </div>
@@ -547,12 +551,13 @@ function buildIndex() {
   var CATALOG = ${catalogJson};
   var KEY = ${JSON.stringify(CHOICE_KEY)};
 
-  var state = { province: null, region: null, grade: null, subject: null };
+  var state = { province: null, region: null, grade: null, term: null, subject: null };
 
   var el = {
     province: document.getElementById('optProvince'),
     region: document.getElementById('optRegion'),
     grade: document.getElementById('optGrade'),
+    term: document.getElementById('optTerm'),
     subject: document.getElementById('optSubject'),
     go: document.getElementById('goBtn'),
     hint: document.getElementById('hint'),
@@ -562,13 +567,18 @@ function buildIndex() {
     resumeClear: document.getElementById('resumeClear')
   };
 
-  function subjectsFor() {
-    if (!state.province || !state.region || !state.grade) return [];
-    return CATALOG.subjects[state.province + '/' + state.region + '/' + state.grade] || [];
+  /* 科目键 = 省/区/年级/学期 */
+  function subjectKey(g, t) {
+    return [state.province, state.region, g, t].join('/');
   }
 
-  /* 某一层只有一个选项时自动选中——现在省份/地区/年级都各只有一个，
-     不自动填的话用户要点三次才有反应，像是页面坏了。
+  function subjectsFor() {
+    if (!state.province || !state.region || !state.grade || !state.term) return [];
+    return CATALOG.subjects[subjectKey(state.grade, state.term)] || [];
+  }
+
+  /* 某一层只有一个选项时自动选中——现在省份/地区/年级/学期都各只有一个或很少，
+     不自动填的话用户要点好几次才有反应，像是页面坏了。
      有多个选项时不动，交给用户选。 */
   function autoFill() {
     if (!state.province && CATALOG.provinces.length === 1) {
@@ -581,7 +591,10 @@ function buildIndex() {
     if (state.region && !state.grade && CATALOG.grades.length === 1) {
       state.grade = CATALOG.grades[0].id;
     }
-    if (state.grade && !state.subject) {
+    if (state.grade && !state.term && CATALOG.terms.length === 1) {
+      state.term = CATALOG.terms[0].id;
+    }
+    if (state.grade && state.term && !state.subject) {
       var ss = subjectsFor();
       if (ss.length === 1) state.subject = ss[0].id;
     }
@@ -604,7 +617,7 @@ function buildIndex() {
     CATALOG.provinces.forEach(function(p){
       el.province.appendChild(makeBtn(p.name, '', state.province === p.id, false, function(){
         state.province = p.id;
-        state.region = null; state.grade = null; state.subject = null;
+        state.region = null; state.grade = null; state.term = null; state.subject = null;
         autoFill();
         render();
       }));
@@ -618,7 +631,9 @@ function buildIndex() {
     } else {
       regions.forEach(function(r){
         el.region.appendChild(makeBtn(r.name, '', state.region === r.id, false, function(){
-          state.region = r.id; state.grade = null; state.subject = null; autoFill(); render();
+          state.region = r.id;
+          state.grade = null; state.term = null; state.subject = null;
+          autoFill(); render();
         }));
       });
     }
@@ -630,18 +645,32 @@ function buildIndex() {
     } else {
       CATALOG.grades.forEach(function(g){
         el.grade.appendChild(makeBtn(g.name, '', state.grade === g.id, false, function(){
-          state.grade = g.id; state.subject = null; autoFill(); render();
+          state.grade = g.id;
+          state.term = null; state.subject = null;
+          autoFill(); render();
         }));
       });
     }
 
-    /* 科目：没选年级时禁用；选中后点「进入」跳转 */
+    /* 学期：没选年级时禁用 */
+    el.term.innerHTML = '';
+    if (!state.grade) {
+      el.term.innerHTML = '<span class="sel-hint">先选年级</span>';
+    } else {
+      CATALOG.terms.forEach(function(t){
+        el.term.appendChild(makeBtn(t.name, '', state.term === t.id, false, function(){
+          state.term = t.id; state.subject = null; autoFill(); render();
+        }));
+      });
+    }
+
+    /* 科目：没选学期时禁用；选中后点「进入」跳转 */
     el.subject.innerHTML = '';
     var subs = subjectsFor();
-    if (!state.grade) {
-      el.subject.innerHTML = '<span class="sel-hint">先选年级</span>';
+    if (!state.term) {
+      el.subject.innerHTML = '<span class="sel-hint">先选学期</span>';
     } else if (!subs.length) {
-      el.subject.innerHTML = '<span class="sel-hint">该年级暂无材料</span>';
+      el.subject.innerHTML = '<span class="sel-hint">该学期暂无材料</span>';
     } else {
       subs.forEach(function(s){
         var b = document.createElement('button');
@@ -656,14 +685,14 @@ function buildIndex() {
     }
 
     /* 进入按钮：用 aria-disabled 控制视觉，disabled 只用于阻止点击 */
-    var ready = state.province && state.region && state.grade && state.subject;
+    var ready = state.province && state.region && state.grade && state.term && state.subject;
     el.go.disabled = !ready;
     el.go.setAttribute('aria-disabled', ready ? 'false' : 'true');
     if (ready) {
       var s = subs.filter(function(x){ return x.id === state.subject; })[0];
       el.hint.innerHTML = '将进入 <b>' + s.name + '</b> · ' + s.desc;
     } else {
-      el.hint.textContent = '请依次选择省份、地区、年级、科目';
+      el.hint.textContent = '请依次选择省份、地区、年级、学期、科目';
     }
   }
 
@@ -677,9 +706,10 @@ function buildIndex() {
     try {
       localStorage.setItem(KEY, JSON.stringify({
         province: state.province, region: state.region,
-        grade: state.grade, subject: state.subject,
+        grade: state.grade, term: state.term, subject: state.subject,
         name: [labelOf('provinces', state.province), labelOf('regions', state.region, state.province),
-               labelOf('grades', state.grade), s.name].filter(Boolean).join(' · ')
+               labelOf('grades', state.grade), labelOf('terms', state.term),
+               s.name].filter(Boolean).join(' · ')
       }));
     } catch (e) {}
     location.href = s.href;
@@ -688,6 +718,7 @@ function buildIndex() {
   function labelOf(kind, id, parent) {
     var list = kind === 'regions' ? (CATALOG.regions[parent] || [])
              : kind === 'provinces' ? CATALOG.provinces
+             : kind === 'terms' ? CATALOG.terms
              : CATALOG.grades;
     var hit = list.filter(function(x){ return x.id === id; })[0];
     return hit ? hit.name : '';
@@ -701,12 +732,19 @@ function buildIndex() {
   }
   function showResume() {
     var saved = readSaved();
+    /* 旧记录兼容：年级与学期拆成两层之前，存的是 grade:'g7-1' 且没有 term。
+       这类记录拼不出有效的科目键，点了会没反应——直接当作没有记录，不要显示。 */
+    if (saved && (!saved.term || !CATALOG.subjects[[saved.province, saved.region, saved.grade, saved.term].join('/')])) {
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      saved = null;
+    }
     if (!saved || !saved.name) { el.resume.classList.remove('on'); return; }
     el.resumeTxt.textContent = saved.name;
     el.resume.classList.add('on');
     el.resumeGo.onclick = function(e){
       e.preventDefault();
-      var s = (CATALOG.subjects[saved.province + '/' + saved.region + '/' + saved.grade] || [])
+      var k = [saved.province, saved.region, saved.grade, saved.term].join('/');
+      var s = (CATALOG.subjects[k] || [])
         .filter(function(x){ return x.id === saved.subject; })[0];
       if (s) location.href = s.href; else el.resume.classList.remove('on');
     };
@@ -728,7 +766,7 @@ function buildIndex() {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(SITE.siteName)} · 期末真题考情与备考</title>
-<meta name="description" content="按省份、地区、年级、科目选择，进入对应地区的期末考情分析与备考计划">
+<meta name="description" content="按省份、地区、年级、学期、科目选择，进入对应地区的期末考情分析与备考计划">
 <style>${TOKENS}${HEAD_CSS}${css}</style>
 </head>
 <body>
