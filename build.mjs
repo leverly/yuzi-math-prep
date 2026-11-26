@@ -184,16 +184,18 @@ h3{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
   font-size:12.2px;color:var(--text-3);line-height:1.6}
 .out-ask b{color:var(--text);font-weight:650}
 
+/* 行动条：沿用主站浅色基调（accent-soft 底 + 主色描边 + 主色按钮） */
 .cta-bar{margin-top:24px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;
-  background:linear-gradient(135deg,#1e293b,#0f172a);border-radius:var(--r);
-  padding:24px 28px;box-shadow:0 18px 40px -14px rgba(15,23,42,.4)}
+  background:linear-gradient(135deg,rgba(37,99,235,.055),rgba(79,70,229,.055)),var(--surface);
+  border:1px solid rgba(37,99,235,.2);border-radius:var(--r);
+  padding:24px 28px;box-shadow:0 10px 30px -14px rgba(37,99,235,.22)}
 .cta-main{flex:1;min-width:240px}
-.cta-title{font-size:20px;font-weight:780;color:#fff;letter-spacing:-.02em}
-.cta-sub{font-size:13px;color:#94a3b8;margin-top:5px;line-height:1.6}
-.cta-sub b{color:#e2e8f0;font-weight:600}
-.cta-bar .btn{background:#fff;color:#0f172a;border-color:transparent;font-weight:700;
-  padding:13px 26px;box-shadow:none;font-size:15px}
-.cta-bar .btn:hover{background:#f1f5f9;transform:translateY(-1px);box-shadow:0 8px 20px -6px rgba(0,0,0,.4)}
+.cta-title{font-size:20px;font-weight:780;color:var(--text);letter-spacing:-.02em}
+.cta-sub{font-size:13px;color:var(--text-3);margin-top:5px;line-height:1.6}
+.cta-sub b{color:var(--text-2);font-weight:600}
+.cta-bar .btn{background:var(--accent-grad);color:#fff;border-color:transparent;font-weight:700;
+  padding:13px 26px;box-shadow:var(--shadow-accent);font-size:15px}
+.cta-bar .btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px -8px rgba(37,99,235,.46)}
 
 /* ---------- 三色分值卡 ---------- */
 .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
