@@ -71,10 +71,20 @@ ok(!idx.includes('三个判断'), '首页不再有「三个判断」与分值分
 ok(!idx.includes('100 分不是均匀分布的'), '首页不再有重复的分值分区屏');
 ok(!idx.includes('五年年年考的'), '首页不再复述必考清单');
 ok(tr.includes(`共 ${S.FAMILY_MAP.length} 族`), '趋势页族数派生正确');
-// 冲刺计划页已去掉分数目标（避免给孩子压力），改为检查「三类题」结构与五级优先级
-ok(pl.includes('冲刺计划'), '计划页标题为「冲刺计划」');
+// 备考计划页已去掉分数目标（避免给孩子压力），改为检查「三类题」结构与五级优先级
+ok(pl.includes('<h1>备考计划</h1>'), '计划页标题为「备考计划」');
+ok(!pl.includes('冲刺'), '计划页已无「冲刺」字样（2026-11-26 改名）');
 ok(pl.includes('练得稳') && pl.includes('要想一想') && pl.includes('尽力就好'), '计划页三类题结构存在');
 ok(!/先保约\s*\d+\s*分|总分\s*≥\s*\d+|目标正确率\s*100%/.test(pl), '计划页不含分数目标（无施压量化）');
+/* 改名必须全站同步：导航来自 site-shell，任一页面残留旧标签都是漏改 */
+{
+  const stale = [];
+  for (const h of fs.readdirSync('.').filter((f) => f.endsWith('.html'))) {
+    const t = fs.readFileSync(h, 'utf8');
+    if (t.includes('冲刺')) stale.push(h);
+  }
+  ok(stale.length === 0, '全站 HTML 均无「冲刺」残留', stale.join(','));
+}
 
 console.log('\n【四之二】首页诊断入口');
 {
