@@ -812,7 +812,7 @@ function showDiag() {
       </div>
     </div>` : `
     <div class="act" style="margin-top:20px">
-      这一轮全对。可以换一个范围再练，或者去「趋势与考点」看看哪些考点分值更高。
+      这一轮全对。可以换一个范围再练，或者去「整体解读」看看哪些考点分值更高。
     </div>`}
 
     ${renderWrong(d.wrongList)}

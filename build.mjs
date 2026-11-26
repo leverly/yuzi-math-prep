@@ -454,7 +454,7 @@ function buildHome() {
         </a>
         <a class="mission-item" href="trend.html">
           <span class="mi-ico purple">📊</span>
-          <span class="mi-main"><b>趋势与考点</b><small>什么在变、什么年年考</small></span>
+          <span class="mi-main"><b>整体解读</b><small>什么在变、什么年年考</small></span>
           <span class="mi-go">去看 →</span>
         </a>
         <a class="mission-item" href="papers.html">
@@ -578,14 +578,14 @@ ${PAPER_STATS.map((s) => {
   return page('papers.html', '逐年拆解 · ' + SITE.short, '西城区初一上数学期末五套真题逐年拆解', body);
 }
 
-/* ============================ 趋势与考点 ============================ */
+/* ============================ 整体解读 ============================ */
 function buildTrend() {
   const catMax = Math.max(...CAT_ORDER.map((k) => CAT_SCORE[k].max));
 
   const body = `
 <section class="hero" style="padding:44px 0 8px">
   <div class="hero-badge"><span class="dot-live"></span>五年趋势 · 考点频次</div>
-  <h1>五年趋势与考点频次</h1>
+  <h1>整体解读</h1>
   <p class="lede">先看什么在变（章节、能力、难度），再看各考点的年均分值——分值高的先练。</p>
 </section>
 
@@ -660,7 +660,7 @@ ${section('考点族', '各考点年均分值',
   年均分 = 五年必做分合计 ÷ ${N_PAPERS}。只出现在选做位的考点计 0 分（选做不计入必做 100 分）。
 </p>`, 'families')}
 `;
-  return page('trend.html', '五年趋势与考点频次 · ' + SITE.short, '西城区初一上数学期末五年考情趋势与考点族频次', body);
+  return page('trend.html', '整体解读 · ' + SITE.short, '西城区初一上数学期末五年考情整体解读', body);
 }
 
 /* ============================ 冲刺计划 ============================ */

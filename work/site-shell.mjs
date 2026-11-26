@@ -19,7 +19,7 @@ export const SITE = {
 export const NAV = [
   ['index.html', '总览'],
   ['papers.html', '逐年拆解'],
-  ['trend.html', '趋势与考点'],
+  ['trend.html', '整体解读'],
   ['plan.html', '冲刺计划'],
   ['practice.html', '练习与诊断'],
   ['history.html', '学情数据'],
