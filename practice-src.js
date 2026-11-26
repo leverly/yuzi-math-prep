@@ -732,6 +732,30 @@ function showDiag() {
       <h2>这一轮的诊断</h2>
     </div>
 
+    ${(() => {
+      // 一句话结论：从章节里挑「分档最弱 × 年均分最高」的那一章
+      const order = { weak: 0, shaky: 1, insufficient: 2, solid: 3 };
+      const cand = d.chs.filter(c => c.tier !== 'solid' && c.total > 0)
+        .sort((a, b) => order[a.tier] - order[b.tier] || (b.scoreW || 0) - (a.scoreW || 0))[0];
+      if (!cand) {
+        return `<div class="verdict ok">
+          <div class="v-label">这一轮</div>
+          <div class="v-main">没有明显短板</div>
+          <div class="v-why">${d.chs.length} 章都在掌握线以上。可以做下一轮，或者去练更高分值的能力。</div>
+        </div>`;
+      }
+      const tl = { weak: '薄弱', shaky: '不稳' }[cand.tier] || '待补';
+      return `<div class="verdict ${cand.tier === 'weak' ? 'weak' : 'shaky'}">
+        <div class="v-label">这一轮最该补的</div>
+        <div class="v-main">${esc(cand.name)}</div>
+        <div class="v-why">
+          <span class="v-tag">${tl}</span>
+          ${cand.ok}/${cand.total} 题正确 · 年均 ${(cand.scoreW || 0).toFixed(1)} 分${cand.topErr ? ' · 主错因：' + esc(cand.topErr.cat) : ''}
+        </div>
+        <div class="v-act">往下看「接下来做什么」，第一条就是它。</div>
+      </div>`;
+    })()}
+
     <div class="summary">
       <div class="sm total"><div class="n">${Math.round(d.rate * 100)}%</div><div class="l">总正确率</div></div>
       <div class="sm weak"><div class="n">${d.chs.filter(c=>c.tier==='weak').length}</div><div class="l">薄弱章节</div></div>

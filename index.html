@@ -203,6 +203,32 @@ h3{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
 .sell-link{font-size:13px;font-weight:650;color:var(--accent);text-decoration:none;margin-top:auto}
 .sell-link:hover{text-decoration:underline}
 
+/* ---------- 诊断产出卡 + 行动条 ---------- */
+.out-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.out-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:18px 18px 20px;box-shadow:var(--shadow-1);position:relative;overflow:hidden;
+  transition:.18s var(--ease);display:flex;flex-direction:column}
+.out-card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--accent-grad)}
+.out-card:hover{box-shadow:var(--shadow-2);transform:translateY(-2px)}
+.out-no{font-family:var(--mono);font-size:11px;font-weight:800;color:var(--accent);
+  letter-spacing:.08em;margin-bottom:7px}
+.out-title{font-size:15px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em}
+.out-see{font-size:12.8px;color:var(--text-2);line-height:1.65}
+.out-ask{margin-top:auto;padding-top:10px;border-top:1px dashed var(--border);
+  font-size:12.2px;color:var(--text-3);line-height:1.6}
+.out-ask b{color:var(--text);font-weight:650}
+
+.cta-bar{margin-top:24px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  background:linear-gradient(135deg,#1e293b,#0f172a);border-radius:var(--r);
+  padding:24px 28px;box-shadow:0 18px 40px -14px rgba(15,23,42,.4)}
+.cta-main{flex:1;min-width:240px}
+.cta-title{font-size:20px;font-weight:780;color:#fff;letter-spacing:-.02em}
+.cta-sub{font-size:13px;color:#94a3b8;margin-top:5px;line-height:1.6}
+.cta-sub b{color:#e2e8f0;font-weight:600}
+.cta-bar .btn{background:#fff;color:#0f172a;border-color:transparent;font-weight:700;
+  padding:13px 26px;box-shadow:none;font-size:15px}
+.cta-bar .btn:hover{background:#f1f5f9;transform:translateY(-1px);box-shadow:0 8px 20px -6px rgba(0,0,0,.4)}
+
 /* ---------- 三色分值卡 ---------- */
 .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .tier-card{
@@ -325,9 +351,14 @@ footer p{margin:5px 0}
 footer b{color:var(--text-2)}
 
 /* ---------- 响应式 ---------- */
+@media(max-width:1100px){
+  .out-cards{grid-template-columns:repeat(3,1fr)}
+}
 @media(max-width:960px){
   .hero-split{grid-template-columns:1fr;gap:26px}
   .g3,.g4,.tier-grid{grid-template-columns:repeat(2,1fr)}
+  .cta-bar{padding:20px 22px}
+  .cta-bar .btn{width:100%;justify-content:center}
 }
 @media(max-width:680px){
   body{font-size:14.5px}
@@ -338,6 +369,11 @@ footer b{color:var(--text-2)}
   .hero-stats{grid-template-columns:repeat(2,1fr);gap:12px 0}
   .hero-stats b{font-size:22px}
   .g2,.g3,.g4,.tier-grid{grid-template-columns:1fr}
+  .out-cards{grid-template-columns:repeat(2,1fr);gap:10px}
+  .out-card{padding:15px 15px 17px}
+  .out-title{font-size:14px}
+  .out-see{font-size:12.4px}
+  .cta-title{font-size:17px}
   .sell-row{grid-template-columns:1fr}
   .section{margin:38px 0}
   .card{padding:17px}
@@ -467,32 +503,49 @@ footer b{color:var(--text-2)}
 <section class="section">
   <div class="section-head"><div class="section-head-left">
     <span class="kicker">一轮之后</span>
-    <h2>做完这 18 题，你会拿到四样东西</h2>
-    <span class="sub">不是给个分数就完事——每一项都直接对应下一步动作</span>
+    <h2>做完这 18 题，你会拿到五样东西</h2>
+    <span class="sub">从「考了多少分」一路推到「下一步做什么」——中间每一步都可查</span>
   </div></div>
   
-<div class="grid g4">
-  <div class="card">
-    <h3>正确率</h3>
-    <p style="font-size:13.4px;color:var(--text-2);line-height:1.7">这一轮对了几题。只看这一项说明不了什么，它只是下面三项的起点。</p>
+<div class="out-cards">
+  <div class="out-card">
+    <div class="out-no">01</div>
+    <div class="out-title">正确率</div>
+    <div class="out-see">这一轮对了几题。</div>
+    <div class="out-ask"><b>只回答「现在什么水平」</b>。单独看说明不了该练什么——它是下面四项的起点。</div>
   </div>
-  <div class="card">
-    <h3>各章分档</h3>
-    <p style="font-size:13.4px;color:var(--text-2);line-height:1.7">6 章分别判为「薄弱 / 不稳 / 掌握」。样本不够 3 题的章不下结论，标「样本不足」。</p>
+  <div class="out-card">
+    <div class="out-no">02</div>
+    <div class="out-title">各章分档</div>
+    <div class="out-see">6 章分别判为「薄弱 / 不稳 / 掌握」，样本不足 3 题标「样本不足」。</div>
+    <div class="out-ask"><b>回答「哪一章在丢分」</b>，把 100 分拆成能动手的几块。</div>
   </div>
-  <div class="card">
-    <h3>下一步做什么</h3>
-    <p style="font-size:13.4px;color:var(--text-2);line-height:1.7">按「年均分值 × 失分率」排序，给出先补哪一章、主要错在什么类型。</p>
+  <div class="out-card">
+    <div class="out-no">03</div>
+    <div class="out-title">各能力分档</div>
+    <div class="out-see">计算 / 概念 / 建模 / 推理 / 分类 / 作图 / 空间 / 新定义，八种分别判档。</div>
+    <div class="out-ask"><b>回答「是没方法还是算不准」</b>——同样是错，补法完全不同。</div>
   </div>
-  <div class="card">
-    <h3>错题清单</h3>
-    <p style="font-size:13.4px;color:var(--text-2);line-height:1.7">逐题列出这一轮做错的，可一键重做。衡量标准是「同一题第二次做是否还错」。</p>
+  <div class="out-card">
+    <div class="out-no">04</div>
+    <div class="out-title">下一步做什么</div>
+    <div class="out-see">按「年均分值 × 失分率」排序，先补哪一章、主要错在哪类。</div>
+    <div class="out-ask"><b>回答「今晚先练什么」</b>，不是给结论，是给动作。</div>
+  </div>
+  <div class="out-card">
+    <div class="out-no">05</div>
+    <div class="out-title">错题清单</div>
+    <div class="out-see">逐题列出做错的，带解题步骤，可一键重做。</div>
+    <div class="out-ask"><b>回答「有没有真的补上」</b>——判据是同一题第二次做是否还错。</div>
   </div>
 </div>
-<p style="margin-top:18px;font-size:13.5px;color:var(--text-3)">
-  每道题答错都有解题步骤，一步一步算给你看。
-  <a href="practice.html" style="color:var(--accent);font-weight:650;text-decoration:none">现在就做一轮 →</a>
-</p>
+<div class="cta-bar">
+  <div class="cta-main">
+    <div class="cta-title">现在就开始一轮</div>
+    <div class="cta-sub"><b>18 题</b> · 约 12 分钟 · 覆盖 <b>6 章</b> · 不用注册，记录只存本机</div>
+  </div>
+  <a class="btn" href="practice.html">开始诊断 <span aria-hidden="true">→</span></a>
+</div>
 </section>
 
 </main>

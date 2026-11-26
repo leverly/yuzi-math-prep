@@ -166,6 +166,27 @@ body{padding-bottom:80px}
 
 .actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
 
+/* 诊断结论条：一句话说清「最该补什么」 */
+.verdict{border-radius:14px;padding:20px 24px;margin-bottom:18px;
+  border:1px solid var(--border);position:relative;overflow:hidden}
+.verdict::before{content:"";position:absolute;inset:0 auto 0 0;width:4px}
+.verdict.weak{background:var(--rose-soft)}
+.verdict.weak::before{background:var(--rose)}
+.verdict.shaky{background:var(--gold-soft)}
+.verdict.shaky::before{background:var(--gold)}
+.verdict.ok{background:var(--ok-soft)}
+.verdict.ok::before{background:var(--ok)}
+.v-label{font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.08em;
+  color:var(--text-3);margin-bottom:6px}
+.v-main{font-size:26px;font-weight:800;letter-spacing:-.028em;line-height:1.2;
+  color:var(--text);margin-bottom:7px}
+.verdict.weak .v-main{color:var(--rose)}
+.verdict.shaky .v-main{color:var(--gold)}
+.verdict.ok .v-main{color:var(--ok)}
+.v-why{font-size:13.5px;color:var(--text-2);line-height:1.7;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.v-tag{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:5px;background:rgba(255,255,255,.7)}
+.v-act{margin-top:9px;font-size:12.5px;color:var(--text-3)}
+
 /* 诊断面板 */
 .diag{margin-top:26px}
 .diag-head{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;flex-wrap:wrap}

@@ -221,6 +221,27 @@ body{padding-bottom:80px}
 
 .actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
 
+/* 诊断结论条：一句话说清「最该补什么」 */
+.verdict{border-radius:14px;padding:20px 24px;margin-bottom:18px;
+  border:1px solid var(--border);position:relative;overflow:hidden}
+.verdict::before{content:"";position:absolute;inset:0 auto 0 0;width:4px}
+.verdict.weak{background:var(--rose-soft)}
+.verdict.weak::before{background:var(--rose)}
+.verdict.shaky{background:var(--gold-soft)}
+.verdict.shaky::before{background:var(--gold)}
+.verdict.ok{background:var(--ok-soft)}
+.verdict.ok::before{background:var(--ok)}
+.v-label{font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.08em;
+  color:var(--text-3);margin-bottom:6px}
+.v-main{font-size:26px;font-weight:800;letter-spacing:-.028em;line-height:1.2;
+  color:var(--text);margin-bottom:7px}
+.verdict.weak .v-main{color:var(--rose)}
+.verdict.shaky .v-main{color:var(--gold)}
+.verdict.ok .v-main{color:var(--ok)}
+.v-why{font-size:13.5px;color:var(--text-2);line-height:1.7;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.v-tag{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:5px;background:rgba(255,255,255,.7)}
+.v-act{margin-top:9px;font-size:12.5px;color:var(--text-3)}
+
 /* 诊断面板 */
 .diag{margin-top:26px}
 .diag-head{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;flex-wrap:wrap}
@@ -1077,6 +1098,30 @@ function showDiag() {
       <span class="kicker">Diagnosis</span>
       <h2>这一轮的诊断</h2>
     </div>
+
+    ${(() => {
+      // 一句话结论：从章节里挑「分档最弱 × 年均分最高」的那一章
+      const order = { weak: 0, shaky: 1, insufficient: 2, solid: 3 };
+      const cand = d.chs.filter(c => c.tier !== 'solid' && c.total > 0)
+        .sort((a, b) => order[a.tier] - order[b.tier] || (b.scoreW || 0) - (a.scoreW || 0))[0];
+      if (!cand) {
+        return `<div class="verdict ok">
+          <div class="v-label">这一轮</div>
+          <div class="v-main">没有明显短板</div>
+          <div class="v-why">${d.chs.length} 章都在掌握线以上。可以做下一轮，或者去练更高分值的能力。</div>
+        </div>`;
+      }
+      const tl = { weak: '薄弱', shaky: '不稳' }[cand.tier] || '待补';
+      return `<div class="verdict ${cand.tier === 'weak' ? 'weak' : 'shaky'}">
+        <div class="v-label">这一轮最该补的</div>
+        <div class="v-main">${esc(cand.name)}</div>
+        <div class="v-why">
+          <span class="v-tag">${tl}</span>
+          ${cand.ok}/${cand.total} 题正确 · 年均 ${(cand.scoreW || 0).toFixed(1)} 分${cand.topErr ? ' · 主错因：' + esc(cand.topErr.cat) : ''}
+        </div>
+        <div class="v-act">往下看「接下来做什么」，第一条就是它。</div>
+      </div>`;
+    })()}
 
     <div class="summary">
       <div class="sm total"><div class="n">${Math.round(d.rate * 100)}%</div><div class="l">总正确率</div></div>

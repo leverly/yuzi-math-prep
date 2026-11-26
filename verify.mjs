@@ -76,6 +76,17 @@ ok(pl.includes('冲刺计划'), '计划页标题为「冲刺计划」');
 ok(pl.includes('练得稳') && pl.includes('要想一想') && pl.includes('尽力就好'), '计划页三类题结构存在');
 ok(!/先保约\s*\d+\s*分|总分\s*≥\s*\d+|目标正确率\s*100%/.test(pl), '计划页不含分数目标（无施压量化）');
 
+console.log('\n【四之二】首页诊断入口');
+{
+  const idx2 = fs.readFileSync('index.html', 'utf8');
+  const cards = (idx2.match(/class="out-card"/g) || []).length;
+  ok(cards === 5, '诊断产出讲清五样东西', cards + ' 张');
+  ok(idx2.includes('class="cta-bar"'), '有醒目行动条（不是纯文字链接）');
+  ok(idx2.includes('开始诊断'), '行动条有明确按钮');
+  ok(idx2.includes('各能力分档'), '能力维度已写进入口说明');
+  ok(!idx2.includes('现在就做一轮 →'), '已移除原来的纯文字弱链接');
+}
+
 console.log('\n【五】死链');
 const htmls = fs.readdirSync('.').filter((f) => f.endsWith('.html'));
 let dead = 0;
@@ -109,6 +120,7 @@ if (fs.existsSync('practice.html')) {
   ok(pr.includes('catUsed') && pr.includes('已够样本的能力降级'), '出题按能力去重');
   // 能力「未轮到」必须显式说明，不能静默不显示
   ok(pr.includes('这轮没做到'), '未覆盖的能力有显式说明');
+  ok(pr.includes('这一轮最该补的') && pr.includes('class="verdict'), '诊断有一句话结论条');
   ok(pr.includes('const BANK = ['), '题库已内联（file:// 可直开）');
   // 构建器用字符串 replace 注入数据：import 行一改，replace 静默失配，
   // 产物会「构建成功」但只剩 40KB 空壳。这里硬断言数据真的进去了。
