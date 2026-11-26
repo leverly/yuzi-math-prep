@@ -390,11 +390,15 @@ push('必考清单', `
   </div>
 </div>`);
 
+/* 第 23 题单题年均分：结论页那一行说的是"第 23 题"，就不能挂
+   f-final 族的分（9.2 分含第 24、26 题，与这句话指的不是一回事） */
+const Q23_AVG = +(sum(Q23.map((q) => q.score)) / N_PAPERS).toFixed(1);
+
 /* 9. 结论：三个方向，每个方向挂上它对应的分值 */
 const DIRECTIONS = [
   ['01', '第 17 题练到不出错', '一道题 ' + Q17_MIN + '–' + Q17_MAX + ' 分，比两道压轴加起来还多', Q17_MAX + ' 分'],
   ['02', '把概念题的「错法」列成清单', '概念占 ' + CONCEPT_PCT + '%，丢分靠辨析，不靠难度', CONCEPT_AVG + ' 分'],
-  ['03', '第 23 题练「列全」，不练「多刷」', '载体年年换，考的是分类完备性', famById('f-final').avgPerYear + ' 分'],
+  ['03', '第 23 题练「列全」，不练「多刷」', '载体年年换，考的是分类完备性', Q23_AVG + ' 分'],
 ];
 push('结论', `
 <div class="slide s-end" style="justify-content:center;align-items:flex-start;padding-top:78px;

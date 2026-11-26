@@ -408,6 +408,16 @@ if (fs.existsSync('slides.html')) {
   const q23 = papers.map((p) => LEDGER.find((q) => q.p === p && q.no === 23));
   ok(q23.every((q) => q && q.cat === '分类'), '第 23 题五年全是「分类」能力');
 
+  /* 结论页"第 23 题…"那一行挂的分值必须是第 23 题本身的年均分，
+     不能是 f-final 族的分（该族还含第 24、26 题，9.2 ≠ 6.4）。 */
+  const q23Avg = +(q23.reduce((a, q) => a + q.score, 0) / S.N_PAPERS).toFixed(1);
+  const q23Line = sl.match(/第 23 题练「列全」[\s\S]{0,400}?>([\d.]+) 分</);
+  ok(q23Line && +q23Line[1] === q23Avg,
+    `结论页「第 23 题」挂的分值是单题年均 ${q23Avg} 分（实际 ${q23Line ? q23Line[1] : '未找到'}）`);
+  const fFinalAvg = S.FAMILY_MAP.find((f) => f.id === 'f-final').avgPerYear;
+  ok(fFinalAvg !== q23Avg && !(q23Line && +q23Line[1] === fFinalAvg),
+    `没有把 f-final 族的 ${fFinalAvg} 分错挂到"第 23 题"这句上`);
+
   // 必考族清单必须全部列出，且数量与 FREQ.must 一致
   const mustNames = S.FREQ.must.map((f) => f.name);
   ok(mustNames.every((n) => sl.includes(n)), `${mustNames.length} 个必考族全部列出`);
